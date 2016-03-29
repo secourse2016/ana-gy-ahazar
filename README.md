@@ -1,4 +1,4 @@
 # Air-Madagascar
-This is a project for a Software Engineering course. No details yet.
+This is a project for a Software Engineering course. its aim is to create an airline booking system for Madagascar airlines.
 
-Team-Name: Ninja Coders
+Team-Name: ana gy ahazar
