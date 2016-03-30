@@ -1,32 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" ng-app="App">
 <head>
   <meta charset="utf-8">
   <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
   <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../styles/masterPage.css" charset="utf-8">
   <title>Air Madagascar</title>
 
+  <link rel="stylesheet" href="../styles/bootstrap.min.css">
+  <link rel="stylesheet" href="../styles/masterPage.css">
+  <script type="text/javascript" src="../scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../scripts/angular-route.js"></script>
   <script type="text/javascript" src="../scripts/jquery-2.2.2.min.js"></script>
+  <script type="text/javascript" src="../scripts/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../scripts/ui-bootstrap-tpls.min.js"></script>
+  <script type="text/javascript" src="../scripts/ui-bootstrap.min.js"></script>
   <script type="text/javascript" src="../scripts/masterPage.js"></script>
+  <script type="text/javascript" src="../core.js"></script>
 </head>
 <body>
   <div id="logo" class="">
-
+    <center>
+      <img src="../assets/logo.jpg" alt="Logo"/>
+    </center>
   </div>
+
+  <hr>
 
   <div id="promotionArea" class="slider">
     <!-- <img id="previous" src="../assets/LeftArrow.png" alt="previous" /> -->
     <ul>
       <li><img id="1" src="../assets/MADA_jungle.jpg" border="0" alt="See more monkeys" /></li>
       <li><img id="2" src="../assets/MADA_airplane.jpg" border="0" alt="tryout out new AirBbus a310" /></li>
-      <li><img id="3" src="../assets/logo-am.png" border="0" alt="our new logo" /></li>
     </ul>
     <!-- <img id="next" src="../assets/RightArrow.png" alt="next" /> -->
   </div>
 
-  <div id="tabs" class="">
+  <hr>
 
+  <div class="tabs">
+    <center>
+      <ul class="tab-links">
+        <li class="active"><a href="#book">Book</a></li>
+        <li><a href="#manage">Manage</a></li>
+        <li><a href="#check-in">Check-in</a></li>
+        <li><a href="#offers">Offers</a></li>
+        <li><a href="#about-us">About Us</a></li>
+        <li><a href="#contact-us">Contact Us</a></li>
+      </ul>
+    </center>
+
+    <center>
+      <div class="tab-content">
+
+        <div id="book" class="tab active">
+          <p>Booking Tab goes here!</p>
+          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis.</p>
+        </div>
+
+        <div id="manage" class="tab">
+          <p>Manage Tab goes here!</p>
+          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+        </div>
+
+        <div id="check-in" class="tab">
+          <p>Check-in Tab goes here!</p>
+          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis.</p>
+        </div>
+
+        <div id="offers" class="tab">
+          <p>Offers Tab goes here!</p>
+          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum ri.</p>
+        </div>
+
+        <div id="about-us" class="tab">
+          <p>About Us Tab goes here!</p>
+          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisiiaculis vel.</p>
+        </div>
+
+        <div id="contact-us" class="tab">
+          <p>Contact Us Tab goes here!</p>
+          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donecornare mollis.</p>
+        </div>
+      </div>
+    </center>
   </div>
 </body>
 </html>
