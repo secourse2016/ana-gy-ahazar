@@ -1,3 +1,38 @@
+.slider {
+  width: 1000px;
+  height: 400px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.slider ul {
+  list-style: none;
+  width: 3000px;
+  height: 400px;
+  position: relative;
+}
+
+.slider ul li {
+  float: left;
+  width: 1000px;
+  height: 400px;
+}
+
+.slider ul li img{
+  width: 960px;
+  height: 400px;
+  position: relative;
+  z-index: -1;
+}
+
+.slider #previous {
+  width: 50px;
+  height: 100px;
+  position: fixed;
+  padding-left: 50px;
+  padding-top: 100px;
+}
+
 .tab-links {
    display:table; margin:0 auto;
 }
@@ -45,7 +80,6 @@ li.active a, li.active a:hover {
 
 .tab-content {
    padding:15px;
-   border-radius:3px;
    box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
    background:white;
    border-radius: 0px 0px 5px 5px;

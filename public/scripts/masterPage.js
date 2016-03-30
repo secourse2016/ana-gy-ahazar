@@ -1,9 +1,16 @@
 $(document).ready(function() {
-   $('.tabs .tab-links a').on('click', function(e)  {
+   $('.slider').click(function() {
+      next();
+   });
+   $('.tab-links a').on('click', function(e)  {
       var currentAttrValue = $(this).attr('href');
-
-      $('.tabs #' + currentAttrValue).siblings().hide(0);
-      $('.tabs #' + currentAttrValue).show(0);
       $(this).parent('li').addClass('active').siblings().removeClass('active');
    });
 });
+
+function next(){
+   $('.slider ul').animate({marginLeft : "-=1000px"}, 1000, function() {
+      $(this).find("li:last").after($(this).find('li:first'));
+      $(this).css({marginLeft : 0});
+   });
+}

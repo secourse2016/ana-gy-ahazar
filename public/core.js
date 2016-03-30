@@ -4,17 +4,17 @@ App.config(function($routeProvider, $locationProvider) {
    $routeProvider
 
    .when('/', {
-      templateUrl: 'search.html',
+      templateUrl: 'book-search.html',
       controller: 'searchController'
    })
 
    .when('/book', {
-      templateUrl: 'search.html',
+      templateUrl: 'book-search.html',
       controller: 'searchController'
    })
 
    .when('/manage', {
-      templateUrl: 'manage.html',
+      templateUrl: 'manage-ticketsearch.html',
       controller: 'manageController'
    })
 
