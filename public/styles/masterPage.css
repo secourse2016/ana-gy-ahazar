@@ -51,17 +51,19 @@ li.active a, li.active a:hover {
    border-radius: 0px 0px 5px 5px;
    border-style: solid;
    border-color: #840705;
-   width: 859px;
+   width: 860px;
    margin-left: 40px;
    text-align: center;
 }
 
 .tab {
    display:none;
+   transition:all linear 0.12s;
 }
 
 .tab.active {
    display:block;
+   transition:all linear 0.12s;
 }
 
 a:hover, a:visited, a:link, a:active {
