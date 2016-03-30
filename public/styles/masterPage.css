@@ -15,13 +15,15 @@
 }
 
 .tab-links li {
-   margin:0px 8px;
+   margin:0px 1px;
    float:left;
+   position: relative;
    list-style:none;
 }
 
 .tab-links a {
-   padding:9px 15px;
+   padding:10px 40px;
+   height: 40px;
    display:inline-block;
    border-radius:3px 3px 0px 0px;
    background:#72bb53;
@@ -32,12 +34,12 @@
 }
 
 .tab-links a:hover {
-   background:#ff3823;
+   background:#a8c6fa;
    text-decoration:none;
 }
 
 li.active a, li.active a:hover {
-   background:#840705;
+   background:#3d8af7;
    color:white;
 }
 
@@ -45,9 +47,10 @@ li.active a, li.active a:hover {
    padding:15px;
    border-radius:3px;
    box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
-   background:#000;
-   width: 45em;
-   margin-left: 38px;
+   background:#3d8af7;
+   border-radius: 0px 0px 3px 3px;
+   width: 859px;
+   margin-left: 40px;
    text-align: center;
 }
 
@@ -60,5 +63,5 @@ li.active a, li.active a:hover {
 }
 
 a:hover, a:visited, a:link, a:active {
-    text-decoration: none;
+   text-decoration: none;
 }

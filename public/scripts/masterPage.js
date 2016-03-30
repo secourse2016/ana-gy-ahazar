@@ -1,13 +1,11 @@
 $(document).ready(function() {
-    $('.tabs .tab-links a').on('click', function(e)  {
-        var currentAttrValue = $(this).attr('href');
+   $('.tabs .tab-links a').on('click', function(e)  {
+      var currentAttrValue = $(this).attr('href');
 
-        // Show/Hide Tabs
-        $('.tabs ' + currentAttrValue).show().siblings().hide();
+      $('.tabs ' + currentAttrValue).siblings().hide(500);
+      $('.tabs ' + currentAttrValue).show(500);
+      $(this).parent('li').addClass('active').siblings().removeClass('active');
 
-        // Change/remove current tab to active
-        $(this).parent('li').addClass('active').siblings().removeClass('active');
-
-        e.preventDefault();
-    });
+      e.preventDefault();
+   });
 });
