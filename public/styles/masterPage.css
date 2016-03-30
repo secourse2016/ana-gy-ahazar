@@ -34,12 +34,12 @@
 }
 
 .tab-links a:hover {
-   background:#a8c6fa;
+   background:#ff3823;
    text-decoration:none;
 }
 
 li.active a, li.active a:hover {
-   background:#3d8af7;
+   background:#840705;
    color:white;
 }
 
@@ -47,8 +47,10 @@ li.active a, li.active a:hover {
    padding:15px;
    border-radius:3px;
    box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
-   background:#3d8af7;
-   border-radius: 0px 0px 3px 3px;
+   background:white;
+   border-radius: 0px 0px 5px 5px;
+   border-style: solid;
+   border-color: #840705;
    width: 859px;
    margin-left: 40px;
    text-align: center;
