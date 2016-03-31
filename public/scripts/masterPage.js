@@ -1,8 +1,20 @@
 var currentTab = 'book';
 
+setTimeout(function() {
+   setHeight();
+}, 25);
+
 $(document).ready(function() {
-   $('.slider').click(function() {
+  var count = $('.slider ul li').size();
+
+   $('#next').click(function() {
+     if(count > 1)
       next();
+   });
+
+   $('#previous').click(function() {
+     if(count > 1)
+      previous();
    });
 
    $('.tab-links a').on('click', function(e)  {
@@ -10,18 +22,22 @@ $(document).ready(function() {
       currentTab = $(this).attr('href');
       setTimeout(function() {
          setHeight();
-      }, 5);
+      }, 25);
    });
 });
-
-setTimeout(function() {
-   setHeight();
-}, 5);
 
 function next(){
    $('.slider ul').animate({marginLeft : "-=1000px"}, 1000, function() {
       $(this).find("li:last").after($(this).find('li:first'));
       $(this).css({marginLeft : 0});
+   });
+}
+
+function previous(){
+   $('.slider ul').find('li:last').animate({width : 0}, 0, function() {
+      $('.slider ul').find("li:first").before($(this));
+      $('.slider ul').css({marginRight : 0});
+      $(this).animate({width : 1000}, 1000);
    });
 }
 
