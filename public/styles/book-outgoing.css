@@ -1,0 +1,122 @@
+.flight-dates {
+	width: 500;
+	height: 85;
+    margin: 0;
+    padding: 0;
+    /*display:inline;    */
+}
+
+.date-arrow {
+	height: 35px;
+	width: 35px;
+	background: transparent;
+	border-color: transparent;
+	/*float: left;*/
+	padding:80px 0px;
+}
+
+.day-button {
+	width: 90px;
+	height: 80px;
+	font-size: 16px;
+	color: #840705;
+	font-weight: bold;
+	background:white;
+   	border-color: #840705;
+   	/*float: left;*/  	
+}
+
+.day-button:active {
+	color: black;
+	background: #72bb53;
+}
+.flight-details {
+	display: inline;    
+}
+
+#flight {
+	width: 300px;
+	height: 110px;
+	background: #D3D3D3;
+	/*padding: 400px 0px*/
+	overflow: hidden;
+	
+}
+
+.flightTime {
+	width: 60px;
+	height: 70px;
+	float: left;
+	color: #840705;
+}
+
+#depLogo {
+	width: 30px;
+	height: 30px;
+	background: transparent;
+	border-color: transparent;
+	float: left;
+	padding-top: 15px;
+	/*padding-left: 15px;*/
+}
+
+#arrLogo {
+	width: 30px;
+	height: 30px;
+	background: transparent;
+	border-color: transparent;
+	float: left;
+	padding-top: 15px;
+	/*padding-left: 15px;*/
+}
+
+.durationLabel{
+	width: 70px;
+	height: 70px;
+	float: left;
+	/*padding-left: 50px;*/
+}
+
+#duration {
+	width: 70px;
+	height: 15px;
+	color: #840705;
+}
+
+#clock {
+	width: 35px;
+	height: 35px;
+	background: transparent;
+	border-color: transparent;
+}
+
+#ticket {
+	width: 300px;
+	height: 110px;
+	background: #72bb53;
+	/*padding: 400 0px*/
+	overflow: hidden;
+}
+
+#ticketRadio {
+	transform: scale(1.2);
+	/*padding-top: 50px;*/
+}
+
+#ticketPrice {
+	width: 100px;
+	height: 30px;
+	font-size: 20px;
+	color: white;
+}
+
+#chairLogo {
+	width: 35px;
+	height: 35px;
+	background: transparent;
+	border-color: transparent;
+}
+
+#chairCount {
+	color: #840705;
+}
