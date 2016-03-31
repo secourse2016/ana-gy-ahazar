@@ -75,7 +75,7 @@
    font-size:16px;
    font-weight:600;
    color:white;
-   transition:all linear 0.12s;
+   transition: all linear 0.12s;
 }
 
 .tab-links a:hover {
@@ -102,14 +102,34 @@ li.active a, li.active a:hover {
 
 .tab {
    display:none;
-   transition:all linear 0.12s;
+   position: absolute;
+   width: 825px;
 }
 
 .tab.active {
    display:block;
-   transition:all linear 0.12s;
 }
 
 a:hover, a:visited, a:link, a:active {
    text-decoration: none;
+}
+
+.tab.ng-enter {
+   animation: fadeInFromLeft 0.5s both linear;
+   animation-delay: 0.5s;
+   z-index: 8888;
+}
+
+.tab.ng-leave {
+   animation: fadeOutToLeft 0.5s both linear;
+   z-index: 9999;
+}
+
+@keyframes fadeOutToLeft{
+   to { opacity: 0; transform: translateX(-20%); }
+}
+
+@keyframes fadeInFromLeft{
+   from { opacity: 0; transform: translateX(-20%); }
+   to { opacity: 1; transform: translateX(0%); }
 }
