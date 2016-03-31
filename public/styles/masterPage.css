@@ -1,26 +1,28 @@
 #promotionArea {
-    width: auto;
-    height: 400px;
-    overflow: hidden;
-    margin: auto;
+  height: 400px;
+  display: table;
+  margin: 0 auto;
 }
 
 #promotionArea #previous {
-  position: sticky;
+  position: relative;
   float: left;
-}
-
-#promotionArea #next {
-  position: sticky;
-  float: right;
+  margin-top: 113px;
+  margin-right: 50px;
 }
 
 .slider {
   width: 1000px;
   height: 400px;
   overflow: hidden;
-  margin-left: 10px;
-  margin-right: 10px;
+  float: left;
+}
+
+#promotionArea #next {
+  position: relative;
+  float: left;
+  margin-top: 113px;
+  margin-left: 50px
 }
 
 .slider ul {
@@ -28,88 +30,88 @@
   width: 3000px;
   height: 400px;
   position: relative;
+  padding: 0;
 }
 
 .slider ul li {
-  float: left;
   width: 1000px;
   height: 400px;
+  float: left;
 }
 
 .slider ul li img{
-  width: 960px;
+  width: 1000px;
   height: 400px;
-  position: relative;
   z-index: -1;
 }
 
 .tab-links {
-   display:table; margin:0 auto;
+  display:table; margin:0 auto;
 }
 
 .tabs {
-   width:100%;
-   display:inline-block;
-   text-align:center;
+  width:100%;
+  display:inline-block;
+  text-align:center;
 }
 
 .tab-links:after {
-   display:block;
-   clear:both;
-   content:'';
+  display:block;
+  clear:both;
+  content:'';
 }
 
 .tab-links li {
-   margin:0px 1px;
-   float:left;
-   position: relative;
-   list-style:none;
+  margin:0px 1px;
+  float:left;
+  position: relative;
+  list-style:none;
 }
 
 .tab-links a {
-   padding:10px 40px;
-   height: 40px;
-   display:inline-block;
-   border-radius:3px 3px 0px 0px;
-   background:#72bb53;
-   font-size:16px;
-   font-weight:600;
-   color:white;
-   transition:all linear 0.12s;
+  padding:10px 40px;
+  height: 40px;
+  display:inline-block;
+  border-radius:3px 3px 0px 0px;
+  background:#72bb53;
+  font-size:16px;
+  font-weight:600;
+  color:white;
+  transition:all linear 0.12s;
 }
 
 .tab-links a:hover {
-   background:#ff3823;
-   text-decoration:none;
+  background:#ff3823;
+  text-decoration:none;
 }
 
 li.active a, li.active a:hover {
-   background:#840705;
-   color:white;
+  background:#840705;
+  color:white;
 }
 
 .tab-content {
-   padding:15px;
-   box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
-   background:white;
-   border-radius: 0px 0px 5px 5px;
-   border-style: solid;
-   border-color: #840705;
-   width: 860px;
-   margin-left: 40px;
-   text-align: center;
+  padding:15px;
+  box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+  background:white;
+  border-radius: 0px 0px 5px 5px;
+  border-style: solid;
+  border-color: #840705;
+  width: 860px;
+  margin-left: 40px;
+  text-align: center;
 }
 
 .tab {
-   display:none;
-   transition:all linear 0.12s;
+  display:none;
+  transition:all linear 0.12s;
 }
 
 .tab.active {
-   display:block;
-   transition:all linear 0.12s;
+  display:block;
+  transition:all linear 0.12s;
 }
 
 a:hover, a:visited, a:link, a:active {
-   text-decoration: none;
+  text-decoration: none;
 }
