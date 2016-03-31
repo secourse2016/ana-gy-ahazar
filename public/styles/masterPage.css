@@ -1,8 +1,26 @@
+#promotionArea {
+    width: auto;
+    height: 400px;
+    overflow: hidden;
+    margin: auto;
+}
+
+#promotionArea #previous {
+  position: sticky;
+  float: left;
+}
+
+#promotionArea #next {
+  position: sticky;
+  float: right;
+}
+
 .slider {
   width: 1000px;
   height: 400px;
   overflow: hidden;
-  margin: auto;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .slider ul {
@@ -23,14 +41,6 @@
   height: 400px;
   position: relative;
   z-index: -1;
-}
-
-.slider #previous {
-  width: 50px;
-  height: 100px;
-  position: fixed;
-  padding-left: 50px;
-  padding-top: 100px;
 }
 
 .tab-links {
