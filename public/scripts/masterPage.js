@@ -2,6 +2,7 @@ $(document).ready(function() {
    $('.slider').click(function() {
       next();
    });
+   
    $('.tab-links a').on('click', function(e)  {
       var currentAttrValue = $(this).attr('href');
       $(this).parent('li').addClass('active').siblings().removeClass('active');

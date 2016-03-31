@@ -1,4 +1,4 @@
-var App = angular.module('App', ['ngRoute']);
+App = angular.module('App', ['ngRoute']);
 
 App.config(function($routeProvider, $locationProvider) {
    $routeProvider
@@ -39,34 +39,4 @@ App.config(function($routeProvider, $locationProvider) {
    });
 
    $locationProvider.html5Mode(true);
-});
-
-App.controller('searchController', function($scope) {
-   $scope.tabName = 'book';
-   $scope.isActive = ' active';
-});
-
-App.controller('manageController', function($scope) {
-    $scope.tabName = 'manage';
-    $scope.isActive = ' active';
-});
-
-App.controller('checkinController', function($scope) {
-    $scope.tabName = 'check-in';
-    $scope.isActive = ' active';
-});
-
-App.controller('offersController', function($scope) {
-    $scope.tabName = 'offers';
-    $scope.isActive = ' active';
-});
-
-App.controller('aboutusController', function($scope) {
-    $scope.tabName = 'about-us';
-    $scope.isActive = ' active';
-});
-
-App.controller('contactusController', function($scope) {
-    $scope.tabName = 'contact-us';
-    $scope.isActive = ' active';
 });
