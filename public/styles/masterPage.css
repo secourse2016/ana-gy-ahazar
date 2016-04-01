@@ -104,11 +104,11 @@ li.active a, li.active a:hover {
    width: 860px;
    margin-left: 40px;
    text-align: center;
+   overflow: hidden;
 }
 
 .tab {
    display:none;
-   position: absolute;
    width: 825px;
 }
 
@@ -122,14 +122,12 @@ a:hover, a:visited, a:link, a:active {
 }
 
 .tab.ng-enter {
-   animation: fadeInFromLeft 0.5s both linear;
-   animation-delay: 0.5s;
-   z-index: 8888;
+   animation: slideInFromLeft 0.45s both ease;
+   animation-delay: 0.45s;
 }
 
 .tab.ng-leave {
-   animation: fadeOutToLeft 0.5s both linear;
-   z-index: 9999;
+   animation: slideOutToLeft 0.45s both ease;
 }
 
 @keyframes fadeOutToLeft{
@@ -139,4 +137,13 @@ a:hover, a:visited, a:link, a:active {
 @keyframes fadeInFromLeft{
    from { opacity: 0; transform: translateX(-20%); }
    to { opacity: 1; transform: translateX(0%); }
+}
+
+@keyframes slideOutToLeft{
+   to { transform: translateX(-110%); }
+}
+
+@keyframes slideInFromLeft{
+   from { transform: translateX(-110%); }
+   to { transform: translateX(0%); }
 }
