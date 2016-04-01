@@ -1,4 +1,4 @@
-
+@import "compass/css3";
 body {
   margin: 0;
   padding: 0;
@@ -74,6 +74,16 @@ body {
     font: normal normal bold 16px/1 "Times New Roman", Times, serif;
     font-size: 20px;
 }
+.GPSFLogo {
+ position: absolute;
+   top: 10%;
+   left: 35%;
+}
+.GPSTLogo {
+ position: absolute;
+   top: 10%;
+   left: 88%;
+}
 
 
 .DD {
@@ -89,9 +99,22 @@ body {
  color: #840705;
     position: absolute;
     top: 32%;
-    left: 60%;
+    left: 55%;
     font: normal normal bold 16px/1 "Times New Roman", Times, serif;
     font-size: 20px;
+}
+.DDLogo {
+
+   position: absolute;
+   top: 31%;
+   left: 21%;
+  
+}
+
+.RDLogo {
+ position: absolute;
+   top: 31%;
+   left: 68%;
 }
 .AD {
  color: #840705;
@@ -132,7 +155,7 @@ body {
    width: 200px;
    height: 25px;
    position: absolute;
-   top: 14%;
+   top: 14.5%;
    left: 11%;
    border: solid 2px black;
    border-radius: 5px;
@@ -155,7 +178,7 @@ body {
    width: 200px;
    height: 25px;
    position: absolute;
-   top: 14%;
+   top: 14.5%;
    left: 64%;
    border: solid 2px black;
    border-radius: 5px;
@@ -186,21 +209,67 @@ body {
 .AD1{
   position: absolute;
    top: 60%;
-   left: 7%;
+   left: 6.5%;
    font: normal 16px/1 "Times New Roman", Times, serif;
    color:green;
 }
 .CH1{
   position: absolute;
    top: 60%;
-   left: 39%;
+   left: 38%;
     font: normal 16px/1 "Times New Roman", Times, serif;
    color:green;
 }
 .IN1{
   position: absolute;
    top: 60%;
-   left: 76%;
+   left: 75%;
     font: normal 16px/1 "Times New Roman", Times, serif;
    color:green;
+}
+
+input[type="radio"] {
+    display:none;
+}
+input[type="radio"] + label {
+    color: black;
+    font-family:Arial, sans-serif;
+    font-size:14px;
+     font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+}
+input[type="radio"] + label span {
+    display:inline-block;
+    width:10px;
+    height:10px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    cursor:pointer;
+    -moz-border-radius:  50%;
+    border-radius:  50%;
+   
+
+}
+
+input[type="radio"] + label span {
+     background-color:black;
+}
+
+input[type="radio"]:checked + label span{
+     background-color:green;     
+}
+input[type="radio"]:checked + label {
+color:green;
+  }
+
+
+.RT {
+   position: absolute;
+   top: -275%;
+   left: -1700%;
+}
+
+.OW {
+   position: absolute;
+   top: -275%;
+   left: -1300%;
 }
