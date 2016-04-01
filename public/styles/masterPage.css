@@ -1,46 +1,52 @@
 #promotionArea {
-    width: auto;
-    height: 400px;
-    overflow: hidden;
-    margin: auto;
+   height: 400px;
+   display: table;
+   margin: 0 auto;
 }
 
 #promotionArea #previous {
-  position: sticky;
-  float: left;
-}
-
-#promotionArea #next {
-  position: sticky;
-  float: right;
+   position: relative;
+   float: left;
+   margin-top: 113px;
+   margin-right: 50px;
+   cursor: pointer;
+   cursor: hand;
 }
 
 .slider {
-  width: 1000px;
-  height: 400px;
-  overflow: hidden;
-  margin-left: 10px;
-  margin-right: 10px;
+   width: 1000px;
+   height: 400px;
+   overflow: hidden;
+   float: left;
+}
+
+#promotionArea #next {
+   position: relative;
+   float: left;
+   margin-top: 113px;
+   margin-left: 50px;
+   cursor: pointer;
+   cursor: hand;
 }
 
 .slider ul {
-  list-style: none;
-  width: 3000px;
-  height: 400px;
-  position: relative;
+   list-style: none;
+   width: 3000px;
+   height: 400px;
+   position: relative;
+   padding: 0;
 }
 
 .slider ul li {
-  float: left;
-  width: 1000px;
-  height: 400px;
+   width: 1000px;
+   height: 400px;
+   float: left;
 }
 
 .slider ul li img{
-  width: 960px;
-  height: 400px;
-  position: relative;
-  z-index: -1;
+   width: 1000px;
+   height: 400px;
+   z-index: -1;
 }
 
 .tab-links {
@@ -75,7 +81,7 @@
    font-size:16px;
    font-weight:600;
    color:white;
-   transition:all linear 0.12s;
+   transition: all linear 0.12s;
 }
 
 .tab-links a:hover {
@@ -102,7 +108,8 @@ li.active a, li.active a:hover {
 
 .tab {
    display:none;
-   transition:all linear 0.12s;
+   position: absolute;
+   width: 825px;
 }
 
 .tab.active {
@@ -112,4 +119,24 @@ li.active a, li.active a:hover {
 
 a:hover, a:visited, a:link, a:active {
    text-decoration: none;
+}
+
+.tab.ng-enter {
+   animation: fadeInFromLeft 0.5s both linear;
+   animation-delay: 0.5s;
+   z-index: 8888;
+}
+
+.tab.ng-leave {
+   animation: fadeOutToLeft 0.5s both linear;
+   z-index: 9999;
+}
+
+@keyframes fadeOutToLeft{
+   to { opacity: 0; transform: translateX(-20%); }
+}
+
+@keyframes fadeInFromLeft{
+   from { opacity: 0; transform: translateX(-20%); }
+   to { opacity: 1; transform: translateX(0%); }
 }
