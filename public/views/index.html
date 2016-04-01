@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+<head>
+   <meta charset="utf-8">
+   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+   <link rel="icon" href="favicon.ico" type="image/x-icon">
+   <title>Air Madagascar</title>
+
+   <link rel="stylesheet" href="bootstrap.min.css">
+   <link rel="stylesheet" href="masterPage.css">
+   <script type="text/javascript" src="jquery-2.2.2.min.js"></script>
+   <script type="text/javascript" src="angular.js"></script>
+   <script type="text/javascript" src="angular-route.js"></script>
+   <script type="text/javascript" src="angular-animate.js"></script>
+   <script type="text/javascript" src="bootstrap.min.js"></script>
+   <script type="text/javascript" src="ui-bootstrap-tpls.min.js"></script>
+   <script type="text/javascript" src="ui-bootstrap.min.js"></script>
+   <script type="text/javascript" src="masterPage.js"></script>
+   <script type="text/javascript" src="core.js"></script>
+   <script type="text/javascript" src="searchController.js"></script>
+   <script type="text/javascript" src="manageController.js"></script>
+   <script type="text/javascript" src="checkinController.js"></script>
+   <script type="text/javascript" src="offersController.js"></script>
+   <script type="text/javascript" src="aboutusController.js"></script>
+   <script type="text/javascript" src="contactusController.js"></script>
+   <base href="/">
+</head>
+<body>
+   <center>
+      <div id="logo" class="">
+         <img src="logo.jpg" alt="Logo"/>
+      </div>
+   </center>
+
+   <hr>
+
+  <center>
+    <div id="promotionArea">
+      <a><img id="previous" src="../assets/LeftArrow.png" alt="previous" /></a>
+      <div class="slider">
+        <ul>
+          <li><img id="1" src="../assets/MADA_jungle.jpg" border="0" alt="See more monkeys" /></li>
+          <li><img id="2" src="../assets/MADA_airplane.jpg" border="0" alt="tryout out new AirBbus a310" /></li>
+          <li><img id="3" src="../assets/logo.jpg" border="0" alt="tryout out new AirBbus a310" /></li>
+        </ul>
+      </div>
+      <a><img id="next" src="../assets/RightArrow.png" alt="next" /></a>
+    </div>
+  </center>
+   <hr>
+
+   <div class="tabs">
+      <center>
+         <ul class="tab-links">
+            <li class="active"><a href="book">Book</a></li>
+            <li><a href="manage">Manage</a></li>
+            <li><a href="check-in">Check-in</a></li>
+            <li><a href="offers">Offers</a></li>
+            <li><a href="about-us">About Us</a></li>
+            <li><a href="contact-us">Contact Us</a></li>
+         </ul>
+      </center>
+
+      <center>
+         <div class="tab-content">
+            <div id="{{ tabName }}" class="tab{{ isActive }} jumbotron text-center" ng-view></div>
+         </div>
+      </center>
+   </div>
+
+   <br><br><br><br><br>
+
+</body>
+</html>

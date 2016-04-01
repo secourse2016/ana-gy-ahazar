@@ -1,0 +1,23 @@
+{
+  "name": "online-booking-system",
+  "version": "1.0.0",
+  "description": "This is an online booking system for Air Madagascar.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KEMDAK/Air-Madagascar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KEMDAK/Air-Madagascar/issues"
+  },
+  "homepage": "https://github.com/KEMDAK/Air-Madagascar#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}

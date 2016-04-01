@@ -1,0 +1,149 @@
+#promotionArea {
+   height: 400px;
+   display: table;
+   margin: 0 auto;
+}
+
+#promotionArea #previous {
+   position: relative;
+   float: left;
+   margin-top: 113px;
+   margin-right: 50px;
+   cursor: pointer;
+   cursor: hand;
+}
+
+.slider {
+   width: 1000px;
+   height: 400px;
+   overflow: hidden;
+   float: left;
+}
+
+#promotionArea #next {
+   position: relative;
+   float: left;
+   margin-top: 113px;
+   margin-left: 50px;
+   cursor: pointer;
+   cursor: hand;
+}
+
+.slider ul {
+   list-style: none;
+   width: 3000px;
+   height: 400px;
+   position: relative;
+   padding: 0;
+}
+
+.slider ul li {
+   width: 1000px;
+   height: 400px;
+   float: left;
+}
+
+.slider ul li img{
+   width: 1000px;
+   height: 400px;
+   z-index: -1;
+}
+
+.tab-links {
+   display:table; margin:0 auto;
+}
+
+.tabs {
+   width:100%;
+   display:inline-block;
+   text-align:center;
+}
+
+.tab-links:after {
+   display:block;
+   clear:both;
+   content:'';
+}
+
+.tab-links li {
+   margin:0px 1px;
+   float:left;
+   position: relative;
+   list-style:none;
+}
+
+.tab-links a {
+   padding:10px 40px;
+   height: 40px;
+   display:inline-block;
+   border-radius:3px 3px 0px 0px;
+   background:#72bb53;
+   font-size:16px;
+   font-weight:600;
+   color:white;
+   transition: all linear 0.12s;
+}
+
+.tab-links a:hover {
+   background:#ff3823;
+   text-decoration:none;
+}
+
+li.active a, li.active a:hover {
+   background:#840705;
+   color:white;
+}
+
+.tab-content {
+   padding:15px;
+   box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+   background:white;
+   border-radius: 0px 0px 5px 5px;
+   border-style: solid;
+   border-color: #840705;
+   width: 860px;
+   margin-left: 40px;
+   text-align: center;
+   overflow: hidden;
+}
+
+.tab {
+   display:none;
+   width: 825px;
+}
+
+.tab.active {
+   display:block;
+   transition:all linear 0.12s;
+}
+
+a:hover, a:visited, a:link, a:active {
+   text-decoration: none;
+}
+
+.tab.ng-enter {
+   animation: slideInFromLeft 0.45s both ease;
+   animation-delay: 0.45s;
+}
+
+.tab.ng-leave {
+   animation: slideOutToLeft 0.45s both ease;
+}
+
+@keyframes fadeOutToLeft{
+   to { opacity: 0; transform: translateX(-20%); }
+}
+
+@keyframes fadeInFromLeft{
+   from { opacity: 0; transform: translateX(-20%); }
+   to { opacity: 1; transform: translateX(0%); }
+}
+
+@keyframes slideOutToLeft{
+   to { transform: translateX(-110%); }
+}
+
+@keyframes slideInFromLeft{
+   from { transform: translateX(-110%); }
+   to { transform: translateX(0%); }
+}
