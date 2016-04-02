@@ -1,0 +1,35 @@
+h2 {
+	text-align: left;
+	color: #840705;
+	text-decoration: underline;
+}
+p {
+	color: #840705;
+}
+#title {
+   text-align: left;
+}
+#select-option {
+	text-align: left;
+}
+#first-name-label {
+	text-align: center;
+}
+#first-name {
+	text-align: center;
+}
+#last-name-label {
+	text-align: right;
+}
+#ast-name {
+	text-align: right;
+}
+#nationality {
+	text-align: left;
+}
+#nat {
+	text-align: left;
+}
+#date-of-birth {
+	text-align: right;
+}

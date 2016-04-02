@@ -4,12 +4,12 @@ App.config(function($routeProvider, $locationProvider) {
    $routeProvider
 
    .when('/', {
-      templateUrl: 'book-personalinfo.html', // don't forget to change
+      templateUrl: 'book-personalinfo.html',
       controller: 'searchController'
    })
 
    .when('/book', {
-      templateUrl: 'book-personalinfo.html',  // don't forget to change
+      templateUrl: 'book-personalinfo.html',
       controller: 'searchController'
    })
 
