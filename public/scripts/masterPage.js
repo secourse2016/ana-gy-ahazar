@@ -1,4 +1,9 @@
+var currentTab = 'book';
 var block = false;
+
+setTimeout(function() {
+  setHeight();
+}, 25);
 
 $(document).ready(function() {
   var count = $('.slider ul li').size();
@@ -26,6 +31,10 @@ $(document).ready(function() {
 
   $('.tab-links a').on('click', function(e)  {
     $(this).parent('li').addClass('active').siblings().removeClass('active');
+    currentTab = $(this).attr('href');
+    setTimeout(function() {
+      setHeight();
+    }, 25);
   });
 });
 
@@ -43,4 +52,11 @@ function previous(){
     $('.slider ul').css({marginLeft : "-=1000"});
     block = false;
   });
+}
+
+function setHeight() {
+  console.log('#' + currentTab);
+  var h = $('#' + currentTab).outerHeight();
+  $('.tab-content').animate({height:h+35},500);
+  console.log(currentTab + " " + h);
 }

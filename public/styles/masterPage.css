@@ -109,6 +109,7 @@ li.active a, li.active a:hover {
 
 .tab {
    display:none;
+   width: 825px;
 }
 
 .tab.active {
