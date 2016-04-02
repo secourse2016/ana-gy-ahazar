@@ -9,23 +9,32 @@
 	color: #840705;
 	font-size:20px;
 }
-#se1,#se2,#se3{
+#se1,#se2,#se3,#b1,#b2,#b3,#b4,#b5,#c1,#c2{
 	font-weight: bold;
   color: #840705;
 	font-size:20px;
 	width: 19px;
-	position: relative;;
+	position: relative;
 }
+/*#Enter,#Next{
+  box-shadow: none;
+  background-color: #73c45d;
+  color: white;
+  font-weight: bold;
+  font-size:20px;
+
+}*/
 #tr{
-	font-weight: bold;
+	font-weight: normal;
 	color: black;
 	font-size:20px;
 	width: 10px;
 	position: relative;;
 }
-#na {
-
-		padding-left: 30px;
+#na,#City,#State,#Zip,#Address,#CN,#CVS,#datepicker,#promo{
+    font-weight: normal;
+    color: black;
+    font-size:20px;
     border:1px solid ;
 		border-color: #840705;
     position: relative;
