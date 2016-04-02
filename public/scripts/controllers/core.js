@@ -43,6 +43,6 @@ App.config(function($routeProvider, $locationProvider) {
 
 setHeight = function(tab) {
    var h = $('#' + tab).outerHeight();
-   $('.tab-content').animate({height:h+60},500);
+   $('.tab-content').animate({height:h+40},500);
    console.log(('#' + tab) + " " + h);
 };
