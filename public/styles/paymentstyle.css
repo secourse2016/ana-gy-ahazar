@@ -1,0 +1,58 @@
+#name ,#namesecond,#se{
+  font-weight: bold;
+  color: #840705;
+	font-size:20px;
+
+}
+#select,#select1{
+	font-weight: normal;
+	color: #840705;
+	font-size:20px;
+}
+#se1,#se2,#se3{
+	font-weight: bold;
+  color: #840705;
+	font-size:20px;
+	width: 19px;
+	position: relative;;
+}
+#tr{
+	font-weight: bold;
+	color: black;
+	font-size:20px;
+	width: 10px;
+	position: relative;;
+}
+#na {
+
+		padding-left: 30px;
+    border:1px solid ;
+		border-color: #840705;
+    position: relative;
+		left:10px;
+
+}
+
+#ppimg {
+
+		position: relative;;
+    float: left;
+    height: 23px;
+    width: 19px;
+    border: 1px solid #add;
+    border-left: none;
+
+}
+.circle
+{
+	background: radial-gradient( 5px -9px, circle, white 8%, red 26px );
+    background-color: red;
+    border: 2px solid white;
+    border-radius: 12px; /* one half of ( (border * 2) + height + padding ) */
+    box-shadow: 1px 1px 1px black;
+    color: white;
+    font: bold 15px/13px Helvetica, Verdana, Tahoma;
+    height: 16px;
+    min-width: 14px;
+    padding: 4px 3px 0 3px;
+    text-align: center;}
