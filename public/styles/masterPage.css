@@ -4,13 +4,24 @@ body {
    background-repeat: no-repeat;
 }
 
+#logo {
+   position: relative;
+}
+
+#logo img {
+   position: absolute;
+   top: 50px;
+   right: 50px;
+}
+
 #promotionArea {
    height: 400px;
    display: table;
    margin: 0 auto;
+   padding-top: 215px;
 }
 
-#previous {
+#left {
    position: absolute;
    left:170px;
    bottom:185px;
@@ -30,12 +41,35 @@ body {
    z-index: -1;
 }
 
-#next {
+#right {
    position: absolute;
    right:170px;
    bottom:185px;
    cursor: pointer;
    cursor: hand;
+}
+
+.sp {
+   position: absolute;
+   width: 68px;
+   height: 115px;
+   border-radius: 5px 5px 5px 5px;
+   background-color: black;
+   opacity: 0.1;
+}
+
+.sp:hover {
+   opacity: 0.2;
+}
+
+.l {
+   bottom: -5px;
+   left: -5px;
+}
+
+.r {
+   bottom: -5px;
+   left: -9px;
 }
 
 .slider ul {

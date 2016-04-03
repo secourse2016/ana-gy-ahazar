@@ -3,12 +3,12 @@ var hoverBlock = false;
 
 $(document).ready(function() {
 
-   $('#next,#previous').hide();
+   $('#left,#right').hide();
 
    $('#promotionArea').hover(function () {
-      $('#next,#previous').fadeIn(200);
+      $('#left,#right').fadeIn(200);
    }, function() {
-      $('#next,#previous').fadeOut(200);
+      $('#left,#right').fadeOut(200);
    });
 
    var count = $('.slider ul li').size();
@@ -17,7 +17,7 @@ $(document).ready(function() {
    }
 
 
-   $('#next').click(function() {
+   $('#right').click(function() {
       if(!block){
          if(count > 1){
             block = true;
@@ -26,7 +26,7 @@ $(document).ready(function() {
       }
    });
 
-   $('#previous').click(function() {
+   $('#left').click(function() {
       if(!block){
          if(count > 1){
             block = true;
