@@ -133,4 +133,12 @@
 
 #chairCount {
 	color: #840705;
+	
+}
+
+#nextBtn {
+	background: #72bb53;
+	border-color: #72bb53;
+	position: relative;
+
 }
