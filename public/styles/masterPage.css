@@ -15,6 +15,7 @@ body {
 }
 
 #promotionArea {
+   position: relative;
    display: table;
    margin: 0 auto;
    margin-top: 175px;
@@ -22,8 +23,8 @@ body {
 
 #left {
    position: absolute;
-   left:170px;
-   bottom:225px;
+   left:2%;
+   bottom:36%;
    cursor: pointer;
    cursor: hand;
 }
@@ -42,8 +43,8 @@ body {
 
 #right {
    position: absolute;
-   right:170px;
-   bottom:225px;
+   right:2%;
+   bottom:36%;
    cursor: pointer;
    cursor: hand;
 }
