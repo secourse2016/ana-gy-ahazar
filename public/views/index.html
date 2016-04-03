@@ -8,6 +8,7 @@
 
    <link rel="stylesheet" href="bootstrap.min.css">
    <link rel="stylesheet" href="masterPage.css">
+   <link rel="stylesheet" type="text/css" href="book-confirmation.css">
    <script type="text/javascript" src="jquery-2.2.2.min.js"></script>
    <script type="text/javascript" src="angular.js"></script>
    <script type="text/javascript" src="angular-route.js"></script>
@@ -66,6 +67,7 @@
             <div id="{{ tabName }}" class="tab{{ isActive }} jumbotron text-center" ng-view>
               
             </div>
+            <div id="{{ tabName }}" class="tab{{ isActive }} jumbotron text-left" ng-view></div>
          </div>
       </center>
    </div>
