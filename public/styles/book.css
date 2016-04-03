@@ -1,3 +1,7 @@
+.flights {
+	text-align: center;
+}
+
 .flight-dates {
 	width: 500;
 	height: 85;
@@ -26,7 +30,7 @@
    	/*float: left;*/  	
 }
 
-.day-button:active {
+.day-button:active, .activated {
 	color: black;
 	background: #72bb53;
 }
@@ -38,8 +42,9 @@
 	width: 300px;
 	height: 110px;
 	background: #D3D3D3;
-	/*padding: 400px 0px*/
 	overflow: hidden;
+	position: relative;
+	top: 20px;
 	
 }
 
@@ -104,12 +109,43 @@
 	font-style: italic;
 	color: #840705;
 }
+
+.classesTabs {
+	width: 300px;
+	/*float: inline-end;*/
+	/*display:block;*/
+   	text-align:center;
+   	position: relative;
+	top: 20px;
+}
+
+.classesTabs a {
+   	background:white;
+   	color:#840705;
+   	border-color: #840705;
+   	/*transition: all linear 0.12s;*/
+
+}
+
+/*.classesTabs a:hover {
+   	background:#72bb53;
+   	text-decoration:none;
+}*/
+
+
+li.activated a {
+   	background: #72bb53;
+	color: black;
+}
+
 #ticket {
 	width: 300px;
 	height: 110px;
 	background: #72bb53;
-	/*padding: 400 0px*/
+	position: relative;
+	top: 20px;
 	overflow: hidden;
+	/*float: left;*/
 }
 
 #ticketRadio {
@@ -140,5 +176,7 @@
 	background: #72bb53;
 	border-color: #72bb53;
 	position: relative;
+	top: 70px;
+	/*left: 200px;*/
 
 }
