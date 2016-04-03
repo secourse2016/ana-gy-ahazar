@@ -8,11 +8,15 @@
 	font-weight: normal;
 	color: #840705;
 	font-size:20px;
+  position: relative;
+ height: 35px;
+  width: 180px;
+  vertical-align: left;
 }
 #se1,#se2,#se3,#b1,#b2,#b3,#b4,#b5,#c1,#c2,#name,#namesecond{
 	font-weight: bold;
   color: #840705;
-	font-size:20px;
+	font-size:18px;
 	position: relative;
 
   text-align: left;
@@ -24,7 +28,7 @@
   color: white;
   font-weight: normal;;
   height: 38px;
-  font-size:20px;
+  font-size:18px;
   text-align: center;
   vertical-align: middle;
   top: 50%;
@@ -48,8 +52,8 @@ img{
 
     font-weight: normal;
 
-    color: green;
-    font-size:20px;
+    color: black;
+    font-size:18px;
     border:1px solid ;
 		border-color: #840705;
     position: relative;
