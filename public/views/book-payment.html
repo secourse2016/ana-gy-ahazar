@@ -34,63 +34,128 @@ $( "#datepicker" ).datepicker();
 </svg>
 
 <div id="fr">
-<h3 id="name">Cardholder Name:</h3>
-<input id="na" type="text" placeholder="Name"><br>
-<h3 id="namesecond">Payment Method:
-  <select id="select">
+  <div class="row">
+<label class="col-md-4" id="name">Cardholder Name:</label>
+</div>
+<div class="row">
+<div class="col-md-4">
+<div class="input-group">
+ <span class="input-group-addon" id="kol4"><img id="img"src="../assets/icon-profile.png"></span>
+<input class="form-control" id="kol5" aria-describedby="inputGroupSuccess1Status" type="text" placeholder="Name">
+</div>
+</div>
+</div>
+<br>
+<div class="row">
+<label class="col-md-3" id="namesecond">Payment Method:</label>
+  <select id="select" class="col-md-4">
     <option >Visa</option>
     <option >Master Card</option>
     <option >Credit Card</option>
-  </select></h3>
+  </select>
 </div>
-<div>
+<br>
+<div class="row">
+  <label class="col-md-1"></label>
+  <a id="se1" ><label class="col-md-3">Card Nubmer:</label></a>
 
-  <a id="se1">Card Nubmer:</a>
-   <a id="se2">CVS:</a>
-  <a id="se3">Expire Date:</a>
+   <a id="se2" ><label class="col-md-3">CVS:</label></a>
 
-</div>
-<div>
-  <input width="15px" id="CN" type="password">
-  <input width="10px" id="CVS" type="password"  >
-  <input type="datepicker" id="datepicker">
+  <a id="se3"  ><label class="col-md-3">Expire Date:</label></a>
 
 </div>
-<div>
+<div class="row">
+  <label class="col-md-1"></label>
+  <div class="col-md-3">
+  <div class="input-group">
+   <span class="input-group-addon"id="kol2" >*</span>
+  <input  class="form-control" id="kol3" aria-describedby="inputGroupSuccess1Status" type="password" >
+</div>
+</div>
 
-  <a id="b1">Billing Country:</a>
-   <a id="b2">Billing City:</a>
-  <a id="b3">Billing State:</a>
-  <a id="b4">Zip Code:</a>
-  <a id="b5">Address:</a>
+  <div class="col-md-3">
+  <div class="input-group">
+   <span class="input-group-addon" id="kol">*</span>
+  <input class="form-control" id="kol1" aria-describedby="inputGroupSuccess1Status" type="password" ><br>
+</div>
+</div>
+
+<form action="action_page.php">
+  <div class="col-md-3" >
+  <div class="input-group" >
+   <span class="input-group-addon" id="lol"><img id="img"src="../assets/Calendar-icon.png"></span>
+  <input class="form-control" id="datepicker" aria-describedby="inputGroupSuccess1Status" type="date" >
+  </div>
+  </div>
+</form>
+
 
 </div>
-<form >
+<br>
+<div class="row">
+<label class="col-md-1"></label>
+  <a id="b1" > <label class="col-md-2">Billing Country:</label></a>
+   <a id="b2">  <label class="col-md-2">Billing City:</label></a>
+  <a id="b3"> <label class="col-md-2">Billing State:</label></a>
+  <a id="b4"><label class="col-md-2" >Zip Code:</label></a>
+  <a id="b5"><label class="col-md-2">Address:</label></a>
 
-  <select id="select1"  >
+</div>
+<div class="row" >
+ <label class="col-md-1"></label>
+  <select id="select1" class="col-md-2" >
   <option >Egypt</option>
   <option >China</option>
   <option >Australia</option>
   <option >India</option>
     </select>
     <a id="tr">
-  <input class="col-md-4"width="15px" id="City" type="text"  placeholder="City">
-  <input width="10px" id="State" type="text"  placeholder="State" >
-  <input id="Zip" type="text"  placeholder="Zip Code" >
-  <input id="Address" type="text"  placeholder="Address"  ></a>
-</form>
-<div>
+      <div class="col-md-2">
+        <input class="form-control" width="15px" id="City" type="text"  placeholder="City">
+      </div>
+      <div class="col-md-2">
+        <input class="form-control" width="15px" id="State" type="text" placeholder="State">
+      </div>
+      <div class="col-md-2">
+        <input class="form-control" width="15px"  id="Zip" type="text"  placeholder="Zip Code">
+      </div>
+      <div class="col-md-2">
+        <input class="form-control" width="15px"  id="Address" type="text"   placeholder="Address">
+      </div>
 
-  <a id="c1">Price Pay:</a>
-  <a id="c2">Promotion Code:</a>
 </div>
-<div>
-  <input id="pay" type="text"   >
-  <input id="promo" type="password"    ></a>
-  <button id="Enter" type="button"  >Enter</button><br>
-  <button id="Next" type="button"class="btn btn-success">Next</button>
+<br>
+<div class="row">
+
+  <a id="c1"><label class="col-md-2">Price Pay:</label></a>
+  <a id="c2"><label class="col-md-3">Promotion Code:</label></a>
+
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <label  id="kol8" class="form-control">$1000</label>
+  </div>
+
+
+
+  <div class="col-md-3">
+  <div class="input-group">
+   <span class="input-group-addon" id="kol6">*</span>
+  <input  class="form-control" id="kol7" aria-describedby="inputGroupSuccess1Status" type="password" ><br>
 </div>
 
+</div>
+
+<div class="col-md-3">
+  <button  id="Enter" type="button" class="btn btn-success" >Enter</button><br>
+
+</div>
+
+</div>
+<br>
+<br>
+  <label class="col-md-10"></label>
+<button id="Next" type="button"class="btn btn-success">Next</button>
 
 </body>
 </html>

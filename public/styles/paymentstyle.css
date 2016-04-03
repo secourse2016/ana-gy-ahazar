@@ -9,21 +9,33 @@
 	color: #840705;
 	font-size:20px;
 }
-#se1,#se2,#se3,#b1,#b2,#b3,#b4,#b5,#c1,#c2{
+#se1,#se2,#se3,#b1,#b2,#b3,#b4,#b5,#c1,#c2,#name,#namesecond{
 	font-weight: bold;
   color: #840705;
 	font-size:20px;
-	width: 19px;
 	position: relative;
+
+  text-align: left;
+  vertical-align: left;
 }
-/*#Enter,#Next{
+#Enter,#Next{
   box-shadow: none;
   background-color: #73c45d;
   color: white;
-  font-weight: bold;
+  font-weight: normal;;
+  height: 38px;
   font-size:20px;
+  text-align: center;
+  vertical-align: middle;
+  top: 50%;
+  left: 50%;
 
-}*/
+
+}
+img{
+  width: 15px;
+  height: 17px;
+}
 #tr{
 	font-weight: normal;
 	color: black;
@@ -31,14 +43,18 @@
 	width: 10px;
 	position: relative;;
 }
-#na,#City,#State,#Zip,#Address,#CN,#CVS,#datepicker,#promo{
+
+#na,#City,#State,#Zip,#Address,#CN,#CVS,#lol,#datepicker,#kol1,#kol2,#kol,#kol3,#kol4,#kol5,#kol6,#kol7,#kol8,#kol9{
+
     font-weight: normal;
-    color: black;
+
+    color: green;
     font-size:20px;
     border:1px solid ;
 		border-color: #840705;
     position: relative;
-		left:10px;
+
+
 
 }
 
