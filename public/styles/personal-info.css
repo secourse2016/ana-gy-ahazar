@@ -6,30 +6,15 @@ h2 {
 p {
 	color: #840705;
 }
-#title {
-   text-align: left;
-}
-#select-option {
-	text-align: left;
-}
-#first-name-label {
+
+.button {
+	background-color: #73c45d;
+	color: white;
 	text-align: center;
-}
-#first-name {
-	text-align: center;
-}
-#last-name-label {
-	text-align: right;
-}
-#ast-name {
-	text-align: right;
-}
-#nationality {
-	text-align: left;
-}
-#nat {
-	text-align: left;
-}
-#date-of-birth {
-	text-align: right;
+	font-size: 18px;
+	 padding: 5px 30px;
+    cursor: pointer;
+    float: right;
+    border-radius: 6px;
+
 }
