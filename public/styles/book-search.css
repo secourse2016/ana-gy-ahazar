@@ -57,277 +57,279 @@ body {
 
 
 .From {
-       color: #840705;
-    position: absolute;
-    top: 15%;
-    left: 4%;
-    font: normal normal bold 16px/1 "Times New Roman", Times, serif;
-    font-size: 20px;
+ color: #840705;
+ position: absolute;
+ top: 15%;
+ left: 4%;
+ font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+ font-size: 20px;
 }
 
 
 .To {
  color: #840705;
-    position: absolute;
-    top: 15%;
-    left: 60%;
-    font: normal normal bold 16px/1 "Times New Roman", Times, serif;
-    font-size: 20px;
+ position: absolute;
+ top: 15%;
+ left: 60%;
+ font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+ font-size: 20px;
 }
 .GPSFLogo {
  position: absolute;
-   top: 10%;
-   left: 35%;
+ top: 10%;
+ left: 35%;
 }
 .GPSTLogo {
  position: absolute;
-   top: 10%;
-   left: 88%;
+ top: 10%;
+ left: 88%;
 }
 
 
 .DD {
  color: #840705;
-    position: absolute;
-    top: 32%;
-    left: 4%;
-    font: normal normal bold 16px/1 "Times New Roman", Times, serif;
-    font-size: 20px;
+ position: absolute;
+ top: 32%;
+ left: 4%;
+ font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+ font-size: 20px;
 }
 
 .RD {
  color: #840705;
-    position: absolute;
-    top: 32%;
-    left: 55%;
-    font: normal normal bold 16px/1 "Times New Roman", Times, serif;
-    font-size: 20px;
+ position: absolute;
+ top: 32%;
+ left: 55%;
+ font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+ font-size: 20px;
 }
 .DDLogo {
 
-   position: absolute;
-   top: 31%;
-   left: 21%;
-  
+ position: absolute;
+ top: 31%;
+ left: 21%;
+ 
 }
 
 .RDLogo {
  position: absolute;
-   top: 31%;
-   left: 68%;
+ top: 31%;
+ left: 68%;
 }
 .AD {
  color: #840705;
-    position: absolute;
-    top: 50%;
-    left: 4%;
-    font: normal normal bold 16px/1 "Times New Roman", Times, serif;
-    font-size: 20px;
+ position: absolute;
+ top: 50%;
+ left: 4%;
+ font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+ font-size: 20px;
 }
 
 .CH {
  color: #840705;
-    position: absolute;
-    top: 50%;
-    left: 35%;
-    font: normal normal bold 16px/1 "Times New Roman", Times, serif;
-    font-size: 20px;
+ position: absolute;
+ top: 50%;
+ left: 35%;
+ font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+ font-size: 20px;
 }
 
 .IN {
  color: #840705;
-    position: absolute;
-    top: 50%;
-    left: 70%;
-    font: normal normal bold 16px/1 "Times New Roman", Times, serif;
-    font-size: 20px;
+ position: absolute;
+ top: 50%;
+ left: 70%;
+ font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+ font-size: 20px;
 }
 
 .Class {
  color: #840705;
-    position: absolute;
-    top: 80%;
-    left: 4%;
-    font: normal normal bold 16px/1 "Times New Roman", Times, serif;
-    font-size: 20px;
+ position: absolute;
+ top: 80%;
+ left: 4%;
+ font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+ font-size: 20px;
 }
 .textox1 {
-   width: 200px;
-   height: 25px;
-   position: absolute;
-   top: 14.5%;
-   left: 11%;
-   border-radius: 5px;
-   font-size: 12px;
-   font: normal 16px/1 "Times New Roman", Times, serif;
-   background-color: #FFFFFF;
-   color: green;
-  }
+ width: 200px;
+ height: 25px;
+ position: absolute;
+ top: 14.5%;
+ left: 11%;
+ border-radius: 5px;
+ font-size: 12px;
+ font: normal 16px/1 "Times New Roman", Times, serif;
+ background-color: #FFFFFF;
+ color: green;
+}
 .textox1:hover  {
-   border: 2px solid green;
-  }
+ border: 2px solid green;
+}
 .textox1:focus  {
-   border: solid 2px green;
-   box-shadow: inset 0px 1px 2px 0px black;
-  }
+ border: solid 2px green;
+ box-shadow: inset 0px 1px 2px 0px black;
+}
 .textox1:active  {
-   border: solid 2px green;
-  }
+ border: solid 2px green;
+}
 .textox2 {
-   width: 200px;
-   height: 25px;
-   position: absolute;
-   top: 14.5%;
-   left: 64%;
-   border-radius: 5px;
-   font-size: 12px;
-   font: normal 16px/1 "Times New Roman", Times, serif;
-   background-color: #FFFFFF;
-   color: green;
-  }
+ width: 200px;
+ height: 25px;
+ position: absolute;
+ top: 14.5%;
+ left: 64%;
+ border-radius: 5px;
+ font-size: 12px;
+ font: normal 16px/1 "Times New Roman", Times, serif;
+ background-color: #FFFFFF;
+ color: green;
+}
 .textox2:hover  {
-   border: 2px solid green;
-  }
+ border: 2px solid green;
+}
 .textox2:focus  {
-   border: solid 2px green;
-   box-shadow: inset 0px 1px 2px 0px black;
-  }
+ border: solid 2px green;
+ box-shadow: inset 0px 1px 2px 0px black;
+}
 .textox2:active  {
-   border: solid 2px green;
-  }
+ border: solid 2px green;
+}
 
 
 .class1{
   position: absolute;
-   top: 79%;
-   left: 10%;
-   font: normal 16px/1 "Times New Roman", Times, serif;
-   color:green;
+  top: 79%;
+  left: 10%;
+  font: normal 16px/1 "Times New Roman", Times, serif;
+  color:green;
 }
 .AD1{
   position: absolute;
-   top: 60%;
-   left: 6.5%;
-   font: normal 16px/1 "Times New Roman", Times, serif;
-   color:green;
+  top: 60%;
+  left: 6.5%;
+  font: normal 16px/1 "Times New Roman", Times, serif;
+  color:green;
 }
 .CH1{
   position: absolute;
-   top: 60%;
-   left: 38%;
-    font: normal 16px/1 "Times New Roman", Times, serif;
-   color:green;
+  top: 60%;
+  left: 38%;
+  font: normal 16px/1 "Times New Roman", Times, serif;
+  color:green;
 }
 .IN1{
   position: absolute;
-   top: 60%;
-   left: 75%;
-    font: normal 16px/1 "Times New Roman", Times, serif;
-   color:green;
+  top: 60%;
+  left: 75%;
+  font: normal 16px/1 "Times New Roman", Times, serif;
+  color:green;
 }
 
 input[type="radio"] {
-    display:none;
+  display:none;
 }
 input[type="radio"] + label {
-    color: black;
-    font-family:Arial, sans-serif;
-    font-size:14px;
-     font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+  color: black;
+  font-family:Arial, sans-serif;
+  font-size:14px;
+  font: normal normal bold 16px/1 "Times New Roman", Times, serif;
 }
 input[type="radio"] + label span {
-    display:inline-block;
-    width:10px;
-    height:10px;
-    margin:-1px 4px 0 0;
-    vertical-align:middle;
-    cursor:pointer;
-    -moz-border-radius:  50%;
-    border-radius:  50%;
-   
+  display:inline-block;
+  width:10px;
+  height:10px;
+  margin:-1px 4px 0 0;
+  vertical-align:middle;
+  cursor:pointer;
+  -moz-border-radius:  50%;
+  border-radius:  50%;
+  
 
 }
 
 input[type="radio"] + label span {
-     background-color:black;
+ background-color:black;
 }
 
 input[type="radio"]:checked + label span{
-     background-color:green;     
+ background-color:green;     
 }
 input[type="radio"]:checked + label {
-color:green;
-  }
+  color:green;
+}
 
 
 .RT {
-   position: absolute;
-   top: 2%;
-   left: 4%;
+ position: absolute;
+ top: 2%;
+ left: 4%;
 }
 
 .OW {
-   position: absolute;
-   top: 2%;
-   left: 18%;
+ position: absolute;
+ top: 2%;
+ left: 18%;
 }
 
 .DDate{
   position: absolute;
-   top: 32%;
-   left: 26%;
-   
+  top: 32%;
+  left: 26%;
+  
 }
 
 
 .RDate{
   position: absolute;
-   top: 32%;
-   left: 73%;
+  top: 32%;
+  left: 73%;
 }
 
 .datepicker{
-border-radius: 5px;
-   font-size: 12px;
-   font: normal 16px/1 "Times New Roman", Times, serif;
-   background-color: #FFFFFF;
-   color: green;
+  border-radius: 5px;
+  font-size: 12px;
+  font: normal 16px/1 "Times New Roman", Times, serif;
+  background-color: #FFFFFF;
+  color: green;
 }
 .datepicker:hover  {
-   border: 2px solid green;
-  }
+ border: 2px solid green;
+}
 .datepicker:focus  {
-   border: solid 2px green;
-   box-shadow: inset 0px 1px 2px 0px black;
-  }
+ border: solid 2px green;
+ box-shadow: inset 0px 1px 2px 0px black;
+}
 .datepicker:active  {
-   border: solid 2px green;
-  }
+ border: solid 2px green;
+}
 
-  .css_button {
-    position: absolute;
-   top: 80%;
-   left: 73%;
-    font: normal normal bold 16px/1 "Times New Roman", Times, serif;
-    text-decoration: inherit;
-    -webkit-border-radius: 8px 8px 8px 8px;
-    -moz-border-radius: 8px 8px 8px 8px;
-    border-radius: 8px 8px 8px 8px;
-    border: 1px solid #72bb53;
-    padding: 9px 18px;
-    text-shadow: 1px 1px 0px #5E5E5E;
-    -webkit-box-shadow: inset 1px 1px 0px 0px #72bb53;
-    -moz-box-shadow: inset 1px 1px 0px 0px #72bb53;
-    box-shadow: inset 1px 1px 0px 0px #72bb53;
-    cursor: pointer;
-    color: #FFFFFF;
-    display: inline-block;
-    background-color: #72bb53;
+.css_button {
+  position: absolute;
+  top: 80%;
+  left: 73%;
+  font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+  text-decoration: inherit;
+  -webkit-border-radius: 8px 8px 8px 8px;
+  -moz-border-radius: 8px 8px 8px 8px;
+  border-radius: 8px 8px 8px 8px;
+  border: 1px solid #72bb53;
+  padding: 9px 18px;
+  text-shadow: 1px 1px 0px #5E5E5E;
+  -webkit-box-shadow: inset 1px 1px 0px 0px #72bb53;
+  -moz-box-shadow: inset 1px 1px 0px 0px #72bb53;
+  box-shadow: inset 1px 1px 0px 0px #72bb53;
+  cursor: pointer;
+  color: #FFFFFF;
+  display: inline-block;
+  background-color: #72bb53;
 }
 
 .css_button:hover {
-    background-color: #840705;
-    border: 1px solid #840705;
-     box-shadow: inset 1px 1px 0px 0px #840705;
+  background-color: #840705;
+  border: 1px solid #840705;
+  box-shadow: inset 1px 1px 0px 0px #840705;
+  font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+  color: #FFFFFF;
 }
 
