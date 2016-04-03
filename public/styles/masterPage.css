@@ -1,30 +1,39 @@
+body {
+   background: url(background.jpg);
+   background-size: 100% 100%;
+   background-repeat: no-repeat;
+}
+
 #promotionArea {
    height: 400px;
    display: table;
    margin: 0 auto;
 }
 
-#promotionArea #previous {
-   position: relative;
-   float: left;
-   margin-top: 113px;
-   margin-right: 50px;
+#previous {
+   position: absolute;
+   left:170px;
+   bottom:185px;
    cursor: pointer;
    cursor: hand;
 }
 
 .slider {
+   position: relative;
    width: 1000px;
    height: 400px;
    overflow: hidden;
    float: left;
+   border: solid;
+   border-color: silver;
+   border-width: 5px;
+   z-index: -1;
 }
 
-#promotionArea #next {
-   position: relative;
-   float: left;
-   margin-top: 113px;
-   margin-left: 50px;
+#next {
+   position: absolute;
+   right:170px;
+   bottom:185px;
    cursor: pointer;
    cursor: hand;
 }
@@ -35,12 +44,14 @@
    height: 400px;
    position: relative;
    padding: 0;
+   z-index: -1;
 }
 
 .slider ul li {
    width: 1000px;
    height: 400px;
    float: left;
+   z-index: -1;
 }
 
 .slider ul li img{
