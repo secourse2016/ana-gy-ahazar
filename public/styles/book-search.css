@@ -262,14 +262,14 @@ color:green;
 
 .RT {
    position: absolute;
-   top: -275%;
-   left: -1700%;
+   top: 2%;
+   left: 4%;
 }
 
 .OW {
    position: absolute;
-   top: -275%;
-   left: -1300%;
+   top: 2%;
+   left: 18%;
 }
 
 .DDate{
@@ -331,7 +331,3 @@ border-radius: 5px;
      box-shadow: inset 1px 1px 0px 0px #840705;
 }
 
-.css_button:active {
-    position:relative;
-    top: 1px;
-}

@@ -1,11 +1,7 @@
 <div class="content">
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-     <script type="text/javascript" src="book-search.js"></script>
-	<link rel="stylesheet" href="book-search.css">
-	
+	<script type="text/javascript" src="book-search.js"></script>
 
+	<link rel="stylesheet" href="book-search.css">
 	<div class="top_block block_1">
 		<div class="From">From</div>
 		<div class="To">To</div>
@@ -26,17 +22,18 @@
 		<input type="text" class="datepicker" id="datepicker2"/>
 		</div>
 		<label class="RDLogo">
-			<img src="../assets/incoming2.png">
-			<div class= "RT">
+			<img src="../assets/incoming2.png" id="RDlogo">
+			
+		</label>
+		<div class= "RT">
 				<input class="radio" type="radio" id="radio01" name="radio" checked="checked" />
 				<label for="radio01"><span></span>Round Trip</label>
 			</div>
 
 			<div class= "OW">
-				<input class="radio" type="radio" id="radio02" name="radio" value="2" />
+				<input class="radio2" type="radio" id="radio02" name="radio" value="2" />
 				<label for="radio02"><span></span>One Way</label>
 			</div>
-		</label>
 		<div class="RD">Return Date</div>
 		<div class="AD">Adult(s) +11 years</div>
 		<div class="CH">Child(ren) 2-11 years</div>
@@ -94,6 +91,5 @@
 	</div>
 	<input type="text" placeholder="country" class="textox1">
 	<input type="text" placeholder="country" class="textox2">
-	<button class="css_button" id="Search">Search</button>
 	
-</div>
+	<a href="book-outgoing" class="css_button" id="Search">Search</a>

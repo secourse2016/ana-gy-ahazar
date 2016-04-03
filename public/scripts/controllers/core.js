@@ -36,6 +36,11 @@ App.config(function($routeProvider, $locationProvider) {
    .when('/contact-us', {
       templateUrl: 'contactus.html',
       controller: 'contactusController'
+   })
+
+   .when('/book-outgoing', {
+      templateUrl: 'book-outgoing.html',
+      controller: 'bookOutGoingController'
    });
 
    $locationProvider.html5Mode(true);
