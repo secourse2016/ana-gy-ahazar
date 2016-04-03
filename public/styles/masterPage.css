@@ -10,21 +10,20 @@ body {
 
 #logo img {
    position: absolute;
-   top: 50px;
+   top: -120px;
    right: 50px;
 }
 
 #promotionArea {
-   height: 400px;
    display: table;
    margin: 0 auto;
-   padding-top: 215px;
+   margin-top: 175px;
 }
 
 #left {
    position: absolute;
    left:170px;
-   bottom:185px;
+   bottom:225px;
    cursor: pointer;
    cursor: hand;
 }
@@ -44,7 +43,7 @@ body {
 #right {
    position: absolute;
    right:170px;
-   bottom:185px;
+   bottom:225px;
    cursor: pointer;
    cursor: hand;
 }
