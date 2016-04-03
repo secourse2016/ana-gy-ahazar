@@ -56,14 +56,14 @@
 
 	<div class="flight-details">
 		<label id="flight">
-			<label class="flightTime" id="dep1"> 12:30 CAI (Cairo) </label>
+			<label class="flightTime" id="dep1"> {{ depTime }} </label>
 
 			<label id="depLogo">
 				<img src="../assets/outgoing.png">
 			</label>
 
 			<label class="durationLabel">
-				<label id="duration">3 hours</label>
+				<label id="duration">{{ duration }}</label>
 				<label id="clock"> <img src=../assets/clock.png> </label>
 			</label>
 
@@ -71,19 +71,19 @@
 				<img src="../assets/incoming.png">
 			</label>
 
-			<label class="flightTime" id="arr1"> 15:30 JED (Jeddah) </label><br>
+			<label class="flightTime" id="arr1"> {{ arrTime }} </label><br>
 			<div class="logos">
 				<label id="wifi"> <img src="../assets/wifi2.png"> </label>
 				<label id="mobile"> <img src="../assets/mobile.png"> </label>
 				<label id="powerport"> <img src="../assets/power.png"> </label>
 				<label id="screen"> <img src="../assets/screen.png"> </label>
 				<label id="radio"> <img src="../assets/radio.png"> </label>
-				<label id="planeModel">Airbus A319</label>
+				<label id="planeModel"> {{ planeModel }} </label>
 			</div>
 		</label>
-		<label>
+			<label>
 			<ul class="nav nav-tabs classesTabs" id="classesTabs">
-			  <li class="activated"><a id="class1" href="#">Economy</a></li>
+			  <li class="active"><a id="class1" href="#">Economy</a></li>
 			  <li><a  id="class2" href="#">Business</a></li>
 			  <li><a id="class3" href="#">First Class</a></li>
 			</ul>
@@ -91,14 +91,14 @@
 
 				<input id="ticketRadio" type="radio" name="ticket"><br>
 
-				<label id="ticketPrice">3,800 EGP</label><br> 
+				<label id="ticketPrice">{{ ecTicketPrice }}</label><br> 
 
 				<label id="chairLogo"> <img src="../assets/chair.png"></label>
-				<label id="chairCount">5</label>
+				<label id="chairCount">{{ ecSeats }}</label>
 			</label>
 		</label>
 
 	</div>
 	<br>
-	<a href="" class="btn btn-primary" id="nextBtn">Next</a>
+	<a href="/book/personalInformation"><button class="btn btn-primary" id="nextBtn">Next</button></a>
 </div>

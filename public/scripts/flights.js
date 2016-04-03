@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 	$('.classesTabs a').on('click', function()  {
     $(this).parent('li').addClass('active').siblings().removeClass('active');
-
+    
     var elID = this.id;
     
     if(elID == 'class1'){

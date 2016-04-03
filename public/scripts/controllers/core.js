@@ -14,7 +14,7 @@ App.config(function($routeProvider, $locationProvider) {
    })
 
    .when('/book/outgoing', {
-      templateUrl: 'book-search.html',
+      templateUrl: 'book-outgoing.html',
       controller: 'bookController-outgoing'
    })
 
