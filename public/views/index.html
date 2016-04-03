@@ -21,6 +21,7 @@
    <script type="text/javascript" src="core.js"></script>
    <script type="text/javascript" src="searchController.js"></script>
    <script type="text/javascript" src="manageController.js"></script>
+   <script type="text/javascript" src="manageController-ticketinfo.js"></script>
    <script type="text/javascript" src="checkinController.js"></script>
    <script type="text/javascript" src="offersController.js"></script>
    <script type="text/javascript" src="aboutusController.js"></script>
@@ -65,7 +66,7 @@
 
       <center>
          <div class="tab-content">
-            <div id="{{ tabName }}" class="tab{{ isActive }} jumbotron text-left" ng-view></div>
+            <div id="{{ tabName }}" class="{{ tabPart }} jumbotron text-left" ng-view></div>
          </div>
       </center>
    </div>
