@@ -103,12 +103,6 @@ body {
    text-align:center;
 }
 
-.tab-links:after {
-   display:block;
-   clear:both;
-   content:'';
-}
-
 .tab-links li {
    margin:0px 1px;
    float:left;
@@ -121,15 +115,17 @@ body {
    height: 40px;
    display:inline-block;
    border-radius:3px 3px 0px 0px;
-   background:#72bb53;
+   background:#4CAF50;
+   background: solid;
    font-size:16px;
    font-weight:600;
+   font-family: 'Molengo', Georgia, Times, serif;
    color:white;
    transition: all linear 0.12s;
 }
 
 .tab-links a:hover {
-   background:#ff3823;
+   background:#b70f0a;
    text-decoration:none;
 }
 
@@ -145,8 +141,8 @@ li.active a, li.active a:hover {
    border-radius: 0px 0px 5px 5px;
    border-style: solid;
    border-color: #840705;
-   width: 860px;
-   margin-left: 40px;
+   width: 995px;
+   margin-left: 39px;
    text-align: center;
    overflow: hidden;
 }
