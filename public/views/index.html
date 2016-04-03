@@ -7,6 +7,8 @@
    <title>Air Madagascar</title>
 
    <link rel="stylesheet" href="bootstrap.min.css">
+   <link rel='stylesheet' href='Lekton.css'>
+   <link rel='stylesheet' href='Molengo.css'>
    <link rel="stylesheet" href="masterPage.css">
    <script type="text/javascript" src="jquery-2.2.2.min.js"></script>
    <script type="text/javascript" src="angular.js"></script>
@@ -19,6 +21,7 @@
    <script type="text/javascript" src="core.js"></script>
    <script type="text/javascript" src="searchController.js"></script>
    <script type="text/javascript" src="manageController.js"></script>
+   <script type="text/javascript" src="manageController-ticketinfo.js"></script>
    <script type="text/javascript" src="checkinController.js"></script>
    <script type="text/javascript" src="offersController.js"></script>
    <script type="text/javascript" src="aboutusController.js"></script>
@@ -26,44 +29,44 @@
    <base href="/">
 </head>
 <body>
-   <center>
-      <div id="logo" class="">
-         <img src="logo.jpg" alt="Logo"/>
-      </div>
-   </center>
+   <div id="logo">
+      <img src="logo.png" alt="Logo"/>
+   </div>
 
-   <hr>
-
-  <center>
-    <div id="promotionArea">
-      <a><img id="previous" src="../assets/LeftArrow.png" alt="previous" /></a>
+   <div id="promotionArea">
       <div class="slider">
-        <ul>
-          <li><img id="1" src="../assets/MADA_jungle.jpg" border="0" alt="See more monkeys" /></li>
-          <li><img id="2" src="../assets/MADA_airplane.jpg" border="0" alt="tryout out new AirBbus a310" /></li>
-          <li><img id="3" src="../assets/logo.jpg" border="0" alt="tryout out new AirBbus a310" /></li>
-        </ul>
+         <ul>
+            <li><img id="1" src="../assets/MADA_jungle.jpg" border="0" alt="See more monkeys" /></li>
+            <li><img id="2" src="../assets/MADA_airplane.jpg" border="0" alt="tryout out new AirBbus a310" /></li>
+         </ul>
       </div>
-      <a><img id="next" src="../assets/RightArrow.png" alt="next" /></a>
-    </div>
-  </center>
-   <hr>
+      <div class="arrow">
+         <div id="left">
+            <span class="label label-default sp l">&nbsp;</span>
+            <a><img id="previous" src="../assets/LeftArrow.png" alt="previous" /></a>
+         </div>
+         <div id="right">
+            <span class="label label-default sp r">&nbsp;</span>
+            <a><img id="next" src="../assets/RightArrow.png" alt="next" /></a>
+         </div>
+      </div>
+   </div>
+
+   <br><br>
 
    <div class="tabs">
-      <center>
          <ul class="tab-links">
-            <li class="active"><a href="book">Book</a></li>
-            <li><a href="manage">Manage</a></li>
-            <li><a href="check-in">Check-in</a></li>
+            <li class="active"><a href="book">Book A Flight</a></li>
+            <li><a href="manage">Manage Your Flight</a></li>
+            <li><a href="check-in">Check-in Online</a></li>
             <li><a href="offers">Offers</a></li>
             <li><a href="about-us">About Us</a></li>
             <li><a href="contact-us">Contact Us</a></li>
          </ul>
-      </center>
 
       <center>
          <div class="tab-content">
-            <div id="{{ tabName }}" class="tab{{ isActive }} jumbotron text-left" ng-view></div>
+            <div id="{{ tabName }}" class="{{ tabPart }} jumbotron text-left" ng-view></div>
          </div>
       </center>
    </div>
