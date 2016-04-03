@@ -1,6 +1,6 @@
 App.controller('manageController-ticketinfo', function($scope) {
    $scope.tabName = 'manage-ticketinfo';
-   $scope.isActive = ' active';
+   $scope.tabPart = 'tab-part-next active';
 
    setTimeout(function() {
       setHeight('manage-ticketinfo');
