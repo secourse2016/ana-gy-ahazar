@@ -6,16 +6,15 @@ $(document).ready(function () {
   });
 
     $("[id=radio02]").click(function(){
-    	$('.RDate').hide();
-    	$('.RDLogo').hide();
-    	$('.RD').hide();
+    	$('.RDate').hide(300);
+    	$('.RDLogo').hide(300);
+    	$('.RD').hide(300);
 
     });
     $("[id=radio01]").click(function(){
-    	$('.RDate').show();
-    	$('.RDLogo').show();
-    	$('.RD').show();
-
+        $('.RDate').show(300);
+    	$('.RDLogo').show(300);
+    	$('.RD').show(300);
     });
 
 
