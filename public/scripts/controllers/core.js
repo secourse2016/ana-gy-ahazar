@@ -13,6 +13,16 @@ App.config(function($routeProvider, $locationProvider) {
       controller: 'searchController'
    })
 
+   .when('/book/outgoing', {
+      templateUrl: 'book-search.html',
+      controller: 'bookController-outgoing'
+   })
+
+   .when('/book/incoming', {
+      templateUrl: 'book-incoming.html',
+      controller: 'bookController-incoming'
+   })
+
    .when('/manage', {
       templateUrl: 'manage-ticketsearch.html',
       controller: 'manageController'
@@ -36,16 +46,6 @@ App.config(function($routeProvider, $locationProvider) {
    .when('/contact-us', {
       templateUrl: 'contactus.html',
       controller: 'contactusController'
-   })
-
-   .when('/book-outgoing', {
-      templateUrl: 'book-search.html',
-      controller: 'outgoingController'
-   })
-
-   .when('/book-incoming', {
-      templateUrl: 'book-incoming.html',
-      controller: 'incomingController'
    });
 
    $locationProvider.html5Mode(true);

@@ -4,8 +4,8 @@ $(document).ready(function () {
 		$(this).addClass('activated');
 	});
 
-	$('.classesTabs a').on('click', function(e)  {
-    $(this).parent('li').addClass('activated').siblings().removeClass('activated');
+	$('.classesTabs a').on('click', function()  {
+    $(this).parent('li').addClass('active').siblings().removeClass('active');
 
     var elID = this.id;
     

@@ -110,6 +110,7 @@
 	color: #840705;
 }
 
+
 .classesTabs {
 	width: 300px;
 	/*float: inline-end;*/
@@ -133,7 +134,7 @@
 }*/
 
 
-li.activated a {
+.classesTabs li.active a {
    	background: #72bb53;
 	color: black;
 
@@ -177,7 +178,7 @@ li.activated a {
 	background: #72bb53;
 	border-color: #72bb53;
 	position: relative;
-	top: 70px;
+	top: 40px;
 	/*left: 200px;*/
 
 }
