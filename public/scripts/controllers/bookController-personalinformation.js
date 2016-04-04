@@ -1,4 +1,4 @@
-App.controller('bookController-personalinformation', function($scope) {
+App.controller('bookController-personalinformation', function($scope, $http) {
 	$scope.tabName = 'book-personalinformation';
 	$scope.tabPart = 'tab-part-next active';
 
@@ -6,4 +6,7 @@ App.controller('bookController-personalinformation', function($scope) {
 		setHeight('book-personalinformation');
 	},0);
 	
+	$http.get('/api/countries').success(function (res){
+		$scope.countries = res;
+	});	
 })
