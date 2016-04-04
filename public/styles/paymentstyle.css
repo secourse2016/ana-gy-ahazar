@@ -1,0 +1,87 @@
+#name ,#namesecond,#se{
+  font-weight: bold;
+  color: #840705;
+	font-size:20px;
+
+}
+#selectPaymentMethod,#billingCountrySelect{
+	font-weight: normal;
+	color: #840705;
+	font-size:20px;
+  position: relative;
+ height: 35px;
+  width: 180px;
+  vertical-align: left;
+}
+#cardholderLabel,#paymentMethodLabel,#cardNumberLabel,#cvsLabel,#expireDateLabel,#billingCountryLabel,#billingCityLabel,#billingStateLabel,#zipCodeLabel,#AddressLabel,#pricePayLabel,#promotionCodeLabel{
+	font-weight: bold;
+  color: #840705;
+	font-size:18px;
+	position: relative;
+
+  text-align: left;
+  vertical-align: left;
+}
+#nextButton,#enterButton{
+  box-shadow: none;
+  background-color: #73c45d;
+  color: white;
+  font-weight: normal;;
+  height: 38px;
+  font-size:18px;
+  text-align: center;
+  vertical-align: middle;
+  top: 50%;
+  left: 50%;
+
+
+}
+#calender_img, #profile_img{
+  width: 15px;
+  height: 17px;
+}
+#tr{
+	font-weight: normal;
+	color: black;
+	font-size:20px;
+	width: 10px;
+	position: relative;;
+}
+
+#cardholderSpan,#cardholderInputField,#cardNumberTextField,#cardNumberSpan,#cvsSpan,#cvsTextField,#lol,#datepicker,#billingCityTextField,#billingStatetextField,#zipCodeTextField,#addressTextField,#pricePayAmount,#promotionCodeSpan,#promotionCodeInputText{
+
+    font-weight: normal;
+
+    color: black;
+    font-size:18px;
+    border:1px solid ;
+		border-color: #840705;
+    position: relative;
+
+
+
+}
+
+#ppimg {
+
+		position: relative;;
+    float: left;
+    height: 23px;
+    width: 19px;
+    border: 1px solid #add;
+    border-left: none;
+
+}
+.circle
+{
+	background: radial-gradient( 5px -9px, circle, white 8%, red 26px );
+    background-color: red;
+    border: 2px solid white;
+    border-radius: 12px; /* one half of ( (border * 2) + height + padding ) */
+    box-shadow: 1px 1px 1px black;
+    color: white;
+    font: bold 15px/13px Helvetica, Verdana, Tahoma;
+    height: 16px;
+    min-width: 14px;
+    padding: 4px 3px 0 3px;
+    text-align: center;}
