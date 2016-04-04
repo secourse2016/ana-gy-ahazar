@@ -1,8 +1,15 @@
-<div >
-	<script type="text/javascript" src="book-personalinformation.js"></script>
-	<link rel="stylesheet" type="text/css" href="../styles/personal-info.css">
-	<div class= "personal-information">
-		<h2>Personal Information: </h2>
+<div>
+<script type="text/javascript" src="book-personalinformation.js"></script>
+<link rel="stylesheet" type="text/css" href="personal-info.css">
+
+<div class="panel panel-default">
+	<div class="panel-heading"  >
+		<h3 class="panel-title  personal-information">Personnal Information </h3>
+	</div>
+	<div class="panel-body" >
+
+
+
 		<div class="row">
 			<div class="col-xs-1">
 				<p>Title:</p>
@@ -23,7 +30,7 @@
 				<input id="first-name" placeholder="ex: John"></input>
 			</div>
 			<div class="col-xs-1">
-				
+
 			</div>
 			<div class="col-xs-2">
 				<p>Last name:</p>
@@ -31,9 +38,9 @@
 			<div class="col-xs-2">
 				<input id="last-name" placeholder="ex: Mayer"></input>
 			</div>
-			
+
 		</div>
-		
+
 		<div class="row">
 			<div class="col-xs-2">
 				<p>Nationality:</p>
@@ -42,61 +49,71 @@
 				<input id="nationality" placeholder="ex: Egyptian"></input>
 			</div>
 			<div class="col-xs-2">
-			
+
 			</div>
 			<div class="col-xs-3">
 				<p>Date of birth:</p>
 			</div>
 			<div class="col-xs-1">
 				<input type="text" class="datepicker" id="date-of-birth"/>
-				</select>
 			</div>
-			
-			
+
 		</div>
-		<hr style="height:3px;border:none;color:#840705;background-color:#840705;" />
 	</div>
-	<div class="special-requirements">
-		<h2>Special requirements: </h2>
+
+</div>
+
+
+
+<div class="panel panel-default">
+	<div class="panel-heading"  >
+		<h3 class="panel-title  special-requirements">Special requirements </h3>
+	</div>
+	<div class="panel-body" >
+
 		<div class="row">
 			<div class="col-xs-3">
-			<p style="font-size:19px">Meal preference:</p> 
+				<p >Meal preference:</p> 
 			</div>
 			<div class="col-xs-3">
 				<select id="meal-preference">	
-				<option>None</option>
-				<option>Asian vegetarian meal</option>
-				<option>Baby food</option>
-				<option>Bland meal</option>
-				<option>Child food</option>
-				<option>Diabetic meal</option>
-				<option>Gelatin free meal</option>
-				<option>Low calorie meal</option>
-				<option>Low fat meal</option>
-				<option>Salt free meal</option>
-				<option>Lacto-ovo vegetarian meal</option>
+					<option>None</option>
+					<option>Asian vegetarian meal</option>
+					<option>Baby food</option>
+					<option>Bland meal</option>
+					<option>Child food</option>
+					<option>Diabetic meal</option>
+					<option>Gelatin free meal</option>
+					<option>Low calorie meal</option>
+					<option>Low fat meal</option>
+					<option>Salt free meal</option>
+					<option>Lacto-ovo vegetarian meal</option>
 				</select>
 			</div>
-			
+
 			<div class="col-xs-2">
-				<p style="font-size:17px">Special needs:</p> 
+				<p >Special needs:</p> 
 			</div>
 			<div class="col-xs-3">
 				<select id="special-needs">
-				<option>None</option>	
-				<option>Deaf passenger</option>
-				<option>Wheelchair for cabin seat</option>
-				<option>Wheelchair for ramp</option>
-				<option>Wheelchair for steps</option>
-				<option>Wheelchair dry cell battery</option>
-				<option>Wheelchair wet cell battery</option>
+					<option>None</option>	
+					<option>Deaf passenger</option>
+					<option>Wheelchair for cabin seat</option>
+					<option>Wheelchair for ramp</option>
+					<option>Wheelchair for steps</option>
+					<option>Wheelchair dry cell battery</option>
+					<option>Wheelchair wet cell battery</option>
 				</select>
 			</div>
 		</div>
 	</div>
-	<hr style="height:3px;border:none;color:#840705;background-color:#840705;" />
-	<div class="passport-information">
-		<h2>Passport information: </h2>
+</div>
+<div class="panel panel-default">
+	<div class="panel-heading"  >
+		<h3 class="panel-title  Passport information">Passport information </h3>
+	</div>
+	<div class="panel-body" >
+
 		<div class="row">
 			<div class="col-xs-3">
 				<p>Passport number:</p>
@@ -121,13 +138,17 @@
 			<div class="col-xs-3">
 				<input type="text" class="datepicker-expire" id="expiration-date"/>
 
-				</select>
-			</div>
+			</select>
 		</div>
 	</div>
-	<hr style="height:3px;border:none;color:#840705;background-color:#840705;" />
-	<div class="contact-information">
-		<h2>Contact information: </h2>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-heading"  >
+		<h3 class="panel-title  Contact information">Contact information</h3>
+	</div>
+	<div class="panel-body" >
+
 		<div class="row">
 			<div class="col-xs-1">
 				<p>Email:</p>
@@ -138,7 +159,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-3">
+			<div class="col-xs-4">
 				<p>Mobile phone number:</p>
 			</div>
 			<div class="col-xs-1">
@@ -146,15 +167,21 @@
 					<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
 				</select>
 			</div>
-			
+
 			<div class="col-xs-2 col-xs-offset-4">
 				<input id="mobile-phone-number" placeholder="ex: 01042930919"></input>
 			</div>
 		</div>
 	</div>
-	<hr style="height:3px;border:none;color:#840705;background-color:#840705;" />
-	<div class="emergency-contact">
-		<h2>Emergency contact information: </h2>
+
+</div>	
+
+<div class="panel panel-default">
+	<div class="panel-heading"  >
+		<h3 class="panel-title  Emergency contact information">Emergency contact information</h3>
+	</div>
+	<div class="panel-body" >
+
 		<div class="row">
 			<div class="col-xs-1">
 				<p>Email:</p>
@@ -164,7 +191,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-3">
+			<div class="col-xs-4">
 				<p>Mobile phone number:</p>
 			</div>
 			<div class="col-xs-1">
@@ -176,7 +203,8 @@
 				<input id="emergency-mobile-phone-number" placeholder="ex: 0102930919"></input>
 			</div>
 		</div>
-		
-		<a href="book/payment"><button class="btn btn-success col-xs-offset-10 col-xs-1">Next</button></a>
+
+		<a href="book/confirmation"><button class="btn btn-success col-xs-offset-10 col-xs-1">Next</button></a>
 	</div>
+</div>
 </div>
