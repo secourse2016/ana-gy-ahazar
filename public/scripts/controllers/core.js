@@ -23,9 +23,19 @@ App.config(function($routeProvider, $locationProvider) {
       controller: 'bookController-incoming'
    })
 
+   .when('/book/personalinformation', {
+      templateUrl: 'book-personalinfo.html',
+      controller: 'bookController-personalinformation'
+   })
+
    .when('/manage', {
       templateUrl: 'manage-ticketsearch.html',
       controller: 'manageController'
+   })
+
+   .when('/manage/ticketinfo', {
+      templateUrl: 'manage-ticketinfo.html',
+      controller: 'manageController-ticketinfo'
    })
 
    .when('/check-in', {
