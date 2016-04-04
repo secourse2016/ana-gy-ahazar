@@ -1,79 +1,84 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="App">
 <head>
- <meta charset="utf-8">
- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
- <link rel="icon" href="favicon.ico" type="image/x-icon">
- <title>Air Madagascar</title>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <title>Air Madagascar</title>
 
- <link rel="stylesheet" href="bootstrap.min.css">
- <link rel="stylesheet" href="masterPage.css">
- <link rel='stylesheet' href='Lekton.css'>
- <link rel='stylesheet' href='Molengo.css'>
- <link rel="stylesheet" href="jquery-ui.css" />
- <script type="text/javascript" src="jquery-2.2.2.min.js"></script>
- <script type="text/javascript" src="jquery-ui.js"></script>
- <script type="text/javascript" src="angular.js"></script>
- <script type="text/javascript" src="angular-route.js"></script>
- <script type="text/javascript" src="angular-animate.js"></script>
- <script type="text/javascript" src="bootstrap.min.js"></script>
- <script type="text/javascript" src="ui-bootstrap-tpls.min.js"></script>
- <script type="text/javascript" src="ui-bootstrap.min.js"></script>
- <script type="text/javascript" src="masterPage.js"></script>
- <script type="text/javascript" src="core.js"></script>
- <script type="text/javascript" src="searchController.js"></script>
- <script type="text/javascript" src="bookController-personalinformation"></script>
- <script type="text/javascript" src="manageController.js"></script>
- <script type="text/javascript" src="manageController-ticketinfo.js"></script>
- <script type="text/javascript" src="checkinController.js"></script>
- <script type="text/javascript" src="offersController.js"></script>
- <script type="text/javascript" src="aboutusController.js"></script>
- <script type="text/javascript" src="contactusController.js"></script>
- <script type="text/javascript" src="bookController-payment.js"></script>
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="masterPage.css">
+  <link rel='stylesheet' href='Lekton.css'>
+  <link rel='stylesheet' href='Molengo.css'>
+  <link rel="stylesheet" href="jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" href="book-confirmation.css">
+  <script type="text/javascript" src="jquery-2.2.2.min.js"></script>
+  <script type="text/javascript" src="jquery-ui.js"></script>
+  <script type="text/javascript" src="angular.js"></script>
+  <script type="text/javascript" src="angular-route.js"></script>
+  <script type="text/javascript" src="angular-animate.js"></script>
+  <script type="text/javascript" src="bootstrap.min.js"></script>
+  <script type="text/javascript" src="ui-bootstrap-tpls.min.js"></script>
+  <script type="text/javascript" src="ui-bootstrap.min.js"></script>
+  <script type="text/javascript" src="masterPage.js"></script>
+  <script type="text/javascript" src="core.js"></script>
+  <script type="text/javascript" src="searchController.js"></script>
+  <script type="text/javascript" src="manageController.js"></script>
+  <script type="text/javascript" src="manageController-ticketinfo.js"></script>
+  <script type="text/javascript" src="checkinController.js"></script>
+  <script type="text/javascript" src="offersController.js"></script>
+  <script type="text/javascript" src="aboutusController.js"></script>
+  <script type="text/javascript" src="contactusController.js"></script>
+  <script type="text/javascript" src="bookController-outgoing.js"></script>
+  <script type="text/javascript" src="bookController-incoming.js"></script>
+  <script type="text/javascript" src="bookController-personalinformation.js"></script>
+  <script type="text/javascript" src="bookController-payment.js"></script>
+  <script type="text/javascript" src="bookController-confirmation.js"></script>
   <base href="/">
 </head>
 <body>
-   <div id="logo">
-      <img src="logo.png" alt="Logo"/>
-   </div>
+ <div id="logo">
+  <img src="logo.png" alt="Logo"/>
+</div>
 
-   <div id="promotionArea">
-      <div class="slider">
-         <ul>
-            <li><img id="1" src="../assets/MADA_jungle.jpg" border="0" alt="See more monkeys" /></li>
-            <li><img id="2" src="../assets/MADA_airplane.jpg" border="0" alt="tryout out new AirBbus a310" /></li>
-         </ul>
-      </div>
-      <div class="arrow">
-         <div id="left">
-            <span class="label label-default sp l">&nbsp;</span>
-            <a><img id="previous" src="../assets/LeftArrow.png" alt="previous" /></a>
-         </div>
-         <div id="right">
-            <span class="label label-default sp r">&nbsp;</span>
-            <a><img id="next" src="../assets/RightArrow.png" alt="next" /></a>
-         </div>
-      </div>
-   </div>
+<div id="promotionArea">
+  <div class="slider">
+   <ul>
+    <li><img id="1" src="../assets/MADA_jungle.jpg" border="0" alt="See more monkeys" /></li>
+    <li><img id="2" src="../assets/MADA_airplane.jpg" border="0" alt="tryout out new AirBbus a310" /></li>
+  </ul>
+</div>
+<div class="arrow">
+ <div id="left">
+  <span class="label label-default sp l">&nbsp;</span>
+  <a><img id="previous" src="../assets/LeftArrow.png" alt="previous" /></a>
+</div>
+<div id="right">
+  <span class="label label-default sp r">&nbsp;</span>
+  <a><img id="next" src="../assets/RightArrow.png" alt="next" /></a>
+</div>
+</div>
+</div>
 
-   <br><br>
+<br><br>
 
-   <div class="tabs">
-         <ul class="tab-links">
-            <li class="active"><a href="book">Book A Flight</a></li>
-            <li><a href="manage">Manage Your Flight</a></li>
-            <li><a href="check-in">Check-in Online</a></li>
-            <li><a href="offers">Offers</a></li>
-            <li><a href="about-us">About Us</a></li>
-            <li><a href="contact-us">Contact Us</a></li>
-         </ul>
 
-      <center>
-         <div class="tab-content">
-            <div id="{{ tabName }}" class="{{ tabPart }} jumbotron text-left" ng-view></div>
-         </div>
-      </center>
-   </div>
+<div class="tabs">
+  <ul class="tab-links">
+   <li class="active"><a href="book">Book A Flight</a></li>
+   <li><a href="manage">Manage Your Flight</a></li>
+   <li><a href="check-in">Check-in Online</a></li>
+   <li><a href="offers">Offers</a></li>
+   <li><a href="about-us">About Us</a></li>
+   <li><a href="contact-us">Contact Us</a></li>
+ </ul>
+
+ <center>
+   <div class="tab-content">
+    <div id="{{ tabName }}" class="{{ tabPart }} jumbotron text-left" ng-view></div>
+  </div>
+</center>
+</div>
 
 <br><br><br><br><br>
 
