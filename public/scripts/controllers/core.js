@@ -18,6 +18,16 @@ App.config(function($routeProvider, $locationProvider) {
       controller: 'bookController-confirmation'
    })
 
+   .when('/book/outgoing', {
+      templateUrl: 'book-outgoing.html',
+      controller: 'bookController-outgoing'
+   })
+
+   .when('/book/incoming', {
+      templateUrl: 'book-incoming.html',
+      controller: 'bookController-incoming'
+   })
+
    .when('/book/personalinformation', {
       templateUrl: 'book-personalinfo.html',
       controller: 'bookController-personalinformation'
