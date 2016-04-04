@@ -3,7 +3,7 @@ App.controller('bookController-confirmation', function($scope) {
 	$scope.tabPart = 'tab-part-next active';
 	$scope.name = "Mohammed";
 	$scope.dateOfBirth = "13/13/2013";
-	$scope.nationality = "Egyption" ;
+	$scope.nationality = "Egyptian" ;
 	$scope.passport = "1234";
 	$scope.from = "Miami" ;
 	$scope.destination = "Malibu" ;
