@@ -20,7 +20,7 @@
 			</div>
 
 			<div class="col-xs-2">
-				<input id="first-name"></input>
+				<input id="first-name" placeholder="ex: John"></input>
 			</div>
 			<div class="col-xs-1">
 				
@@ -29,7 +29,7 @@
 				<p>Last name:</p>
 			</div>
 			<div class="col-xs-2">
-				<input id="last-name"></input>
+				<input id="last-name" placeholder="ex: Mayer"></input>
 			</div>
 			
 		</div>
@@ -39,7 +39,7 @@
 				<p>Nationality:</p>
 			</div>
 			<div class="col-xs-2">
-				<input id="nationality"></input>
+				<input id="nationality" placeholder="ex: Egyptian"></input>
 			</div>
 			<div class="col-xs-2">
 			
@@ -102,7 +102,7 @@
 				<p>Passport number:</p>
 			</div>
 			<div class="col-xs-3">
-				<input class="passport-number"></input>
+				<input class="passport-number" placeholder="ex: 123456789"></input>
 			</div>
 
 		</div>
@@ -133,20 +133,22 @@
 				<p>Email:</p>
 			</div>
 			<div class="col-xs-4">
-				<input class="email"></input>
+				<input class="email"
+				placeholder="ex: example@example.com"></input>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-4">
+			<div class="col-xs-3">
 				<p>Mobile phone number:</p>
 			</div>
-			<div class="col-xs-2">
-				<select id="mob-country">
-					
+			<div class="col-xs-1">
+				<select id="mob-country" >
+					<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
 				</select>
 			</div>
-			<div class="col-xs-4">
-				<input id="mobile-phone-number"></input>
+			
+			<div class="col-xs-2 col-xs-offset-4">
+				<input id="mobile-phone-number" placeholder="ex: 01042930919"></input>
 			</div>
 		</div>
 	</div>
@@ -158,23 +160,23 @@
 				<p>Email:</p>
 			</div>
 			<div class="col-xs-4">
-				<input class="emergency-email"></input>
+				<input class="emergency-email" placeholder="ex: example@example.com"></input>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-4">
+			<div class="col-xs-3">
 				<p>Mobile phone number:</p>
 			</div>
-			<div class="col-xs-2">
+			<div class="col-xs-1">
 				<select id="emergency-mob-country">
-					
+					<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
 				</select>
 			</div>
-			<div class="col-xs-4">
-				<input id="emergency-mobile-phone-number"></input>
+			<div class="col-xs-2 col-xs-offset-4">
+				<input id="emergency-mobile-phone-number" placeholder="ex: 0102930919"></input>
 			</div>
 		</div>
 		
-		<a href="book/payement"><button class="button">   Next   </button></a>
+		<a href="book/payment"><button class="btn btn-success col-xs-offset-10 col-xs-1">Next</button></a>
 	</div>
 </div>

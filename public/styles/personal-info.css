@@ -7,17 +7,6 @@ p {
 	color: #840705;
 }
 
-.button {
-	background-color: #73c45d;
-	color: white;
-	text-align: center;
-	font-size: 18px;
-	 padding: 5px 30px;
-    cursor: pointer;
-    float: right;
-    border-radius: 6px;
-
-}
  .datepicker{
   border-radius: 5px;
   font-size: 12px;
