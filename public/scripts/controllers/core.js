@@ -9,8 +9,8 @@ App.config(function($routeProvider, $locationProvider) {
    })
 
    .when('/book', {
-     templateUrl: 'book-payment.html',
-     controller: 'bookController-payment'
+     templateUrl: 'book-search.html',
+     controller: 'searchController'
    })
    .when('/book/payment', {
      templateUrl: 'book-payment.html',

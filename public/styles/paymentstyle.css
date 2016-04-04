@@ -4,7 +4,7 @@
 	font-size:20px;
 
 }
-#select,#select1{
+#selectPaymentMethod,#billingCountrySelect{
 	font-weight: normal;
 	color: #840705;
 	font-size:20px;
@@ -13,7 +13,7 @@
   width: 180px;
   vertical-align: left;
 }
-#se1,#se2,#se3,#b1,#b2,#b3,#b4,#b5,#c1,#c2,#name,#namesecond{
+#cardholderLabel,#paymentMethodLabel,#cardNumberLabel,#cvsLabel,#expireDateLabel,#billingCountryLabel,#billingCityLabel,#billingStateLabel,#zipCodeLabel,#AddressLabel,#pricePayLabel,#promotionCodeLabel{
 	font-weight: bold;
   color: #840705;
 	font-size:18px;
@@ -22,7 +22,7 @@
   text-align: left;
   vertical-align: left;
 }
-#Enter,#Next{
+#nextButton,#enterButton{
   box-shadow: none;
   background-color: #73c45d;
   color: white;
@@ -48,7 +48,7 @@
 	position: relative;;
 }
 
-#na,#City,#State,#Zip,#Address,#CN,#CVS,#lol,#datepicker,#kol1,#kol2,#kol,#kol3,#kol4,#kol5,#kol6,#kol7,#kol8,#kol9{
+#cardholderSpan,#cardholderInputField,#cardNumberTextField,#cardNumberSpan,#cvsSpan,#cvsTextField,#lol,#datepicker,#billingCityTextField,#billingStatetextField,#zipCodeTextField,#addressTextField,#pricePayAmount,#promotionCodeSpan,#promotionCodeInputText{
 
     font-weight: normal;
 
