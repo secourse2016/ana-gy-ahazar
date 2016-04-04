@@ -18,4 +18,37 @@ p {
     border-radius: 6px;
 
 }
-
+ .datepicker{
+  border-radius: 5px;
+  font-size: 12px;
+  font: normal 16px/1 "Times New Roman", Times, serif;
+  background-color: #FFFFFF;
+  color: green;
+}
+.datepicker:hover  {
+ border: 2px solid green;
+}
+.datepicker:focus  {
+ border: solid 2px green;
+ box-shadow: inset 0px 1px 2px 0px black;
+}
+.datepicker:active  {
+ border: solid 2px green;
+}
+ .datepicker-expire{
+  border-radius: 5px;
+  font-size: 12px;
+  font: normal 16px/1 "Times New Roman", Times, serif;
+  background-color: #FFFFFF;
+  color: green;
+}
+.datepicker-expire:hover  {
+ border: 2px solid green;
+}
+.datepicker-expire:focus  {
+ border: solid 2px green;
+ box-shadow: inset 0px 1px 2px 0px black;
+}
+.datepicker-expire:active  {
+ border: solid 2px green;
+}
