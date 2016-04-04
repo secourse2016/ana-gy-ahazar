@@ -9,8 +9,8 @@ App.config(function($routeProvider, $locationProvider) {
    })
 
    .when('/book', {
-       templateUrl: 'book-confirmation.html',
-       controller: 'bookController-confirmation'
+       templateUrl: 'book-search.html',
+      controller: 'searchController'
    })
 
    .when('/book/confirmation', {
