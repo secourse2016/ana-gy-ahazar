@@ -118,11 +118,13 @@
    	text-align:center;
    	position: relative;
 	top: 20px;
+	left: 482px;
 }
 
 .classesTabs a {
    	background:white;
    	color:#840705;
+   	font-weight: 600;
    	border-color: #840705;
    	/*transition: all linear 0.12s;*/
 
@@ -134,10 +136,9 @@
 }*/
 
 
-.classesTabs li.active a {
+#classesTabs li.active a {
    	background: #72bb53;
 	color: black;
-
 }
 
 #ticket {
