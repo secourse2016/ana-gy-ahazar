@@ -168,7 +168,8 @@ a:hover, a:visited, a:link, a:active {
 }
 
 .tab-part-next.ng-leave {
-  animation: slideOutToRight 0.45s both ease;
+  /*animation: slideOutToRight 0.45s both ease;*/
+  animation: slideOutToLeft 0.45s both ease;
 }
 
 .tab.ng-enter {

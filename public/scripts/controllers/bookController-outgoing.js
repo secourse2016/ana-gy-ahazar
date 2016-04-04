@@ -4,12 +4,9 @@ App.controller('bookController-outgoing', function($scope) {
    $scope.selected = 'Economy'; //should be changed to what sherien's send
 
 
-   setTimeout(function() {
-      setHeight('book-outgoing');
-   }, 0);
 
    $scope.setSelected=function (name) {
-       $scope.selected = name;  
+       $scope.selected = name;
    }
 
 $scope.flights = [   {  "flightNumber": '1',
@@ -74,4 +71,7 @@ $scope.flights = [   {  "flightNumber": '1',
    // $scope.ecTicketPrice = '3,500 EGP';
    // $scope.ecSeats = '4';
 
+   setTimeout(function() {
+     setHeight('book-outgoing');
+   }, 0);
 });

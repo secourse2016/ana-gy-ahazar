@@ -28,7 +28,7 @@ App.config(function($routeProvider, $locationProvider) {
       controller: 'bookController-incoming'
    })
 
-   .when('/book/personalinformation', {
+   .when('/book/personalInformation', {
       templateUrl: 'book-personalinfo.html',
       controller: 'bookController-personalinformation'
    })
