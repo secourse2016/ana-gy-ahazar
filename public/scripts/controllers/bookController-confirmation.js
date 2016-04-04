@@ -18,5 +18,4 @@ App.controller('bookController-confirmation', function($scope) {
 	setTimeout(function() {
 		setHeight('book-confirmation');
 	},0);
-	
 });

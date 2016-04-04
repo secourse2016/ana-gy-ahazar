@@ -1,4 +1,4 @@
-App.controller('searchController', function($scope) {
+App.controller('searchController', function($scope, $http) {
    $scope.tabName = 'book';
    $scope.tabPart = 'tab active';
 

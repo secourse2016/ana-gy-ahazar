@@ -2,7 +2,7 @@
 <script type="text/javascript" src="flights.js"></script>
 <div class="flights">
 	<div class="flight-dates" role="presentation">
-		
+
 		<button class="date-arrow" text="Previous">
 			<img src="../assets/go_left.png">
 		</button>
@@ -60,7 +60,7 @@
 			  <li ng-class="{active:selected=='Business'}" ng-click="setSelected('Business')"><a  id="class2" href="">Business</a></li>
 			  <li ng-class="{active:selected=='First'}" ng-click="setSelected('First')"><a id="class3" href="">First Class</a></li>
 			</ul>
-	<div class="flightTicket" ng-repeat="flight in flights" ng-if="flight.class==selected">			
+	<div class="flightTicket" ng-repeat="flight in flights" ng-if="flight.class==selected">
 		<label id="flight">
 			<label class="flightTime" id="dep1"> {{ flight.depTime }} </label>
 
@@ -92,7 +92,7 @@
 
 				<input id="ticketRadio" type="radio" name="ticket" ng-disabled="flight.remaining_seats==0"><br>
 
-				<label id="ticketPrice">{{ flight.price }}</label><br> 
+				<label id="ticketPrice">{{ flight.price }}</label><br>
 
 				<label id="chairLogo"> <img src="../assets/chair.png"></label>
 				<label id="chairCount">{{ flight.remaining_seats }}</label>
