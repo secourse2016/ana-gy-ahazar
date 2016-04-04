@@ -3,12 +3,9 @@ App.controller('bookController-incoming', function($scope) {
    $scope.tabPart = 'tab-part-next active';
    $scope.selected = 'Economy'; //should be changed to what sherien's send
 
-   setTimeout(function() {
-      setHeight('book-incoming');
-   }, 0);
 
    $scope.setSelected=function (name) {
-       $scope.selected = name;  
+       $scope.selected = name;
    }
 
 $scope.flights = [   {  "flightNumber": '3',
@@ -73,4 +70,7 @@ $scope.flights = [   {  "flightNumber": '3',
    // $scope.ecTicketPrice = '3,500 EGP';
    // $scope.ecSeats = '8';
 
+   setTimeout(function() {
+     setHeight('book-incoming');
+   }, 0);
 });
