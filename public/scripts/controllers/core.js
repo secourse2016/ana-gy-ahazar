@@ -18,6 +18,11 @@ App.config(function($routeProvider, $locationProvider) {
       controller: 'manageController'
    })
 
+   .when('/manage/ticketinfo', {
+      templateUrl: 'manage-ticketinfo.html',
+      controller: 'manageController-ticketinfo'
+   })
+
    .when('/check-in', {
       templateUrl: 'checkin.html',
       controller: 'checkinController'
@@ -38,10 +43,11 @@ App.config(function($routeProvider, $locationProvider) {
       controller: 'contactusController'
    })
 
-   .when('/book-outgoing', {
-      templateUrl: 'book-outgoing.html',
-      controller: 'bookOutGoingController'
-   });
-
    $locationProvider.html5Mode(true);
 });
+
+setHeight = function(tab) {
+   var h = $('#' + tab).outerHeight();
+   $('.tab-content').animate({height:h+40},500);
+   console.log(('#' + tab) + " " + h);
+};

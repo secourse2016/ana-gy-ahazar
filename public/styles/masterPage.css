@@ -1,32 +1,75 @@
-#promotionArea {
-   height: 400px;
-   display: table;
-   margin: 0 auto;
+body {
+   background: url(background.jpg);
+   background-size: 100% 100%;
+   background-repeat: no-repeat;
 }
 
-#promotionArea #previous {
+#logo {
    position: relative;
-   float: left;
-   margin-top: 113px;
-   margin-right: 50px;
+}
+
+#logo img {
+   position: absolute;
+   top: -120px;
+   right: 50px;
+}
+
+#promotionArea {
+   position: relative;
+   display: table;
+   margin: 0 auto;
+   margin-top: 175px;
+}
+
+#left {
+   position: absolute;
+   left:2%;
+   bottom:36%;
    cursor: pointer;
    cursor: hand;
 }
 
 .slider {
+   position: relative;
    width: 1000px;
    height: 400px;
    overflow: hidden;
    float: left;
+   border: solid;
+   border-color: silver;
+   border-width: 5px;
+   z-index: -1;
 }
 
-#promotionArea #next {
-   position: relative;
-   float: left;
-   margin-top: 113px;
-   margin-left: 50px;
+#right {
+   position: absolute;
+   right:2%;
+   bottom:36%;
    cursor: pointer;
    cursor: hand;
+}
+
+.sp {
+   position: absolute;
+   width: 68px;
+   height: 115px;
+   border-radius: 5px 5px 5px 5px;
+   background-color: black;
+   opacity: 0.1;
+}
+
+.sp:hover {
+   opacity: 0.2;
+}
+
+.l {
+   bottom: -5px;
+   left: -5px;
+}
+
+.r {
+   bottom: -5px;
+   left: -9px;
 }
 
 .slider ul {
@@ -35,12 +78,14 @@
    height: 400px;
    position: relative;
    padding: 0;
+   z-index: -1;
 }
 
 .slider ul li {
    width: 1000px;
    height: 400px;
    float: left;
+   z-index: -1;
 }
 
 .slider ul li img{
@@ -57,12 +102,7 @@
    width:100%;
    display:inline-block;
    text-align:center;
-}
-
-.tab-links:after {
-   display:block;
-   clear:both;
-   content:'';
+   padding-right: 2.5%;
 }
 
 .tab-links li {
@@ -77,15 +117,17 @@
    height: 40px;
    display:inline-block;
    border-radius:3px 3px 0px 0px;
-   background:#72bb53;
+   background:#4CAF50;
+   background: solid;
    font-size:16px;
    font-weight:600;
+   font-family: 'Molengo', Georgia, Times, serif;
    color:white;
    transition: all linear 0.12s;
 }
 
 .tab-links a:hover {
-   background:#ff3823;
+   background:#b70f0a;
    text-decoration:none;
 }
 
@@ -101,15 +143,14 @@ li.active a, li.active a:hover {
    border-radius: 0px 0px 5px 5px;
    border-style: solid;
    border-color: #840705;
-   width: 860px;
-   margin-left: 40px;
+   width: 995px;
+   margin-left: 39px;
    text-align: center;
    overflow: hidden;
 }
 
 .tab {
    display:none;
-   width: 825px;
 }
 
 .tab.active {
@@ -119,6 +160,15 @@ li.active a, li.active a:hover {
 
 a:hover, a:visited, a:link, a:active {
    text-decoration: none;
+}
+
+.tab-part-next.ng-enter {
+  animation: slideInFromRight 0.45s both ease;
+  animation-delay: 0.45s;
+}
+
+.tab-part-next.ng-leave {
+  animation: slideOutToRight 0.45s both ease;
 }
 
 .tab.ng-enter {
@@ -143,7 +193,16 @@ a:hover, a:visited, a:link, a:active {
    to { transform: translateX(-110%); }
 }
 
+@keyframes slideOutToRight{
+   to { transform: translateX(110%); }
+}
+
 @keyframes slideInFromLeft{
    from { transform: translateX(-110%); }
+   to { transform: translateX(0%); }
+}
+
+@keyframes slideInFromRight{
+   from { transform: translateX(110%); }
    to { transform: translateX(0%); }
 }

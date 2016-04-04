@@ -2,7 +2,8 @@ $(document).ready(function () {
    
     $('.datepicker').datepicker({
       changeMonth: true,
-      changeYear: true 
+      changeYear: true,
+  
   });
 
     $("[id=radio02]").click(function(){
@@ -15,6 +16,7 @@ $(document).ready(function () {
         $('.RDate').show(300);
     	$('.RDLogo').show(300);
     	$('.RD').show(300);
+    	
     });
 
 
