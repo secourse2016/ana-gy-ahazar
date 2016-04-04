@@ -9,13 +9,43 @@ App.config(function($routeProvider, $locationProvider) {
    })
 
    .when('/book', {
-      templateUrl: 'book-search.html',
+       templateUrl: 'book-search.html',
       controller: 'searchController'
+   })
+
+   .when('/book/payment', {
+     templateUrl: 'book-payment.html',
+     controller: 'bookController-payment'
+   })
+
+   .when('/book/confirmation', {
+      templateUrl: 'book-confirmation.html',
+      controller: 'bookController-confirmation'
+   })
+
+   .when('/book/outgoing', {
+      templateUrl: 'book-outgoing.html',
+      controller: 'bookController-outgoing'
+   })
+
+   .when('/book/incoming', {
+      templateUrl: 'book-incoming.html',
+      controller: 'bookController-incoming'
+   })
+
+   .when('/book/personalInformation', {
+      templateUrl: 'book-personalinfo.html',
+      controller: 'bookController-personalinformation'
    })
 
    .when('/manage', {
       templateUrl: 'manage-ticketsearch.html',
       controller: 'manageController'
+   })
+
+   .when('/manage/ticketinfo', {
+      templateUrl: 'manage-ticketinfo.html',
+      controller: 'manageController-ticketinfo'
    })
 
    .when('/check-in', {

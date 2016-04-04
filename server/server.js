@@ -10,9 +10,7 @@ app.use(express.static(__dirname + '/../public/scripts/controllers'));
 app.use(express.static(__dirname + '/../public/scripts/libraries'));
 app.use(express.static(__dirname + '/../public/assets/'));
 
-app.get('/', function(req, res) {
-   res.sendFile('index.html');
-});
+require('./routes/routes.js')(app);
 
 app.listen(3000, function() {
    console.log('[up]');

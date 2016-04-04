@@ -1,6 +1,6 @@
-App.controller('searchController', function($scope) {
+App.controller('searchController', function($scope, $http) {
    $scope.tabName = 'book';
-   $scope.isActive = ' active';
+   $scope.tabPart = 'tab active';
 
 
    setTimeout(function() {
