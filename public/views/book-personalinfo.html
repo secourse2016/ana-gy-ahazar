@@ -1,4 +1,5 @@
 <div >
+	<script type="text/javascript" src="book-personalinformation.js"></script>
 	<link rel="stylesheet" type="text/css" href="../styles/personal-info.css">
 	<div class= "personal-information">
 		<h2>Personal Information: </h2>
@@ -47,17 +48,10 @@
 				<p>Date of birth:</p>
 			</div>
 			<div class="col-sm-1">
-				<select id="day">	
+				<input type="text" class="datepicker" id="date-of-birth"/>
 				</select>
 			</div>
-			<div class="col-sm-1">
-				<select id="month">	
-				</select>
-			</div>
-			<div class="col-sm-1">
-				<select id="year">	
-				</select>
-			</div>
+			
 			
 		</div>
 		<hr style="height:3px;border:none;color:#840705;background-color:#840705;" />
@@ -117,8 +111,7 @@
 				<p>Issue date:</p>
 			</div>
 			<div class="col-sm-3">
-				<select id="issue-date">
-				</select>
+				<input type="text" class="datepicker" id="issue-date"/>
 			</div>
 			<div class="col-sm-1">
 			</div>
@@ -126,7 +119,8 @@
 				<p>Expiration date:</p>
 			</div>
 			<div class="col-sm-3">
-				<select id="expiration-date">
+				<input type="text" class="datepicker-expire" id="expiration-date"/>
+
 				</select>
 			</div>
 		</div>
@@ -181,6 +175,6 @@
 			</div>
 		</div>
 		
-		<a href="book/payment"><button class="button">   Next   </button></a>
+		<a href="book/payement"><button class="button">   Next   </button></a>
 	</div>
 </div>
