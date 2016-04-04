@@ -46,7 +46,7 @@ App.config(function($routeProvider, $locationProvider) {
    .when('/contact-us', {
       templateUrl: 'contactus.html',
       controller: 'contactusController'
-   })
+   });
 
    $locationProvider.html5Mode(true);
 });
