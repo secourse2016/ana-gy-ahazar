@@ -1,9 +1,9 @@
 App.controller('bookController-confirmation', function($scope) {
    $scope.tabName = 'book-confirmation';
-   $scope.tabPort = 'tab-Port-next active';
+   $scope.tabPart = 'tab-Part-next active';
 
 
    setTimeout(function() {
-      setHeight('book');
+      setHeight('book-confirmation');
    }, 0);
 });
