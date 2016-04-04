@@ -1,50 +1,11 @@
-<!doctype html>
-<html ng-app="scotchTodo">
-<head>
-<meta charset="utf-8">
-<title>jQuery UI Datepicker - Default functionality</title>
-<script type="text/javascript" src="../scripts/payment.js"></script>
+
+<script type="text/javascript" src="payment.js"></script>
 <link rel="stylesheet" type="text/css" href="paymentstyle.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
-<script>
-$(function() {
-$( "#datepicker" ).datepicker();
-});
-</script>
-</head>
 
-<body ng-controller="mainController">
-<!--  <label class="col-md-1"></label>
-  <svg height="100" width="100">
-  <circle class="col-md-4"title="1" cx="50" cy="50" r="20" stroke="#73c45d" stroke-width="2" fill="white" />
-</svg>
-<svg height="100" width="100">
-<circle class="col-md-1" cx="50" contextmenu="l"cy="50" r="20" stroke="#73c45d" stroke-width="2" fill="white" />
-</svg>
-<svg height="100" width="100">
-<circle class="col-md-2" cx="50" cy="50" r="20" stroke="#73c45d" stroke-width="2" fill="white" />
-</svg>
-<svg height="100" width="100">
-<circle class="col-md-2" cx="50" cy="50" r="20" stroke="#73c45d" stroke-width="2" fill="#73c45d" />
-</svg>
-<svg height="100" width="100">
-<circle class="col-md-2" cx="50" cy="50" r="20" stroke="#73c45d" stroke-width="2" fill="white" placeholder="1" />
-</svg>
-<div id="row">
-  <label class="col-md-1"></label>
-  <a> <label class="col-md-2">Search</label></a>
-   <a > <label class="col-md-2">Flights</label></a>
-  <a > <label class="col-md-2">Passengers</label></a>
-  <a ><label class="col-md-2" >Payment</label></a>
-  <a ><label class="col-md-2" >Confirmation</label></a>
-</div>
-<br>
-<br>
-<br>
-<br>-->
 <div id="fr">
   <div class="row">
 <label class="col-md-4" id="name">Cardholder Name:</label>
@@ -52,7 +13,7 @@ $( "#datepicker" ).datepicker();
 <div class="row">
 <div class="col-md-5">
 <div class="input-group">
- <span class="input-group-addon" id="kol4"><img id="img"src="../assets/icon-profile.png"></span>
+ <span class="input-group-addon" id="kol4"><img id="profile_img"src="../assets/icon-profile.png"></span>
 <input class="form-control" id="kol5" aria-describedby="inputGroupSuccess1Status" type="text" placeholder="Name">
 </div>
 </div>
@@ -69,7 +30,7 @@ $( "#datepicker" ).datepicker();
 <br>
 <div class="row">
 
-  <a id="se1" ><label class="col-md-4">Card Nubmer:</label></a>
+  <a id="se1" ><label class="col-md-4">Card Number:</label></a>
 
    <a id="se2" ><label class="col-md-4">CVS:</label></a>
 
@@ -81,22 +42,22 @@ $( "#datepicker" ).datepicker();
   <div class="col-md-4">
   <div class="input-group">
    <span class="input-group-addon"id="kol2" >*</span>
-  <input  class="form-control" id="kol3" aria-describedby="inputGroupSuccess1Status" type="password" >
+  <input  class="form-control" placeholder="14-digits" id="kol3" aria-describedby="inputGroupSuccess1Status" type="password" >
 </div>
 </div>
 
   <div class="col-md-4">
   <div class="input-group">
    <span class="input-group-addon" id="kol">*</span>
-  <input class="form-control" id="kol1" aria-describedby="inputGroupSuccess1Status" type="password" ><br>
+  <input class="form-control" placeholder="3-digits" id="kol1" aria-describedby="inputGroupSuccess1Status" type="password" ><br>
 </div>
 </div>
 
 <form action="action_page.php">
   <div class="col-md-3" >
   <div class="input-group" >
-   <span class="input-group-addon" id="lol"><img id="img"src="../assets/Calendar-icon.png"></span>
-  <input class="form-control" id="datepicker" aria-describedby="inputGroupSuccess1Status" type="date" >
+   <span class="input-group-addon" id="lol"><img id="calender_img"src="../assets/Calendar-icon.png"></span>
+  <input class="form-control datepicker" placeholder="mm/dd/yyyy" aria-describedby="inputGroupSuccess1Status">
   </div>
   </div>
 </form>
@@ -400,7 +361,7 @@ $( "#datepicker" ).datepicker();
   <div class="col-md-3">
   <div class="input-group">
    <span class="input-group-addon" id="kol6">*</span>
-  <input  class="form-control" id="kol7" aria-describedby="inputGroupSuccess1Status" type="password" ><br>
+  <input  class="form-control" placeholder="Enter Promo Here" id="kol7" aria-describedby="inputGroupSuccess1Status" type="password" ><br>
 </div>
 
 </div>
@@ -415,6 +376,3 @@ $( "#datepicker" ).datepicker();
 <br>
   <label class="col-md-10"></label>
 <a href='book/confirmation'<button id="Next" type="button"class="btn btn-success">Next</button></a>
-
-</body>
-</html>

@@ -36,7 +36,7 @@
 
 
 }
-img{
+#calender_img, #profile_img{
   width: 15px;
   height: 17px;
 }
