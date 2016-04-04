@@ -22,7 +22,7 @@
 		</div>
 		<label class="RDLogo">
 			<img src="../assets/incoming2.png" id="RDlogo">
-			
+
 		</label>
 		<div class= "RT">
 			<input class="radio" type="radio" id="radio01" name="radio" checked="checked" />
@@ -39,14 +39,14 @@
 		<div class="IN">Infant(s) Under 2 years</div>
 <div class="Class">Class</div>
 	<div class="class1">
-		<p><select id="dropdown1">
+		<p><select class="btn btn-primary dropdown-toggle" id="dropdown1">
 			<option value="first">First</option>
 			<option value="business">Business</option>
 			<option value="Economy">Economy</option>
 		</select></p>
 	</div>
 	<div class="AD1">
-		<p><select id="dropdown2">
+		<p><select class="btn btn-primary dropdown-toggle" id="dropdown2">
 			<option value="1">1 Adult(s)</option>
 			<option value="2">2 Adult(s)</option>
 			<option value="3">3 Adult(s)</option>
@@ -59,7 +59,7 @@
 		</select></p>
 	</div>
 	<div class="CH1">
-		<p><select id="dropdown3">
+		<p><select class="btn btn-primary dropdown-toggle" id="dropdown3">
 			<option value="0">0 Child(ren)</option>
 			<option value="1">1 Child(ren)</option>
 			<option value="2">2 Child(ren)</option>
@@ -73,7 +73,7 @@
 		</select></p>
 	</div>
 	<div class="IN1">
-		<p><select id="dropdown4">
+		<p><select class="btn btn-primary dropdown-toggle" id="dropdown4">
 			<option value="0">0 Infant(s)</option>
 			<option value="1">1 Infant(s)</option>
 			<option value="2">2 Infant(s)</option>
@@ -86,10 +86,18 @@
 			<option value="9">9 Infant(s)</option>
 		</select></p>
 	</div>
-	<input type="text" placeholder="country" class="textox1">
-	<input type="text" placeholder="country" class="textox2">
-	
-	<a href="book/outgoing" class="css_button" id="Search">Search</a>
+	<input name="originAirports"
+	id="originAirports"
+	type="text"
+	placeholder="Flying From"
+	ng-model="selectedOrigin"
+	uib-typeahead="airport.iata for airport in Airports | filter:$viewValue | limitTo:10"
+	class="textox2",
+	typeahead-on-select="SetOriginAirport($item.iata)">
+	<!-- <input type="text" placeholder="country" class="textox1"> -->
+	<input type="text" placeholder="country" class=" textox2">
+
+	<a href="book/outgoing" class="btn btn-success" id="Search">Search</a>
 
 	</div>
-	
+</div>
