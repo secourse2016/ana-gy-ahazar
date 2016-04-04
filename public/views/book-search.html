@@ -1,5 +1,6 @@
 <div class="content">
 	<script type="text/javascript" src="book-search.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
 	<link rel="stylesheet" href="book-search.css">
 	<div class="top_block block_1">
 		<div class="From">From</div>
@@ -15,10 +16,10 @@
 			<img src="../assets/outgoing2.png">
 		</label>
 		<div class="DDate">
-			<input type="text" class="datepicker" id="datepicker"/>
+			<input type="text" placeholder="mm/dd/yyyy" class="datepicker" id="datepicker"/>
 		</div>
 		<div class="RDate">
-			<input type="text" class="datepicker" id="datepicker2"/>
+			<input type="text" placeholder="mm/dd/yyyy" class="datepicker" id="datepicker2"/>
 		</div>
 		<label class="RDLogo">
 			<img src="../assets/incoming2.png" id="RDlogo">
@@ -86,16 +87,28 @@
 			<option value="9">9 Infant(s)</option>
 		</select></p>
 	</div>
+
+	<input type="text" placeholder="Flying From" ng-model="from"
+	uib-typeahead="airport.iata as airport.iata for airport in Airports | filter:$viewValue | limitTo:10"
+	 class="form-control">
+
 	<input name="originAirports"
 	id="originAirports"
 	type="text"
 	placeholder="Flying From"
 	ng-model="selectedOrigin"
 	uib-typeahead="airport.iata for airport in Airports | filter:$viewValue | limitTo:10"
-	class="textox2",
-	typeahead-on-select="SetOriginAirport($item.iata)">
+	class="textox1">
 	<!-- <input type="text" placeholder="country" class="textox1"> -->
-	<input type="text" placeholder="country" class=" textox2">
+	<!-- <input type="text" placeholder="country" class=" textox2"> -->
+
+	<input name="destinationAirports"
+	id="destinationAirports"
+	type="text"
+	placeholder="Flying To"
+	ng-model="selectedDestination"
+	uib-typeahead="airport.iata for airport in Airports | filter:$viewValue | limitTo:10"
+	class="textox2">
 
 	<a href="book/outgoing" class="btn btn-success" id="Search">Search</a>
 

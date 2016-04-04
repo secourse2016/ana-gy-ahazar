@@ -77,12 +77,12 @@ body {
 .GPSFLogo {
  position: absolute;
  top: 10%;
- left: 35%;
+ left: 32%;
 }
 .GPSTLogo {
  position: absolute;
  top: 10%;
- left: 88%;
+ left: 85%;
 }
 
 
@@ -107,14 +107,14 @@ body {
 
  position: absolute;
  top: 31%;
- left: 21%;
+ left: 18.5%;
 
 }
 
 .RDLogo {
  position: absolute;
  top: 31%;
- left: 68%;
+ left: 65.5%;
 }
 .AD {
  color: #840705;
@@ -283,7 +283,7 @@ input[type="radio"]:checked + label {
 .DDate{
   position: absolute;
   top: 32%;
-  left: 26%;
+  left: 23%;
 
 }
 
@@ -291,7 +291,7 @@ input[type="radio"]:checked + label {
 .RDate{
   position: absolute;
   top: 32%;
-  left: 73%;
+  left: 70%;
 }
 
 .datepicker{

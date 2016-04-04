@@ -8,13 +8,9 @@ App.controller('searchController', function($scope, $http) {
    }, 0);
 
    function AirportCodes() {
-      $http.get('/api/airports').success(function(response) {
-         $scope.Airports = response;
-      })
-
-      .error(function() {
-         console.log('error');
-      });
+     $http.get('/api/airports').success(function(response) {
+        $scope.Airports = response;
+     });
    };
 
    AirportCodes();
