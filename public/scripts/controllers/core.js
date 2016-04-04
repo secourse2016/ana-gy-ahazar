@@ -12,11 +12,11 @@ App.config(function($routeProvider, $locationProvider) {
       templateUrl: 'book-search.html',
       controller: 'searchController'
    })
+   
    .when('/book/confirmation', {
       templateUrl: 'book-confirmation.html',
       controller: 'bookController-confirmation'
    })
-
 
    .when('/manage', {
       templateUrl: 'manage-ticketsearch.html',
