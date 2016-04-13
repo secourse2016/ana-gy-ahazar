@@ -1,0 +1,77 @@
+.cont {
+	width: 100%;
+}
+
+.dates {
+	text-align: center;
+}
+
+#previous_dates, #next_dates {
+	background-color: Transparent;
+	border: none;
+	cursor:pointer;
+	overflow: hidden;
+	outline:none;
+}
+
+/* ================================ inner tabs ================================ */
+
+.inner-tabs {
+	width: 100%;
+}
+
+.inner-tab-links {
+	margin-left: 1.5%;
+}
+
+.inner-tab-links input {
+	opacity: 0;
+	display: none;
+	visibility: hidden;
+}
+
+.inner-link {
+	background: #1babbb;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	float: left;
+	font-size: 14px;
+	height: 30px;
+	border-radius: 0px 0px 0px 0px;
+	margin-right: 1px;
+	text-align: center;
+	width: 11%;
+	opacity: 1;
+	transition: all 0.2s;
+}
+
+.inner-link:hover {
+	transform: translateY(-3px);
+}
+
+.inner-tab-links input.checked + label {
+	background: #fff;
+	transform: translateY(-3px);
+	box-shadow: 1px 0 0 0 rgba(0,0,0,0.3);
+	color: #1babbb;
+}
+
+.flights-table {
+	position: relative;
+	top: -3px;
+	text-align: center;
+}
+
+.head {
+	border-radius: 0px 0px 0px 0px;
+	height: 26px;
+	font-size: 14px;
+	background: #1babbb;
+	opacity: 1;
+}
+
+.flight_body {
+	font-weight: normal;
+	text-align: center;
+}

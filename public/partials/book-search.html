@@ -1,0 +1,131 @@
+<div class="container">
+	<div class="search">
+		<div class="form-inline">
+			<!-- Row for round trip and one way -->
+			<div class="row">
+				<div class="col-sm-2 col-md-2 check" >
+					<input type="radio" id="round" name="radio" ng-model="radio" value="round" ng-change="date_show = true" ng-checked="true" />
+					<label for="round">Round Trip</label>
+				</div>
+				<div class="col-sm-offset-1 col-md-offset-1 col-sm-2 col-md-2 check">
+					<input type="radio" id="one" name="radio" ng-model="radio" value="one" ng-change="date_show = false" />
+					<label for="one">One Way</label>
+				</div>
+			</div>
+			<br>
+
+			<!-- Row for origin and destination airports -->
+			<div class="row">
+				<div class="col-sm-5 col-md-5">
+					From: <img src="assets/outgoing.png"> <input name="originAirport"
+					id="originAirport"
+					type="text"
+					placeholder="Departure Airport"
+					ng-model="selectedOrigin"
+					uib-typeahead="airport.iata for airport in Airports | filter:$viewValue | limitTo:10"
+					class="form-control in">
+				</div>
+				<div class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5 col-sm-offset-1 col-md-offset-1">
+					To: <img src="assets/incoming.png"> <input name="destinationAirports"
+					id="destinationAirports"
+					type="text"
+					placeholder="Arrival Airport"
+					ng-model="selectedDestination"
+					uib-typeahead="airport.iata for airport in Airports | filter:$viewValue | limitTo:10"
+					class="form-control in">
+				</div>
+			</div>
+			<br>
+
+			<!-- Row for departure and return times -->
+			<label class="between">When Are You Going?</label>
+			<div class="row">
+				<div id="departure" class="col-sm-6 col-md-6">
+					Departure Date: <p class="input-group">
+						<input type="text"
+						id="d_date"
+						class="form-control"
+						uib-datepicker-popup="{{format}}"
+						ng-model="dt1"
+						is-open="popup1.opened"
+						ng-required="true"
+						close-text="Close"
+						ng-click="open1()"
+						alt-input-formats="altInputFormats" />
+						<span class="input-group-btn">
+							<button type="button"
+							class="btn btn-default"
+							ng-click="open1()">
+							<i class="fa fa-calendar"></i>
+						</button>
+					</span>
+				</p>
+			</div>
+
+			<div ng-if="date_show" id="return" class="col-sm-6 col-md-6">
+				Return Date: <p class="input-group">
+					<input type="text"
+					id="r_date"
+					class="form-control"
+					uib-datepicker-popup="{{format}}"
+					ng-model="dt2"
+					is-open="popup2.opened"
+					ng-required="true"
+					close-text="Close"
+					ng-click="open2()"
+					alt-input-formats="altInputFormats" />
+					<span class="input-group-btn">
+						<button type="button"
+						class="btn btn-default"
+						ng-click="open2()">
+						<i class="fa fa-calendar"></i>
+					</button>
+				</span>
+			</p>
+		</div>
+	</div>
+	<br>
+
+	<!-- Row for number of tickets -->
+	<label class="between">How Many Are Going?</label>
+	<div class="row">
+		<div class="col-sm-3 col-md-2">
+			Adult(s) +11 years: <br><select class="form-control" id="dropdown1">
+				<option ng-repeat="num in digits" ng-if="num > 0">{{ num }}</option>
+			</select>
+		</div>
+		<div class="col-sm-3 col-md-2">
+			Child(ren) 2-11 years: <br><select class="form-control" id="dropdown1">
+				<option ng-repeat="num in digits">{{ num }}</option>
+
+			</select>
+		</div>
+		<div class="col-sm-3 col-md-2">
+			Infant(s) Under 2 years: <br><select class="form-control" id="dropdown1">
+				<option ng-repeat="num in digits">{{ num }}</option>
+			</select>
+		</div>
+		<div class="col-sm-2 col-md-2">
+			Class Type: <br><select class="form-control" id="dropdown1">
+				<option value="first">First</option>
+				<option value="business">Business</option>
+				<option value="Economy">Economy</option>
+			</select>
+		</div>
+
+	</div>
+	<br>
+	<div class="row">
+
+		<div class="col-sm-offset-9 col-md-offset-9 col-sm-3 col-md-3">
+			<a href="/book/flights" class="btn btn-default btn_nxt">Search</a>
+		</div>
+
+	</div>
+
+	<br>
+</div>
+</div>
+</div>
+
+</div>

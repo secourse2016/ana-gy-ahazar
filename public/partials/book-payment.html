@@ -1,0 +1,87 @@
+<div class="payment">
+   <div class="container">
+      <div class="form-inline">
+         <div class="row">
+            <div class="col-sm-8 col-md-5">
+               Cardholder Name: <i class="fa fa-user"></i> <input type="text" class="form-control long" placeholder="Full Name">
+            </div>
+
+            <div class="col-md-offset-1 col-sm-4 col-md-5">
+               Method: <i class="fa fa-credit-card"></i> <select class="form-control">
+                     <option>Visa</option>
+                     <option>MasterCard</option>
+                     <option>Credit Card</option>
+               </select>
+            </div>
+         </div>
+         <br>
+         <div class="row">
+            <div class="col-sm-4 col-md-4">
+               Card Number: <input type="password" class="form-control" placeholder="14-digits">
+            </div>
+            <div class="col-sm-3 col-md-3">
+               CVS: <input type="password" class="form-control" placeholder="3-digits">
+            </div>
+            <div class="col-sm-4 col-md-4">
+               Expiry Date: <p class="input-group">
+						<input type="text"
+						id="card_expiry_date"
+						class="form-control"
+						uib-datepicker-popup="{{format}}"
+						ng-model="carddate"
+						is-open="popup.opened"
+						ng-required="true"
+						close-text="Close"
+                  ng-click="open()"
+						alt-input-formats="altInputFormats" />
+						<span class="input-group-btn">
+							<button type="button"
+							class="btn btn-default"
+							ng-click="open()">
+							<i class="fa fa-calendar"></i>
+						</button>
+					</span>
+				</p>
+            </div>
+         </div>
+         <br>
+         <div class="row">
+            <div class="col-sm-3 col-md-4">
+               Billing Country: <br><select id="billingCountrySelect"  class="form-control">
+                 <option ng-repeat="country in countries">{{ country.name }}</option>
+               </select>
+            </div>
+            <div class="col-sm-3 col-md-2">
+               Billing City: <br><input type="text" class="form-control" placeholder="City">
+            </div>
+            <div class="col-sm-3 col-md-2">
+               Billing State: <br><input type="text" class="form-control" placeholder="State">
+            </div>
+            <div class="col-sm-2 col-md-2">
+               Zip Code: <br><input type="text" class="form-control" placeholder="5-digits">
+            </div>
+         </div>
+         <br>
+         <div class="row">
+            <div class="col-sm-8 col-md-8">
+               Address: <input type="text" class="form-control long" placeholder="Enter Full Address">
+            </div>
+         </div>
+         <br>
+         <div class="row">
+            <div class="col-sm-5 col-md-5">
+               Promotion Code: <input type="text" placeholder="Enter Promo Here!" class="form-control">
+               &nbsp;<button type="button" class="btn btn-info">Validate</button>
+            </div>
+
+            <div class="total col-sm-3 col-md-3 text-center">
+         		<label><i class="fa fa-money"></i> Total Price <span class="label label-success g_span">$1555</span></label>
+         	</div>
+            <div class="col-sm-offset-1 col-md-offset-1 col-sm-1 col-md-1">
+               <a href='book/confirmation' class="btn btn-default btn_nxt">Next</a>
+            </div>
+         </div>
+      </div>
+   </div>
+   <br>
+</div>

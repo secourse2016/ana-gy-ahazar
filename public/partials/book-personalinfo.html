@@ -1,0 +1,178 @@
+<div class="container">
+	<div class="form-inline">
+		<div class="panel-group col-sm-12 col-md-11">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h2 class="panel-title" >Personal Information </h2>
+				</div>
+				<div class="panel-body">
+					<div class="col-sm-2 col-md-2">
+						Title: <select id="title" class="form-control">
+							<option>Mr.</option>
+							<option>Mrs.</option>
+							<option>Ms.</option>
+							<option>Miss.</option>
+						</select>
+					</div>
+					<div class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">
+						First Name: <input type="text" class="form-control" placeholder="ex. John">
+					</div>
+					<div class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">
+						Last Name: <input type="text" class="form-control" placeholder="ex. Doe">
+					</div>
+					<div class="col-sm-4 col-md-4">
+						<br>
+						Nationality: <input type="text" class="form-control" placeholder="ex. Egyptian">
+					</div>
+					<div class="col-sm-5 col-md-5">
+						<br>
+						Date of Birth: <p class="input-group">
+							<input type="text"
+							id="birth_date"
+							class="form-control"
+							uib-datepicker-popup="{{format}}"
+							ng-model="birthDate"
+							is-open="popup1.opened"
+							ng-required="true"
+							close-text="Close"
+							ng-click="open1()"
+							alt-input-formats="altInputFormats" />
+							<span class="input-group-btn">
+								<button type="button"
+								class="btn btn-default"
+								ng-click="open1()">
+								<i class="fa fa-calendar"></i>
+							</button>
+						</span>
+					</p>
+				</div>
+			</div>
+
+			<div class="panel-heading">
+				<h2 class="panel-title" >Passport Information </h2>
+			</div>
+			<div class="panel-body">
+				<div class="col-sm-11 col-md-11">
+					Passport number: <input type="text" class="form-control" placeholder="ex. 311644225">
+				</div>
+				<div class="col-sm-5 col-md-5">
+					<br>
+					Issue Date: <p class="input-group">
+						<input type="text"
+						id="issue_date"
+						class="form-control"
+						uib-datepicker-popup="{{format}}"
+						ng-model="issueDate"
+						is-open="popup2.opened"
+						ng-required="true"
+						close-text="Close"
+						ng-click="open2()"
+						alt-input-formats="altInputFormats" />
+						<span class="input-group-btn">
+							<button type="button"
+							class="btn btn-default"
+							ng-click="open2()">
+							<i class="fa fa-calendar"></i>
+						</button>
+					</span>
+				</p>
+			</div>
+
+			<div class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">
+				<br>
+				Expiry Date: <p class="input-group">
+					<input type="text"
+					id="expiry_date"
+					class="form-control"
+					uib-datepicker-popup="{{format}}"
+					ng-model="expiryDate"
+					is-open="popup3.opened"
+					ng-required="true"
+					close-text="Close"
+					ng-click="open3()"
+					alt-input-formats="altInputFormats" />
+					<span class="input-group-btn">
+						<button type="button"
+						class="btn btn-default"
+						ng-click="open3()">
+						<i class="fa fa-calendar"></i>
+					</button>
+				</span>
+			</p>
+		</div>
+	</div>
+
+	<div class="panel-heading">
+		<h2 class="panel-title" >Contact Information </h2>
+	</div>
+	<div class="panel-body">
+		<div class="col-sm-5 col-md-5">
+			Email: <input type="text" class="form-control long" placeholder="Enter Your Email">
+		</div>
+		<div class="col-sm-11 col-md-11">
+			<br>
+			Phone Number: <select id="mob-country" class="form-control">
+				<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
+			</select>
+			<input type="text" class="form-control" placeholder="ex. 01097643254">
+		</div>
+	</div>
+
+	<div class="panel-heading">
+		<h2 class="panel-title" >Emergency Contact Information </h2>
+	</div>
+	<div class="panel-body">
+		<div class="col-sm-5 col-md-5">
+			Email: <input type="text" class="form-control long" placeholder="Enter Your Email">
+		</div>
+		<div class="col-sm-11 col-md-11">
+			<br>
+			Phone Number: <select id="mob-country" class="form-control">
+				<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
+			</select>
+			<input type="text" class="form-control" placeholder="ex. 01097643254">
+		</div>
+	</div>
+
+	<div class="panel-heading">
+		<h2 class="panel-title" >Special Requirements </h2>
+	</div>
+	<div class="panel-body">
+		<div class="col-sm-5 col-md-5">
+			Meal preference: <select id="meal-preference" class="form-control">
+				<option>None</option>
+				<option>Asian vegetarian meal</option>
+				<option>Baby food</option>
+				<option>Bland meal</option>
+				<option>Child food</option>
+				<option>Diabetic meal</option>
+				<option>Gelatin free meal</option>
+				<option>Low calorie meal</option>
+				<option>Low fat meal</option>
+				<option>Salt free meal</option>
+				<option>Lacto-ovo vegetarian meal</option>
+			</select>
+		</div>
+		<div class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">
+			Special needs: <select id="special-needs" class="form-control">
+				<option>None</option>
+				<option>Deaf passenger</option>
+				<option>Wheelchair for cabin seat</option>
+				<option>Wheelchair for ramp</option>
+				<option>Wheelchair for steps</option>
+				<option>Wheelchair dry cell battery</option>
+				<option>Wheelchair wet cell battery</option>
+			</select>
+		</div>
+	</div>
+
+</div>
+</div>
+<div class="row">
+	<div class="col-sm-offset-9 col-md-offset-9 col-sm-2 col-md-2">
+		<a href="book/payment" class="btn btn-default btn_nxt">Next</a>
+	</div>
+</div>
+</div>
+</div>
+<br>
