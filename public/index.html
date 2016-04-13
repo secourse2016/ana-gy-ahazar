@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+<head>
+   <meta charset="utf-8">
+   <!-- Load icon -->
+   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+   <link rel="icon" href="favicon.ico" type="image/x-icon">
+   <title>Air Madagascar</title>
+
+   <!-- JQuery -->
+   <script src="js/libraries/jquery.min.js"></script>
+   <script src="js/libraries/jquery-ui.min.js"></script>
+   <link rel="stylesheet" href="css/libraries/jquery-ui.min.css">
+
+   <!-- Angular -->
+   <script src="js/libraries/angular.min.js"></script>
+   <script src="js/libraries/angular-route.min.js"></script>
+   <script src="js/libraries/angular-animate.min.js"></script>
+
+   <!-- Bootstrap -->
+   <script src="js/libraries/bootstrap.min.js"></script>
+   <script src="js/libraries/ui-bootstrap-tpls.min.js"></script>
+   <link rel="stylesheet" href="css/libraries/bootstrap.min.css">
+   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" rel="stylesheet">
+
+   <!-- Scripts -->
+   <script src="core.js"></script>
+   <script src="js/masterPage.js"></script>
+
+   <!-- Services -->
+   <script src="services/flightsSrv.js"></script>
+
+   <!-- Controllers -->
+   <script src="controllers/bookController-search.js"></script>
+   <script src="controllers/bookController-flights.js"></script>
+   <script src="controllers/bookController-personalinformation.js"></script>
+   <script src="controllers/bookController-payment.js"></script>
+   <script src="controllers/bookController-confirmation.js"></script>
+   <script src="controllers/manageController-ticketsearch.js"></script>
+   <script src="controllers/manageController-ticketinfo.js"></script>
+   <script src="controllers/checkinController.js"></script>
+   <script src="controllers/offersController.js"></script>
+
+   <!-- CSS -->
+   <link rel="stylesheet" href="css/masterPage.css">
+   <link rel="stylesheet" href="css/book-search.css">
+   <link rel="stylesheet" href="css/flights.css">
+   <link rel="stylesheet" href="css/personal-info.css">
+   <link rel="stylesheet" href="css/book-confirmation.css">
+
+   <base href="/">
+</head>
+<body>
+
+   <!-- navigation bar -->
+   <nav style="background-color: rgba(255, 255, 255, 0.88);" class="nav navbar-default navbar-fixed-top">
+      <div class="container">
+         <div class="navbar-header">
+            <a class="navbar-brand" href="/"><img src="assets/logo.png" alt="Logo"/></a>
+         </div>
+         <div>
+            <ul class="nav navbar-nav navbar-right">
+               <li><a id="scroller" style="cursor: pointer;cursor: hand;"><i class="fa fa-phone"></i> About Us/Contact Us</a></li>
+            </ul>
+         </div>
+      </div>
+   </nav>
+
+   <!-- promotion area -->
+   <div class="promotion">
+      <div class="row">
+         <div class="col-sm-12 col-md-12">
+            <div class="jumbotron text-center holder">
+               <h1 id="promo"></h1>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- tabs area -->
+   <div class="active-tabs">
+      <div class="tab-links">
+         <a href="/book"><input type="radio" name="active_tabs" id="btn-1" checked>
+         <label for="btn-1" class="btn link"><i class="fa fa-plane"></i> Book A Flight</label></a>
+
+         <a href="/manage"><input type="radio" name="active_tabs" id="btn-2">
+         <label for="btn-2" class="btn link"><i class="fa fa-suitcase"></i> Manage Flight</label></a>
+
+         <a href="/check-in"><input type="radio" name="active_tabs" id="btn-3">
+         <label for="btn-3" class="btn link"><i class="fa fa-laptop"></i> Check-in Online</label></a>
+
+         <a href="/offers"><input type="radio" name="active_tabs" id="btn-4">
+         <label for="btn-4" class="btn link"><i class="fa fa-clock-o"></i> Offers</label></a>
+      </div>
+
+      <div class="tabs-container">
+         <div id="containerBody" style="margin-top: 2%;" ng-view></div>
+      </div>
+
+   </div>
+
+   <!-- footer area -->
+   <div id="footer" class="footer">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="container about-contact">
+               <div class="col-sm-5 col-md-5 about-us">
+                  <h3>Something <span class="label label-success g_span">ABOUT US</span></h3>
+                  <p align="justify">
+                     Since 1961 the Madagascan national airline Air Madagascar has been connecting the "Grande Ile" to the world while its many domestic destinations contribute to the opening and development of its different regions.
+                     <br><br>
+                     Its vision: to be the preferred African airline.
+                     <br>
+                     Its mission: to be a lever to Madagascar's economic growth.
+                     <br>
+                     Its values: Honesty, Integrity, Respect, Excellence.
+                     <br><br>
+                     The airline was formed in 1947 to feed into flights by Transports Aériens Intercontinentaux and Air France, and upon the independence of Madagascar, it became the national airline.
+                  </p>
+               </div>
+
+               <div class="col-sm-6 col-md-5 contact-us">
+                  <h3>Send Your <span class="label label-success g_span">FEEDBACK</span></h3>
+
+                     <form action="#" method="post"> <!-- hatet3adelc -->
+
+                        <input type="text" name="email" placeholder="Email" />
+                        <textarea name="message" placeholder="Message"></textarea>
+                        <button class="btn btn-primary">Send <i class="fa fa-paper-plane"></i> </button>
+
+                     </form>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="container copyrights">
+         <div class="col-md-6">
+            Air Madagascar &copy; 2016,
+            All Rights Reserved
+            <div class="icons">
+               <a id="fb" href="https://www.facebook.com/air.madagascar.officiel"><i class="fa fa-facebook"></i></a>
+               <a id="tw" href="https://twitter.com/airmad"><i class="fa fa-twitter"></i></a>
+               <a id="go" href="https://plus.google.com/102865486670617862631/about"><i class="fa fa-google-plus"></i></a>
+            </div>
+         </div>
+      </div>
+   </div>
+
+</body>
+</html>
