@@ -1,87 +1,94 @@
 <div class="payment">
    <div class="container">
-      <div class="form-inline">
-         <div class="row">
-            <div class="col-sm-8 col-md-5">
-               Cardholder Name: <i class="fa fa-user"></i> <input type="text" class="form-control long" placeholder="Full Name">
-            </div>
+      <form name="paymentForm" ng-submit="submitForm(paymentForm.$valid)" novalidate>
+         <div class="form-inline">
+            <div class="row">
+               <div class="col-sm-8 col-md-5" ng-class="{'has-error' : paymentForm.cardholder.$invalid &&  (submitted || paymentForm.cardholder.$dirty)}">
+                  Cardholder Name: <i class="fa fa-user"></i> <input type="text" name="cardholder" ng-model="cardholder" class="form-control long" placeholder="Full Name" required>
+                  <p ng-show="paymentForm.cardholder.$error.required && (submitted || paymentForm.cardholder.$dirty)" class="help-block">Cardholder Name is required.</p>
+               </div>
 
-            <div class="col-md-offset-1 col-sm-4 col-md-5">
-               Method: <i class="fa fa-credit-card"></i> <select class="form-control">
-                     <option>Visa</option>
-                     <option>MasterCard</option>
-                     <option>Credit Card</option>
-               </select>
+               <div class="col-md-offset-1 col-sm-4 col-md-5">
+                  Method: <i class="fa fa-credit-card"></i> <select class="form-control">
+                        <option>Visa</option>
+                        <option>MasterCard</option>
+                        <option>Credit Card</option>
+                  </select>
+               </div>
             </div>
-         </div>
-         <br>
-         <div class="row">
-            <div class="col-sm-4 col-md-4">
-               Card Number: <input type="password" class="form-control" placeholder="14-digits">
+            <br>
+            <div class="row">
+               <div class="col-sm-4 col-md-4">
+                  Card Number: <input type="password" class="form-control" placeholder="14-digits">
+               </div>
+               <div class="col-sm-3 col-md-3">
+                  CVS: <input type="password" class="form-control" placeholder="3-digits">
+               </div>
+               <div class="col-sm-4 col-md-4" ng-class="{'has-error' : paymentForm.card_expiry_date.$invalid &&  (submitted || paymentForm.card_expiry_date.$dirty)}">
+                  Expiry Date: <p class="input-group">
+                           <input type="text"
+                           id="card_expiry_date"
+                           name="card_expiry_date"
+                           class="form-control"
+                           uib-datepicker-popup="{{format}}"
+                           ng-model="card_expiry_date"
+                           is-open="popup.opened"
+                           close-text="Close"
+                           ng-click="open()"
+                           alt-input-formats="altInputFormats" required/>
+                           <span class="input-group-btn">
+                              <button type="button"
+                              class="btn btn-default"
+                              ng-click="open()">
+                              <i class="fa fa-calendar"></i>
+                           </button>
+                        </span>
+                     </p>
+                     <p ng-show="paymentForm.card_expiry_date.$error.required && (submitted || paymentForm.card_expiry_date.$dirty)" class="help-block">Expiry Date is required.</p>
+               </div>
             </div>
-            <div class="col-sm-3 col-md-3">
-               CVS: <input type="password" class="form-control" placeholder="3-digits">
+            <br>
+            <div class="row">
+               <div class="col-sm-3 col-md-4">
+                  Billing Country: <br><select id="billingCountrySelect"  class="form-control">
+                    <option ng-repeat="country in countries">{{ country.name }}</option>
+                  </select>
+               </div>
+               <div class="col-sm-3 col-md-2" ng-class="{'has-error' : paymentForm.city.$invalid &&  (submitted || paymentForm.city.$dirty)}">
+                  Billing City: <br><input type="text" name="city" ng-model="city" class="form-control" placeholder="City" required>
+                  <p ng-show="paymentForm.city.$error.required && (submitted || paymentForm.city.$dirty)" class="help-block">Billing City is required.</p>
+               </div>
+               <div class="col-sm-3 col-md-2" ng-class="{'has-error' : paymentForm.state.$invalid &&  (submitted || paymentForm.state.$dirty)}">
+                  Billing State: <br><input type="text" name="state" ng-model="state" class="form-control" placeholder="State" required>
+                  <p ng-show="paymentForm.state.$error.required && (submitted || paymentForm.state.$dirty)" class="help-block">Billing State is required.</p>
+               </div>
+               <div class="col-sm-2 col-md-2">
+                  Zip Code: <br><input type="text" class="form-control" placeholder="5-digits">
+               </div>
             </div>
-            <div class="col-sm-4 col-md-4">
-               Expiry Date: <p class="input-group">
-						<input type="text"
-						id="card_expiry_date"
-						class="form-control"
-						uib-datepicker-popup="{{format}}"
-						ng-model="carddate"
-						is-open="popup.opened"
-						ng-required="true"
-						close-text="Close"
-                  ng-click="open()"
-						alt-input-formats="altInputFormats" />
-						<span class="input-group-btn">
-							<button type="button"
-							class="btn btn-default"
-							ng-click="open()">
-							<i class="fa fa-calendar"></i>
-						</button>
-					</span>
-				</p>
+            <br>
+            <div class="row" ng-class="{'has-error' : paymentForm.address.$invalid &&  (submitted || paymentForm.address.$dirty)}">
+               <div class="col-sm-8 col-md-8">
+                  Address: <input type="text" name="address" ng-model="address" class="form-control long" placeholder="Enter Full Address" required>
+                  <p ng-show="paymentForm.address.$error.required && (submitted || paymentForm.address.$dirty)" class="help-block">Address is required.</p>
+               </div>
             </div>
-         </div>
-         <br>
-         <div class="row">
-            <div class="col-sm-3 col-md-4">
-               Billing Country: <br><select id="billingCountrySelect"  class="form-control">
-                 <option ng-repeat="country in countries">{{ country.name }}</option>
-               </select>
-            </div>
-            <div class="col-sm-3 col-md-2">
-               Billing City: <br><input type="text" class="form-control" placeholder="City">
-            </div>
-            <div class="col-sm-3 col-md-2">
-               Billing State: <br><input type="text" class="form-control" placeholder="State">
-            </div>
-            <div class="col-sm-2 col-md-2">
-               Zip Code: <br><input type="text" class="form-control" placeholder="5-digits">
-            </div>
-         </div>
-         <br>
-         <div class="row">
-            <div class="col-sm-8 col-md-8">
-               Address: <input type="text" class="form-control long" placeholder="Enter Full Address">
-            </div>
-         </div>
-         <br>
-         <div class="row">
-            <div class="col-sm-5 col-md-5">
-               Promotion Code: <input type="text" placeholder="Enter Promo Here!" class="form-control">
-               &nbsp;<button type="button" class="btn btn-info">Validate</button>
-            </div>
+            <br>
+            <div class="row">
+               <div class="col-sm-5 col-md-5">
+                  Promotion Code: <input type="text" placeholder="Enter Promo Here!" class="form-control">
+                  &nbsp;<button type="button" class="btn btn-info">Validate</button>
+               </div>
 
-            <div class="total col-sm-3 col-md-3 text-center">
-         		<label><i class="fa fa-money"></i> Total Price <span class="label label-success g_span">$1555</span></label>
-         	</div>
-            <div class="col-sm-offset-1 col-md-offset-1 col-sm-1 col-md-1">
-               <a href='book/confirmation' class="btn btn-default btn_nxt">Next</a>
+               <div class="total col-sm-3 col-md-3 text-center">
+                  <label><i class="fa fa-money"></i> Total Price <span class="label label-success g_span">$1555</span></label>
+               </div>
+               <div class="col-sm-offset-1 col-md-offset-1 col-sm-1 col-md-1">
+                  <button type="submit" class="btn btn-default btn_nxt">Next</button>
+               </div>
             </div>
          </div>
-      </div>
+      </form>
    </div>
    <br>
 </div>

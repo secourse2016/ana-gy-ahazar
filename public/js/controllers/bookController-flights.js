@@ -1,4 +1,4 @@
-App.controller('bookController-flights', function($scope) {
+App.controller('bookController-flights', function($scope, $location) {
 
 $scope.dradioModel = 'dradio3';
 $scope.retradioModel = 'retradio3';
@@ -72,4 +72,22 @@ $scope.flights = [   {  "flightNumber": '1',
                            ]}
                       ];
 
+    /*
+    Validations
+    */
+    $scope.submitted = false;
+    // function to submit the form after all validation has occurred
+    $scope.submitForm = function(isValid) {
+       $scope.submitted = true;
+
+       // check to make sure the form is completely valid
+       if (isValid) {
+          console.log('good');
+          $location.url('/book/personalInformation');
+       }
+       else {
+          console.log('bad');
+       }
+
+    };
 });

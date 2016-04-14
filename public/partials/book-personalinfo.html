@@ -1,178 +1,205 @@
 <div class="container">
-	<div class="form-inline">
-		<div class="panel-group col-sm-12 col-md-11">
-			<div class="panel panel-info">
+	<form name="personalInfoForm" ng-submit="submitForm(personalInfoForm.$valid)" novalidate>
+		<div class="form-inline">
+			<div class="panel-group col-sm-12 col-md-11">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h2 class="panel-title" >Personal Information </h2>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-2 col-md-2">
+								Title: <select id="title" class="form-control">
+									<option>Mr.</option>
+									<option>Mrs.</option>
+									<option>Ms.</option>
+									<option>Miss.</option>
+								</select>
+							</div>
+							<div class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4" ng-class="{'has-error' : personalInfoForm.first_name.$invalid &&  (submitted || personalInfoForm.first_name.$dirty)}">
+								First Name: <input type="text" name="first_name" ng-model="first_name" class="form-control" placeholder="ex. John" required>
+								<p ng-show="personalInfoForm.first_name.$error.required && (submitted || personalInfoForm.first_name.$dirty)" class="help-block">First Name is required.</p>
+							</div>
+							<div class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4" ng-class="{'has-error' : personalInfoForm.last_name.$invalid &&  (submitted || personalInfoForm.last_name.$dirty)}">
+								Last Name: <input type="text" name="last_name" ng-model="last_name" class="form-control" placeholder="ex. Doe" required>
+								<p ng-show="personalInfoForm.last_name.$error.required && (submitted || personalInfoForm.last_name.$dirty)" class="help-block">Last Name is required.</p>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-sm-4 col-md-4" ng-class="{'has-error' : personalInfoForm.nationality.$invalid &&  (submitted || personalInfoForm.nationality.$dirty)}">
+								Nationality: <input type="text" ng-model="nationality" name="nationality" class="form-control" placeholder="ex. Egyptian" required>
+								<p ng-show="personalInfoForm.nationality.$error.required && (submitted || personalInfoForm.nationality.$dirty)" class="help-block">Nationality is required.</p>
+							</div>
+							<div class="col-sm-5 col-md-5" ng-class="{'has-error' : personalInfoForm.birth_date.$invalid &&  (submitted || personalInfoForm.birth_date.$dirty)}">
+								Date of Birth: <p class="input-group">
+									<input type="text"
+									id="birth_date"
+									name="birth_date"
+									class="form-control"
+									uib-datepicker-popup="{{format}}"
+									ng-model="birth_date"
+									is-open="popup1.opened"
+									close-text="Close"
+									ng-click="open1()"
+									alt-input-formats="altInputFormats" required/>
+									<span class="input-group-btn">
+										<button type="button"
+										class="btn btn-default"
+										ng-click="open1()">
+										<i class="fa fa-calendar"></i>
+									</button>
+								</span>
+							</p>
+							<p ng-show="personalInfoForm.birth_date.$error.required && (submitted || personalInfoForm.birth_date.$dirty)" class="help-block">Date of Birth is required.</p>
+						</div>
+					</div>
+				</div>
+
 				<div class="panel-heading">
-					<h2 class="panel-title" >Personal Information </h2>
+					<h2 class="panel-title" >Passport Information </h2>
 				</div>
 				<div class="panel-body">
-					<div class="col-sm-2 col-md-2">
-						Title: <select id="title" class="form-control">
-							<option>Mr.</option>
-							<option>Mrs.</option>
-							<option>Ms.</option>
-							<option>Miss.</option>
-						</select>
+					<div class="row">
+						<div class="col-sm-11 col-md-11">
+							Passport number: <input type="text" class="form-control" placeholder="ex. 311644225">
+						</div>
 					</div>
-					<div class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">
-						First Name: <input type="text" class="form-control" placeholder="ex. John">
+					<br>
+					<div class="row">
+						<div class="col-sm-5 col-md-5" ng-class="{'has-error' : personalInfoForm.issue_date.$invalid &&  (submitted || personalInfoForm.issue_date.$dirty)}">
+							Issue Date: <p class="input-group">
+								<input type="text"
+								id="issue_date"
+								name="issue_date"
+								class="form-control"
+								uib-datepicker-popup="{{format}}"
+								ng-model="issue_date"
+								is-open="popup2.opened"
+								close-text="Close"
+								ng-click="open2()"
+								alt-input-formats="altInputFormats" required/>
+								<span class="input-group-btn">
+									<button type="button"
+									class="btn btn-default"
+									ng-click="open2()">
+									<i class="fa fa-calendar"></i>
+								</button>
+							</span>
+						</p>
+						<p ng-show="personalInfoForm.issue_date.$error.required && (submitted || personalInfoForm.issue_date.$dirty)" class="help-block">Issue Date is required.</p>
 					</div>
-					<div class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">
-						Last Name: <input type="text" class="form-control" placeholder="ex. Doe">
-					</div>
-					<div class="col-sm-4 col-md-4">
-						<br>
-						Nationality: <input type="text" class="form-control" placeholder="ex. Egyptian">
-					</div>
-					<div class="col-sm-5 col-md-5">
-						<br>
-						Date of Birth: <p class="input-group">
+					<div class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5" ng-class="{'has-error' : personalInfoForm.expiry_date.$invalid &&  (submitted || personalInfoForm.expiry_date.$dirty)}">
+						Expiry Date: <p class="input-group">
 							<input type="text"
-							id="birth_date"
+							id="expiry_date"
+							name="expiry_date"
 							class="form-control"
 							uib-datepicker-popup="{{format}}"
-							ng-model="birthDate"
-							is-open="popup1.opened"
-							ng-required="true"
+							ng-model="expiry_date"
+							is-open="popup3.opened"
 							close-text="Close"
-							ng-click="open1()"
-							alt-input-formats="altInputFormats" />
+							ng-click="open3()"
+							alt-input-formats="altInputFormats" required/>
 							<span class="input-group-btn">
 								<button type="button"
 								class="btn btn-default"
-								ng-click="open1()">
+								ng-click="open3()">
 								<i class="fa fa-calendar"></i>
 							</button>
 						</span>
 					</p>
+					<p ng-show="personalInfoForm.expiry_date.$error.required && (submitted || personalInfoForm.expiry_date.$dirty)" class="help-block">Expiry Date is required.</p>
 				</div>
 			</div>
+		</div>
 
-			<div class="panel-heading">
-				<h2 class="panel-title" >Passport Information </h2>
+		<div class="panel-heading">
+			<h2 class="panel-title" >Contact Information </h2>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-sm-5 col-md-5" ng-class="{'has-error' : personalInfoForm.email.$invalid &&  (submitted || personalInfoForm.email.$dirty)}">
+					Email: <input type="email" name="email" ng-model="email" class="form-control long" placeholder="Enter Your Email" required>
+					<p ng-show="personalInfoForm.email.$error.required && (submitted || personalInfoForm.email.$dirty)" class="help-block">Email is required.</p>
+					<p ng-show="personalInfoForm.email.$error.email && (submitted || personalInfoForm.email.$dirty)" class="help-block">Please Enter a Valid Email.</p>
+				</div>
 			</div>
-			<div class="panel-body">
+			<br>
+			<div class="row">
 				<div class="col-sm-11 col-md-11">
-					Passport number: <input type="text" class="form-control" placeholder="ex. 311644225">
+					Phone Number: <select id="mob-country" class="form-control">
+						<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
+					</select>
+					<input type="text" class="form-control" placeholder="ex. 01097643254">
 				</div>
-				<div class="col-sm-5 col-md-5">
-					<br>
-					Issue Date: <p class="input-group">
-						<input type="text"
-						id="issue_date"
-						class="form-control"
-						uib-datepicker-popup="{{format}}"
-						ng-model="issueDate"
-						is-open="popup2.opened"
-						ng-required="true"
-						close-text="Close"
-						ng-click="open2()"
-						alt-input-formats="altInputFormats" />
-						<span class="input-group-btn">
-							<button type="button"
-							class="btn btn-default"
-							ng-click="open2()">
-							<i class="fa fa-calendar"></i>
-						</button>
-					</span>
-				</p>
 			</div>
-
-			<div class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">
-				<br>
-				Expiry Date: <p class="input-group">
-					<input type="text"
-					id="expiry_date"
-					class="form-control"
-					uib-datepicker-popup="{{format}}"
-					ng-model="expiryDate"
-					is-open="popup3.opened"
-					ng-required="true"
-					close-text="Close"
-					ng-click="open3()"
-					alt-input-formats="altInputFormats" />
-					<span class="input-group-btn">
-						<button type="button"
-						class="btn btn-default"
-						ng-click="open3()">
-						<i class="fa fa-calendar"></i>
-					</button>
-				</span>
-			</p>
 		</div>
-	</div>
 
-	<div class="panel-heading">
-		<h2 class="panel-title" >Contact Information </h2>
-	</div>
-	<div class="panel-body">
-		<div class="col-sm-5 col-md-5">
-			Email: <input type="text" class="form-control long" placeholder="Enter Your Email">
+		<div class="panel-heading">
+			<h2 class="panel-title" >Emergency Contact Information </h2>
 		</div>
-		<div class="col-sm-11 col-md-11">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-sm-5 col-md-5" ng-class="{'has-error' : personalInfoForm.em_email.$invalid &&  (submitted || personalInfoForm.em_email.$dirty)}">
+					Email: <input type="email" name="em_email" ng-model="em_email" class="form-control long" placeholder="Enter Your Email" required>
+					<p ng-show="personalInfoForm.em_email.$error.required && (submitted || personalInfoForm.em_email.$dirty)" class="help-block">Email is required.</p>
+					<p ng-show="personalInfoForm.em_email.$error.email && (submitted || personalInfoForm.em_email.$dirty)" class="help-block">Please Enter a Valid Email.</p>
+				</div>
+			</div>
 			<br>
-			Phone Number: <select id="mob-country" class="form-control">
-				<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
-			</select>
-			<input type="text" class="form-control" placeholder="ex. 01097643254">
+			<div class="row">
+				<div class="col-sm-11 col-md-11">
+					Phone Number: <select id="mob-country" class="form-control">
+						<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
+					</select>
+					<input type="text" class="form-control" placeholder="ex. 01097643254">
+				</div>
+			</div>
 		</div>
-	</div>
 
-	<div class="panel-heading">
-		<h2 class="panel-title" >Emergency Contact Information </h2>
-	</div>
-	<div class="panel-body">
-		<div class="col-sm-5 col-md-5">
-			Email: <input type="text" class="form-control long" placeholder="Enter Your Email">
+		<div class="panel-heading">
+			<h2 class="panel-title" >Special Requirements </h2>
 		</div>
-		<div class="col-sm-11 col-md-11">
-			<br>
-			Phone Number: <select id="mob-country" class="form-control">
-				<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
-			</select>
-			<input type="text" class="form-control" placeholder="ex. 01097643254">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-sm-5 col-md-5">
+					Meal preference: <select id="meal-preference" class="form-control">
+						<option>None</option>
+						<option>Asian vegetarian meal</option>
+						<option>Baby food</option>
+						<option>Bland meal</option>
+						<option>Child food</option>
+						<option>Diabetic meal</option>
+						<option>Gelatin free meal</option>
+						<option>Low calorie meal</option>
+						<option>Low fat meal</option>
+						<option>Salt free meal</option>
+						<option>Lacto-ovo vegetarian meal</option>
+					</select>
+				</div>
+				<div class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">
+					Special needs: <select id="special-needs" class="form-control">
+						<option>None</option>
+						<option>Deaf passenger</option>
+						<option>Wheelchair for cabin seat</option>
+						<option>Wheelchair for ramp</option>
+						<option>Wheelchair for steps</option>
+						<option>Wheelchair dry cell battery</option>
+						<option>Wheelchair wet cell battery</option>
+					</select>
+				</div>
+			</div>
 		</div>
-	</div>
 
-	<div class="panel-heading">
-		<h2 class="panel-title" >Special Requirements </h2>
 	</div>
-	<div class="panel-body">
-		<div class="col-sm-5 col-md-5">
-			Meal preference: <select id="meal-preference" class="form-control">
-				<option>None</option>
-				<option>Asian vegetarian meal</option>
-				<option>Baby food</option>
-				<option>Bland meal</option>
-				<option>Child food</option>
-				<option>Diabetic meal</option>
-				<option>Gelatin free meal</option>
-				<option>Low calorie meal</option>
-				<option>Low fat meal</option>
-				<option>Salt free meal</option>
-				<option>Lacto-ovo vegetarian meal</option>
-			</select>
-		</div>
-		<div class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">
-			Special needs: <select id="special-needs" class="form-control">
-				<option>None</option>
-				<option>Deaf passenger</option>
-				<option>Wheelchair for cabin seat</option>
-				<option>Wheelchair for ramp</option>
-				<option>Wheelchair for steps</option>
-				<option>Wheelchair dry cell battery</option>
-				<option>Wheelchair wet cell battery</option>
-			</select>
-		</div>
-	</div>
-
-</div>
 </div>
 <div class="row">
 	<div class="col-sm-offset-9 col-md-offset-9 col-sm-2 col-md-2">
-		<a href="book/payment" class="btn btn-default btn_nxt">Next</a>
+		<button type="submit" class="btn btn-default btn_nxt">Next</button>
 	</div>
 </div>
 </div>
+</form>
 </div>
 <br>
