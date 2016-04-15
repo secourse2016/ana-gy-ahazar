@@ -1,3 +1,4 @@
+var assert = require('chai').assert;
 var request = require('supertest');
 var app = require('../app/app.js');
 var flights = require('../app/flights');
