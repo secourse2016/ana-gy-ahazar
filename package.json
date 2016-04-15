@@ -4,8 +4,8 @@
   "description": "This is an online booking system for Air Madagascar.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js"
+    "test": "node ./node_modules/mocha/bin/mocha",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,9 @@
     "dotenv": "^2.0.0",
     "express": "^4.13.4",
     "jsonwebtoken": "^5.7.0",
+    "mocha": "^2.4.5",
     "moment": "^2.12.0",
-    "mongodb": "^2.1.16"
+    "mongodb": "^2.1.16",
+    "supertest": "^1.2.0"
   }
 }

@@ -1,5 +1,5 @@
 var mongodb = require('mongodb').MongoClient;
-var db;
+var db = null;
 
 /**
 * connects to the database
@@ -25,6 +25,7 @@ var connect = function(dbURL, callback) {
 * @returns {MongoDBObject}
 */
 var getDatabase = function() {
+  if (db === null) throw Error('Database Object has not yet been initialized');
   return db;
 };
 
