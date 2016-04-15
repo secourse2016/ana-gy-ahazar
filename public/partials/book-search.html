@@ -23,9 +23,11 @@
 						type="text"
 						placeholder="Departure Airport"
 						ng-model="selectedOrigin"
+						autocomplete="off"
 						uib-typeahead="airport.iata for airport in Airports | filter:$viewValue | limitTo:10"
 						class="form-control in"
-						required>
+						required,
+                  typeahead-on-select="SetOriginAirport($item.iata)">
 						<p ng-show="searchForm.originAirport.$error.required && (submitted || searchForm.originAirport.$dirty)" class="help-block">Departure Airport is required.</p>
 					</div>
 					<div class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5 col-sm-offset-1 col-md-offset-1" ng-class="{'has-error' : searchForm.destinationAirport.$invalid &&  (submitted || searchForm.destinationAirport.$dirty)}">
@@ -34,9 +36,11 @@
 						type="text"
 						placeholder="Arrival Airport"
 						ng-model="selectedDestination"
+						autocomplete="off"
 						uib-typeahead="airport.iata for airport in Airports | filter:$viewValue | limitTo:10"
 						class="form-control in"
-						required>
+						required,
+                  typeahead-on-select="SetDestinationAirport($item.iata)">
 						<p ng-show="searchForm.destinationAirport.$error.required && (submitted || searchForm.destinationAirport.$dirty)" class="help-block">Arrival Airport is required.</p>
 					</div>
 				</div>

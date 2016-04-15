@@ -61,8 +61,9 @@
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-sm-11 col-md-11">
-							Passport number: <input type="text" class="form-control" placeholder="ex. 311644225">
+						<div class="col-sm-11 col-md-11" ng-class="{'has-error' : personalInfoForm.passport_number.$invalid &&  (submitted || personalInfoForm.passport_number.$dirty)}">
+							Passport Number: <input type="text" onkeypress="return isNumber(event);" name="passport_number" ng-model="passport_number" class="form-control" placeholder="ex. 311644225" required>
+							<p ng-show="personalInfoForm.passport_number.$error.required && (submitted || personalInfoForm.passport_number.$dirty)" class="help-block">Passport Number is required.</p>
 						</div>
 					</div>
 					<br>
@@ -127,11 +128,12 @@
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-11 col-md-11">
+				<div class="col-sm-11 col-md-11" ng-class="{'has-error' : personalInfoForm.phone_number.$invalid &&  (submitted || personalInfoForm.phone_number.$dirty)}">
 					Phone Number: <select id="mob-country" class="form-control">
 						<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
 					</select>
-					<input type="text" class="form-control" placeholder="ex. 01097643254">
+					<input type="text" onkeypress="return isNumber(event);" name="phone_number" ng-model="phone_number" class="form-control" placeholder="ex. 01097643254" required>
+					<p ng-show="personalInfoForm.phone_number.$error.required && (submitted || personalInfoForm.phone_number.$dirty)" class="help-block">Phone Number is required.</p>
 				</div>
 			</div>
 		</div>
@@ -149,11 +151,12 @@
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-11 col-md-11">
+				<div class="col-sm-11 col-md-11" ng-class="{'has-error' : personalInfoForm.em_phone_number.$invalid &&  (submitted || personalInfoForm.em_phone_number.$dirty)}">
 					Phone Number: <select id="mob-country" class="form-control">
 						<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
 					</select>
-					<input type="text" class="form-control" placeholder="ex. 01097643254">
+					<input type="text" onkeypress="return isNumber(event);" name="em_phone_number" ng-model="em_phone_number" class="form-control" placeholder="ex. 01097643254" required>
+					<p ng-show="personalInfoForm.em_phone_number.$error.required && (submitted || personalInfoForm.em_phone_number.$dirty)" class="help-block">Phone Number is required.</p>
 				</div>
 			</div>
 		</div>

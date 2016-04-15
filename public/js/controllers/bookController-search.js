@@ -41,10 +41,22 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
    /*
    Angular Typeahead.
    */
+
+   /* Retrieve List of Airports Codes */
    function Airports() {
       FlightsSrv.getAirportCodes().success(function(airports) {
          $scope.Airports = airports;
       });
+   };
+
+   /* Record User's Selected Origin Airport  */
+   $scope.SetOriginAirport = function(originAirport) {
+      FlightsSrv.setSelectedOriginAirport(originAirport);
+   };
+
+   /* Record User's Selected Destination Airport  */
+   $scope.SetDestinationAirport = function(destAirport) {
+      FlightsSrv.setSelectedDestinationAirport(destAirport);
    };
 
    Airports();
