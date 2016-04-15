@@ -29,6 +29,7 @@
 
    <!-- Services -->
    <script src="js/services/flightsSrv.js"></script>
+   <script src="js/services/feedbackSrv.js"></script>
 
    <!-- Controllers -->
    <script src="js/controllers/bookController-search.js"></script>
@@ -40,6 +41,7 @@
    <script src="js/controllers/manageController-ticketinfo.js"></script>
    <script src="js/controllers/checkinController.js"></script>
    <script src="js/controllers/offersController.js"></script>
+   <script src="js/controllers/feedbackController.js"></script>
 
    <!-- CSS -->
    <link rel="stylesheet" href="css/masterPage.css">
@@ -47,6 +49,11 @@
    <link rel="stylesheet" href="css/flights.css">
    <link rel="stylesheet" href="css/personal-info.css">
    <link rel="stylesheet" href="css/book-confirmation.css">
+
+   <!-- toastr -->
+   <script src="js/libraries/toastr.min.js"></script>
+   <link rel="stylesheet" href="css/libraries/toastr.min.css">
+
 
    <base href="/">
 </head>
@@ -119,14 +126,14 @@
                   </p>
                </div>
 
-               <div class="col-sm-6 col-md-5 contact-us">
+               <div class="col-sm-6 col-md-5 contact-us" ng-controller="feedbackController">
                   <h3>Send Your <span class="label label-success g_span">FEEDBACK</span></h3>
 
-                     <form action="#" method="post"> <!-- hatet3adelc -->
+                     <form> <!-- hatet3adelc -->
 
-                        <input type="text" name="email" placeholder="Email" />
-                        <textarea name="message" placeholder="Message"></textarea>
-                        <button class="btn btn-primary">Send <i class="fa fa-paper-plane"></i> </button>
+                        <input type="text" name="email" ng-model="feedbackData.email" placeholder="Email" />
+                        <textarea name="message" ng-model="feedbackData.message" placeholder="Message"></textarea>
+                        <button class="btn btn-primary" ng-click="sendFeedback()">Send <i class="fa fa-paper-plane"></i> </button>
 
                      </form>
                </div>

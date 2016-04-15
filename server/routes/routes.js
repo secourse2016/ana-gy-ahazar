@@ -11,4 +11,9 @@ module.exports = function(app) {
 	app.get('/api/countries', function(req, res) {
  	  res.json(require('../data/countries.json'));
 	});
+
+	app.post('/feedback', function(req, res) { // should leave this to backend.
+		// store in database.
+		res.send('hi');
+	});
 };
