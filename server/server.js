@@ -1,10 +1,11 @@
-var express = require('express');
-var app = express();
+var app = require('./app/app');
+var db = require('./app/db');
 
-app.use(express.static('public'));
+/* connecting to the database */
+db.connect(process.env.DBURL, function() {
 
-require('./routes/routes.js')(app);
-
-app.listen(3000, function() {
-   console.log('[up]');
+  /* start listening */
+  app.listen(process.env.PORT, function() {
+     console.log('[up : ' + process.env.PORT + ']');
+  });
 });
