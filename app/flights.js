@@ -73,6 +73,7 @@ function randomNumberZeroToTwo(){
       var originOrDestination2 =["Delhi","Jeddah","Taiwan","Cape Town","Jeddah","New York-JohnF. Kennedy"
       ,"Las Angeles","San Francisco","Berlin","Milan"];
 
+      var randomGeneratedCost = Math.floor(600 + Math.random()*8400);
       var number = Math.floor(Math.random() *(originOrDestination1.length));
       var fromTo = randomBoolean();
       if(fromTo){
@@ -90,18 +91,18 @@ function randomNumberZeroToTwo(){
         "departureDateTime": "Date",
         "arrivalDateTime": "Date",
         "class": "String",
-        "type": "String",
-        "tranzit": "Array",
+        "type": "Direct",
+        "tranzit": [],
         "duration": "Number",
         "origin": origin,
         "destination": destination,
         "remaining_seats": "50",
-        "cost": "Number",
-        "currency": "String",
+        "cost": randomGeneratedCost ,
+        "currency": "USD",
         "seatmap": 	[
           {
-            "seat_id": "String",
-            "taken": "Boolean"
+            "seat_id": "586",
+            "taken": randomBoolean()
           }
         ],
         "aircraft_id": "String"
