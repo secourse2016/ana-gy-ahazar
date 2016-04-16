@@ -39,8 +39,8 @@ var clear = function(callback) {
     collections.forEach(function (c) {
       db.collection(c.name).removeMany();
     });
-    done();
-  }).catch(done);
+    callback();
+  }).catch(callback);
 };
 
 /**
