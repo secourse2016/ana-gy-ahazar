@@ -12,4 +12,9 @@ module.exports = function(app) {
 		res.sendFile('index.html');
 	});
 
+	app.delete('/api/flights/:reservation', function(req, res) {
+		var r = req.params.reservation;
+		res.send('done');
+	});
+
 };
