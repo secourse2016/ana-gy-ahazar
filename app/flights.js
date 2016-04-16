@@ -212,6 +212,3 @@ module.exports = {
   generateFlightnumber: generateFlightnumber,
   seed: seed
 };
-
-
-console.log(generatePromo());
