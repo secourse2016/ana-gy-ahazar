@@ -1,4 +1,4 @@
-var db = require('db');
+var db = require('./db');
 
 /**
  * This function returns a JSON object with all the countries.
@@ -7,7 +7,7 @@ var db = require('db');
  * @returns {JSONObject}
  */
 var getCountries = function(callback) {
-  db.collection('countries').find().toArray(function(err, docs) {
+  db.getDatabase().collection('countries').find().toArray(function(err, docs) {
     callback(err, docs);
   });
 };
@@ -19,7 +19,7 @@ var getCountries = function(callback) {
  * @returns {JSONObject}
  */
 var getCountries = function(callback) {
-  db.collection('airports').find().toArray(function(err, docs) {
+  db.getDatabase().collection('airports').find().toArray(function(err, docs) {
     callback(err, docs);
   });
 };
