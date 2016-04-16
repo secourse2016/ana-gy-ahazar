@@ -12,4 +12,23 @@ module.exports = function(app) {
 		res.sendFile('index.html');
 	});
 
+	/**
+	 * This route returns a json object with all the countries.
+	 *
+	 */
+	app.get('/api/countries', function(req, res) {
+		flights.getCountries(function(err, data) {
+			res.json(data);
+		});
+	});
+
+	/**
+	 * This route returns a json objects with all the airports.
+	 *
+	 */
+	 app.get('/api/airports', function(req, res) {
+		 flights.getAirports(function(err, data) {
+			 res.json(data);
+		 });
+	 });
 };
