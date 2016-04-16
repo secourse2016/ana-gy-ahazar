@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/KEMDAK/Air-Madagascar#readme",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "chai": "^3.5.0",
     "dotenv": "^2.0.0",
+    "body-parser": "^1.8.1",
     "express": "^4.13.4",
     "jsonwebtoken": "^5.7.0",
     "mocha": "^2.4.5",

@@ -2,7 +2,7 @@ var db = require('./db');
 
 
 //Should know the datatype sent from the Frontend.
-var updateReservation = function (bookRef) {
+var updateReservation = function (bookRef, function(err, data) { {
 	db = db.getDatabase();
 	var collection = db.getCollection("reservation");
 	db.reservation.update({'booking_ref_number' : bookRef},
@@ -23,6 +23,7 @@ var updateReservation = function (bookRef) {
 
 		"emergency_contact_id": "String"
 		);
+	});
 };
 
 
