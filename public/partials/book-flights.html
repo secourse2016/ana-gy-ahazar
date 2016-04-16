@@ -99,9 +99,8 @@
 								</div>
 							</label>
 							<label class="col-sm-1 col-md-1 flight_body">
-								<input type="radio" name="reserve" ng-disabled="flight.remaining_seats == 0">
+								<input type="radio" ng-model="reserve" name="reserve" value="{{flight.flightNumber}}">
 							</label>
-
 							<div class="col-sm-12 col-md-12">
 								<hr style="border-color: black;">
 							</div>
