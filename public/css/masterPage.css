@@ -150,10 +150,6 @@ body {
    float: left;
 }
 
-/*.contact-us form{
-   display: inline-block;
-}*/
-
 .contact-us form input, .contact-us form textarea {
    display: block;
    border-radius: 3px;
