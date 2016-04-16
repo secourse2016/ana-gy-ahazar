@@ -1,4 +1,4 @@
-App.controller('bookController-flights', function($scope) {
+App.controller('bookController-flights', function($scope, $location) {
 
 $scope.dradioModel = 'dradio3';
 $scope.retradioModel = 'retradio3';
@@ -19,7 +19,7 @@ $scope.flights = [   {  "flightNumber": '1',
                               "Wifi", "Radio"
                            ]},
 
-                        {  "flightNumber": '1',
+                        {  "flightNumber": '2',
                            "depTime":'12:00',
                            "arrTime":'15:00',
                            "duration":'3 hour(s)',
@@ -32,7 +32,7 @@ $scope.flights = [   {  "flightNumber": '1',
                               "Radio"
                            ]},
 
-                        {  "flightNumber": '1',
+                        {  "flightNumber": '3',
                            "depTime":'12:00',
                            "arrTime":'15:00',
                            "duration":'3 hour(s)',
@@ -45,7 +45,7 @@ $scope.flights = [   {  "flightNumber": '1',
                               "Wifi", "Radio"
                            ]},
 
-                        {  "flightNumber": '2',
+                        {  "flightNumber": '4',
                            "depTime":'19:30',
                            "arrTime":'22:30',
                            "duration":'3 hour(s)',
@@ -58,7 +58,7 @@ $scope.flights = [   {  "flightNumber": '1',
                               "Wifi"
                            ]},
 
-                           {  "flightNumber": '2',
+                           {  "flightNumber": '5',
                            "depTime":'19:30',
                            "arrTime":'22:30',
                            "duration":'3 hour(s)',
@@ -72,4 +72,22 @@ $scope.flights = [   {  "flightNumber": '1',
                            ]}
                       ];
 
+    /*
+    Validations
+    */
+    $scope.submitted = false;
+    // function to submit the form after all validation has occurred
+    $scope.submitForm = function(isValid) {
+       $scope.submitted = true;
+
+       // check to make sure the form is completely valid
+       if (isValid) {
+          console.log('good');
+          $location.url('/book/personalInformation');
+       }
+       else {
+          console.log('bad');
+       }
+
+    };
 });

@@ -5,21 +5,31 @@
 				<h2 class="panel-title" >Personal Information </h2>
 			</div>
 			<div class="panel-body">
-				<label class="col-sm-5 col-md-5">Full name:  {{ title }} {{ firstName }} {{ lastName }}</label>
-				<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ dateOfBirth }}</label>
-				<label class="col-sm-5 col-md-5">Nationality: {{ nationality }}</label>
-				<label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ passport }}</label>
+				<div class="row">
+					<label class="col-sm-5 col-md-5">Full name:  {{ title }} {{ firstName }} {{ lastName }}</label>
+					<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ dateOfBirth }}</label>
+				</div>
+				<div class="row">
+					<label class="col-sm-5 col-md-5">Nationality: {{ nationality }}</label>
+					<label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ passport }}</label>
+				</div>
 			</div>
 
 			<div class="panel-heading">
 				<h2 class="panel-title" >Flight Information </h2>
 			</div>
 			<div class="panel-body">
-				<label class="col-sm-5 col-md-5">From: {{ origin }}</label>
-				<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">To: {{ destination }}</label>
-				<label class="col-sm-5 col-md-5">Departure Date: {{ departureDate }}</label>
-				<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Return Date: {{ returnDate }}</label>
-				<label class="col-sm-5 col-md-5">Class: {{ First }}</label>
+				<div class="row">
+					<label class="col-sm-5 col-md-5">From: {{ origin }}</label>
+					<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">To: {{ destination }}</label>
+				</div>
+				<div class="row">
+					<label class="col-sm-5 col-md-5">Departure Date: {{ departureDate }}</label>
+					<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Return Date: {{ returnDate }}</label>
+				</div>
+				<div class="row">
+					<label class="col-sm-5 col-md-5">Class: {{ First }}</label>
+				</div>
 			</div>
 
 			<div class="panel-heading">
@@ -54,8 +64,8 @@
 		<label><i class="fa fa-money"></i> Total Price <span class="label label-success g_span">$1555</span></label>
 	</div>
 	<div class="row">
-			<div class="col-sm-offset-9 col-md-offset-9 col-sm-2 col-md-2">
-				<a href="/book" class="btn btn-default btn_nxt">Confirm</a>
+		<div class="col-sm-offset-9 col-md-offset-9 col-sm-2 col-md-2">
+			<a href="/book" class="btn btn-default btn_nxt">Confirm</a>
 		</div>
 	</div>
 </div>
