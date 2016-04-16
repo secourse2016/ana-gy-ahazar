@@ -18,7 +18,7 @@ var getCountries = function(callback) {
  * @param {Funtion} callback function that is called after retrieving the airports.
  * @returns {JSONObject}
  */
-var getCountries = function(callback) {
+var getAirports = function(callback) {
   db.getDatabase().collection('airports').find().toArray(function(err, docs) {
     callback(err, docs);
   });
