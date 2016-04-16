@@ -7,7 +7,7 @@
 				</div>
 				<div class="panel-body">
 					<div class="col-sm-2 col-md-2">
-						Title: <select id="title" class="form-control">
+						Title: <select  ng-model="title"  class="form-control"> 
 							<option>Mr.</option>
 							<option>Mrs.</option>
 							<option>Ms.</option>
@@ -15,14 +15,14 @@
 						</select>
 					</div>
 					<div class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">
-						First Name: <input type="text" class="form-control" placeholder="ex. John">
+						First Name: <input type="text" ng-model="first_name" class="form-control" placeholder="ex. John">
 					</div>
 					<div class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">
-						Last Name: <input type="text" class="form-control" placeholder="ex. Doe">
+						Last Name: <input type="text" ng-model="last_name" class="form-control" placeholder="ex. Doe">
 					</div>
 					<div class="col-sm-4 col-md-4">
 						<br>
-						Nationality: <input type="text" class="form-control" placeholder="ex. Egyptian">
+						Nationality: <input type="text" ng-model="nationality" class="form-control" placeholder="ex. Egyptian">
 					</div>
 					<div class="col-sm-5 col-md-5">
 						<br>
@@ -31,7 +31,7 @@
 							id="birth_date"
 							class="form-control"
 							uib-datepicker-popup="{{format}}"
-							ng-model="birthDate"
+							ng-model="birth_date"
 							is-open="popup1.opened"
 							ng-required="true"
 							close-text="Close"
@@ -53,7 +53,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="col-sm-11 col-md-11">
-					Passport number: <input type="text" class="form-control" placeholder="ex. 311644225">
+					Passport number: <input type="text" ng-model="passport_number"class="form-control" placeholder="ex. 311644225">
 				</div>
 				<div class="col-sm-5 col-md-5">
 					<br>
@@ -107,14 +107,14 @@
 	</div>
 	<div class="panel-body">
 		<div class="col-sm-5 col-md-5">
-			Email: <input type="text" class="form-control long" placeholder="Enter Your Email">
+			Email: <input type="text" class="form-control long" ng-model="personal_email" placeholder="Enter Your Email">
 		</div>
 		<div class="col-sm-11 col-md-11">
 			<br>
 			Phone Number: <select id="mob-country" class="form-control">
 				<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
 			</select>
-			<input type="text" class="form-control" placeholder="ex. 01097643254">
+			<input type="text" class="form-control" ng-model="personal_mobile" placeholder="ex. 01097643254">
 		</div>
 	</div>
 
@@ -123,14 +123,14 @@
 	</div>
 	<div class="panel-body">
 		<div class="col-sm-5 col-md-5">
-			Email: <input type="text" class="form-control long" placeholder="Enter Your Email">
+			Email: <input type="text" class="form-control long" ng-model="emergency_email" placeholder="Enter Your Email">
 		</div>
 		<div class="col-sm-11 col-md-11">
 			<br>
 			Phone Number: <select id="mob-country" class="form-control">
 				<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
 			</select>
-			<input type="text" class="form-control" placeholder="ex. 01097643254">
+			<input type="text" class="form-control" ng-model="emergency_mobile" placeholder="ex. 01097643254">
 		</div>
 	</div>
 
@@ -139,7 +139,7 @@
 	</div>
 	<div class="panel-body">
 		<div class="col-sm-5 col-md-5">
-			Meal preference: <select id="meal-preference" class="form-control">
+			Meal preference: <select ng-model="meal_preference" class="form-control">
 				<option>None</option>
 				<option>Asian vegetarian meal</option>
 				<option>Baby food</option>
@@ -154,7 +154,7 @@
 			</select>
 		</div>
 		<div class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">
-			Special needs: <select id="special-needs" class="form-control">
+			Special needs: <select ng-model="special_needs" class="form-control">
 				<option>None</option>
 				<option>Deaf passenger</option>
 				<option>Wheelchair for cabin seat</option>
@@ -170,7 +170,7 @@
 </div>
 <div class="row">
 	<div class="col-sm-offset-9 col-md-offset-9 col-sm-2 col-md-2">
-		<a href="book/payment" class="btn btn-default btn_nxt">Next</a>
+		<a href="book/payment" class="btn btn-default btn_nxt" ng-click="next()">Next</a>
 	</div>
 </div>
 </div>

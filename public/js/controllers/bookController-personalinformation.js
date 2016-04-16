@@ -1,4 +1,4 @@
-App.controller('bookController-personalinformation', function($scope, $http) {
+App.controller('bookController-personalinformation', function($scope, personalSrv) {
 	/*
       Angular Bootstrap Datepicker.
     */
@@ -33,7 +33,30 @@ App.controller('bookController-personalinformation', function($scope, $http) {
 	/*
 		Get The countries for the country code dropdown list.
 	 */
-	$http.get('/api/countries').success(function (res){
-		$scope.countries = res;
-	});
+	// $http.get('/api/countries').success(function (res){
+	// 	$scope.countries = res;
+	// });
+
+   $scope.next = function() {
+      /* personal Infromation*/
+      personalSrv.setFirstName($scope.first_name);
+      personalSrv.setLastName($scope.last_name);
+      personalSrv.setTitle($scope.title)
+      personalSrv.setNationality($scope.nationality);
+      personalSrv.setBirthDate($scope.birth_date);
+      personalSrv.setPassportNumber($scope.passport_number);
+      
+      /*Contact information */
+      personalSrv.setPersonalEmail($scope.personal_email);
+      personalSrv.setPersonalMobile($scope.personal_Mobile);
+      
+      /*Emergency contact information*/ 
+      personalSrv.setPersonalEmail($scope.emergency_email);
+      personalSrv.setPersonalMobile($scope.emergency_Mobile);
+      
+      /*Special requirements */
+      personalSrv.setMealPreference($scope.meal_preference);
+      personalSrv.setSpecialNeeds($scope.special_needs);
+
+    }
 })
