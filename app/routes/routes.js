@@ -11,10 +11,4 @@ module.exports = function(app) {
 	app.get('/', function(req, res) {
 		res.sendFile('index.html');
 	});
-
-	app.post('/feedback', function(req, res) {
-		// store in database.
-
-		res.send('hi');
-	});
 };
