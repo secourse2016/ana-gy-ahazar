@@ -13,7 +13,11 @@ module.exports = function(app) {
 	});
 
 	app.get('/api/validatepromo/:promoCode', function(req, res) {
-		res.send(0.2 + '');
+		var p = req.params.promoCode;
+		var r = 0.0;
+		if (p === 'f')
+			r = 0.2;
+		res.send(r + '');
 	});
 
 };

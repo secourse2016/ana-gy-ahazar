@@ -1,4 +1,4 @@
-App.controller('bookController-payment', function($scope, promotionSrv) {
+App.controller('bookController-payment', function($scope, promotionSrv, $location) {
 
    /*
    To Get all the countries.
@@ -23,24 +23,46 @@ App.controller('bookController-payment', function($scope, promotionSrv) {
    };
 
    $scope.total_cost = 1555;
+
    /*
    Promotion Code Validation
    */
    $scope.validation_pressed = false;
+   $scope.success = false;
+
    $scope.validate = function() {
       $scope.validation_pressed = true;
 
       promotionSrv.checkCode($scope.promo_code).success(function(response) {
-         console.log(response);
+         
          var num = parseFloat(response);
-         if (num == 0.0)
-            $scope.success = false;
-         else {
+         if (num > 0.0) {
             $scope.success = true;
             $scope.discount = num * 100;
             $scope.total_cost -= ($scope.total_cost * num);
          }
+         else {
+            $scope.success = false;
+         }
       });
    };
 
+   /*
+   Validations
+   */
+   $scope.submitted = false;
+   // function to submit the form after all validation has occurred
+   $scope.submitForm = function(isValid) {
+      $scope.submitted = true;
+
+      // check to make sure the form is completely valid
+      if (isValid) {
+         console.log('good');
+         $location.url('/book/confirmation');
+      }
+      else {
+         console.log('bad');
+      }
+
+   };
 });
