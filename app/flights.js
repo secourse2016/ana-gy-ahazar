@@ -62,6 +62,41 @@ var generateFlightnumber = function() {
 };
 
 /**
+ * This function generates a random promotion codes
+ *
+ * @returns {JSONObject}
+ */
+var generatePromo = function() {
+  //genereating a code
+  var code = "";
+  for (var i = 0; i < 8; i++) {
+    if(randomBoolean()){
+      //Capital Letter
+      var letter = String.fromCharCode(65 + (Math.floor(Math.random() * 26)));
+      code += letter;
+    }
+    else{
+      //number
+      var number = Math.floor(Math.random() * 10);
+      code += number;
+    }
+  }
+
+  //genereating a discount
+  var discount = ((Math.floor(Math.random() * 100)) + 1) / 100;
+
+  var valid = false;
+
+  var promoCode = {
+    "code": code,
+    "discount": discount,
+    "valid": valid
+  };
+
+  return promoCode;
+};
+
+/**
 * This function seeds the database.
 *
 * @param {Function} callback function that is called after the seeding is complete.
@@ -99,7 +134,7 @@ var seed = function(cb) {
   var originOrDestination2 =["Delhi", "Jeddah", "Taiwan", "Cape Town", "Jeddah",
   "New York-JohnF. Kennedy", "Las Angeles", "San Francisco", "Berlin", "Milan"];
 
-  for (var i = 0; i < 200 i++) {
+  for (var i = 0; i < 200; i++) {
     var number = Math.floor(Math.random() *(originOrDestination1.length));
     var randomCost = Math.floor(600+Math.random() *8400);
     var flightDuration = Math.round((1+Math.random() *17)*10)/10;
@@ -173,7 +208,35 @@ var seed = function(cb) {
 
   }
 
-  //my part starts here :D
+  /* seeding the countries table */
+  var fs = require('fs');
+  var countries = JSON.parse(fs.readFileSync('../data/countries.json', 'utf8'));
+
+  db.getDatabase().collection('countries').count(function(err, count) {
+    if(err) throw err;
+
+    if(count === 0){
+      db.getDatabase().collection('countries').insert(countries);
+    }
+  });
+
+  /* seeding the airports table */
+  var airports = JSON.parse(fs.readFileSync('../data/airports.json', 'utf8'));
+
+  db.getDatabase().collection('airports').count(function(err, count) {
+    if(err) throw err;
+
+    if(count === 0){
+      db.getDatabase().collection('airports').insert(airports);
+    }
+  });
+
+  /* seeding the promotion codes table */
+  for (var i = 0; i < 100; i++) {
+    var promoCode = generatePromo();
+
+    db.getDatabase().collection('promotion_codes').insert(promoCode);
+  }
 };
 
 module.exports = {
