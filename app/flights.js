@@ -62,10 +62,10 @@ var generateFlightnumber = function() {
 };
 
 /**
- * This function generates a random promotion codes
- *
- * @returns {JSONObject}
- */
+* This function generates a random promotion codes
+*
+* @returns {JSONObject}
+*/
 var generatePromo = function() {
   //genereating a code
   var code = "";
@@ -134,7 +134,6 @@ var seed = function(cb) {
   var originOrDestination2 =["Delhi", "Jeddah", "Taiwan", "Cape Town", "Jeddah",
   "New York-JohnF. Kennedy", "Las Angeles", "San Francisco", "Berlin", "Milan"];
 
-  for (var i = 0; i < 200; i++) {
     var number = Math.floor(Math.random() *(originOrDestination1.length));
     var randomCost = Math.floor(600+Math.random() *8400);
     var flightDuration = Math.round((1+Math.random() *17)*10)/10;
@@ -145,6 +144,8 @@ var seed = function(cb) {
     var dateNormal = moment(departureDate).format('YYYY-MM-DD-hh:mm A');
     var date = new Date (datecode);
     var flight="";
+
+    /* seeding the flight table back and forth form list originOrDestination1 to originOrDestination2 and vice versa */
     for (var i = 11; i < 61 i++) {
       for (var j = 0; i < originOrDestination1.length; i++) {
         origin = originOrDestination1[j];
@@ -201,12 +202,12 @@ var seed = function(cb) {
         flights.insert(flight);
       }
 
-   date.setDate(date.getDate() + 1);
+      date.setDate(date.getDate() + 1);
     }
 
 
 
-  }
+
 
   /* seeding the countries table */
   var fs = require('fs');
