@@ -2,7 +2,7 @@ var moment = require('moment');
 var db = require('./db');
 
 /**
-* This function return a random boolea value.
+* This function return a random boolean value.
 *
 * @returns {Boolean}
 */
@@ -101,41 +101,76 @@ var seed = function(cb) {
 
   for (var i = 0; i < 200 i++) {
     var number = Math.floor(Math.random() *(originOrDestination1.length));
+    var randomCost = Math.floor(600+Math.random() *8400);
+    var flightDuration = Math.round((1+Math.random() *17)*10)/10;
     var fromTo = randomBoolean();
     var origin = "";
     var destination = "";
+    var dateCode = moment('2016-04-30 12:25 AM', 'YYYY-MM-DD hh:mm A').toDate().getTime();
+    var dateNormal = moment(departureDate).format('YYYY-MM-DD-hh:mm A');
+    var date = new Date (datecode);
+    var flight="";
+    for (var i = 11; i < 61 i++) {
+      for (var j = 0; i < originOrDestination1.length; i++) {
+        origin = originOrDestination1[j];
+        destination = originOrDestination2[j];
+        flight =	{
+          "Airline": "Air Madagascar",
+          "flightNumber": generateFlightnumber(),
+          "departureDateTime":dateCode ,
+          "arrivalDateTime": date.getTime() + (flightDuration*1000*60*60),
+          "class": randomFlightClass(),
+          "type": "Direct",
+          "tranzit": [],
+          "duration": flightDuration,
+          "origin": origin,
+          "destination": destination,
+          "remaining_seats": "50",
+          "cost": randomCost,
+          "currency": "String",
+          "seatmap": 	[
+            {
+              "seat_id": "String",
+              "taken": randomBoolean()
+            }
+          ],
+          "aircraft_id": "String"
+        };
+        var flights = db.getDatabase().collection('flights');
+        flights.insert(flight);
+        origin = originOrDestination2[j];
+        destination = originOrDestination1[j];
+        flight =	{
+          "Airline": "Air Madagascar",
+          "flightNumber": generateFlightnumber(),
+          "departureDateTime": dateCode,
+          "arrivalDateTime": date.getTime() + (flightDuration*1000*60*60),
+          "class": randomFlightClass(),
+          "type": "Direct",
+          "tranzit": [],
+          "duration": flightDuration,
+          "origin": origin,
+          "destination": destination,
+          "remaining_seats": "50",
+          "cost": randomCost,
+          "currency": "String",
+          "seatmap": 	[
+            {
+              "seat_id": 5666,
+              "taken": randomBoolean()
+            }
+          ],
+          "aircraft_id": 8979
+        };
+        var flights = db.getDatabase().collection('flights');
+        flights.insert(flight);
+      }
 
-    if(fromTo){
-      origin = originOrDestination1[number];
-      destination = originOrDestination2[number];
-    }
-    else{
-      origin = originOrDestination2[number];
-      destination = originOrDestination1[number];
+   date.setDate(date.getDate() + 1);
     }
 
-    var flight =	{
-      "Airline": "Air Madagascar",
-      "flightNumber": generateFlightnumber(),
-      "departureDateTime": "Date",
-      "arrivalDateTime": "Date",
-      "class": "String",
-      "type": "String",
-      "tranzit": "Array",
-      "duration": "Number",
-      "origin": origin,
-      "destination": destination,
-      "remaining_seats": "50",
-      "cost": "Number",
-      "currency": "String",
-      "seatmap": 	[
-        {
-          "seat_id": "String",
-          "taken": "Boolean"
-        }
-      ],
-      "aircraft_id": "String"
-    };
+
+
   }
 
   //my part starts here :D
