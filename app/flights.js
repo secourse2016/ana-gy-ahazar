@@ -23,3 +23,8 @@ var getAirports = function(callback) {
     callback(err, docs);
   });
 };
+
+module.exports = {
+  getCountries: getCountries,
+  getAirports: getAirports
+};
