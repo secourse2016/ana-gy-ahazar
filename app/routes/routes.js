@@ -12,4 +12,8 @@ module.exports = function(app) {
 		res.sendFile('index.html');
 	});
 
+	app.get('/api/validatepromo/:promoCode', function(req, res) {
+		res.send(0.2 + '');
+	});
+
 };
