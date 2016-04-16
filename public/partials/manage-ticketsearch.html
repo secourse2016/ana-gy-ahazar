@@ -1,42 +1,34 @@
 <div class="container">
    <div class="manage">
-      <form name="manageSearchForm" ng-submit="submitForm(manageSearchForm.$valid)" novalidate>
-         <div class="row">
+      <div class="row">
 
+         <div class="col-sm-4 col-md-4">
+            <p>
+               To check your reservation please enter your Booking Reference and your Last Name.
+            </p>
+         </div>
+
+         <div class="form-inline">
+            <div class="col-sm-offset-1 col-md-offset-1 col-sm-3 col-md-3">
+               <label>Passenger's last name: </label>
+               <br><br>
+               <label>Booking reference number: </label>
+            </div>
             <div class="col-sm-4 col-md-4">
-               <p>
-                  To check your reservation please enter your Booking Reference and your Last Name.
-               </p>
+               <input type="text" class="form-control" placeholder="Last name">
+               <br>
+               <input type="text" class="form-control" placeholder="Booking reference">
             </div>
 
-            <div class="form-inline">
-               <div class="col-sm-offset-1 col-md-offset-1 col-sm-3 col-md-3">
-                  <label>Passenger's last name: </label>
-                  <br><br>
-                  <p ng-show="manageSearchForm.last_name.$error.required && (submitted || manageSearchForm.last_name.$dirty)" class="help-block"><br></p>
-                  <label>Booking reference number: </label>
-               </div>
-               <div class="col-sm-4 col-md-4">
-                  <div ng-class="{'has-error' : manageSearchForm.last_name.$invalid &&  (submitted || manageSearchForm.last_name.$dirty)}">
-                     <input type="text" name="last_name" ng-model="last_name" class="form-control" placeholder="Last name" required>
-                     <p ng-show="manageSearchForm.last_name.$error.required && (submitted || manageSearchForm.last_name.$dirty)" class="help-block">Last Name is required.</p>
-                  </div>
-                  <div ng-class="{'has-error' : manageSearchForm.reference.$invalid &&  (submitted || manageSearchForm.reference.$dirty)}">
-                     <input type="text" name="reference" ng-model="reference" class="form-control" placeholder="Booking reference" required>
-                     <p ng-show="manageSearchForm.reference.$error.required && (submitted || manageSearchForm.reference.$dirty)" class="help-block">Booking Number is required.</p>
-                  </div>
-               </div>
 
-
-            </div>
          </div>
+      </div>
 
-         <div class="row">
-               <div class="col-sm-offset-7 col-md-offset-7 col-sm-4 col-md-4">
-                  <button type="submit" style="float: right; margin-top: 8%;" class="btn btn-default btn_nxt">Retrieve my booking</button>
-            </div>
+      <div class="row">
+            <div class="col-sm-offset-7 col-md-offset-7 col-sm-4 col-md-4">
+      			<a href="manage/ticketinfo" style="float: right; margin-top: 8%;" class="btn btn-default btn_nxt">Retrieve my booking</a>
          </div>
-      </form>
+      </div>
 
       <br>
 

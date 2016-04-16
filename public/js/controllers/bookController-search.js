@@ -1,4 +1,4 @@
-App.controller('bookController-search', function($scope, FlightsSrv, $location) {
+App.controller('bookController-search', function($scope, FlightsSrv) {
    $('#btn-1').prop('checked', true);
 
    /*
@@ -7,6 +7,7 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
    $scope.format = $scope.formats[0];
    $scope.altInputFormats = ['M!/d!/yyyy'];
+
 
    $scope.today = function() {
       $scope.dt1 = new Date();
@@ -41,22 +42,10 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
    /*
    Angular Typeahead.
    */
-
-   /* Retrieve List of Airports Codes */
    function Airports() {
       FlightsSrv.getAirportCodes().success(function(airports) {
          $scope.Airports = airports;
       });
-   };
-
-   /* Record User's Selected Origin Airport  */
-   $scope.SetOriginAirport = function(originAirport) {
-      FlightsSrv.setSelectedOriginAirport(originAirport);
-   };
-
-   /* Record User's Selected Destination Airport  */
-   $scope.SetDestinationAirport = function(destAirport) {
-      FlightsSrv.setSelectedDestinationAirport(destAirport);
    };
 
    Airports();
@@ -68,25 +57,6 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
 
    /*
    Make The Datepicker visible by default.
-   */
+    */
    $scope.date_show = true;
-
-   /*
-   Validations
-   */
-   $scope.submitted = false;
-   // function to submit the form after all validation has occurred
-   $scope.submitForm = function(isValid) {
-      $scope.submitted = true;
-
-      // check to make sure the form is completely valid
-      if (isValid) {
-         console.log('good');
-         $location.url('/book/flights');
-      }
-      else {
-         console.log('bad');
-      }
-
-   };
 });
