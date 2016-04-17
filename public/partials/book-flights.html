@@ -12,11 +12,7 @@
 						</button>
 						<!-- UI Bootstrap radio buttons for dates -->
 						<div class="btn-group">
-							<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(1)" uib-btn-radio="'dradio1'">Fri <br>20 April</label>
-							<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(2)" uib-btn-radio="'dradio2'">Sat <br>21 April</label>
-							<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(3)" uib-btn-radio="'dradio3'">Sun <br>22 April</label>
-							<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(4)" uib-btn-radio="'dradio4'">Mon <br>23 April</label>
-							<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(5)" uib-btn-radio="'dradio5'">Tue <br>24 April</label>
+							<label class="btn btn-default" ng-repeat="date in dep_dates track by $index" ng-model="$parent.dradioModel" ng-click="dep_show()" uib-btn-radio="date">{{dayName(date.getDay())}} <br>{{date.getDate()}} {{monthName(date.getMonth())}}</label>
 						</div>
 
 						<button type="button" id="next_dates">
@@ -122,11 +118,7 @@
 						</button>
 						<!-- UI Bootstrap radio buttons for dates -->
 						<div class="btn-group">
-							<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(1)" uib-btn-radio="'retradio1'">Fri <br>1 May</label>
-							<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(2)" uib-btn-radio="'retradio2'">Sat <br>2 May</label>
-							<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(3)" uib-btn-radio="'retradio3'">Sun <br>3 May</label>
-							<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(4)" uib-btn-radio="'retradio4'">Mon <br>4 May</label>
-							<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(5)" uib-btn-radio="'retradio5'">Tue <br>5 May</label>
+							<label class="btn btn-default" ng-repeat="date in ret_dates track by $index" ng-model="$parent.retradioModel" ng-click="ret_show()" uib-btn-radio="date">{{dayName(date.getDay())}} <br>{{date.getDate()}} {{monthName(date.getMonth())}}</label>
 						</div>
 
 						<button type="button" id="next_dates">
