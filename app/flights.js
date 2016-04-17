@@ -14,6 +14,30 @@ var getReservation = function(callback, bookingReference) {
 };
 
 /**
+* This function returns a JSON object with all the countries.
+*
+* @param {Funtion} callback function that is called after retrieving the countries.
+* @returns {JSONObject}
+*/
+var getCountries = function(callback) {
+  db.getDatabase().collection('countries').find().toArray(function(err, docs) {
+    callback(err, docs);
+  });
+};
+
+/**
+* This function returns a JSON object with all the Airports.
+*
+* @param {Funtion} callback function that is called after retrieving the airports.
+* @returns {JSONObject}
+*/
+var getAirports = function(callback) {
+  db.getDatabase().collection('airports').find().toArray(function(err, docs) {
+    callback(err, docs);
+  });
+};
+
+/**
 * This function return a random boolean value.
 *
 * @returns {Boolean}
@@ -126,7 +150,7 @@ var seed = function(callback) {
   var originOrDestination2 =["Delhi", "Jeddah", "Taiwan", "Cape Town", "Jeddah",
   "New York-JohnF. Kennedy", "Las Angeles", "San Francisco", "Berlin", "Milan"];
 
-  var airCrafts = {};
+  var airCrafts = [];
 
   for (var i = 0; i < 200; i++) {
     var generatedAircraftModel = Math.floor(100 + Math.random() * 900).toString();
@@ -152,9 +176,9 @@ var seed = function(callback) {
   var randomCost = Math.floor(600+Math.random() * 8400);
   var flightDuration = Math.round((1 + Math.random() * 16) * 10) / 10;
   var dateCode = moment('2016-04-30 12:25 AM', 'YYYY-MM-DD hh:mm A').toDate().getTime();
-  var date = new Date (datecode);
+  var date = new Date (dateCode);
 
-  var flights = {};
+  var flights = [];
 
   /* seeding the flight table back and forth form list originOrDestination1 to originOrDestination2 and vice versa */
   for (var i = 11; i < 61; i++) {
@@ -219,13 +243,13 @@ var seed = function(callback) {
   }
 
   /* seeding the countries table */
-  var countries = JSON.parse(fs.readFileSync('../data/countries.json', 'utf8'));
+  var countries = JSON.parse(fs.readFileSync('data/countries.json', 'utf8'));
 
   /* seeding the airports table */
-  var airports = JSON.parse(fs.readFileSync('../data/airports.json', 'utf8'));
+  var airports = JSON.parse(fs.readFileSync('data/airports.json', 'utf8'));
 
   /* seeding the promotion codes table */
-  var promotionCodes = {};
+  var promotionCodes = [];
   for (var i = 0; i < 100; i++) {
     var promoCode = generatePromo();
 
@@ -252,6 +276,8 @@ var seed = function(callback) {
 };
 
 module.exports = {
+  getCountries: getCountries,
+  getAirports: getAirports,
   randomBoolean: randomBoolean,
   randomFlightClass: randomFlightClass,
   chooseRandomElement: chooseRandomElement,

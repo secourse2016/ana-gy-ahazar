@@ -1,8 +1,8 @@
 var assert = require('chai').assert;
 var request = require('supertest');
+var db = require('../app/db.js');
 var app = require('../app/app.js');
 var flights = require('../app/flights');
-var db = require('../app/db.js');
 var fs = require('fs');
 
 before(function(done) {
@@ -16,42 +16,89 @@ db.connect(process.env.DBURL, function(err, db) {
   });
 });
 
-/**
-* This test tests if the number of collections equals to 0 after clearing the database
-*/
-describe("clear", function() {
-	it("should delete all the database", function() {
-		db.clear(function() {
-			db.listCollections().toArray().then(function (collections) {
-				collections.forEach(function (c) {
-					var count = db.collection(c.name).count();
-					assert.equal(count,0);
-				});
-			});
-		})
+ /* Tests if the countries are returned successfully from the database.
+ *
+ */
+describe('getCountriesFromDB', function() {
+  it('should return all countries documents in the database', function(done) {
+    flights.getCountries(function(err, countries) {
+      if(err)
+      throw err;
 
-});
+      assert.equal(countries.length, 241);
+      done();
+    });
+  });
 });
 
 /**
-* This test tests if the length of the array that is returned from the getReservation funtion equals to 1 (each booking reference has only one reservation)
-*/
-describe("getReservation", function() {
-	it("should review your reservation", function() {
-		var bookingReference = 'abc1234567';
-		flights.getReservation(function(err, reservation) {
-			assert.equal(reservation.length, 1);
+ * Tests if the airports are returned successfully from the database.
+ *
+ */
+describe('getAirportsFromDB', function() {
+  it('should return all airports documents in the database', function(done) {
+    flights.getAirports(function(err, airports) {
+      if(err)
+      throw err;
 
-		}, bookingReference);
+      assert.equal(airports.length, 5881);
+      done();
+    });
+  });
+});
 
-	});
+/**
+ * Tests the API ends.
+ *
+ */
+describe('API', function() {
+  request = request(app);
+  it("should return a 404 for urls that don't exist", function(done) {
+    request.get('/kareem').expect(404, done);
+  });
+
+  it('/api/countries should return a countries JSON object array with keys [_id, name, dial_code, code]', function(done) {
+    request.get('/api/countries').
+    expect('Content-Type', 'application/json; charset=utf-8').
+    expect(200).
+    end(function(err, response) {
+      if(err)
+      throw err;
+
+      var countries = JSON.parse(response.text);
+
+      assert.equal(countries.length, 241);
+
+      var country = countries[0];
+      assert.equal(typeof country.name != "undefined" && typeof country.dial_code != "undefined" && typeof country._id != "undefined" && typeof country.code != "undefined", true);
+      done();
+    });
+  });
+
+  it('/api/airports should return a airports JSON object array with keys [_id, iata, lon, iso, status, name, continent, type, lat, size]', function(done) {
+    request.get('/api/airports').
+    expect('Content-Type', 'application/json; charset=utf-8').
+    expect(200).
+    end(function(err, response) {
+      if(err)
+      throw err;
+
+      var airports = JSON.parse(response.text);
+
+      assert.equal(airports.length, 5881);
+
+      var airport = airports[0];
+      assert.equal(typeof airport.iata != "undefined" && typeof airport.lon != "undefined" && typeof airport._id != "undefined" && typeof airport.iso != "undefined" && typeof airport.status != "undefined" && typeof airport.name != "undefined" && typeof airport.continent != "undefined" && typeof airport.type != "undefined" && typeof airport.lat != "undefined" && typeof airport.size != "undefined", true);
+      done();
+    });
+  });
 });
 
 describe("randomBoolean", function() {
   it("should return a random boolean value", function() {
     // TODO
     var randomBoolean =  flights.randomBoolean();
-    assert.equal(randomBoolean==true || randomBoolean==false,true);
+    assert.equal(randomBoolean == true || randomBoolean == false, true);
   });
 });
 
@@ -110,15 +157,36 @@ describe("generatePromo", function() {
     assert(discount>0.0 && discount <= 1.0 ,true);
   }  );
 });
-/*
-describe("seed", function() {
-it("should return a JSON object of code , discount , and if it is validor not", function() {
-// TODO
-flights.seed(function(){
-seeded=true;
-assert.equal(seededfalse);
-done();
+
+/**
+* This test tests if the length of the array that is returned from the getReservation funtion equals to 1 (each booking reference has only one reservation)
+*/
+describe("getReservation", function() {
+	it("should review your reservation", function() {
+		var bookingReference = 'abc1234567';
+		flights.getReservation(function(err, reservation) {
+			assert.equal(reservation.length, 1);
+
+		}, bookingReference);
+
+	});
+
+/**
+* This test tests if the number of collections equals to 0 after clearing the database
+*/
+describe("clear", function() {
+	it("should delete all the database", function() {
+		db.clear(function() {
+			db.listCollections().toArray().then(function (collections) {
+				collections.forEach(function (c) {
+					var count = db.collection(c.name).count();
+					assert.equal(count,0);
+				});
+			});
+		})
+
 });
 });
-});*/
+
+
 
