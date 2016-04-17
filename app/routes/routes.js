@@ -29,7 +29,7 @@ module.exports = function(app) {
 	 app.get('/api/flights/reservation/:bookingReference', function(req, res) {
 		 flights.getReservation(function(err, data) {
 			 res.json(data);
-		 }, bookingReference);
+		 }, req.params.bookingReference);
 	 });
 
 
