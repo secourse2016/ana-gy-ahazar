@@ -12,4 +12,20 @@ module.exports = function(app) {
 		res.sendFile('index.html');
 	});
 
+	/**
+	 * This route seeds the database
+	 *
+	 */
+	app.get('/db/seed', function(req, res) {
+		
+	 });
+
+	 /**
+	  * This route validates the promotion_code
+	  *
+	  */
+	app.get('/api/validatepromo/:promoCode',function(req,res) {
+
+	});
+
 };

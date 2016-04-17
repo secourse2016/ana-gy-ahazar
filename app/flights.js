@@ -147,7 +147,7 @@ var seed = function(cb) {
 
     /* seeding the flight table back and forth form list originOrDestination1 to originOrDestination2 and vice versa */
     for (var i = 11; i < 61 i++) {
-      for (var j = 0; i < originOrDestination1.length; i++) {
+      for (var j = 0; j < originOrDestination1.length; j++) {
         origin = originOrDestination1[j];
         destination = originOrDestination2[j];
         flight =	{
@@ -163,14 +163,14 @@ var seed = function(cb) {
           "destination": destination,
           "remaining_seats": "50",
           "cost": randomCost,
-          "currency": "String",
+          "currency": USD,
           "seatmap": 	[
             {
-              "seat_id": "String",
+              "seat_id": 5666,
               "taken": randomBoolean()
             }
           ],
-          "aircraft_id": "String"
+          "aircraft_id": 8979
         };
         var flights = db.getDatabase().collection('flights');
         flights.insert(flight);
@@ -189,7 +189,7 @@ var seed = function(cb) {
           "destination": destination,
           "remaining_seats": "50",
           "cost": randomCost,
-          "currency": "String",
+          "currency": USD,
           "seatmap": 	[
             {
               "seat_id": 5666,
