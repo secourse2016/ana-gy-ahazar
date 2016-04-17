@@ -133,7 +133,7 @@ App.controller('bookController-flights', function($scope, $location) {
 
       $scope.ret_dates = [ret_prevBy5, ret_prevBy4, ret_prevBy3, ret_prevBy2, ret_prevBy1];
 
-      $scope.dradioModel = new Date(ret_prevBy1);
+      $scope.retradioModel = new Date(ret_prevBy1);
       $scope.ret_show();
    };
 
