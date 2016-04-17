@@ -158,3 +158,11 @@ describe("generatePromo", function() {
     assert(discount>0.0 && discount <= 1.0 ,true);
   }  );
 });
+describe("feedback",function(){
+    it("should post a feedback into the feedback collection" , function(){
+       request.post('/feedback/:Essam/:fantastic').expect(200,done)
+    });
+
+  });
+
+

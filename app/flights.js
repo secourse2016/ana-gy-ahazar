@@ -276,24 +276,58 @@ module.exports = {
 };
 
 /*
- all one way flights  
+search for all one way flights
 */
 
-exports.getOneWayFlights = function(oneWay , callback){
-    db.getDatabase().collection('flights').find(oneWay).toArray(function( err , data ){
-         if (err){
-            	callback(err);
-            }else{
-            	callback(null,data);
-            }
-    }); 
-};
+      var getOneWayFlights = function(oneway,callback){
+      var flights = {} ;
+   
+       db.getDatabase().collection('flight').find(oneway).toArray(function(err,data){
+              if(err){
+                callback(err) ;
+              }
+              else {
+                
+                for(var i=0; i<data.length ;i++){
+                     var currFlight = data[i]; 
+                     var aircraftType = {} ;
+                     var aircraftModel = {} ;
+                     db.getDatabase().collection('airCraft').find({'aircraft_id':currFlight['aircraft_id']}).toArray(function(err,dat){
+                           if(err)
+                            callback(err) ;
+                           else{
+                             aircraftType = dat[aircraftType]  ;
+                             aircraftModel= dat[aircraftModel] ;
+                           }
+
+
+                     });
+                     var flight = {
+                        "aircraftType": aircraftType,
+                        "aircraftModel": aircraftModel,
+                        "flightNumber": currFlight['flightNumber'],
+                        "departureDateTime": currFlight['departureDateTime'],
+                        "arrivalDateTime": currFlight['arrivalDateTime'],
+                        "origin": currFlight['origin'],
+                        "destination": currFlight['destination'],
+                        "cost": currFlight['cost'],
+                        "currency": currFlight['currency'],
+                        "class": currFlight['class'],  
+                        "Airline": currFlight['Airline']        
+                    };
+                    flights.push(flight) ;
+                  }
+
+                callback(null,flights) ;
+              }
+    });
+}; 
 
 
 /*
 The function is used to insert a feedback into Database.
 */
-exports.addFeedback = function (feed, callback){
+   var addFeedback = function (feed, callback){
 	db.getDatabase().collection('feedbacks').insert(feed, function(err, docs) {
 		if (err){
             	callback(err);
@@ -301,4 +335,8 @@ exports.addFeedback = function (feed, callback){
             	callback(null);
             }
 	});
+};
+module.exports = {
+  addFeedback:addFeedback,
+  getOneWayFlights:getOneWayFlights
 };
