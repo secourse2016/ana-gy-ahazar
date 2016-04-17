@@ -17,9 +17,36 @@ before(function(done) {
 });
 
 /**
- * Tests if the countries are returned successfully from the database.
- *
- */
+* Tests if seed seeds all the tables needed in database.
+*
+*/
+describe("seed", function() {
+  it("should seed all tables in database", function(done) {
+    // TODO
+    flights.seed(function(err,seeded){
+      assert.equal(seeded,true);
+      done();
+    });
+  });
+  it("should make sure that size of flights and airCrafts tables is right", function(done) {
+    // TODO
+    flights.seed(function(err,seeded){
+      var get_total_num_docs = db.getDatabase().collection('airCrafts').count(function (err, count) {
+        assert.equal(count===200,true);
+        db.getDatabase().collection('flights').count(function (err, count) {
+          assert.equal(count===1000,true);
+          done();
+
+        });
+      });
+    });
+  });
+});
+
+/**
+* Tests if the countries are returned successfully from the database.
+*
+*/
 describe('getCountriesFromDB', function() {
   it('should return all countries documents in the database', function(done) {
     flights.getCountries(function(err, countries) {
@@ -33,9 +60,9 @@ describe('getCountriesFromDB', function() {
 });
 
 /**
- * Tests if the airports are returned successfully from the database.
- *
- */
+* Tests if the airports are returned successfully from the database.
+*
+*/
 describe('getAirportsFromDB', function() {
   it('should return all airports documents in the database', function(done) {
     flights.getAirports(function(err, airports) {
@@ -49,9 +76,9 @@ describe('getAirportsFromDB', function() {
 });
 
 /**
- * Tests the API ends.
- *
- */
+* Tests the API ends.
+*
+*/
 describe('API', function() {
   request = request(app);
   it("should return a 404 for urls that don't exist", function(done) {
@@ -93,25 +120,38 @@ describe('API', function() {
       done();
     });
   });
+  it('/api/validatepromo/:promoCode', function(done) {
+    request.get('/api/validatepromo/:promoCode').
+    expect('Content-Type', 'application/json; charset=utf-8').
+    expect(200).
+    end(function(err, response) {
+    });
+  });
+  it('/db/seed', function(done) {
+    request.get('/db/seed').
+    expect('Content-Type', 'application/json; charset=utf-8').
+    expect(200).
+    end(function(err, response) {
+    });
+  });
 });
 
+/**
+* Tests if randomBoolean returns a random boolean true or false.
+*
+*/
 describe("randomBoolean", function() {
   it("should return a random boolean value", function() {
     // TODO
     var randomBoolean =  flights.randomBoolean();
-    assert.equal(randomBoolean == true || randomBoolean == false, true);
+    assert.equal(randomBoolean === true || randomBoolean === false, true);
   });
 });
 
-describe("randomFlightClass", function() {
-  it("should return a random flight class", function() {
-    // TODO
-    var randomFlightClass =  flights.randomFlightClass();
-    assert.equal(randomFlightClass==="business" || randomFlightClass==="economy" || randomFlightClass==="first",true);
-
-  });
-});
-
+/**
+* Tests if chooseRandomElement returns a random element from a array.
+*
+*/
 describe("chooseRandomElement", function() {
   var arrayOfNumbers = [1,7,2,8];
   it("should return a random element form the array", function() {
@@ -119,10 +159,13 @@ describe("chooseRandomElement", function() {
     var randomElement = flights.chooseRandomElement(arrayOfNumbers);
     var index      = arrayOfNumbers.indexOf(randomElement);
     assert.equal(index!==-1,true);
-
   });
 });
 
+/**
+* Tests if generateFlightnumber returns a randomly generated flight number with two letters and five numbers.
+*
+*/
 describe("generateFlightnumber", function() {
   it("should return a random flight number with begining with two letters and reset are five numbers", function() {
     // TODO
@@ -142,6 +185,10 @@ describe("generateFlightnumber", function() {
   });
 });
 
+/**
+* Tests if generatePromo returns a randomly generated promotion code with letters and numbers , the discount and whether it is valid or not.
+*
+*/
 describe("generatePromo", function() {
   it("should return a JSON object of code , discount , and if it is valid or not", function() {
     // TODO
@@ -155,6 +202,39 @@ describe("generatePromo", function() {
       flag = false;
     }
     var discount = generatePromo.discount;
-    assert(discount>0.0 && discount <= 1.0 ,true);
-  }  );
+    assert.equal(discount>0.0 && discount <= 1.0 ,true);
+  });
+});
+
+/**
+* This test tests if the length of the array that is returned from the getReservation funtion equals to 1 (each booking reference has only one reservation)
+*/
+describe("getReservation", function() {
+  it("should review your reservation", function() {
+    var bookingReference = 'abc1234567';
+    flights.getReservation(function(err, reservation) {
+      assert.equal(reservation.length, 1);
+
+    }, bookingReference);
+
+  });
+});
+
+/**
+* This test tests if the number of collections equals to 0 after clearing the database
+*/
+describe("clear", function() {
+  it("should delete all the database", function() {
+
+
+    db.clear(function() {
+      db.listCollections().toArray().then(function (collections) {
+        collections.forEach(function (c) {
+          var count = db.collection(c.name).count();
+          assert.equal(count,0);
+        });
+      });
+    });
+
+  });
 });

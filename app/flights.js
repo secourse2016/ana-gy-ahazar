@@ -3,6 +3,17 @@ var db = require('./db');
 var fs = require('fs');
 
 /**
+* This function return an array of length 1 of a specific reservation info.
+* @param {Function} callback function, {String} the booking reference
+* @returns {JSONObject}
+*/
+var getReservation = function(callback, bookingReference) {
+  db.getDatabase().collection('reservations').find({booking_ref_number: bookingReference}).toArray(function(err, reservation) {
+  	callback(err, reservation);
+  });
+};
+
+/**
 * This function returns a JSON object with all the countries.
 *
 * @param {Funtion} callback function that is called after retrieving the countries.
@@ -34,25 +45,6 @@ var getAirports = function(callback) {
 var randomBoolean = function() {
   var chosenBoolean = Math.random() < 0.5 ? true : false;
   return chosenBoolean;
-};
-
-/**
-* This function returns a random flight class
-*
-* @returns {String}
-*/
-var randomFlightClass = function() {
-  var number = Math.floor(Math.random() * 3);
-
-  if(number === 0){
-    return "business";
-  }
-
-  if(number === 1){
-    return "first";
-  }
-
-  return "economy";
 };
 
 /**
@@ -146,6 +138,7 @@ var seed = function(callback) {
     var date_of_manufacture = moment('1990-06-10').toDate().getTime();
 
     var airCraft = 	{
+      "aircraftType": chooseRandomElement(aircraftTypes),
       "aircraftModel": generatedAircraftModel,
       "date_of_manufacture": date_of_manufacture,
       "capacity": "300",
@@ -163,23 +156,26 @@ var seed = function(callback) {
 
   var number = Math.floor(Math.random() * (originOrDestination1.length));
   var randomCost = Math.floor(600+Math.random() * 8400);
-  var flightDuration = Math.round((1 + Math.random() * 16) * 10) / 10;
-  var dateCode = moment('2016-04-30 12:25 AM', 'YYYY-MM-DD hh:mm A').toDate().getTime();
-  var date = new Date (dateCode);
+  var date = new Date ('2016-04-11  3:25 AM');
 
   var flights = [];
 
   /* seeding the flight table back and forth form list originOrDestination1 to originOrDestination2 and vice versa */
   for (var i = 11; i < 61; i++) {
     for (var j = 0; j < originOrDestination1.length; j++) {
+      var flightDuration = Math.floor(1 + (Math.random() * 16));
+      var dateCode = moment(date).toDate().getTime();
+      var dateArrive = date;
+      dateArrive.setHours(dateArrive.getHours() + flightDuration);
+      dateArrive = moment(dateArrive).toDate().getTime();
+
       var origin = originOrDestination1[j];
       var destination = originOrDestination2[j];
       var flight =	{
         "Airline": "Air Madagascar",
-        "flightNumber": generateFlightnumber(),
         "departureDateTime":dateCode,
-        "arrivalDateTime": date.getTime() + (flightDuration*1000*60*60),
-        "class": randomFlightClass(),
+        "arrivalDateTime": dateArrive,
+        "class": "economy",
         "type": "Direct",
         "tranzit": [],
         "duration": flightDuration,
@@ -198,6 +194,12 @@ var seed = function(callback) {
       };
 
       flights.push(flight);
+      var flightF = JSON.parse(JSON.stringify(flight));
+      flightF.class = "first";
+      flights.push(flightF);
+      var flightB = JSON.parse(JSON.stringify(flight));
+      flightB.class = "business";
+      flights.push(flightB);
 
       origin = originOrDestination2[j];
       destination = originOrDestination1[j];
@@ -205,8 +207,8 @@ var seed = function(callback) {
         "Airline": "Air Madagascar",
         "flightNumber": generateFlightnumber(),
         "departureDateTime": dateCode,
-        "arrivalDateTime": date.getTime() + (flightDuration*1000*60*60),
-        "class": randomFlightClass(),
+        "arrivalDateTime": dateArrive,
+        "class": "economy",
         "type": "Direct",
         "tranzit": [],
         "duration": flightDuration,
@@ -225,6 +227,12 @@ var seed = function(callback) {
       };
 
       flights.push(flight);
+      flightF = JSON.parse(JSON.stringify(flight));
+      flightF.class = "first";
+      flights.push(flightF);
+      flightB = JSON.parse(JSON.stringify(flight));
+      flightB.class = "business";
+      flights.push(flightB);
 
     }
 
@@ -251,15 +259,41 @@ var seed = function(callback) {
   db.clear(function(){
     //seeding the database
     database.collection('airCrafts').insert(airCrafts, function(err, docs) {
-      database.collection('flights').insert(flights, function(err, docs) {
-        database.collection('countries').insert(countries, function(err, docs) {
-          database.collection('airports').insert(airports, function(err, docs) {
-            database.collection('promotionCodes').insert(promotionCodes, function(err, docs) {
-              callback();
+      if(err){
+        callback(err,false);
+      }
+      else{
+        database.collection('flights').insert(flights, function(err, docs) {
+          if(err){
+            callback(err,false);
+          }
+          else{
+            database.collection('countries').insert(countries, function(err, docs) {
+              if(err){
+                callback(err,false);
+              }
+              else{
+                database.collection('airports').insert(airports, function(err, docs) {
+                  if(err){
+                    callback(err,false);
+                  }
+                  else{
+                    database.collection('promotionCodes').insert(promotionCodes, function(err, docs) {
+                      if(err){
+                        callback(err,false);
+                      }
+                      else{
+                        callback(null,true);
+                      }
+
+                    });
+                  }
+                });
+              }
             });
-          });
+          }
         });
-      });
+      }
     });
   });
 };
@@ -268,9 +302,9 @@ module.exports = {
   getCountries: getCountries,
   getAirports: getAirports,
   randomBoolean: randomBoolean,
-  randomFlightClass: randomFlightClass,
   chooseRandomElement: chooseRandomElement,
   generateFlightnumber: generateFlightnumber,
   seed: seed,
-  generatePromo: generatePromo
+  generatePromo: generatePromo,
+  getReservation: getReservation
 };
