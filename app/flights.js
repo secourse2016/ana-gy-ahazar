@@ -1,5 +1,6 @@
 var moment = require('moment');
 var db = require('./db');
+var fs = require('fs');
 
 /**
 * This function return a random boolean value.
@@ -207,7 +208,6 @@ var seed = function(callback) {
   }
 
   /* seeding the countries table */
-  var fs = require('fs');
   var countries = JSON.parse(fs.readFileSync('../data/countries.json', 'utf8'));
 
   /* seeding the airports table */
@@ -245,5 +245,6 @@ module.exports = {
   randomFlightClass: randomFlightClass,
   chooseRandomElement: chooseRandomElement,
   generateFlightnumber: generateFlightnumber,
-  seed: seed
+  seed: seed,
+  generatePromo: generatePromo
 };

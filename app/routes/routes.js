@@ -18,6 +18,7 @@ module.exports = function(app) {
 	 */
 	app.get('/db/seed', function(req, res) {
 		flights.seed(function(){
+			res.send("seeded sucessful")
 		});
 	 });
 
