@@ -85,7 +85,7 @@ var generatePromo = function() {
   //genereating a discount
   var discount = ((Math.floor(Math.random() * 100)) + 1) / 100;
 
-  var valid = false;
+  var valid = true;
 
   var promoCode = {
     "code": code,
@@ -101,11 +101,20 @@ var generatePromo = function() {
 *
 * @param {Function} callback function that is called after the seeding is complete.
 */
-var seed = function(cb) {
+var seed = function(callback) {
+  /* static arrays */
   var aircraftTypes =["Aerospatiale", "ATR", "Airbus", "Antonov", "Beechcraft", "Boeing", "BAC" , "BAE", "Comac",
   "Convair", "de Havilland", "Bombardier", "Canadair",
   "Embraer", "Fairchild", "Fokker", "Ilyushin", "Irkut", "Lockheed",
   "McDonnell Douglas", "Mitsubishi", "Saab", "Sukhoi", "Tupolev", "Vickers", "Yakovlev"];
+
+  var originOrDestination1 =["Mumbai", "Cairo", "Hong kong", "Johannesburg", "Riyadh",
+  "London Heathrew", "Las Vegas", "Las Angeles", " Frankfurt", "Rome"];
+
+  var originOrDestination2 =["Delhi", "Jeddah", "Taiwan", "Cape Town", "Jeddah",
+  "New York-JohnF. Kennedy", "Las Angeles", "San Francisco", "Berlin", "Milan"];
+
+  var airCrafts = {};
 
   for (var i = 0; i < 200; i++) {
     var generatedAircraftModel = Math.floor(100 + Math.random() * 900).toString();
@@ -124,120 +133,111 @@ var seed = function(cb) {
       }
     };
 
-    var airCrafts = db.getDatabase().collection('airCrafts');
-    airCrafts.insert(airCraft);
+    airCrafts.push(airCraft);
   }
 
-  var originOrDestination1 =["Mumbai", "Cairo", "Hong kong", "Johannesburg", "Riyadh",
-  "London Heathrew", "Las Vegas", "Las Angeles", " Frankfurt", "Rome"];
+  var number = Math.floor(Math.random() * (originOrDestination1.length));
+  var randomCost = Math.floor(600+Math.random() * 8400);
+  var flightDuration = Math.round((1 + Math.random() * 16) * 10) / 10;
+  var dateCode = moment('2016-04-30 12:25 AM', 'YYYY-MM-DD hh:mm A').toDate().getTime();
+  var date = new Date (datecode);
 
-  var originOrDestination2 =["Delhi", "Jeddah", "Taiwan", "Cape Town", "Jeddah",
-  "New York-JohnF. Kennedy", "Las Angeles", "San Francisco", "Berlin", "Milan"];
+  var flights = {};
 
-    var number = Math.floor(Math.random() *(originOrDestination1.length));
-    var randomCost = Math.floor(600+Math.random() *8400);
-    var flightDuration = Math.round((1+Math.random() *17)*10)/10;
-    var fromTo = randomBoolean();
-    var origin = "";
-    var destination = "";
-    var dateCode = moment('2016-04-30 12:25 AM', 'YYYY-MM-DD hh:mm A').toDate().getTime();
-    var dateNormal = moment(departureDate).format('YYYY-MM-DD-hh:mm A');
-    var date = new Date (datecode);
-    var flight="";
+  /* seeding the flight table back and forth form list originOrDestination1 to originOrDestination2 and vice versa */
+  for (var i = 11; i < 61; i++) {
+    for (var j = 0; j < originOrDestination1.length; j++) {
+      var origin = originOrDestination1[j];
+      var destination = originOrDestination2[j];
+      var flight =	{
+        "Airline": "Air Madagascar",
+        "flightNumber": generateFlightnumber(),
+        "departureDateTime":dateCode,
+        "arrivalDateTime": date.getTime() + (flightDuration*1000*60*60),
+        "class": randomFlightClass(),
+        "type": "Direct",
+        "tranzit": [],
+        "duration": flightDuration,
+        "origin": origin,
+        "destination": destination,
+        "remaining_seats": "50",
+        "cost": randomCost,
+        "currency": "USD",
+        "seatmap": 	[
+          {
+            "seat": 5666,
+            "taken": randomBoolean()
+          }
+        ],
+        "aircraft": airCrafts[Math.floor(Math.random() * airCrafts.length)]
+      };
 
-    /* seeding the flight table back and forth form list originOrDestination1 to originOrDestination2 and vice versa */
-    for (var i = 11; i < 61 i++) {
-      for (var j = 0; j < originOrDestination1.length; j++) {
-        origin = originOrDestination1[j];
-        destination = originOrDestination2[j];
-        flight =	{
-          "Airline": "Air Madagascar",
-          "flightNumber": generateFlightnumber(),
-          "departureDateTime":dateCode ,
-          "arrivalDateTime": date.getTime() + (flightDuration*1000*60*60),
-          "class": randomFlightClass(),
-          "type": "Direct",
-          "tranzit": [],
-          "duration": flightDuration,
-          "origin": origin,
-          "destination": destination,
-          "remaining_seats": "50",
-          "cost": randomCost,
-          "currency": USD,
-          "seatmap": 	[
-            {
-              "seat_id": 5666,
-              "taken": randomBoolean()
-            }
-          ],
-          "aircraft_id": 8979
-        };
-        var flights = db.getDatabase().collection('flights');
-        flights.insert(flight);
-        origin = originOrDestination2[j];
-        destination = originOrDestination1[j];
-        flight =	{
-          "Airline": "Air Madagascar",
-          "flightNumber": generateFlightnumber(),
-          "departureDateTime": dateCode,
-          "arrivalDateTime": date.getTime() + (flightDuration*1000*60*60),
-          "class": randomFlightClass(),
-          "type": "Direct",
-          "tranzit": [],
-          "duration": flightDuration,
-          "origin": origin,
-          "destination": destination,
-          "remaining_seats": "50",
-          "cost": randomCost,
-          "currency": USD,
-          "seatmap": 	[
-            {
-              "seat_id": 5666,
-              "taken": randomBoolean()
-            }
-          ],
-          "aircraft_id": 8979
-        };
-        var flights = db.getDatabase().collection('flights');
-        flights.insert(flight);
-      }
+      flights.push(flight);
 
-      date.setDate(date.getDate() + 1);
+      origin = originOrDestination2[j];
+      destination = originOrDestination1[j];
+      flight =	{
+        "Airline": "Air Madagascar",
+        "flightNumber": generateFlightnumber(),
+        "departureDateTime": dateCode,
+        "arrivalDateTime": date.getTime() + (flightDuration*1000*60*60),
+        "class": randomFlightClass(),
+        "type": "Direct",
+        "tranzit": [],
+        "duration": flightDuration,
+        "origin": origin,
+        "destination": destination,
+        "remaining_seats": "50",
+        "cost": randomCost,
+        "currency": "USD",
+        "seatmap": 	[
+          {
+            "seat": 5666,
+            "taken": randomBoolean()
+          }
+        ],
+        "aircraft": airCrafts[Math.floor(Math.random() * airCrafts.length)]
+      };
+
+      flights.push(flight);
+
     }
 
-
-
-
+    date.setDate(date.getDate() + 1);
+  }
 
   /* seeding the countries table */
   var fs = require('fs');
   var countries = JSON.parse(fs.readFileSync('../data/countries.json', 'utf8'));
 
-  db.getDatabase().collection('countries').count(function(err, count) {
-    if(err) throw err;
-
-    if(count === 0){
-      db.getDatabase().collection('countries').insert(countries);
-    }
-  });
-
   /* seeding the airports table */
   var airports = JSON.parse(fs.readFileSync('../data/airports.json', 'utf8'));
 
-  db.getDatabase().collection('airports').count(function(err, count) {
-    if(err) throw err;
-
-    if(count === 0){
-      db.getDatabase().collection('airports').insert(airports);
-    }
-  });
-
   /* seeding the promotion codes table */
+  var promotionCodes = {};
   for (var i = 0; i < 100; i++) {
     var promoCode = generatePromo();
 
-    db.getDatabase().collection('promotion_codes').insert(promoCode);
+    promotionCodes.push(promoCode);
   }
+
+  var database = db.getDatabase();
+
+  //clearing the database
+  db.clear(function(){
+    //seeding the database
+    database.collection('airCrafts').insert(airCrafts, function(err, docs) {
+      database.collection('flights').insert(flights, function(err, docs) {
+        database.collection('countries').insert(countries, function(err, docs) {
+          database.collection('airports').insert(airports, function(err, docs) {
+            database.collection('promotionCodes').insert(promotionCodes, function(err, docs) {
+              callback();
+            });
+          });
+        });
+      });
+    });
+  });
 };
 
 module.exports = {
