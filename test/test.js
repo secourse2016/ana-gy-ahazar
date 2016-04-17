@@ -16,6 +16,8 @@ db.connect(process.env.DBURL, function(err, db) {
   });
 });
 
+
+
  /* Tests if the countries are returned successfully from the database.
  *
  */
@@ -170,12 +172,15 @@ describe("getReservation", function() {
 		}, bookingReference);
 
 	});
+});
 
 /**
 * This test tests if the number of collections equals to 0 after clearing the database
 */
 describe("clear", function() {
 	it("should delete all the database", function() {
+
+     
 		db.clear(function() {
 			db.listCollections().toArray().then(function (collections) {
 				collections.forEach(function (c) {
@@ -183,10 +188,7 @@ describe("clear", function() {
 					assert.equal(count,0);
 				});
 			});
-		})
+		});
 
 });
 });
-
-
-
