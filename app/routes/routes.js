@@ -1,9 +1,9 @@
 var flights = require('../flights');
-var bodyParser = require("body-parser");
+// var bodyParser = require("body-parser");
 
 //Here we are configuring express to use body-parser as middle-ware.
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
 
 module.exports = function(app) {
 
@@ -22,8 +22,10 @@ module.exports = function(app) {
 	 * This route edits reservation info
 	 *
 	 */
-	app.post('/api/flights/reservation', function (req,res) {
-		flights.updateReservation(req.body.bookRef);
+	app.put('/api/flights/reservation', function (req,res) {
+		var newInfo = req.body;
+		var bookingRef = newInfo.booking_ref_number;
+		flights.updateReservation(bookingRef, newInfo);
 	});
 
 
@@ -31,8 +33,9 @@ module.exports = function(app) {
 	 * This route deletes a certain reservation from the database
 	 *
 	 */
-	app.delete('/api/flights/reservation', function (req,res) {
-		flights.deleteReservation(req.body.bookRef);
+	app.delete('/api/flights/:reservation', function (req,res) {
+		var bookingRef = req.params.reservation;
+		flights.deleteReservation(bookingRef);
 		res.send("Reservation cancelled!");
 	});
 
