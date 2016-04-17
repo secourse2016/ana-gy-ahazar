@@ -1,4 +1,6 @@
 App.controller('bookController-confirmation', function($scope, personalSrv) {
+
+	console.log(personalSrv.getFirstName());
 	/* personal Infromation Part*/
 	$scope.title = personalSrv.getTitle();
 	$scope.firstName = personalSrv.getFirstName();
@@ -8,11 +10,11 @@ App.controller('bookController-confirmation', function($scope, personalSrv) {
 	$scope.passport = personalSrv.getPassportNumber();
 	
 	/*Flight Information */
-	$scope.origin = "Miami" ;
-	$scope.destination = "Malibu" ;
-	$scope.departureDate = "1/5/2778" ;
-	$scope.returnDate = "5/5/2868";
-	$scope.class = "First" ;
+	$scope.origin = personalSrv.getSelectedOriginAirport() ;
+	$scope.destination = personalSrv.getSelectedDestinationAirport();
+	$scope.departureDate = personalSrv.getDepartureDate();
+	$scope.returnDate = personalSrv.getReturnDate();
+	$scope.class = personalSrv.getClass();
 	
 	/*Contact information */
 	$scope.phone = personalSrv.getPersonalMobile();
@@ -25,5 +27,20 @@ App.controller('bookController-confirmation', function($scope, personalSrv) {
 	/*Special requirements */
 	$scope.mealPreference = personalSrv.getMealPreference();
 	$scope.specialNeed = personalSrv.getSpecialNeeds();
+
+	   
+console.log(personalSrv.getReturnDate());
+console.log(personalSrv.getClass());
+	    // console.log (personalSrv.getCardholder());
+     //    console.log (personalSrv.getMethod());
+     //    console.log (personalSrv.getCardNumber());
+     //    console.log (personalSrv.getCVS());
+     //    console.log (personalSrv.getExpiryDate());
+     //    console.log (personalSrv.getBillingCountry());
+     //    console.log (personalSrv.getBillingCity());
+     //    console.log (personalSrv.getBillingState());
+     //    console.log (personalSrv.getZipCode());
+     //    console.log (personalSrv.getAddress());
+     //    console.log (personalSrv.getPromotionCode());
 
 });

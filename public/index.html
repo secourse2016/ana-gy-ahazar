@@ -41,6 +41,7 @@
    <script src="js/controllers/manageController-ticketinfo.js"></script>
    <script src="js/controllers/checkinController.js"></script>
    <script src="js/controllers/offersController.js"></script>
+   <script src="js/controllers/feedbackController.js"></script>
 
    <!-- CSS -->
    <link rel="stylesheet" href="css/masterPage.css">
@@ -120,16 +121,23 @@
                   </p>
                </div>
 
-               <div class="col-sm-6 col-md-5 contact-us">
+               <div class="col-sm-6 col-md-5 contact-us" ng-controller="feedbackController">
                   <h3>Send Your <span class="label label-success g_span">FEEDBACK</span></h3>
 
-                     <form action="#" method="post"> <!-- hatet3adelc -->
-
-                        <input type="text" name="email" placeholder="Email" />
-                        <textarea name="message" placeholder="Message"></textarea>
+                  <form name="feedbackForm" ng-submit="submitForm(feedbackForm.$valid)" novalidate>
+                     <div class="form-group">
+                        <div ng-class="{'has-error' : feedbackForm.email.$invalid &&  (submitted || feedbackForm.email.$dirty)}">
+                           <input type="email" name="email" class="form-control" ng-model="email" placeholder="Email" required >
+                           <p ng-show="feedbackForm.email.$error.required && (submitted || feedbackForm.email.$dirty)" class="help-block">Email is required.</p>
+                           <p ng-show="feedbackForm.email.$error.email && (submitted || feedbackForm.email.$dirty)" class="help-block">Please Enter a Valid Email.</p>
+                        </div>
+                        <div ng-class="{'has-error' : feedbackForm.message.$invalid &&  (submitted || feedbackForm.message.$dirty)}">
+                           <textarea type="text" name="message" class="form-control" ng-model="message" placeholder="Message" required> </textarea>
+                           <p ng-show="feedbackForm.message.$error.required && (submitted || feedbackForm.message.$dirty)" class="help-block">Message is required.</p>
+                        </div>
                         <button class="btn btn-primary">Send <i class="fa fa-paper-plane"></i> </button>
-
-                     </form>
+                     </div>
+                  </form>
                </div>
             </div>
          </div>
