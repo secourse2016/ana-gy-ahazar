@@ -159,8 +159,8 @@ describe("generatePromo", function() {
   }  );
 });
 describe("feedback",function(){
-    it("should post a feedback into the feedback collection" , function(){
-       request.post('/feedback/:Essam/:fantastic').expect(200,done)
+    it("should post a feedback into the feedback collection" , function(done){
+       request.post('/feedback/:Essam/:fantastic').expect(200,done);
     });
 
   });
