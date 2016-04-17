@@ -1,6 +1,7 @@
 App.controller('bookController-search', function($scope, FlightsSrv, $location) {
    $('#btn-1').prop('checked', true);
 
+   $scope.trip_type = "round";
    /*
    Angular Bootstrap Datepicker.
    */
@@ -73,6 +74,7 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
       if (isValid) {
          console.log('good');
 
+         FlightsSrv.setFlightType($scope.trip_type);
          FlightsSrv.setSelectedOriginAirport($scope.selectedOrigin);
          FlightsSrv.setSelectedDestinationAirport($scope.selectedDestination);
          FlightsSrv.setDepartureDate($scope.departureDate);

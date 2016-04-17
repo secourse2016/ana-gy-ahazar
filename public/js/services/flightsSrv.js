@@ -8,6 +8,12 @@ App.factory('FlightsSrv', function ($http) {
       },
 
       /*Flight Info */
+      setFlightType: function(value) {
+         this.flightType = value;
+      },
+      getFlightType: function() {
+         return this.flightType;
+      },
       setSelectedOriginAirport: function(value) {
          this.selectedOriginAirport = value;
       },

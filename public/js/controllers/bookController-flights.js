@@ -1,5 +1,14 @@
 App.controller('bookController-flights', function($scope, FlightsSrv, $location) {
 
+   // Get The values from the previous view (search view).
+   $scope.flight_type = FlightsSrv.getFlightType();
+   $scope.dep_airport = FlightsSrv.getSelectedOriginAirport();
+   $scope.ret_airport = FlightsSrv.getSelectedDestinationAirport();
+   $scope.dep_date = FlightsSrv.getDepartureDate();
+   $scope.ret_date = FlightsSrv.getReturnDate();
+   $scope.class = FlightsSrv.getClass();
+
+
    var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
    var months = ["January", "February", "March", "April", "May", "June",
    "July", "August", "September", "October", "November", "December"];
@@ -16,7 +25,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    /*
    For Departure Dates.
    */
-   var dep_date = new Date(); // should come from service.
+   var dep_date = new Date($scope.dep_date);
    var dep_beforeTwo = new Date(dep_date);
    var dep_beforeOne = new Date(dep_date);
    var dep_afterOne = new Date(dep_date);
@@ -91,8 +100,8 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    /*
    For Return Dates.
    */
-   var ret_date = new Date(); // should come from service.
-   ret_date.setDate(ret_date.getDate() + 50);
+   var ret_date = new Date($scope.ret_date);
+   ret_date.setDate(ret_date.getDate());
    var ret_beforeTwo = new Date(ret_date);
    var ret_beforeOne = new Date(ret_date);
    var ret_afterOne = new Date(ret_date);
@@ -162,9 +171,15 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
    $scope.retradioModel = new Date(ret_date);
 
+   if ($scope.flight_type == "round") {
+      $scope.show_incoming = true;
+   }
+   else {
+      $scope.show_incoming = false;
+   }
 
-   $scope.dep_isSelected = "First";
-   $scope.ret_isSelected = "First";
+   $scope.dep_isSelected = $scope.class;
+   $scope.ret_isSelected = $scope.class;
 
    $scope.flights = [   {  "flightNumber": '1',
    "depTime":'12:00',

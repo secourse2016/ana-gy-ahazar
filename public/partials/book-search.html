@@ -5,11 +5,11 @@
 				<!-- Row for round trip and one way -->
 				<div class="row">
 					<div class="col-sm-2 col-md-2 check">
-						<input type="radio" id="round" name="radio" ng-model="radio1" value="round" ng-change="date_show = true" ng-checked="true" />
+						<input type="radio" id="round" name="radio" ng-model="trip_type" ng-value="'round'" ng-change="date_show = true" />
 						<label for="round">Round Trip</label>
 					</div>
 					<div class="col-sm-offset-1 col-md-offset-1 col-sm-2 col-md-2 check">
-						<input type="radio" id="one" name="radio" ng-model="radio2" value="one" ng-change="date_show = false" />
+						<input type="radio" id="one" name="radio" ng-model="trip_type" ng-value="'one'" ng-change="date_show = false" />
 						<label for="one">One Way</label>
 					</div>
 				</div>
