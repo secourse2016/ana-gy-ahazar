@@ -6,6 +6,7 @@ $scope.retradioModel = 'retradio3';
 $scope.dep_isSelected = "First";
 $scope.ret_isSelected = "First";
 
+
 $scope.flights = [   {  "flightNumber": '1',
                            "depTime":'12:00',
                            "arrTime":'15:00',

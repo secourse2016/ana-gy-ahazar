@@ -9,7 +9,7 @@
                </div>
 
                <div class="col-md-offset-1 col-sm-4 col-md-5">
-                  Method: <i class="fa fa-credit-card"></i> <select class="form-control">
+                  Method: <i class="fa fa-credit-card"></i> <select class="form-control" ng-model="method">
                         <option>Visa</option>
                         <option>MasterCard</option>
                         <option>Credit Card</option>
@@ -54,16 +54,16 @@
             <br>
             <div class="row">
                <div class="col-sm-3 col-md-4">
-                  Billing Country: <br><select id="billingCountrySelect"  class="form-control">
+                  Billing Country: <br><select ng-model="billing_country"  class="form-control">
                     <option ng-repeat="country in countries">{{ country.name }}</option>
                   </select>
                </div>
                <div class="col-sm-3 col-md-2" ng-class="{'has-error' : paymentForm.city.$invalid &&  (submitted || paymentForm.city.$dirty)}">
-                  Billing City: <br><input type="text" name="city" ng-model="city" class="form-control" placeholder="City" required>
+                  Billing City: <br><input type="text" name="city" ng-model="billing_city" class="form-control" placeholder="City" required>
                   <p ng-show="paymentForm.city.$error.required && (submitted || paymentForm.city.$dirty)" class="help-block">Billing City is required.</p>
                </div>
                <div class="col-sm-3 col-md-2" ng-class="{'has-error' : paymentForm.state.$invalid &&  (submitted || paymentForm.state.$dirty)}">
-                  Billing State: <br><input type="text" name="state" ng-model="state" class="form-control" placeholder="State" required>
+                  Billing State: <br><input type="text" name="state" ng-model="billing_state" class="form-control" placeholder="State" required>
                   <p ng-show="paymentForm.state.$error.required && (submitted || paymentForm.state.$dirty)" class="help-block">Billing State is required.</p>
                </div>
                <div class="col-sm-2 col-md-2" ng-class="{'has-error' : paymentForm.zip_code.$invalid &&  (submitted || paymentForm.zip_code.$dirty)}">
@@ -82,7 +82,7 @@
             <br>
             <div class="row">
                <div class="col-sm-5 col-md-5">
-                  Promotion Code: <input type="text" placeholder="Enter Promo Here!" class="form-control">
+                  Promotion Code: <input type="text" placeholder="Enter Promo Here!" class="form-control" ng-model="promotion_code" >
                   &nbsp;<button type="button" class="btn btn-info">Validate</button>
                </div>
 

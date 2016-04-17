@@ -1,4 +1,4 @@
-App.controller('bookController-confirmation', function($scope) {
+App.controller('bookController-confirmation', function($scope, PersonalSrv) {
 
 	// flight info
 	$scope.origin = "Miami" ;
@@ -33,4 +33,33 @@ App.controller('bookController-confirmation', function($scope) {
 	];
 
 	$scope.total_price = 1555;
+
+	// console.log(personalSrv.getFirstName());
+	// /* personal Infromation Part*/
+	// $scope.title = personalSrv.getTitle();
+	// $scope.firstName = personalSrv.getFirstName();
+	// $scope.lastName = personalSrv.getLastName();
+	// $scope.dateOfBirth = personalSrv.getBirthDate();
+	// $scope.nationality = personalSrv.getNationality();
+	// $scope.passport = personalSrv.getPassportNumber();
+	//
+	// /*Flight Information */
+	// $scope.origin = personalSrv.getSelectedOriginAirport() ;
+	// $scope.destination = personalSrv.getSelectedDestinationAirport();
+	// $scope.departureDate = personalSrv.getDepartureDate();
+	// $scope.returnDate = personalSrv.getReturnDate();
+	// $scope.class = personalSrv.getClass();
+	//
+	// /*Contact information */
+	// $scope.phone = personalSrv.getPersonalMobile();
+	// $scope.email = personalSrv.getPersonalEmail();
+	//
+   //  /*Emergency contact information*/
+	// $scope.emailEmg = personalSrv.getEmergencyEmail() ;
+	// $scope.phoneEmg = personalSrv.getEmergencyMobile();;
+	//
+	// /*Special requirements */
+	// $scope.mealPreference = personalSrv.getMealPreference();
+	// $scope.specialNeed = personalSrv.getSpecialNeeds();
+
 });

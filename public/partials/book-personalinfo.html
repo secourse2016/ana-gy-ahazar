@@ -416,7 +416,6 @@
 			</div>
 		</div>
 
-
 		<div class="panel-heading">
 			<h2 class="panel-title" >Passport Information </h2>
 		</div>
@@ -475,7 +474,7 @@
 		</div>
 		</div>
 		</div>
-		
+
 		<div class="panel-heading">
 			<h2 class="panel-title" >Special Requirements </h2>
 		</div>
@@ -483,7 +482,7 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-sm-5 col-md-5">
-					Meal preference: <select id="meal-preference" class="form-control">
+					Meal preference: <select ng-model="meal_preference" class="form-control">
 						<option>None</option>
 						<option>Asian vegetarian meal</option>
 						<option>Baby food</option>
@@ -498,7 +497,7 @@
 					</select>
 				</div>
 				<div class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">
-					Special needs: <select id="special-needs" class="form-control">
+					Special needs: <select ng-model="special_needs" class="form-control">
 						<option>None</option>
 						<option>Deaf passenger</option>
 						<option>Wheelchair for cabin seat</option>
@@ -512,6 +511,7 @@
 		</div>
 
 	</div>
+
 </div>
 </div>
 <div class="row">

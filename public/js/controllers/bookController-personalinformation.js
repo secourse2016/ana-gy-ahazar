@@ -1,4 +1,4 @@
-App.controller('bookController-personalinformation', function($scope, $http, $location) {
+App.controller('bookController-personalinformation', function($scope, PersonalSrv, $location) {
 	/*
       Angular Bootstrap Datepicker.
     */
@@ -30,12 +30,35 @@ App.controller('bookController-personalinformation', function($scope, $http, $lo
       opened: false
    };
 
-	/*
-		Get The countries for the country code dropdown list.
-	 */
-	$http.get('/api/countries').success(function (res){
-		$scope.countries = res;
-	});
+
+
+
+   // $scope.next = function() {
+   //    /* personal Infromation*/
+   //    personalSrv.setFirstName($scope.first_name);
+   //    personalSrv.setLastName($scope.last_name);
+   //    personalSrv.setTitle($scope.title)
+   //    personalSrv.setNationality($scope.nationality);
+   //    personalSrv.setBirthDate($scope.birth_date);
+   //    personalSrv.setPassportNumber($scope.passport_number);
+
+   //    /*Contact information */
+   //    personalSrv.setPersonalEmail($scope.personal_email);
+   //    personalSrv.setPersonalMobile($scope.personal_Mobile);
+
+   //    /*Emergency contact information*/
+   //    personalSrv.setPersonalEmail($scope.emergency_email);
+   //    personalSrv.setPersonalMobile($scope.emergency_Mobile);
+
+   //    /*Special requirements */
+   //    personalSrv.setMealPreference($scope.meal_preference);
+   //    personalSrv.setSpecialNeeds($scope.special_needs);
+
+   //  };
+
+ //   $http.get('/api/countries').success(function (res){
+	// 	$scope.countries = res;
+	// });
 
 
    $scope.adults = 2; // should get it from the service.
@@ -63,6 +86,27 @@ App.controller('bookController-personalinformation', function($scope, $http, $lo
       // check to make sure the form is completely valid
       if (isValid) {
          console.log('good');
+         // /* personal Infromation*/
+         // personalSrv.setFirstName($scope.first_name);
+         // personalSrv.setLastName($scope.last_name);
+         // personalSrv.setTitle($scope.title)
+         // personalSrv.setNationality($scope.nationality);
+         // personalSrv.setBirthDate($scope.birth_date);
+         // personalSrv.setPassportNumber($scope.passport_number);
+         //
+         // /*Contact information */
+         // personalSrv.setPersonalEmail($scope.email);
+         // personalSrv.setPersonalMobile($scope.phone_number);
+         //
+         // /*Emergency contact information*/
+         // personalSrv.setEmergencyEmail($scope.em_email);
+         // personalSrv.setEmergencyMobile($scope.em_phone_number);
+         //
+         // /*Special requirements */
+         // personalSrv.setMealPreference($scope.meal_preference);
+         // personalSrv.setSpecialNeeds($scope.special_needs);
+
+
          $location.url('/book/payment');
       }
       else {
@@ -70,4 +114,5 @@ App.controller('bookController-personalinformation', function($scope, $http, $lo
       }
 
    };
-})
+
+});

@@ -1,4 +1,4 @@
-App.controller('bookController-search', function($scope, FlightsSrv, $location) {
+App.controller('bookController-search', function($scope, FlightsSrv, PersonalSrv, $location) {
    $('#btn-1').prop('checked', true);
 
    /*
@@ -9,8 +9,8 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
    $scope.altInputFormats = ['M!/d!/yyyy'];
 
    $scope.today = function() {
-      $scope.dt1 = new Date();
-      $scope.dt2 = new Date();
+      $scope.departureDate = new Date();
+      $scope.returnDate = new Date();
    };
    $scope.today();
 
@@ -23,11 +23,11 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
    };
 
    $scope.setDate1 = function(year, month, day) {
-      $scope.dt1 = new Date(year, month, day);
+      $scope.departureDate = new Date(year, month, day);
    };
 
    $scope.setDate2 = function(year, month, day) {
-      $scope.dt2 = new Date(year, month, day);
+      $scope.returnDate = new Date(year, month, day);
    };
 
    $scope.popup1 = {
@@ -82,6 +82,19 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
       // check to make sure the form is completely valid
       if (isValid) {
          console.log('good');
+
+         console.log($scope.Adult);
+         console.log($scope.child);
+
+         PersonalSrv.setSelectedOriginAirport($scope.selectedOrigin);
+         PersonalSrv.setSelectedDestinationAirport($scope.selectedDestination);
+         PersonalSrv.setDepartureDate($scope.departureDate);
+         PersonalSrv.setReturnDate($scope.returnDate);
+         PersonalSrv.setClass($scope.class);
+         PersonalSrv.setAdults($scope.Adult);
+         PersonalSrv.setChildren($scope.children);
+         PersonalSrv.setInfants($scope.infant);
+
          $location.url('/book/flights');
       }
       else {

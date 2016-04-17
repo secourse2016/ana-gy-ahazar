@@ -5,11 +5,11 @@
 				<!-- Row for round trip and one way -->
 				<div class="row">
 					<div class="col-sm-2 col-md-2 check">
-						<input type="radio" id="round" name="radio" ng-model="radio" value="round" ng-change="date_show = true" ng-checked="true" />
+						<input type="radio" id="round" name="radio" ng-model="radio1" value="round" ng-change="date_show = true" ng-checked="true" />
 						<label for="round">Round Trip</label>
 					</div>
 					<div class="col-sm-offset-1 col-md-offset-1 col-sm-2 col-md-2 check">
-						<input type="radio" id="one" name="radio" ng-model="radio" value="one" ng-change="date_show = false" />
+						<input type="radio" id="one" name="radio" ng-model="radio2" value="one" ng-change="date_show = false" />
 						<label for="one">One Way</label>
 					</div>
 				</div>
@@ -53,7 +53,7 @@
 							id="d_date"
 							class="form-control"
 							uib-datepicker-popup="{{format}}"
-							ng-model="dt1"
+							ng-model="departureDate"
 							is-open="popup1.opened"
 							close-text="Close"
 							ng-click="open1()"
@@ -74,7 +74,7 @@
 						id="r_date"
 						class="form-control"
 						uib-datepicker-popup="{{format}}"
-						ng-model="dt2"
+						ng-model="$parent.returnDate"
 						is-open="popup2.opened"
 						close-text="Close"
 						ng-click="open2()"
@@ -95,25 +95,25 @@
 				<label class="between">How Many Are Going?</label>
 				<div class="row">
 			<div class="col-sm-3 col-md-2">
-				Adult(s) +11 years: <br><select class="form-control" id="dropdown1">
-					<option ng-repeat="num in digits" ng-if="num > 0">{{ num }}</option>
+				Adult(s) +11 years: <br><select class="form-control" ng-init="Adult='1'" ng-model="Adult">
+					<option ng-repeat="num in digits" ng-if="num > 0" value="{{num}}">{{ num }}</option>
 				</select>
 			</div>
 			<div class="col-sm-3 col-md-2">
-				Child(ren) 2-11 years: <br><select class="form-control" id="dropdown1">
-					<option ng-repeat="num in digits">{{ num }}</option>
+				Child(ren) 2-11 years: <br><select class="form-control" ng-init="child='0'" ng-model="child">
+					<option ng-repeat="num in digits" value="{{num}}">{{ num }}</option>
 
 				</select>
 			</div>
 			<div class="col-sm-3 col-md-2">
-				Infant(s) Under 2 years: <br><select class="form-control" id="dropdown1">
-					<option ng-repeat="num in digits">{{ num }}</option>
+				Infant(s) Under 2 years: <br><select class="form-control" ng-init="infant='0'" ng-model="infant">
+					<option ng-repeat="num in digits" value="{{num}}">{{ num }}</option>
 				</select>
 			</div>
 			<div class="col-sm-2 col-md-2">
-				Class Type: <br><select class="form-control" id="dropdown1">
-					<option value="first">First</option>
-					<option value="business">Business</option>
+				Class Type: <br><select class="form-control" id="dropdown1" ng-init="class='First'" ng-model="class">
+					<option value="First">First</option>
+					<option value="Business">Business</option>
 					<option value="Economy">Economy</option>
 				</select>
 			</div>
