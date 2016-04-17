@@ -54,8 +54,8 @@
             <br>
             <div class="row">
                <div class="col-sm-3 col-md-4">
-                  Billing Country: <br><select ng-model="billing_country"  class="form-control">
-                    <option ng-repeat="country in countries">{{ country.name }}</option>
+                  Billing Country: <br><select ng-init="billing_country='Afghanistan'" ng-model="billing_country" class="form-control">
+                    <option ng-repeat="country in Countries">{{ country.name }}</option>
                   </select>
                </div>
                <div class="col-sm-3 col-md-2" ng-class="{'has-error' : paymentForm.city.$invalid &&  (submitted || paymentForm.city.$dirty)}">

@@ -3,7 +3,10 @@ App.factory('FlightsSrv', function ($http) {
       getAirportCodes : function() {
          return $http.get('/api/airports');
       },
-      
+      getCountries: function() {
+         return $http.get('/api/countries');
+      },
+
       /*Flight Info */
       setSelectedOriginAirport: function(value) {
          this.selectedOriginAirport = value;

@@ -135,8 +135,8 @@
 				<br>
 				<div class="row">
 					<div class="col-sm-11 col-md-11" ng-class="{'has-error' : personalInfoForm.phone_number_adult_{{$index}}.$invalid &&  (submitted || personalInfoForm.phone_number_adult_{{$index}}.$dirty)}">
-						Phone Number: <select id="mob-country" class="form-control">
-							<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
+						Phone Number: <select ng-init="adultFormData[$index].phone_code='Afghanistan (+93)'" ng-model="adultFormData[$index].phone_code" class="form-control">
+							<option ng-repeat="country in Countries">{{ country.name }} ({{ country.dial_code }})</option>
 						</select>
 						<input type="text" onkeypress="return isNumber(event);" name="phone_number_adult_{{$index}}" ng-model="adultFormData[$index].phone_number" class="form-control" placeholder="ex. 01097643254" required>
 						<p ng-show="personalInfoForm.phone_number_adult_{{$index}}.$error.required && (submitted || personalInfoForm.phone_number_adult_{{$index}}.$dirty)" class="help-block">Phone Number is required.</p>
@@ -158,8 +158,8 @@
 				<br>
 				<div class="row">
 					<div class="col-sm-11 col-md-11" ng-class="{'has-error' : personalInfoForm.em_phone_number_adult_{{$index}}.$invalid &&  (submitted || personalInfoForm.em_phone_number_adult_{{$index}}.$dirty)}">
-						Phone Number: <select id="mob-country" class="form-control">
-							<option ng-repeat="country in countries">{{ country.name }} ({{ country.dial_code }})</option>
+						Phone Number: <select ng-init="adultFormData[$index].em_phone_code='Afghanistan (+93)'" ng-model="adultFormData[$index].em_phone_code" class="form-control">
+							<option ng-repeat="country in Countries">{{ country.name }} ({{ country.dial_code }})</option>
 						</select>
 						<input type="text" onkeypress="return isNumber(event);" name="em_phone_number_adult_{{$index}}" ng-model="adultFormData[$index].em_phone_number" class="form-control" placeholder="ex. 01097643254" required>
 						<p ng-show="personalInfoForm.em_phone_number_adult_{{$index}}.$error.required && (submitted || personalInfoForm.em_phone_number_adult_{{$index}}.$dirty)" class="help-block">Phone Number is required.</p>

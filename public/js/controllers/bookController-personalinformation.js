@@ -15,11 +15,14 @@ App.controller('bookController-personalinformation', function($scope, FlightsSrv
    $scope.format = $scope.formats[0];
    $scope.altInputFormats = ['M!/d!/yyyy'];
 
-   //   $http.get('/api/countries').success(function (res){
-   // 	$scope.countries = res;
-   // });
 
+   function Countries() {
+      FlightsSrv.getCountries().success(function(countries) {
+         $scope.Countries = countries;
+      });
+   };
 
+   Countries();
 
    $scope.numAdults = function(){
       return new Array($scope.adults);
@@ -39,13 +42,13 @@ App.controller('bookController-personalinformation', function($scope, FlightsSrv
    $scope.submitForm = function(isValid) {
       $scope.submitted = true;
 
+      console.log($scope.adultFormData);
+      console.log($scope.childFormData);
+      console.log($scope.infantFormData);
       // check to make sure the form is completely valid
       if (isValid) {
          console.log('good');
 
-         console.log($scope.adultFormData);
-         console.log($scope.childFormData);
-         console.log($scope.infantFormData);
 
          PersonalSrv.setAdultsInfo($scope.adultFormData);
          PersonalSrv.setChildrenInfo($scope.childFormData);

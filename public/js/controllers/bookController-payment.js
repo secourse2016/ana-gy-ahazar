@@ -1,4 +1,4 @@
-App.controller('bookController-payment', function($scope, PersonalSrv, $location) {
+App.controller('bookController-payment', function($scope, FlightsSrv, PersonalSrv, $location) {
 
    /*
       To Get all the countries.
@@ -22,7 +22,15 @@ App.controller('bookController-payment', function($scope, PersonalSrv, $location
       opened: false
    };
 
-   
+
+   function Countries() {
+      FlightsSrv.getCountries().success(function(countries) {
+         $scope.Countries = countries;
+      });
+   };
+
+   Countries();
+
    /*
    Validations
    */
