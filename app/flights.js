@@ -146,6 +146,7 @@ var seed = function(callback) {
     var date_of_manufacture = moment('1990-06-10').toDate().getTime();
 
     var airCraft = 	{
+      "aircraftType": chooseRandomElement(aircraftTypes),
       "aircraftModel": generatedAircraftModel,
       "date_of_manufacture": date_of_manufacture,
       "capacity": "300",

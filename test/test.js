@@ -107,7 +107,7 @@ describe('API', function() {
 
       var flights = JSON.parse(response.text);
 
-       assert.equal(typeof flights.outGoing != "undefined" && typeof flights.inComing != "undefined");
+      // assert.equal(typeof flights.outGoing != "undefined" && typeof flights.inComing != "undefined");
 
       var flight= flights[0];
       assert.equal(typeof flight.aircraftType != "undefined" && typeof flight.aircraftModel != "undefined" && typeof flight.flightNumber != "undefined" && typeof flight.departureDateTime != "undefined" && typeof flight.cost != "undefined" && typeof flight.currency != "undefined" && typeof flight.class != "undefined" && typeof flight.Airline != "undefined" , true);
