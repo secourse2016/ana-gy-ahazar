@@ -268,7 +268,7 @@ var seed = function(callback) {
 search for all one way flights
 */
 
-exports.getOneWayFlights = function(oneway,callback){
+var getOneWayFlights = function(oneway,callback){
 	    var flights = {} ;
 	 
        db.getDatabase().collection('flight').find(oneway).toArray(function(err,data){
@@ -312,7 +312,7 @@ exports.getOneWayFlights = function(oneway,callback){
     });
 }; 
 
-exports.Reserve = function(reserve_info){
+var Reserve = function(reserve_info){
      db.getDatabase().collection('reservation').insertOne(reserve_info) ;
 } 
 
@@ -324,7 +324,9 @@ module.exports = {
   chooseRandomElement: chooseRandomElement,
   generateFlightnumber: generateFlightnumber,
   seed: seed,
-  generatePromo: generatePromo
+  generatePromo: generatePromo ,
+  getOneWayFlights:getOneWayFlights ,
+  Reserve:Reserve
 };
 
 

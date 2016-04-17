@@ -95,7 +95,7 @@ describe('API', function() {
   });
 
  it('/api/flights/search  should return a flight JSON object array with keys [aircraftType , aircraftModel ,flightNumber,departureDateTime ,origin ,destination,arrivalDateTime,cost,currency,class,Airline]', function(done) {
-    request.get('/api/flights/search').
+    request.get('/api/flights/search/:JFK/:CAI/:1460478300000/:1460478300000/:economy').
     expect('Content-Type', 'application/json; charset=utf-8').
     expect(200).
     end(function(err, response) {
@@ -103,8 +103,9 @@ describe('API', function() {
       throw err;
 
       var flights = JSON.parse(response.text);
+      console.log(flights.length+"") ;
+      assert.equal(flights.length, 0);
 
-      assert.equal(flights.length, 1);
 
       var flight= flights[0];
       assert.equal(typeof flight.aircraftType != "undefined" && typeof flight.aircraftModel != "undefined" && typeof flight.flightNumber != "undefined" && typeof flight.departureDateTime != "undefined" && typeof flight.cost != "undefined" && typeof flight.currency != "undefined" && typeof flight.class != "undefined" && typeof flight.Airline != "undefined" , true);

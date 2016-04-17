@@ -57,16 +57,17 @@ module.exports = function(app) {
 
           
        
-          var = res{} ;
+          var result = {} ;
         flights.getOneWayFlights(outGoing,function(err ,data ){
         	if(err) throw err ;
         	else{
-              res[0] = data ;
-              flights.getOneWayFlights(outGoing,function(err ,dat){
-              res[1] = dat ;
-             }
+              result[0] = data ;
+              flights.getOneWayFlights(inComing,function(err ,dat){
+              	if(err) throw err ;
+                result[1] = dat ;
+             });
         	}
-        	res.json(res) ;
+        	res.json(result) ;
 
         });
 
