@@ -12,6 +12,7 @@ module.exports = function(app) {
 		res.sendFile('index.html');
 	});
 
+
 	app.post('/api/flights/reservation/:title/:first_name/:last_name/:nationality/:date_of_birth/:ticket_type/:ticket_class/:passport_number/:issue_date/:expiration_date/:meal_preference/:special_needs/:payment_id/:contact_id/:emergency_contact_id/:flight_id/:', function(req, res) {
 
 		var reservation = 	{
@@ -67,5 +68,25 @@ module.exports = function(app) {
          
       
     });    
+
+
+	/**
+	 * This route seeds the database
+	 *
+	 */
+	app.get('/db/seed', function(req, res) {
+		flights.seed(function(){
+			res.send("seeded sucessful")
+		});
+	 });
+
+	 /**
+	  * This route validates the promotion_code
+	  *
+	  */
+	app.get('/api/validatepromo/:promoCode',function(req,res) {
+
+	});
+
 
 };
