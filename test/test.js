@@ -158,3 +158,9 @@ describe("generatePromo", function() {
     assert(discount>0.0 && discount <= 1.0 ,true);
   }  );
 });
+
+describe("cancelReservation", function() {
+  it("should cancel/delete the reservation of the given reference, and delete it from the database", function (done){
+    
+  });
+});

@@ -324,7 +324,7 @@ var updateReservation = function (bookRef, newInfo){
 				"infants." + i + ".7" : newInfants[i].meal_preference,
 				"infants." + i + ".8" : newInfants[i].special_needs,
 				"infants." + i + ".9" : newInfants[i].contact,
-				"infants." + i + ".10" : newInfants[i].emergency_contact,				
+				"infants." + i + ".10" : newInfant[i].emergency_contact		
 			}
 		);
 		i++;
@@ -335,6 +335,23 @@ var updateReservation = function (bookRef, newInfo){
 var deleteReservation = function (bookRef) {
 	var dataBase = db.getDatabase();
 	var collection = dataBase.getCollection("reservation");
+	var record = collection.find('booking_ref_number' : bookRef);
+	
+	var adultSize = record.adults.size;
+	var childrenSize = record.children.size;
+	var seats = adultSize + childrenSize;
+
+	var flight_id = record.flight_id;
+	var flightCollection = dataBase.getCollection("flights");
+	var flight = flightCollection.find('flight_id' : flight_id);
+	var remaining = flight.remaining_seats;
+
+
+
+
+	flightCollection.update({'flight_id' : flight_id}, 
+		{'remaining_seats' : remaining + seats});
+
 	collection.remove({'booking_ref_number' : bookRef }, function(err) {
     if (err) throw err;
    	});
