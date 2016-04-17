@@ -127,6 +127,7 @@ var seed = function(callback) {
     var date_of_manufacture = moment('1990-06-10').toDate().getTime();
 
     var airCraft = 	{
+      "aircraftType": chooseRandomElement(aircraftTypes),
       "aircraftModel": generatedAircraftModel,
       "date_of_manufacture": date_of_manufacture,
       "capacity": "300",
@@ -160,7 +161,8 @@ var seed = function(callback) {
       var origin = originOrDestination1[j];
       var destination = originOrDestination2[j];
       var flight =	{
-        "Airline": "Air Madagascar",        "departureDateTime":dateCode,
+        "Airline": "Air Madagascar",
+        "departureDateTime":dateCode,
         "arrivalDateTime": dateArrive,
         "class": "economy",
         "type": "Direct",
@@ -181,10 +183,12 @@ var seed = function(callback) {
       };
 
       flights.push(flight);
-      flight.class = "first";
-      flights.push(flight);
-      flight.class = "business";
-      flights.push(flight);
+      var flightF = JSON.parse(JSON.stringify(flight));
+      flightF.class = "first";
+      flights.push(flightF);
+      var flightB = JSON.parse(JSON.stringify(flight));
+      flightB.class = "business";
+      flights.push(flightB);
 
       origin = originOrDestination2[j];
       destination = originOrDestination1[j];
@@ -212,10 +216,12 @@ var seed = function(callback) {
       };
 
       flights.push(flight);
-      flight.class = "first";
-      flights.push(flight);
-      flight.class = "business";
-      flights.push(flight);
+      flightF = JSON.parse(JSON.stringify(flight));
+      flightF.class = "first";
+      flights.push(flightF);
+      flightB = JSON.parse(JSON.stringify(flight));
+      flightB.class = "business";
+      flights.push(flightB);
 
     }
 
