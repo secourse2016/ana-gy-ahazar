@@ -22,6 +22,7 @@ App.controller('bookController-payment', function($scope, PersonalSrv, $location
       opened: false
    };
 
+   
    /*
    Validations
    */
@@ -53,20 +54,5 @@ App.controller('bookController-payment', function($scope, PersonalSrv, $location
       }
 
    };
-/*get payment info*/
-   // $scope.next = function() {
-   // personalSrv.getCardholder($scope.cardholder);
-   // personalSrv.getMethod($scope.method);
-   // personalSrv.getCardNumber($scope.card_number);
-   // personalSrv.getCVS($scope.cvs);
-   // personalSrv.getExpiryDate($scope.card_expiry_date);
-   // personalSrv.getBillingCountry($scope.billing_country);
-   // personalSrv.getBillingCity($scope.billing_city);
-   // personalSrv.getBillingState($scope.billing_state);
-   // personalSrv.getZipCode($scope.zip_code);
-   // personalSrv.getAddress($scope.address);
-   // personalSrv.getPromotionCode($scope.promotion_code);
-
-   // };
 
 });

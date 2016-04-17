@@ -149,7 +149,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-sm-5 col-md-5" ng-class="{'has-error' : personalInfoForm.em_email_{{$index}}.$invalid &&  (submitted || personalInfoForm.em_email_{{$index}}.$dirty)}">
+					<div class="col-sm-5 col-md-5" ng-class="{'has-error' : personalInfoForm.em_email_adult_{{$index}}.$invalid &&  (submitted || personalInfoForm.em_email_adult_{{$index}}.$dirty)}">
 						Email: <input type="email" name="em_email_adult_{{$index}}" ng-model="adultFormData[$index].em_email" class="form-control long" placeholder="Enter Your Email" required>
 						<p ng-show="personalInfoForm.em_email_adult_{{$index}}.$error.required && (submitted || personalInfoForm.em_email_adult_{{$index}}.$dirty)" class="help-block">Email is required.</p>
 						<p ng-show="personalInfoForm.em_email_adult_{{$index}}.$error.email && (submitted || personalInfoForm.em_email_adult_{{$index}}.$dirty)" class="help-block">Please Enter a Valid Email.</p>
@@ -255,7 +255,7 @@
 							</button>
 						</span>
 					</p>
-					<p ng-show="personalInfoForm.birth_date.$error.required && (submitted || personalInfoForm.birth_date.$dirty)" class="help-block">Date of Birth is required.</p>
+					<p ng-show="personalInfoForm.birth_date_child_{{$index}}.$error.required && (submitted || personalInfoForm.birth_date_child_{{$index}}.$dirty)" class="help-block">Date of Birth is required.</p>
 				</div>
 			</div>
 		</div>
@@ -272,7 +272,7 @@
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-5 col-md-5" ng-class="{'has-error' : personalInfoForm.issue_date_child_{{$index}}_child_{{$index}}.$invalid &&  (submitted || personalInfoForm.issue_date_child_{{$index}}.$dirty)}">
+				<div class="col-sm-5 col-md-5" ng-class="{'has-error' : personalInfoForm.issue_date_child_{{$index}}.$invalid &&  (submitted || personalInfoForm.issue_date_child_{{$index}}.$dirty)}">
 					Issue Date: <p class="input-group">
 						<input type="text"
 						id="issue_date"

@@ -37,12 +37,12 @@
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<label class="col-sm-5 col-md-5">Full name:  {{ adult.title }} {{ adult.firstName }} {{ adult.lastName }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ adult.dateOfBirth }}</label>
+						<label class="col-sm-5 col-md-5">Full name:  {{ adult.title }} {{ adult.first_name }} {{ adult.last_name }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ adult.birth_date }}</label>
 					</div>
 					<div class="row">
 						<label class="col-sm-5 col-md-5">Nationality: {{ adult.nationality }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ adult.passport }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ adult.passport_number }}</label>
 					</div>
 				</div>
 
@@ -52,7 +52,7 @@
 				<div class="panel-body">
 					<div class="row">
 						<label class="col-sm-5 col-md-5">E-mail: {{ adult.email }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Mobile number: {{ adult.phone }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Mobile number: {{ adult.phone_number }}</label>
 					</div>
 				</div>
 
@@ -61,8 +61,8 @@
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<label class="col-sm-5 col-md-5">E-mail: {{ adult.emailEmg }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Mobile number: {{ adult.phoneEmg }}</label>
+						<label class="col-sm-5 col-md-5">E-mail: {{ adult.em_email }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Mobile number: {{ adult.em_phone_number }}</label>
 					</div>
 				</div>
 
@@ -95,12 +95,12 @@
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<label class="col-sm-5 col-md-5">Full name:  {{ child.title }} {{ child.firstName }} {{ adult.lastName }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ child.dateOfBirth }}</label>
+						<label class="col-sm-5 col-md-5">Full name: {{ child.first_name }} {{ child.last_name }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ child.birth_date }}</label>
 					</div>
 					<div class="row">
 						<label class="col-sm-5 col-md-5">Nationality: {{ child.nationality }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ child.passport }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ child.passport_number }}</label>
 					</div>
 				</div>
 
@@ -132,12 +132,12 @@
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<label class="col-sm-5 col-md-5">Full name:  {{ infant.title }} {{ infant.firstName }} {{ adult.lastName }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ infant.dateOfBirth }}</label>
+						<label class="col-sm-5 col-md-5">Full name: {{ infant.first_name }} {{ infant.last_name }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ infant.birth_date }}</label>
 					</div>
 					<div class="row">
 						<label class="col-sm-5 col-md-5">Nationality: {{ infant.nationality }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ infant.passport }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ infant.passport_number }}</label>
 					</div>
 				</div>
 

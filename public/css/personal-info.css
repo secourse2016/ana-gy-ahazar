@@ -1,7 +1,3 @@
 .long {
 	min-width: 70%;
 }
-
-.scroll {
-	overflow: scroll;
-}

@@ -1,4 +1,4 @@
-App.controller('bookController-search', function($scope, FlightsSrv, PersonalSrv, $location) {
+App.controller('bookController-search', function($scope, FlightsSrv, $location) {
    $('#btn-1').prop('checked', true);
 
    /*
@@ -83,16 +83,15 @@ App.controller('bookController-search', function($scope, FlightsSrv, PersonalSrv
       if (isValid) {
          console.log('good');
 
-         var data = {selectedOrigin: $scope.selectedOrigin,
-                     selectedDestination: $scope.selectedDestination,
-                     departureDate: $scope.departureDate,
-                     returnDate: $scope.returnDate,
-                     class: $scope.class,
-                     Adult: $scope.Adult,
-                     child: $scope.child,
-                     infant: $scope.infant};
-                     
-         FlightsSrv.setFlightData(data);
+         FlightsSrv.setSelectedOriginAirport($scope.selectedOrigin);
+         FlightsSrv.setSelectedDestinationAirport($scope.selectedDestination);
+         FlightsSrv.setDepartureDate($scope.departureDate);
+         FlightsSrv.setReturnDate($scope.returnDate);
+         FlightsSrv.setAdults($scope.Adult);
+         FlightsSrv.setChildren($scope.child);
+         FlightsSrv.setInfants($scope.infant);
+         FlightsSrv.setClass($scope.class);
+
          $location.url('/book/flights');
       }
       else {
