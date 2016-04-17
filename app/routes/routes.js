@@ -139,15 +139,17 @@ module.exports = function(app) {
 	*
 	*/
 	app.get('/api/validatepromo/:promoCode',function(req,res) {
-		db.getDatabase().collection('promotionCodes').findOne(promoCode, function(err, result) {
+		var promoCode = req.params.promoCode;
+
+		db.getDatabase().collection('promotionCodes').find({"code": promoCode}, function(err, result) {
 			if (err) {
 				throw err;
 			}
 			if (result) {
 				var valid =	result.valid;
 				if(valid){
-					var discount = result.discount
-					db.getDatabase().collection('promotionCodes').deleteOne(promoCode,  function(err, results) {
+					var discount = result.discount;
+					db.getDatabase().collection('promotionCodes').delete({"code": promoCode},  function(err, results) {
 						if(err){
 							throw err;
 						}
