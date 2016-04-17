@@ -57,11 +57,16 @@ module.exports = function(app) {
 
           
        
-         
-        flights.roundTrip(outGoing,function(err ,data ){
+          var = res{} ;
+        flights.getOneWayFlights(outGoing,function(err ,data ){
         	if(err) throw err ;
-        	else
-        	res.json(data) ;
+        	else{
+              res[0] = data ;
+              flights.getOneWayFlights(outGoing,function(err ,dat){
+              res[1] = dat ;
+             }
+        	}
+        	res.json(res) ;
 
         });
 

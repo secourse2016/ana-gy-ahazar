@@ -93,6 +93,24 @@ describe('API', function() {
       done();
     });
   });
+
+ it('/api/flights/search  should return a flight JSON object array with keys [aircraftType , aircraftModel ,flightNumber,departureDateTime ,origin ,destination,arrivalDateTime,cost,currency,class,Airline]', function(done) {
+    request.get('/api/flights/search').
+    expect('Content-Type', 'application/json; charset=utf-8').
+    expect(200).
+    end(function(err, response) {
+      if(err)
+      throw err;
+
+      var flights = JSON.parse(response.text);
+
+      assert.equal(flights.length, 1);
+
+      var flight= flights[0];
+      assert.equal(typeof flight.aircraftType != "undefined" && typeof flight.aircraftModel != "undefined" && typeof flight.flightNumber != "undefined" && typeof flight.departureDateTime != "undefined" && typeof flight.cost != "undefined" && typeof flight.currency != "undefined" && typeof flight.class != "undefined" && typeof flight.Airline != "undefined" , true);
+      done();
+    });
+  });
 });
 
 describe("randomBoolean", function() {
