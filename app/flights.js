@@ -279,8 +279,11 @@ var seed = function(callback) {
 //Should know the datatype sent from the Frontend.
 var updateReservation = function (bookRef, newInfo){
 	var dataBase = db.getDatabase();
-	var collection = db.getCollection("reservation");
-
+	var collection = dataBase.collection("reservation");
+	var adults = collection.adults;
+	var children = collection.children;
+	var infants = collection.infants;
+	
 	var i = 0;
 	var str1 = "adults.";
 	for (var adult in adults) {
@@ -351,9 +354,9 @@ var updateReservation = function (bookRef, newInfo){
 };
 
 
-var deleteReservation = function (bookRef) {
+var cancelReservation = function (bookRef) {
 	var dataBase = db.getDatabase();
-	var collection = dataBase.getCollection("reservation");
+	var collection = dataBase.collection("reservation");
 	var record = collection.find({'booking_ref_number' : bookRef});
 
 	var adultSize = record.adults.size;
@@ -361,7 +364,7 @@ var deleteReservation = function (bookRef) {
 	var seats = adultSize + childrenSize;
 
 	var flight_id = record.flight_id;
-	var flightCollection = dataBase.getCollection("flights");
+	var flightCollection = dataBase.collection("flights");
 	var flight = flightCollection.find({'flight_id' : flight_id});
 	var remaining = flight.remaining_seats;
 
@@ -385,5 +388,7 @@ module.exports = {
   generateFlightnumber: generateFlightnumber,
   seed: seed,
   generatePromo: generatePromo,
-  getReservation: getReservation
+  getReservation: getReservation,
+  updateReservation: updateReservation,
+  cancelReservation: cancelReservation
 };

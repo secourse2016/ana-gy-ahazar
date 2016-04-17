@@ -175,13 +175,33 @@ describe("getReservation", function() {
 });
 
 /**
-* 
+* This test tests cancelling reservation and checks that the reservation is not found in the database after cancelling it
 */
 describe("cancelReservation", function() {
-  it("should cancel/delete the reservation of the given reference, and delete it from the database", function (done){
-    
+  it("should cancel/delete the reservation of the given reference, and delete it from the database.", function (done){
+    var bookingReference = 'abc1234567';
+    flights.cancelReservation(bookingReference);
+    assert.equal(flights.getReservation(function(err, reservation){},bookingReference),false);
   });
 });
+
+// describe("updateReservation", function() {
+//   it("should update the info of the reservation of the given reference by the given info.", function (done){
+//     var bookingReference = 'abc1234567';
+//     var newInfo = {"adults":[{"first_name":"Mariam",
+//                     "last_name": "Zaky",
+//                     "nationality" : "Egyptian",
+//                     "date_of_birth" : "23/7/1995",
+//                     "meal_preference": "none",
+//                     "special_needs": "none",
+//                     "contact" : "01119174343",
+//                     "emergency_contact" : "01119174343"}]};
+
+//     flights.updateReservation(bookingReference,newInfo)
+//     assert.equal(db.collection('reservation').find({'booking_ref_number':bookingReference}).adults.0.first_name=='Mariam',true);
+//     done();
+//   });
+// });
 
 /**
 * This test tests if the number of collections equals to 0 after clearing the database
