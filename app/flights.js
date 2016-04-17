@@ -251,15 +251,41 @@ var seed = function(callback) {
   db.clear(function(){
     //seeding the database
     database.collection('airCrafts').insert(airCrafts, function(err, docs) {
-      database.collection('flights').insert(flights, function(err, docs) {
-        database.collection('countries').insert(countries, function(err, docs) {
-          database.collection('airports').insert(airports, function(err, docs) {
-            database.collection('promotionCodes').insert(promotionCodes, function(err, docs) {
-              callback();
+      if(err){
+        callback(err,false);
+      }
+      else{
+        database.collection('flights').insert(flights, function(err, docs) {
+          if(err){
+            callback(err,false);
+          }
+          else{
+            database.collection('countries').insert(countries, function(err, docs) {
+              if(err){
+                callback(err,false);
+              }
+              else{
+                database.collection('airports').insert(airports, function(err, docs) {
+                  if(err){
+                    callback(err,false);
+                  }
+                  else{
+                    database.collection('promotionCodes').insert(promotionCodes, function(err, docs) {
+                      if(err){
+                        callback(err,false);
+                      }
+                      else{
+                        callback(null,true);
+                      }
+
+                    });
+                  }
+                });
+              }
             });
-          });
+          }
         });
-      });
+      }
     });
   });
 };

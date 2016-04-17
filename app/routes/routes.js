@@ -1,4 +1,5 @@
 var flights = require('../flights');
+var db = require('../db.js');
 
 module.exports = function(app) {
 
@@ -37,7 +38,10 @@ module.exports = function(app) {
 	 *
 	 */
 	app.get('/db/seed', function(req, res) {
-		flights.seed(function(){
+		flights.seed(function(err,seeded){
+			if(err){
+				throw err;
+			}
 			res.send("seeded sucessful");
 		});
 	 });
@@ -47,6 +51,7 @@ module.exports = function(app) {
 	  *
 	  */
 	app.get('/api/validatepromo/:promoCode',function(req,res) {
+
 
 	});
 };
