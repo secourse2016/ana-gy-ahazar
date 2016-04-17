@@ -17,22 +17,34 @@ module.exports = function(app) {
     */
 	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:class' , function(req, res){
 		var oneWay = {
-			"origin": origin,
-			"destination": destination,
-			"departureDateTime": departureDateTime,
-			"class": class
+			"origin": req.params.origin,
+			"destination": req.params.destination,
+			"departureDateTime": req.params.departureDateTime,
+			"class": req.params.classs
 		};
-		flights.getOneWayFlights(oneWay);
+		flights.getOneWayFlights(oneWay , function(err ,data){
+			if (err){
+				throw err;
+			}else{
+				res.json(data);
+			}
+		});
 	});
 
      /*
      This route insert the feedback of the user into the Database
      */
-	app.post('/feedback/:email/:message', function(req , res ){
+	app.post('/feedback/:email/:message', function( req , res ){
 		var feedback = {
-			"email":email,
-			"message":message,
+			"email": req.params.email,
+			"message":req.params.message
 		};
-		flights.insfeedback(feedback );
+		flights.addFeedback(feedback , function(err){
+			if (err){
+			 res.send("error") ;	
+			}else{
+            res.send("success");
+			}
+		} );
 	});
 };
