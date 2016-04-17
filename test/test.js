@@ -6,6 +6,7 @@ var db = require('../app/db.js');
 var fs = require('fs');
 
 before(function(done) {
+  // use this after you have completed the connect function
   db.connect(process.env.DBURL, function(err, db) {
     if(err) {
       return done(err);
@@ -79,9 +80,9 @@ describe("generatePromo", function() {
     assert(discount>0.0 && discount <= 1.0 ,true);
   }  );
 });
-/*
+
 describe("seed", function() {
-it("should return a JSON object of code , discount , and if it is validor not", function() {
+it("", function() {
 // TODO
 flights.seed(function(){
 seeded=true;
@@ -89,4 +90,4 @@ assert.equal(seededfalse);
 done();
 });
 });
-});*/
+});
