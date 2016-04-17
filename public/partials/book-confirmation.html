@@ -1,20 +1,9 @@
 <div class="container">
-	<div class="panel-group col-xs-12 col-sm-12 col-md-11">
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<h2 class="panel-title" >Personal Information </h2>
-			</div>
-			<div class="panel-body">
-				<div class="row">
-					<label class="col-sm-5 col-md-5">Full name:  {{ title }} {{ firstName }} {{ lastName }}</label>
-					<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ dateOfBirth }}</label>
-				</div>
-				<div class="row">
-					<label class="col-sm-5 col-md-5">Nationality: {{ nationality }}</label>
-					<label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ passport }}</label>
-				</div>
-			</div>
 
+	<!-- displaying the flight information -->
+	<div class="panel-group col-xs-12 col-sm-12 col-md-11">
+
+		<div class="panel panel-info">
 			<div class="panel-heading">
 				<h2 class="panel-title" >Flight Information </h2>
 			</div>
@@ -28,45 +17,151 @@
 					<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Return Date: {{ returnDate }}</label>
 				</div>
 				<div class="row">
-					<label class="col-sm-5 col-md-5">Class: {{ First }}</label>
+					<label class="col-sm-5 col-md-5">Class: {{ class }}</label>
 				</div>
 			</div>
-
-			<div class="panel-heading">
-				<h2 class="panel-title" >Contact information </h2>
-			</div>
-			<div class="panel-body">
-				<label class="col-sm-5 col-md-5">E-mail address: {{ email }}</label>
-				<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Mobile number: {{ phone }}</label>
-			</div>
-
-			<div class="panel-heading">
-				<h2 class="panel-title" >Emergency contact information </h2>
-			</div>
-			<div class="panel-body">
-				<label class="col-sm-5 col-md-5">E-mail address: {{ emailEmg }}</label>
-				<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Mobile number: {{ phoneEmg }}</label>
-			</div>
-
-			<div class="panel-heading">
-				<h2 class="panel-title" >Special requirements </h2>
-			</div>
-			<div class="panel-body">
-				<label class="col-sm-5 col-md-5">Meal preference: {{ mealPreference }}</label>
-				<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Special needs: {{ specialNeed }}</label>
-			</div>
-
-		</div>
-
-	</div>
-
-	<div class="total col-sm-11 col-md-11 text-center">
-		<label><i class="fa fa-money"></i> Total Price <span class="label label-success g_span">$1555</span></label>
-	</div>
-	<div class="row">
-		<div class="col-sm-offset-9 col-md-offset-9 col-sm-2 col-md-2">
-			<a href="/book" class="btn btn-default btn_nxt">Confirm</a>
 		</div>
 	</div>
+
+
+	<!-- displaying all adults -->
+	<div ng-repeat="adult in adults track by $index">
+		<div style="clear: both;" class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-5">
+			<h1>Adult {{ $index + 1 }} Information</h1>
+		</div>
+		<div class="panel-group col-xs-12 col-sm-12 col-md-11">
+
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h2 class="panel-title" >Personal Information </h2>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<label class="col-sm-5 col-md-5">Full name:  {{ adult.title }} {{ adult.firstName }} {{ adult.lastName }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ adult.dateOfBirth }}</label>
+					</div>
+					<div class="row">
+						<label class="col-sm-5 col-md-5">Nationality: {{ adult.nationality }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ adult.passport }}</label>
+					</div>
+				</div>
+
+				<div class="panel-heading">
+					<h2 class="panel-title" >Contact information </h2>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<label class="col-sm-5 col-md-5">E-mail: {{ adult.email }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Mobile number: {{ adult.phone }}</label>
+					</div>
+				</div>
+
+				<div class="panel-heading">
+					<h2 class="panel-title" >Emergency contact information </h2>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<label class="col-sm-5 col-md-5">E-mail: {{ adult.emailEmg }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Mobile number: {{ adult.phoneEmg }}</label>
+					</div>
+				</div>
+
+				<div class="panel-heading">
+					<h2 class="panel-title" >Special requirements </h2>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<label class="col-sm-5 col-md-5">Meal preference: {{ adult.mealPreference }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Special needs: {{ adult.specialNeed }}</label>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- displaying all children -->
+	<div ng-repeat="child in children track by $index">
+		<div style="clear: both;" class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-5">
+			<h1>Child {{ $index + 1 }} Information</h1>
+		</div>
+		<div class="panel-group col-xs-12 col-sm-12 col-md-11">
+
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h2 class="panel-title" >Personal Information </h2>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<label class="col-sm-5 col-md-5">Full name:  {{ child.title }} {{ child.firstName }} {{ adult.lastName }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ child.dateOfBirth }}</label>
+					</div>
+					<div class="row">
+						<label class="col-sm-5 col-md-5">Nationality: {{ child.nationality }}</label>
+					</div>
+				</div>
+
+				<div class="panel-heading">
+					<h2 class="panel-title" >Special requirements </h2>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<label class="col-sm-5 col-md-5">Meal preference: {{ child.mealPreference }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Special needs: {{ child.specialNeed }}</label>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<!-- displaying all infants -->
+	<div ng-repeat="infant in infants track by $index">
+		<div style="clear: both;" class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-5">
+			<h1>Infant {{ $index + 1 }} Information</h1>
+		</div>
+		<div class="panel-group col-xs-12 col-sm-12 col-md-11">
+
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h2 class="panel-title" >Personal Information </h2>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<label class="col-sm-5 col-md-5">Full name:  {{ infant.title }} {{ infant.firstName }} {{ adult.lastName }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ infant.dateOfBirth }}</label>
+					</div>
+					<div class="row">
+						<label class="col-sm-5 col-md-5">Nationality: {{ infant.nationality }}</label>
+					</div>
+				</div>
+
+				<div class="panel-heading">
+					<h2 class="panel-title" >Special requirements </h2>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<label class="col-sm-5 col-md-5">Meal preference: {{ infant.mealPreference }}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Special needs: {{ infant.specialNeed }}</label>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div class="total col-sm-11 col-md-11 text-center">
+	<label><i class="fa fa-money"></i> Total Price <span class="label label-success g_span">${{ total_price }}</span></label>
+</div>
+<div class="row">
+	<div class="col-sm-offset-9 col-md-offset-9 col-sm-2 col-md-2">
+		<a href="/book" class="btn btn-default btn_nxt">Confirm</a>
+	</div>
+</div>
 </div>
 <br>
