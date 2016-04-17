@@ -6,7 +6,6 @@ var flights = require('../app/flights');
 var fs = require('fs');
 
 before(function(done) {
-  // use this after you have completed the connect function
   db.connect(process.env.DBURL, function(err, db) {
     if(err) {
       return done(err);
@@ -148,7 +147,7 @@ describe("randomBoolean", function() {
   it("should return a random boolean value", function() {
     // TODO
     var randomBoolean =  flights.randomBoolean();
-    assert.equal(randomBoolean == true || randomBoolean == false, true);
+    assert.equal(randomBoolean === true || randomBoolean === false, true);
   });
 });
 
@@ -207,5 +206,38 @@ describe("generatePromo", function() {
     }
     var discount = generatePromo.discount;
     assert.equal(discount>0.0 && discount <= 1.0 ,true);
+  });
+});
+
+/**
+* This test tests if the length of the array that is returned from the getReservation funtion equals to 1 (each booking reference has only one reservation)
+*/
+describe("getReservation", function() {
+  it("should review your reservation", function() {
+    var bookingReference = 'abc1234567';
+    flights.getReservation(function(err, reservation) {
+      assert.equal(reservation.length, 1);
+
+    }, bookingReference);
+
+  });
+});
+
+/**
+* This test tests if the number of collections equals to 0 after clearing the database
+*/
+describe("clear", function() {
+  it("should delete all the database", function() {
+
+
+    db.clear(function() {
+      db.listCollections().toArray().then(function (collections) {
+        collections.forEach(function (c) {
+          var count = db.collection(c.name).count();
+          assert.equal(count,0);
+        });
+      });
+    });
+
   });
 });

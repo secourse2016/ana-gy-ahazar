@@ -3,6 +3,17 @@ var db = require('./db');
 var fs = require('fs');
 
 /**
+* This function return an array of length 1 of a specific reservation info.
+* @param {Function} callback function, {String} the booking reference
+* @returns {JSONObject}
+*/
+var getReservation = function(callback, bookingReference) {
+  db.getDatabase().collection('reservations').find({booking_ref_number: bookingReference}).toArray(function(err, reservation) {
+  	callback(err, reservation);
+  });
+};
+
+/**
 * This function returns a JSON object with all the countries.
 *
 * @param {Funtion} callback function that is called after retrieving the countries.
@@ -127,6 +138,7 @@ var seed = function(callback) {
     var date_of_manufacture = moment('1990-06-10').toDate().getTime();
 
     var airCraft = 	{
+      "aircraftType": chooseRandomElement(aircraftTypes),
       "aircraftModel": generatedAircraftModel,
       "date_of_manufacture": date_of_manufacture,
       "capacity": "300",
@@ -160,7 +172,8 @@ var seed = function(callback) {
       var origin = originOrDestination1[j];
       var destination = originOrDestination2[j];
       var flight =	{
-        "Airline": "Air Madagascar",        "departureDateTime":dateCode,
+        "Airline": "Air Madagascar",
+        "departureDateTime":dateCode,
         "arrivalDateTime": dateArrive,
         "class": "economy",
         "type": "Direct",
@@ -181,10 +194,12 @@ var seed = function(callback) {
       };
 
       flights.push(flight);
-      flight.class = "first";
-      flights.push(flight);
-      flight.class = "business";
-      flights.push(flight);
+      var flightF = JSON.parse(JSON.stringify(flight));
+      flightF.class = "first";
+      flights.push(flightF);
+      var flightB = JSON.parse(JSON.stringify(flight));
+      flightB.class = "business";
+      flights.push(flightB);
 
       origin = originOrDestination2[j];
       destination = originOrDestination1[j];
@@ -212,10 +227,12 @@ var seed = function(callback) {
       };
 
       flights.push(flight);
-      flight.class = "first";
-      flights.push(flight);
-      flight.class = "business";
-      flights.push(flight);
+      flightF = JSON.parse(JSON.stringify(flight));
+      flightF.class = "first";
+      flights.push(flightF);
+      flightB = JSON.parse(JSON.stringify(flight));
+      flightB.class = "business";
+      flights.push(flightB);
 
     }
 
@@ -288,5 +305,6 @@ module.exports = {
   chooseRandomElement: chooseRandomElement,
   generateFlightnumber: generateFlightnumber,
   seed: seed,
-  generatePromo: generatePromo
+  generatePromo: generatePromo,
+  getReservation: getReservation
 };
