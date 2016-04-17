@@ -27,13 +27,13 @@
 				<!-- tabs for flight types -->
 				<div class="inner-tabs">
 					<div class="inner-tab-links">
-						<input type="radio" name="first" id="dep-in-btn-1" ng-model="dep_radio" ng-click="dep_isSelected = 'First'" ng-class="{checked:dep_isSelected=='First'}">
+						<input type="radio" name="first" id="dep-in-btn-1" ng-model="dep_radio" ng-click="dep_isSelected = 'First'; dep_reserve=''" ng-class="{checked:dep_isSelected=='First'}">
 						<label for="dep-in-btn-1" class="btn inner-link"><i class="fa fa-star"></i> First</label>
 
-						<input type="radio" name="business" id="dep-in-btn-2" ng-model="dep_radio" ng-click="dep_isSelected = 'Business'" ng-class="{checked:dep_isSelected=='Business'}">
+						<input type="radio" name="business" id="dep-in-btn-2" ng-model="dep_radio" ng-click="dep_isSelected = 'Business'; dep_reserve=''" ng-class="{checked:dep_isSelected=='Business'}">
 						<label for="dep-in-btn-2" class="btn inner-link"><i class="fa fa-briefcase"></i> Business</label>
 
-						<input type="radio" name="economy" id="dep-in-btn-3" ng-model="dep_radio" ng-click="dep_isSelected = 'Economy'" ng-class="{checked:dep_isSelected=='Economy'}">
+						<input type="radio" name="economy" id="dep-in-btn-3" ng-model="dep_radio" ng-click="dep_isSelected = 'Economy'; dep_reserve=''" ng-class="{checked:dep_isSelected=='Economy'}">
 						<label for="dep-in-btn-3" class="btn inner-link"><i class="fa fa-line-chart"></i> Economy</label>
 					</div>
 
@@ -95,11 +95,14 @@
 								</div>
 							</label>
 							<label class="col-sm-1 col-md-1 flight_body">
-								<input type="radio" ng-model="reserve" name="reserve" value="{{flight.flightNumber}}" ng-disabled="flight.remaining_seats == 0">
+								<input type="radio" ng-model="$parent.$parent.dep_reserve" name="$parent.$parent.dep_reserve" value="{{flight.flightNumber}}" ng-disabled="flight.remaining_seats == 0" required>
 							</label>
 							<div class="col-sm-12 col-md-12">
 								<hr style="border-color: black;">
 							</div>
+						</div>
+						<div class="has-error">
+							<p ng-show="(dep_reserve == '' || dep_reserve === undefined) && submitted" class="help-block">Departure Flight is required.</p>
 						</div>
 					</div>
 				</div>
@@ -134,14 +137,14 @@
 				<!-- tabs for flight types -->
 				<div class="inner-tabs">
 					<div class="inner-tab-links">
-						<input type="radio" name="first" id="ret-in-btn-1" ng-model="ret_radio" ng-click="ret_isSelected = 'First'" ng-class="{checked:ret_isSelected=='First'}">
+						<input type="radio" name="first" id="ret-in-btn-1" ng-model="ret_radio" ng-click="ret_isSelected = 'First'; ret_reserve=''" ng-class="{checked:ret_isSelected=='First'}">
 						<label for="ret-in-btn-1" class="btn inner-link"><i class="fa fa-star"></i> First</label>
 
-						<input type="radio" name="business" id="ret-in-btn-2" ng-model="ret_radio" ng-click="ret_isSelected = 'Business'" ng-class="{checked:ret_isSelected=='Business'}">
+						<input type="radio" name="business" id="ret-in-btn-2" ng-model="ret_radio" ng-click="ret_isSelected = 'Business'; ret_reserve=''" ng-class="{checked:ret_isSelected=='Business'}">
 						<label for="ret-in-btn-2" class="btn inner-link"><i class="fa fa-briefcase"></i> Business</label>
 
 
-						<input type="radio" name="economy" id="ret-in-btn-3" ng-model="ret_radio" ng-click="ret_isSelected = 'Economy'" ng-class="{checked:ret_isSelected=='Economy'}">
+						<input type="radio" name="economy" id="ret-in-btn-3" ng-model="ret_radio" ng-click="ret_isSelected = 'Economy'; ret_reserve=''" ng-class="{checked:ret_isSelected=='Economy'}">
 						<label for="ret-in-btn-3" class="btn inner-link"><i class="fa fa-line-chart"></i> Economy</label>
 					</div>
 
@@ -203,12 +206,15 @@
 								</div>
 							</label>
 							<label class="col-sm-1 col-md-1 flight_body">
-								<input type="radio" name="reserve" ng-disabled="flight.remaining_seats == 0">
+								<input type="radio" ng-model="$parent.$parent.ret_reserve" name="$parent.$parent.ret_reserve" value="{{flight.flightNumber}}" ng-disabled="flight.remaining_seats == 0" required>
 							</label>
 
 							<div class="col-sm-12 col-md-12">
 								<hr style="border-color: black;">
 							</div>
+						</div>
+						<div class="has-error">
+							<p ng-show="(ret_reserve == '' || ret_reserve === undefined) && submitted" class="help-block">Return Flight is required.</p>
 						</div>
 					</div>
 				</div>
