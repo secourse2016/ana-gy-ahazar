@@ -34,18 +34,16 @@ module.exports = function(app) {
      /*
      This route insert the feedback of the user into the Database
      */
-	app.post('/feedback/:email/:message', function( req , res ){
-		var feedback = {
-			"email": req.params.email,
-			"message":req.params.message
-		};
+	app.post('/feedback', function( req , res ){
+		var feedback = req.body;
 		flights.addFeedback(feedback , function(err){
+					
 			if (err){
 			 res.send("error") ;	
 			}else{
             res.send("success");
 			}
-		} );
+		}	);
 	});
 	/**
 	 * This route returns a json object with all the countries.

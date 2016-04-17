@@ -319,9 +319,9 @@ The function is used to insert a feedback into Database.
    var addFeedback = function (feed, callback){
   db.getDatabase().collection('feedbacks').insert(feed, function(err, docs) {
     if (err){
-              callback(err);
+              callback(err , null);
             }else{
-              callback(null);
+              callback(null,docs);
             }
   });
 };
