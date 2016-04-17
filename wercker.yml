@@ -1,4 +1,8 @@
 box: node
+
+services:
+    - mongodb
+    
 build:
    steps:
       - npm-install
