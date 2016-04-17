@@ -231,6 +231,7 @@ var seed = function(callback) {
     date.setDate(date.getDate() + 1);
   }
 
+
   /* seeding the countries table */
   var countries = JSON.parse(fs.readFileSync('data/countries.json', 'utf8'));
 
@@ -266,33 +267,28 @@ var seed = function(callback) {
 
 /*
 search for all one way flights
-*/
+// */
 
 var getOneWayFlights = function(oneway,callback){
-	    var flights = {} ;
-	 
-       db.getDatabase().collection('flight').find(oneway).toArray(function(err,data){
+	    var flights = [] ;
+
+	  
+       db.getDatabase().collection('flights').find(oneway).toArray(function(err,data){
               if(err){
               	callback(err) ;
               }
               else {
-              	
-              	for(var i=0; i<data.length ;i++){
-                     var currFlight = data[i]; 
-                     var aircraftType = {} ;
-                     var aircraftModel = {} ;
-                     db.getDatabase().collection('airCraft').find({'aircraft_id':currFlight['aircraft_id']}).toArray(function(err,dat){
-                           if(err)
-                           	callback(err) ;
-                           else{
-                           	 aircraftType = dat[aircraftType]  ;
-                           	 aircraftModel= dat[aircraftModel] ;
-                           }
+              	console.log(data.length+"fdsds");
+              	for( i=0; i<data.length ;i++){
 
-
-                     });
+              		
+                     var currFlight = data[i];
+                     var aircraft = currFlight.aircraft
+                     var aircraftType = aircraft.aircraftType;
+                     var aircraftModel = aircraft.aircraftModel ;
+                     console.log(currFlight.origin);
                      var flight =	{
-                     	"aircraftType": aircraftType,
+                     	"aircraftType":  aircraftType,
 		                "aircraftModel": aircraftModel,
                         "flightNumber": currFlight['flightNumber'],
                         "departureDateTime": currFlight['departureDateTime'],
@@ -311,6 +307,8 @@ var getOneWayFlights = function(oneway,callback){
               }
     });
 }; 
+
+ 
 
 var Reserve = function(reserve_info){
      db.getDatabase().collection('reservation').insertOne(reserve_info) ;

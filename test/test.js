@@ -4,6 +4,7 @@ var db = require('../app/db.js');
 var app = require('../app/app.js');
 var flights = require('../app/flights');
 var fs = require('fs');
+var moment = require('moment');
 
 before(function(done) {
   db.connect(process.env.DBURL, function(err, db) {
@@ -95,7 +96,9 @@ describe('API', function() {
   });
 
  it('/api/flights/search  should return a flight JSON object array with keys [aircraftType , aircraftModel ,flightNumber,departureDateTime ,origin ,destination,arrivalDateTime,cost,currency,class,Airline]', function(done) {
-    request.get('/api/flights/search/:JFK/:CAI/:1460478300000/:1460478300000/:economy').
+      
+    //var dateCode = moment('2016-04-11 12:25 AM', 'YYYY-MM-DD hh:mm A').toDate().getTime();
+    request.get('/api/flights/search/Mumbai/Delhi/1461968700000/1461968700000/economy').
     expect('Content-Type', 'application/json; charset=utf-8').
     expect(200).
     end(function(err, response) {
@@ -103,9 +106,8 @@ describe('API', function() {
       throw err;
 
       var flights = JSON.parse(response.text);
-      console.log(flights.length+"") ;
-      assert.equal(flights.length, 0);
 
+       assert.equal(typeof flights.outGoing != "undefined" && typeof flights.inComing != "undefined");
 
       var flight= flights[0];
       assert.equal(typeof flight.aircraftType != "undefined" && typeof flight.aircraftModel != "undefined" && typeof flight.flightNumber != "undefined" && typeof flight.departureDateTime != "undefined" && typeof flight.cost != "undefined" && typeof flight.currency != "undefined" && typeof flight.class != "undefined" && typeof flight.Airline != "undefined" , true);

@@ -44,36 +44,45 @@ module.exports = function(app) {
           var  outGoing = {    	
          "origin":        req.params.origin,
          "destination":   req.params.destination,
-         "departingDate": req.params.departingDate,
+         "departureDateTime": parseInt(req.params.departingDate),
          "class":         req.params.classs
          };
 
           var  inComing = {    	
          "origin":        req.params.destination,
          "destination":   req.params.origin,
-         "departingDate": req.params.returningDate,
+         "departureDateTime": parseInt(req.params.returningDate),
          "class":         req.params.classs
          };
-
+         
           
-       
-          var result = {} ;
+          
+          var result = {
+           outGoing : {} ,
+           inComing : {}
+           } ;
         flights.getOneWayFlights(outGoing,function(err ,data ){
         	if(err) throw err ;
         	else{
-              result[0] = data ;
-              flights.getOneWayFlights(inComing,function(err ,dat){
+              result.outGoing = data ;
+             
+              flights.getOneWayFlights(inComing,function(err ,d){
               	if(err) throw err ;
-                result[1] = dat ;
+                result.inComing = d ;
+                res.json(result) ;
              });
         	}
-        	res.json(result) ;
+        	
 
         });
 
          
       
-    });    
+    }); 
+
+ 
+
+
 
 
 	/**
