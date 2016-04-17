@@ -1,4 +1,4 @@
-App.controller('bookController-flights', function($scope, $location) {
+App.controller('bookController-flights', function($scope, personalSrv, $location) {
 
 $scope.dradioModel = 'dradio3';
 $scope.retradioModel = 'retradio3';
@@ -6,6 +6,8 @@ $scope.retradioModel = 'retradio3';
 $scope.dep_isSelected = "First";
 $scope.ret_isSelected = "First";
 
+$scope.from = personalSrv.getSelectedOriginAirport();
+$scope.to = personalSrv.getSelectedDestinationAirport();
 
 $scope.flights = [   {  "flightNumber": '1',
                            "depTime":'12:00',

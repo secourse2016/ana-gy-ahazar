@@ -1,4 +1,4 @@
-App.controller('manageController-ticketsearch', function($scope, $location) {
+App.controller('manageController-ticketsearch', function($scope,ManageSrv, $location) {
 
    $('#btn-2').prop('checked', true);
 
@@ -13,6 +13,8 @@ App.controller('manageController-ticketsearch', function($scope, $location) {
       // check to make sure the form is completely valid
       if (isValid) {
          console.log('good');
+         ManageSrv.setLastName($scope.last_name);
+         ManageSrv.setBookingReference($scope.reference);
          $location.url('/manage/ticketinfo');
       }
       else {

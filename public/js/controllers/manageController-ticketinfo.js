@@ -1,10 +1,10 @@
-App.controller('manageController-ticketinfo', function($scope) {
+App.controller('manageController-ticketinfo', function($scope,ManageSrv) {
    $scope.tabName = 'manage-ticketinfo';
    $scope.tabPart = 'tab-part-next active';
 
    $scope.title = 'Mr.';
    $scope.firstName = 'Kareem';
-   $scope.lastName = 'Mokhtar';
+   $scope.lastName ='Mokhtar' ;
    $scope.age = 21;
    $scope.dateOfBirth = '05 / 03 / 1995';
    $scope.nationality = 'Egyptian';
@@ -21,4 +21,6 @@ App.controller('manageController-ticketinfo', function($scope) {
 
    $scope.mealPreference = 'None';
    $scope.specialNeed = 'None';
+
+
 });
