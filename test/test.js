@@ -6,7 +6,7 @@ var flights = require('../app/flights');
 var fs = require('fs');
 
 before(function(done) {
-  db.connect(process.env.DBURL, function(err, db) {
+db.connect(process.env.DBURL, function(err, db) {
     if(err) {
       return done(err);
     }
@@ -16,8 +16,9 @@ before(function(done) {
   });
 });
 
-/**
- * Tests if the countries are returned successfully from the database.
+
+
+ /* Tests if the countries are returned successfully from the database.
  *
  */
 describe('getCountriesFromDB', function() {
@@ -157,4 +158,37 @@ describe("generatePromo", function() {
     var discount = generatePromo.discount;
     assert(discount>0.0 && discount <= 1.0 ,true);
   }  );
+});
+
+/**
+* This test tests if the length of the array that is returned from the getReservation funtion equals to 1 (each booking reference has only one reservation)
+*/
+describe("getReservation", function() {
+	it("should review your reservation", function() {
+		var bookingReference = 'abc1234567';
+		flights.getReservation(function(err, reservation) {
+			assert.equal(reservation.length, 1);
+
+		}, bookingReference);
+
+	});
+});
+
+/**
+* This test tests if the number of collections equals to 0 after clearing the database
+*/
+describe("clear", function() {
+	it("should delete all the database", function() {
+
+     
+		db.clear(function() {
+			db.listCollections().toArray().then(function (collections) {
+				collections.forEach(function (c) {
+					var count = db.collection(c.name).count();
+					assert.equal(count,0);
+				});
+			});
+		});
+
+});
 });

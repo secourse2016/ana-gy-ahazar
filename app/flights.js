@@ -3,6 +3,17 @@ var db = require('./db');
 var fs = require('fs');
 
 /**
+* This function return an array of length 1 of a specific reservation info.
+* @param {Function} callback function, {String} the booking reference
+* @returns {JSONObject}
+*/
+var getReservation = function(callback, bookingReference) {
+  db.getDatabase().collection('reservations').find({booking_ref_number: bookingReference}).toArray(function(err, reservation) {
+  	callback(err, reservation);
+  });
+};
+
+/**
 * This function returns a JSON object with all the countries.
 *
 * @param {Funtion} callback function that is called after retrieving the countries.
@@ -272,5 +283,6 @@ module.exports = {
   chooseRandomElement: chooseRandomElement,
   generateFlightnumber: generateFlightnumber,
   seed: seed,
-  generatePromo: generatePromo
+  generatePromo: generatePromo,
+  getReservation: getReservation
 };

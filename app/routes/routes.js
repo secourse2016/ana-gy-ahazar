@@ -1,4 +1,5 @@
 var flights = require('../flights');
+var db = require('../db');
 
 module.exports = function(app) {
 
@@ -11,6 +12,26 @@ module.exports = function(app) {
 	app.get('/', function(req, res) {
 		res.sendFile('index.html');
 	});
+
+    /**
+	 * This route deletes the database
+	 *
+	 */
+	app.get('/db/delete', function(req, res) {
+    db.clear(function(){
+    	res.send("deleted successfully");
+       });
+   });
+     /**
+	 * This route gets a specific reservation information
+	 *
+	 */
+	 app.get('/api/flights/reservation/:bookingReference', function(req, res) {
+		 flights.getReservation(function(err, data) {
+			 res.json(data);
+		 }, bookingReference);
+	 });
+
 
 	/**
 	 * This route returns a json object with all the countries.
