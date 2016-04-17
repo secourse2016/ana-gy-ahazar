@@ -270,63 +270,71 @@ var updateReservation = function (bookRef, newInfo){
 	var dataBase = db.getDatabase();
 	var collection = db.getCollection("reservation");
 
-	int i = 0;
-	for each (var adult in adults) {
+	var i = 0;
+	var str1 = "adults.";
+	for (var adult in adults) {
+		var index = i.toString();
+		var str2 = str1+index;
 		db.reservaton.update(
 			{'booking_ref_number' : bookRef},
 			
-			{$set: {
-				"adults." + i + ".0" : newAdults[i].first_name,
-				"adults." + i + ".1" : newAdults[i].last_name,
-				"adults." + i + ".2" : newAdults[i].nationality,
-				"adults." + i + ".3" : newAdults[i].date_of_birth,
-				"adults." + i + ".7" : newAdults[i].meal_preference,
-				"adults." + i + ".8" : newAdults[i].special_needs,
-				"adults." + i + ".9" : newAdults[i].contact,
-				"adults." + i + ".10" : newAdults[i].emergency_contact,
-			}
-				
+			{ $set: {
+				'str2+".0"' : newAdults[i].first_name,
+				'str2+".1"' : newAdults[i].last_name,
+				'str2+".2"' : newAdults[i].nationality,
+				'str2+".3"' : newAdults[i].date_of_birth,
+				'str2+".7"' : newAdults[i].meal_preference,
+				'str2+".8"' : newAdults[i].special_needs,
+				'str2+".9"' : newAdults[i].contact,
+				'str2+".10"' : newAdults[i].emergency_contact
+				}				
 			}
 		);
 		i++;
 	}
 
 
-	int i = 0;
-	for each (var child in children) {
+	i = 0;
+	str1 = "children.";
+	for (var child in children) {
+		var index = i.toString();
+		var str2 = str1+index;
 		db.reservaton.update(
 			{'booking_ref_number' : bookRef},
 			
 			{$set: {
-				"children." + i + ".0" : newChildren[i].first_name,
-				"children." + i + ".1" : newChildren[i].last_name,
-				"children." + i + ".2" : newChildren[i].nationality,
-				"children." + i + ".3" : newChildren[i].date_of_birth,
-				"children." + i + ".7" : newChildren[i].meal_preference,
-				"children." + i + ".8" : newChildren[i].special_needs,
-				"children." + i + ".9" : newChildren[i].contact,
-				"children." + i + ".10" : newChildren[i].emergency_contact,				
+				'str2+ ".0"' : newChildren[i].first_name,
+				'str2 + ".1"' : newChildren[i].last_name,
+				'str2 + ".2"' : newChildren[i].nationality,
+				'str2 + ".3"' : newChildren[i].date_of_birth,
+				'str2 + ".7"' : newChildren[i].meal_preference,
+				'str2 + ".8"' : newChildren[i].special_needs,
+				'str2 + ".9"' : newChildren[i].contact,
+				'str2 + ".10"' : newChildren[i].emergency_contact,				
 			}
-		);
+		});
 		i++;
 	}
 
-	int i = 0;
-	for each (var infant in infants) {
+	i = 0;
+	str1 = "infants.";
+	for (var infant in infants) {
+		var index = i.toString();
+		var str2 = str1+index;
 		db.reservaton.update(
 			{'booking_ref_number' : bookRef},
 			
 			{$set: {
-				"infants." + i + ".0" : newInfants[i].first_name,
-				"infants." + i + ".1" : newInfants[i].last_name,
-				"infants." + i + ".2" : newInfants[i].nationality,
-				"infants." + i + ".3" : newInfants[i].date_of_birth,
-				"infants." + i + ".7" : newInfants[i].meal_preference,
-				"infants." + i + ".8" : newInfants[i].special_needs,
-				"infants." + i + ".9" : newInfants[i].contact,
-				"infants." + i + ".10" : newInfant[i].emergency_contact		
+				'str2 + ".0"' : newInfants[i].first_name,
+				'str2 + ".1"' : newInfants[i].last_name,
+				'str2 + ".2"' : newInfants[i].nationality,
+				'str2 + ".3"' : newInfants[i].date_of_birth,
+				'str2 + ".7"' : newInfants[i].meal_preference,
+				'str2 + ".8"' : newInfants[i].special_needs,
+				'str2 + ".9"' : newInfants[i].contact,
+				'str2 + ".10"' : newInfant[i].emergency_contact		
 			}
-		);
+		});
 		i++;
 	}
 };
@@ -335,15 +343,15 @@ var updateReservation = function (bookRef, newInfo){
 var deleteReservation = function (bookRef) {
 	var dataBase = db.getDatabase();
 	var collection = dataBase.getCollection("reservation");
-	var record = collection.find('booking_ref_number' : bookRef);
-	
+	var record = collection.find({'booking_ref_number' : bookRef});
+
 	var adultSize = record.adults.size;
 	var childrenSize = record.children.size;
 	var seats = adultSize + childrenSize;
 
 	var flight_id = record.flight_id;
 	var flightCollection = dataBase.getCollection("flights");
-	var flight = flightCollection.find('flight_id' : flight_id);
+	var flight = flightCollection.find({'flight_id' : flight_id});
 	var remaining = flight.remaining_seats;
 
 

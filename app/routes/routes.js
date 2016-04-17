@@ -38,7 +38,7 @@ module.exports = function(app) {
 		var bookingRef = req.params.reservation;
 		flights.deleteReservation(bookingRef);
 		res.send("Reservation cancelled!");
-
+	});
 	/**
 	 * This route returns a json object with all the countries.
 	 *
