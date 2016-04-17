@@ -1,8 +1,8 @@
 box: node
 
 services:
-    - mongodb
-    
+    - wercker/mongodb
+
 build:
    steps:
       - npm-install
