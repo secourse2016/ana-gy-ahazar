@@ -3,6 +3,12 @@ App.factory('FlightsSrv', function ($http) {
       getAirportCodes : function() {
          return $http.get('/api/airports');
       },
-      
+      setFlightData: function(newData) {
+         this.flightData = newData;
+      },
+      getFlightData: function() {
+         return this.flightData;
+      }
+
    };
 });

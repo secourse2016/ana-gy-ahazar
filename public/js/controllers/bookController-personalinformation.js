@@ -1,36 +1,19 @@
 App.controller('bookController-personalinformation', function($scope, PersonalSrv, $location) {
-	/*
-      Angular Bootstrap Datepicker.
-    */
+
+   $scope.adultFormData = [];
+   $scope.childFormData = [];
+   $scope.infantFormData = [];
+
+   $scope.adults = 1; // should get it from the service.
+   $scope.children = 1; // should get it from the service.
+   $scope.infants = 1; // should get it from the service.
+
+   /*
+   Angular Bootstrap Datepicker.
+   */
    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
    $scope.format = $scope.formats[0];
    $scope.altInputFormats = ['M!/d!/yyyy'];
-
-   $scope.open1 = function() {
-      $scope.popup1.opened = true;
-   };
-
-   $scope.popup1 = {
-      opened: false
-   };
-
-	$scope.open2 = function() {
-      $scope.popup2.opened = true;
-   };
-
-   $scope.popup2 = {
-      opened: false
-   };
-
-	$scope.open3 = function() {
-      $scope.popup3.opened = true;
-   };
-
-   $scope.popup3 = {
-      opened: false
-   };
-
-
 
 
    // $scope.next = function() {
@@ -56,23 +39,20 @@ App.controller('bookController-personalinformation', function($scope, PersonalSr
 
    //  };
 
- //   $http.get('/api/countries').success(function (res){
-	// 	$scope.countries = res;
-	// });
+   //   $http.get('/api/countries').success(function (res){
+   // 	$scope.countries = res;
+   // });
 
 
-   $scope.adults = 2; // should get it from the service.
-   var children = 1; // should get it from the service.
-   var infants = 1; // should get it from the service.
 
    $scope.numAdults = function(){
-        return new Array($scope.adults);
+      return new Array($scope.adults);
    };
    $scope.numChildren = function(){
-        return new Array(children);
+      return new Array($scope.children);
    };
    $scope.numInfants = function(){
-        return new Array(infants);
+      return new Array($scope.infants);
    };
 
    /*
@@ -83,9 +63,13 @@ App.controller('bookController-personalinformation', function($scope, PersonalSr
    $scope.submitForm = function(isValid) {
       $scope.submitted = true;
 
+      console.log($scope.adultFormData);
+      console.log($scope.childFormData);
+      console.log($scope.infantFormData);
       // check to make sure the form is completely valid
       if (isValid) {
          console.log('good');
+
          // /* personal Infromation*/
          // personalSrv.setFirstName($scope.first_name);
          // personalSrv.setLastName($scope.last_name);

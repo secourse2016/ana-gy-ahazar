@@ -83,18 +83,16 @@ App.controller('bookController-search', function($scope, FlightsSrv, PersonalSrv
       if (isValid) {
          console.log('good');
 
-         console.log($scope.Adult);
-         console.log($scope.child);
-
-         PersonalSrv.setSelectedOriginAirport($scope.selectedOrigin);
-         PersonalSrv.setSelectedDestinationAirport($scope.selectedDestination);
-         PersonalSrv.setDepartureDate($scope.departureDate);
-         PersonalSrv.setReturnDate($scope.returnDate);
-         PersonalSrv.setClass($scope.class);
-         PersonalSrv.setAdults($scope.Adult);
-         PersonalSrv.setChildren($scope.children);
-         PersonalSrv.setInfants($scope.infant);
-
+         var data = {selectedOrigin: $scope.selectedOrigin,
+                     selectedDestination: $scope.selectedDestination,
+                     departureDate: $scope.departureDate,
+                     returnDate: $scope.returnDate,
+                     class: $scope.class,
+                     Adult: $scope.Adult,
+                     child: $scope.child,
+                     infant: $scope.infant};
+                     
+         FlightsSrv.setFlightData(data);
          $location.url('/book/flights');
       }
       else {

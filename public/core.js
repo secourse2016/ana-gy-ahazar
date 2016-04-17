@@ -7,8 +7,10 @@ App.config(function($routeProvider, $locationProvider) {
    $routeProvider
 
    .when('/', {
-      templateUrl: 'partials/book-search.html',
-      controller: 'bookController-search'
+      // templateUrl: 'partials/book-search.html',
+      // controller: 'bookController-search'
+      templateUrl: 'partials/book-personalinfo.html',
+      controller: 'bookController-personalinformation'
    })
 
    .when('/book', {
