@@ -66,12 +66,12 @@ module.exports = function(app) {
 						res.send(discount+"");
 					});
 
-			}else{
+				}else{
+					res.send(0.0+"");
+				}
+			} else {
 				res.send(0.0+"");
 			}
-		} else {
-			res.send(0.0+"");
-		}
-	}
-});
+		});
+	});
 };

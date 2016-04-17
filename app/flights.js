@@ -37,25 +37,6 @@ var randomBoolean = function() {
 };
 
 /**
-* This function returns a random flight class
-*
-* @returns {String}
-*/
-var randomFlightClass = function() {
-  var number = Math.floor(Math.random() * 3);
-
-  if(number === 0){
-    return "business";
-  }
-
-  if(number === 1){
-    return "first";
-  }
-
-  return "economy";
-};
-
-/**
 * returns a random element from a givin array.
 *
 * @param {Array} an array of elements
@@ -163,23 +144,25 @@ var seed = function(callback) {
 
   var number = Math.floor(Math.random() * (originOrDestination1.length));
   var randomCost = Math.floor(600+Math.random() * 8400);
-  var flightDuration = Math.round((1 + Math.random() * 16) * 10) / 10;
-  var dateCode = moment('2016-04-30 12:25 AM', 'YYYY-MM-DD hh:mm A').toDate().getTime();
-  var date = new Date (dateCode);
+  var date = new Date ('2016-04-11  3:25 AM');
 
   var flights = [];
 
   /* seeding the flight table back and forth form list originOrDestination1 to originOrDestination2 and vice versa */
   for (var i = 11; i < 61; i++) {
     for (var j = 0; j < originOrDestination1.length; j++) {
+      var flightDuration = Math.floor(1 + (Math.random() * 16));
+      var dateCode = moment(date).toDate().getTime();
+      var dateArrive = date;
+      dateArrive.setHours(dateArrive.getHours() + flightDuration);
+      dateArrive = moment(dateArrive).toDate().getTime();
+
       var origin = originOrDestination1[j];
       var destination = originOrDestination2[j];
       var flight =	{
-        "Airline": "Air Madagascar",
-        "flightNumber": generateFlightnumber(),
-        "departureDateTime":dateCode,
-        "arrivalDateTime": date.getTime() + (flightDuration*1000*60*60),
-        "class": randomFlightClass(),
+        "Airline": "Air Madagascar",        "departureDateTime":dateCode,
+        "arrivalDateTime": dateArrive,
+        "class": "economy",
         "type": "Direct",
         "tranzit": [],
         "duration": flightDuration,
@@ -198,6 +181,10 @@ var seed = function(callback) {
       };
 
       flights.push(flight);
+      flight.class = "first";
+      flights.push(flight);
+      flight.class = "business";
+      flights.push(flight);
 
       origin = originOrDestination2[j];
       destination = originOrDestination1[j];
@@ -205,8 +192,8 @@ var seed = function(callback) {
         "Airline": "Air Madagascar",
         "flightNumber": generateFlightnumber(),
         "departureDateTime": dateCode,
-        "arrivalDateTime": date.getTime() + (flightDuration*1000*60*60),
-        "class": randomFlightClass(),
+        "arrivalDateTime": dateArrive,
+        "class": "economy",
         "type": "Direct",
         "tranzit": [],
         "duration": flightDuration,
@@ -224,6 +211,10 @@ var seed = function(callback) {
         "aircraft": airCrafts[Math.floor(Math.random() * airCrafts.length)]
       };
 
+      flights.push(flight);
+      flight.class = "first";
+      flights.push(flight);
+      flight.class = "business";
       flights.push(flight);
 
     }
@@ -294,7 +285,6 @@ module.exports = {
   getCountries: getCountries,
   getAirports: getAirports,
   randomBoolean: randomBoolean,
-  randomFlightClass: randomFlightClass,
   chooseRandomElement: chooseRandomElement,
   generateFlightnumber: generateFlightnumber,
   seed: seed,

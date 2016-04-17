@@ -150,18 +150,6 @@ describe("randomBoolean", function() {
 });
 
 /**
-* Tests if randomFlightClass returns a random flight class from economy,first,business.
-*
-*/
-describe("randomFlightClass", function() {
-  it("should return a random flight class", function() {
-    // TODO
-    var randomFlightClass =  flights.randomFlightClass();
-    assert.equal(randomFlightClass==="business" || randomFlightClass==="economy" || randomFlightClass==="first",true);
-  });
-});
-
-/**
 * Tests if chooseRandomElement returns a random element from a array.
 *
 */
