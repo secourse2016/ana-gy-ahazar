@@ -15,7 +15,7 @@ var connect = function(dbURL, callback) {
 
     db = database;
 
-    if(callback) callback();
+    if(callback) callback(err, database);
   });
 };
 
