@@ -174,16 +174,16 @@ describe("getReservation", function() {
   });
 });
 
-/**
-* This test tests cancelling reservation and checks that the reservation is not found in the database after cancelling it
-*/
-describe("cancelReservation", function() {
-  it("should cancel/delete the reservation of the given reference, and delete it from the database.", function (done){
-    var bookingReference = 'abc1234567';
-    flights.cancelReservation(bookingReference);
-    assert.equal(flights.getReservation(function(err, reservation){},bookingReference),false);
-  });
-});
+// /**
+// * This test tests cancelling reservation and checks that the reservation is not found in the database after cancelling it
+// */
+// describe("cancelReservation", function() {
+//   it("should cancel/delete the reservation of the given reference, and delete it from the database.", function (done){
+//     var bookingReference = 'abc1234567';
+//     flights.cancelReservation(bookingReference);
+//     assert.equal(flights.getReservation(function(err, reservation){},bookingReference),false);
+//   });
+// });
 
 // describe("updateReservation", function() {
 //   it("should update the info of the reservation of the given reference by the given info.", function (done){
