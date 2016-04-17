@@ -32,10 +32,56 @@ App.controller('bookController-flights', function($scope, $location) {
 
    /*
    This function gets the flights associated with the checked date.
-    */
+   */
    $scope.dep_show = function() {
       // show the appropiate data for this date.
 
+   };
+
+   /*
+   This function gets the 5 previous days starting from the last day on the left.
+   */
+   $scope.dep_prev = function() {
+      var dep_leastDate = $scope.dep_dates[0];
+      var dep_prevBy1 = new Date(dep_leastDate);
+      var dep_prevBy2 = new Date(dep_leastDate);
+      var dep_prevBy3 = new Date(dep_leastDate);
+      var dep_prevBy4 = new Date(dep_leastDate);
+      var dep_prevBy5 = new Date(dep_leastDate);
+
+      dep_prevBy1.setDate(dep_leastDate.getDate() - 1);
+      dep_prevBy2.setDate(dep_leastDate.getDate() - 2);
+      dep_prevBy3.setDate(dep_leastDate.getDate() - 3);
+      dep_prevBy4.setDate(dep_leastDate.getDate() - 4);
+      dep_prevBy5.setDate(dep_leastDate.getDate() - 5);
+
+      $scope.dep_dates = [dep_prevBy5, dep_prevBy4, dep_prevBy3, dep_prevBy2, dep_prevBy1];
+
+      $scope.dradioModel = new Date(dep_prevBy1);
+      $scope.dep_show();
+   };
+
+   /*
+   This function gets the 5 next days starting from the last day on the right.
+   */
+   $scope.dep_next = function() {
+      var dep_mostDate = $scope.dep_dates[4];
+      var dep_nextBy1 = new Date(dep_mostDate);
+      var dep_nextBy2 = new Date(dep_mostDate);
+      var dep_nextBy3 = new Date(dep_mostDate);
+      var dep_nextBy4 = new Date(dep_mostDate);
+      var dep_nextBy5 = new Date(dep_mostDate);
+
+      dep_nextBy1.setDate(dep_mostDate.getDate() + 1);
+      dep_nextBy2.setDate(dep_mostDate.getDate() + 2);
+      dep_nextBy3.setDate(dep_mostDate.getDate() + 3);
+      dep_nextBy4.setDate(dep_mostDate.getDate() + 4);
+      dep_nextBy5.setDate(dep_mostDate.getDate() + 5);
+
+      $scope.dep_dates = [dep_nextBy1, dep_nextBy2, dep_nextBy3, dep_nextBy4, dep_nextBy5];
+
+      $scope.dradioModel = new Date(dep_nextBy1);
+      $scope.dep_show();
    };
 
    $scope.dradioModel = new Date(dep_date);
@@ -62,10 +108,56 @@ App.controller('bookController-flights', function($scope, $location) {
 
    /*
    This function gets the flights associated with the checked date.
-    */
+   */
    $scope.ret_show = function() {
       // show the appropiate data for this date.
 
+   };
+
+   /*
+   This function gets the 5 previous days starting from the last day on the left.
+   */
+   $scope.ret_prev = function() {
+      var ret_leastDate = $scope.ret_dates[0];
+      var ret_prevBy1 = new Date(ret_leastDate);
+      var ret_prevBy2 = new Date(ret_leastDate);
+      var ret_prevBy3 = new Date(ret_leastDate);
+      var ret_prevBy4 = new Date(ret_leastDate);
+      var ret_prevBy5 = new Date(ret_leastDate);
+
+      ret_prevBy1.setDate(ret_leastDate.getDate() - 1);
+      ret_prevBy2.setDate(ret_leastDate.getDate() - 2);
+      ret_prevBy3.setDate(ret_leastDate.getDate() - 3);
+      ret_prevBy4.setDate(ret_leastDate.getDate() - 4);
+      ret_prevBy5.setDate(ret_leastDate.getDate() - 5);
+
+      $scope.ret_dates = [ret_prevBy5, ret_prevBy4, ret_prevBy3, ret_prevBy2, ret_prevBy1];
+
+      $scope.dradioModel = new Date(ret_prevBy1);
+      $scope.ret_show();
+   };
+
+   /*
+   This function gets the 5 next days starting from the last day on the right.
+   */
+   $scope.ret_next = function() {
+      var ret_mostDate = $scope.ret_dates[4];
+      var ret_nextBy1 = new Date(ret_mostDate);
+      var ret_nextBy2 = new Date(ret_mostDate);
+      var ret_nextBy3 = new Date(ret_mostDate);
+      var ret_nextBy4 = new Date(ret_mostDate);
+      var ret_nextBy5 = new Date(ret_mostDate);
+
+      ret_nextBy1.setDate(ret_mostDate.getDate() + 1);
+      ret_nextBy2.setDate(ret_mostDate.getDate() + 2);
+      ret_nextBy3.setDate(ret_mostDate.getDate() + 3);
+      ret_nextBy4.setDate(ret_mostDate.getDate() + 4);
+      ret_nextBy5.setDate(ret_mostDate.getDate() + 5);
+
+      $scope.ret_dates = [ret_nextBy1, ret_nextBy2, ret_nextBy3, ret_nextBy4, ret_nextBy5];
+
+      $scope.retradioModel = new Date(ret_nextBy1);
+      $scope.ret_show();
    };
 
    $scope.retradioModel = new Date(ret_date);
