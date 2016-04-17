@@ -86,7 +86,7 @@ describe('API', function() {
 
       var airports = JSON.parse(response.text);
 
-      assert.equal(countries.length, 5881);
+      assert.equal(airports.length, 5881);
 
       var airport = airports[0];
       assert.equal(typeof airport.iata != "undefined" && typeof airport.lon != "undefined" && typeof airport._id != "undefined" && typeof airport.iso != "undefined" && typeof airport.status != "undefined" && typeof airport.name != "undefined" && typeof airport.continent != "undefined" && typeof airport.type != "undefined" && typeof airport.lat != "undefined" && typeof airport.size != "undefined", true);
@@ -99,7 +99,7 @@ describe("randomBoolean", function() {
   it("should return a random boolean value", function() {
     // TODO
     var randomBoolean =  flights.randomBoolean();
-    assert.equal(randomBoolean==true || randomBoolean==false,true);
+    assert.equal(randomBoolean == true || randomBoolean == false, true);
   });
 });
 
@@ -158,14 +158,3 @@ describe("generatePromo", function() {
     assert(discount>0.0 && discount <= 1.0 ,true);
   }  );
 });
-/*
-describe("seed", function() {
-it("should return a JSON object of code , discount , and if it is validor not", function() {
-// TODO
-flights.seed(function(){
-seeded=true;
-assert.equal(seededfalse);
-done();
-});
-});
-});*/
