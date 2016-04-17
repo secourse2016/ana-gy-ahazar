@@ -38,9 +38,9 @@ App.controller('bookController-personalinformation', function($scope, $http, $lo
 	});
 
 
-   $scope.adults = 0; // should get it from the service.
-   var children = 0; // should get it from the service.
-   var infants = 0; // should get it from the service.
+   $scope.adults = 2; // should get it from the service.
+   var children = 1; // should get it from the service.
+   var infants = 1; // should get it from the service.
 
    $scope.numAdults = function(){
         return new Array($scope.adults);

@@ -20,7 +20,7 @@ App.controller('bookController-confirmation', function($scope) {
 
 	$scope.children = [
 		{'title': 'Mr.', 'firstName': 'Mohamed', 'lastName': 'Waheed', 'dateOfBirth': '13/12/2013',
-		'nationality': 'Egyptian', 'mealPreference': 'None', 'specialNeed': 'None'}
+		'nationality': 'Egyptian', 'passport': '1234', 'mealPreference': 'None', 'specialNeed': 'None'}
 		// {'title': 'Mr.', 'firstName': 'Hassan', 'lastName': 'Wael', 'dateOfBirth': '13/12/2323',
 		// 'nationality': 'Egyptian', 'mealPreference': 'None', 'specialNeed': 'None'}
 
@@ -28,7 +28,7 @@ App.controller('bookController-confirmation', function($scope) {
 
 	$scope.infants = [
 		{'title': 'Mr.', 'firstName': 'Hassan', 'lastName': 'Wael', 'dateOfBirth': '13/12/2323',
-		'nationality': 'Egyptian', 'mealPreference': 'None', 'specialNeed': 'None'}
+		'nationality': 'Egyptian', 'passport': '1234', 'mealPreference': 'None', 'specialNeed': 'None'}
 
 	];
 
