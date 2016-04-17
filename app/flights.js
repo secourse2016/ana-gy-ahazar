@@ -264,17 +264,6 @@ var seed = function(callback) {
   });
 };
 
-module.exports = {
-  getCountries: getCountries,
-  getAirports: getAirports,
-  randomBoolean: randomBoolean,
-  randomFlightClass: randomFlightClass,
-  chooseRandomElement: chooseRandomElement,
-  generateFlightnumber: generateFlightnumber,
-  seed: seed,
-  generatePromo: generatePromo
-};
-
 /*
 search for all one way flights
 */
@@ -328,15 +317,24 @@ search for all one way flights
 The function is used to insert a feedback into Database.
 */
    var addFeedback = function (feed, callback){
-	db.getDatabase().collection('feedbacks').insert(feed, function(err, docs) {
-		if (err){
-            	callback(err);
+  db.getDatabase().collection('feedbacks').insert(feed, function(err, docs) {
+    if (err){
+              callback(err);
             }else{
-            	callback(null);
+              callback(null);
             }
-	});
+  });
 };
+
 module.exports = {
+  getCountries: getCountries,
+  getAirports: getAirports,
+  randomBoolean: randomBoolean,
+  randomFlightClass: randomFlightClass,
+  chooseRandomElement: chooseRandomElement,
+  generateFlightnumber: generateFlightnumber,
+  seed: seed,
+  generatePromo: generatePromo,
   addFeedback:addFeedback,
   getOneWayFlights:getOneWayFlights
 };
