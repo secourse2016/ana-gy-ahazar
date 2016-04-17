@@ -121,6 +121,20 @@ describe('API', function() {
       done();
     });
   });
+  it('/api/validatepromo/:promoCode', function(done) {
+    request.get('/api/validatepromo/:promoCode').
+    expect('Content-Type', 'application/json; charset=utf-8').
+    expect(200).
+    end(function(err, response) {
+    });
+  });
+  it('/db/seed', function(done) {
+    request.get('/db/seed').
+    expect('Content-Type', 'application/json; charset=utf-8').
+    expect(200).
+    end(function(err, response) {
+    });
+  });
 });
 
 /**
@@ -144,7 +158,6 @@ describe("randomFlightClass", function() {
     // TODO
     var randomFlightClass =  flights.randomFlightClass();
     assert.equal(randomFlightClass==="business" || randomFlightClass==="economy" || randomFlightClass==="first",true);
-
   });
 });
 
@@ -159,7 +172,6 @@ describe("chooseRandomElement", function() {
     var randomElement = flights.chooseRandomElement(arrayOfNumbers);
     var index      = arrayOfNumbers.indexOf(randomElement);
     assert.equal(index!==-1,true);
-
   });
 });
 
@@ -204,5 +216,5 @@ describe("generatePromo", function() {
     }
     var discount = generatePromo.discount;
     assert.equal(discount>0.0 && discount <= 1.0 ,true);
-  }  );
+  });
 });
