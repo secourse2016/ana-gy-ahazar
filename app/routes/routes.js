@@ -29,7 +29,7 @@ module.exports = function(app) {
 	 app.get('/api/flights/reservation/:bookingReference', function(req, res) {
 		 flights.getReservation(function(err, data) {
 			 res.json(data);
-		 }, bookingReference);
+		 }, req.params.bookingReference);
 	 });
 
 
@@ -71,7 +71,9 @@ module.exports = function(app) {
 	*
 	*/
 	app.get('/api/validatepromo/:promoCode',function(req,res) {
-		db.getDatabase().collection('promotionCodes').findOne(promoCode, function(err, result) {
+		var promoCode = req.params.promoCode;
+
+		db.getDatabase().collection('promotionCodes').find({"code": promoCode}, function(err, result) {
 			if (err) {
 				throw err;
 			}
@@ -80,6 +82,7 @@ module.exports = function(app) {
 				var discount = result.discount
 				db.getDatabase().collection('promotionCodes').deleteOne(promoCode,  function(err, results) {
 					res.send(discount+"");
+
 					});
 			} else {
 				res.send(0.0+"");

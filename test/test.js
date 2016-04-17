@@ -32,9 +32,9 @@ describe("seed", function() {
     // TODO
     flights.seed(function(err,seeded){
       var get_total_num_docs = db.getDatabase().collection('airCrafts').count(function (err, count) {
-        assert.equal(count===200,true);
+        assert.equal(count , 200);
         db.getDatabase().collection('flights').count(function (err, count) {
-          assert.equal(count===1000,true);
+          assert.equal(count, 3000);
           done();
 
         });
@@ -122,11 +122,12 @@ describe('API', function() {
   });
   /**
   it('/api/validatepromo/:promoCode', function(done) {
+<<<<<<< HEAD
     request.get('/api/validatepromo/:promoCode')
     .expect('Content-Type', 'application/json; charset=utf-8')
     .expect(200)
     .end(function(err, response) {
-
+     done();
     });
   });*/
   it('/db/seed', function(done) {
@@ -134,6 +135,7 @@ describe('API', function() {
     .expect(200)
     .end(function(err, response) {
       assert.equal(response.boolean,true)
+     done();
     });
   });
 });
