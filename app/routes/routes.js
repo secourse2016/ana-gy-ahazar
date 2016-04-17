@@ -40,12 +40,32 @@ module.exports = function(app) {
 		res.send("Reservation cancelled!");
 
 	/**
+	 * This route returns a json object with all the countries.
+	 *
+	 */
+	app.get('/api/countries', function(req, res) {
+		flights.getCountries(function(err, data) {
+			res.json(data);
+		});
+	});
+
+	/**
+	 * This route returns a json objects with all the airports.
+	 *
+	 */
+	 app.get('/api/airports', function(req, res) {
+		 flights.getAirports(function(err, data) {
+			 res.json(data);
+		 });
+	 });
+
+	 /**
 	 * This route seeds the database
 	 *
 	 */
 	app.get('/db/seed', function(req, res) {
 		flights.seed(function(){
-			res.send("seeded sucessful")
+			res.send("seeded sucessful");
 		});
 	 });
 
@@ -57,5 +77,4 @@ module.exports = function(app) {
 
 
 	});
-
 };
