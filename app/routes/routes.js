@@ -55,20 +55,12 @@ module.exports = function(app) {
 			if (err) {
 				throw err;
 			}
-			if (result) {
+			if (result && valid) {
 				var valid =	result.valid;
-				if(valid){
-					var discount = result.discount
-					db.getDatabase().collection('promotionCodes').deleteOne(promoCode,  function(err, results) {
-						if(err){
-							throw err;
-						}
-						res.send(discount+"");
+				var discount = result.discount
+				db.getDatabase().collection('promotionCodes').deleteOne(promoCode,  function(err, results) {
+					res.send(discount+"");
 					});
-
-				}else{
-					res.send(0.0+"");
-				}
 			} else {
 				res.send(0.0+"");
 			}

@@ -121,21 +121,24 @@ describe('API', function() {
       done();
     });
   });
+  /**
   it('/api/validatepromo/:promoCode', function(done) {
-    request.get('/api/validatepromo/:promoCode').
-    expect('Content-Type', 'application/json; charset=utf-8').
-    expect(200).
-    end(function(err, response) {
+    request.get('/api/validatepromo/:promoCode')
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(200)
+    .end(function(err, response) {
+
     });
-  });
+  });*/
   it('/db/seed', function(done) {
-    request.get('/db/seed').
-    expect('Content-Type', 'application/json; charset=utf-8').
-    expect(200).
-    end(function(err, response) {
+    request.get('/db/seed')
+    .expect(200)
+    .end(function(err, response) {
+      assert.equal(response.boolean,true)
     });
   });
 });
+
 
 /**
 * Tests if randomBoolean returns a random boolean true or false.
