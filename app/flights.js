@@ -270,92 +270,65 @@ var updateReservation = function (bookRef, newInfo){
 	var dataBase = db.getDatabase();
 	var collection = db.getCollection("reservation");
 
-	var adults = newInfo.adults; // array
-	var children = newInfo.children; // array
-	var infants = newInfo.infants; // array
-
-	var newAdults = {};
-	var newChildren = {};
-	var newInfants = {};
-
-	for each (var adult in adults){
-		
-		var newAdultInfo = {
-			"first_name": adult.first_name,
-
-			"last_name": adult.last_name,
-
-			"nationality": adult.nationality,
-
-			"date_of_birth": adult.date_of_birth,
-
-			"meal_preference": adult.meal_preference,
-
-			"special_needs": ,adult.special_needs
-
-			"contact": adult.contact,
-
-			"emergency_contact": adult.emergency_contact
-		}
-		newAdults.add(newAdultInfo);
-
+	int i = 0;
+	for each (var adult in adults) {
+		db.reservaton.update(
+			{'booking_ref_number' : bookRef},
+			
+			{$set: {
+				"adults." + i + ".0" : newAdults[i].first_name,
+				"adults." + i + ".1" : newAdults[i].last_name,
+				"adults." + i + ".2" : newAdults[i].nationality,
+				"adults." + i + ".3" : newAdults[i].date_of_birth,
+				"adults." + i + ".7" : newAdults[i].meal_preference,
+				"adults." + i + ".8" : newAdults[i].special_needs,
+				"adults." + i + ".9" : newAdults[i].contact,
+				"adults." + i + ".10" : newAdults[i].emergency_contact,
+			}
+				
+			}
+		);
+		i++;
 	}
 
-		for each (var child in children){
-		
-		var newChildInfo = {
-			"first_name": child.first_name,
 
-			"last_name": child.last_name,
-
-			"nationality": child.nationality,
-
-			"date_of_birth": child.date_of_birth,
-
-			"meal_preference": child.meal_preference,
-
-			"special_needs": ,child.special_needs
-
-			"contact": child.contact,
-
-			"emergency_contact": child.emergency_contact
-		}
-		newChildren.add(newChildInfo);
-
+	int i = 0;
+	for each (var child in children) {
+		db.reservaton.update(
+			{'booking_ref_number' : bookRef},
+			
+			{$set: {
+				"children." + i + ".0" : newChildren[i].first_name,
+				"children." + i + ".1" : newChildren[i].last_name,
+				"children." + i + ".2" : newChildren[i].nationality,
+				"children." + i + ".3" : newChildren[i].date_of_birth,
+				"children." + i + ".7" : newChildren[i].meal_preference,
+				"children." + i + ".8" : newChildren[i].special_needs,
+				"children." + i + ".9" : newChildren[i].contact,
+				"children." + i + ".10" : newChildren[i].emergency_contact,				
+			}
+		);
+		i++;
 	}
 
-		for each (var infant in infants){
-		
-		var newInfantInfo = {
-			"first_name": infant.first_name,
-
-			"last_name": infant.last_name,
-
-			"nationality": infant.nationality,
-
-			"date_of_birth": infant.date_of_birth,
-
-			"meal_preference": infant.meal_preference,
-
-			"special_needs": ,infant.special_needs
-
-			"contact": infant.contact,
-
-			"emergency_contact": infant.emergency_contact
-		}
-		newInfants.add(newInfantInfo);
-
+	int i = 0;
+	for each (var infant in infants) {
+		db.reservaton.update(
+			{'booking_ref_number' : bookRef},
+			
+			{$set: {
+				"infants." + i + ".0" : newInfants[i].first_name,
+				"infants." + i + ".1" : newInfants[i].last_name,
+				"infants." + i + ".2" : newInfants[i].nationality,
+				"infants." + i + ".3" : newInfants[i].date_of_birth,
+				"infants." + i + ".7" : newInfants[i].meal_preference,
+				"infants." + i + ".8" : newInfants[i].special_needs,
+				"infants." + i + ".9" : newInfants[i].contact,
+				"infants." + i + ".10" : newInfants[i].emergency_contact,				
+			}
+		);
+		i++;
 	}
-
-	db.reservation.update(
-		{'booking_ref_number' : bookRef},
-		
-		{
-			"adults" : newAdults,
-			"children" : newChildren,
-			"infants" : newInfants
-		}
-	);
 };
 
 
