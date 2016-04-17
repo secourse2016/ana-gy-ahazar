@@ -16,7 +16,9 @@ db.connect(process.env.DBURL, function(err, db) {
   });
 });
 
-
+/**
+* This test tests if the number of collections equals to 0 after clearing the database
+*/
 describe("clear", function() {
 	it("should delete all the database", function() {
 		db.clear(function() {
@@ -31,6 +33,9 @@ describe("clear", function() {
 });
 });
 
+/**
+* This test tests if the length of the array that is returned from the getReservation funtion equals to 1 (each booking reference has only one reservation)
+*/
 describe("getReservation", function() {
 	it("should review your reservation", function() {
 		var bookingReference = 'abc1234567';

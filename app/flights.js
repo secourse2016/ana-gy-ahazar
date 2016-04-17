@@ -4,11 +4,11 @@ var fs = require('fs');
 
 /**
 * This function return an array of length 1 of a specific reservation info.
-*
+* @param {Function} callback function, {String} the booking reference
 * @returns {JSONObject}
 */
 var getReservation = function(callback, bookingReference) {
-  db.getDatabase.collection('reservations').find({booking_ref_number: bookingReference}).toArray(function(err, reservation) {
+  db.getDatabase().collection('reservations').find({booking_ref_number: bookingReference}).toArray(function(err, reservation) {
   	callback(err, reservation);
   });
 };
@@ -257,6 +257,6 @@ module.exports = {
   chooseRandomElement: chooseRandomElement,
   generateFlightnumber: generateFlightnumber,
   seed: seed,
-  generatePromo: generatePromo
+  generatePromo: generatePromo,
+  getReservation: getReservation
 };
->>>>>>> a8f3c903fc371150bdf372a69f6177108d83c059
