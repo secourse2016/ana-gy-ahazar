@@ -67,7 +67,7 @@
 							</label>
 							<label class="col-sm-2 col-md-2 flight_body">
 								{{flight.departureDateTime | amDateFormat:'HH:mm'}} - {{flight.arrivalDateTime | amDateFormat:'HH:mm'}} <br>
-								{{flight.arrivalDateTime | amDifference : flight.departureDateTime : 'hours' }} hours
+								{{flight.arrivalDateTime | amDifference : flight.departureDateTime : 'hours' }} hour(s)
 							</label>
 							<label class="col-sm-1 col-md-1 flight_body">
 								50
@@ -176,7 +176,7 @@
 								</label>
 								<label class="col-sm-2 col-md-2 flight_body">
 									{{flight.departureDateTime | amDateFormat:'HH:mm'}} - {{flight.arrivalDateTime | amDateFormat:'HH:mm'}} <br>
-									{{flight.arrivalDateTime | amDifference : flight.departureDateTime : 'hours' }} hours
+									{{flight.arrivalDateTime | amDifference : flight.departureDateTime : 'hours' }} hour(s)
 								</label>
 								<label class="col-sm-1 col-md-1 flight_body">
 									50

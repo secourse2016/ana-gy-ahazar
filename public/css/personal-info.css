@@ -1,13 +1,3 @@
 .long {
 	min-width: 70%;
 }
-
-.personal {
-	direction:rtl;
-	max-height: 65em;
-	overflow-y: auto;
-}
-
-#personalForm {
-	direction:ltr;
-}
