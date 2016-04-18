@@ -7,11 +7,9 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    $scope.dep_date = FlightsSrv.getDepartureDate();
    $scope.ret_date = FlightsSrv.getReturnDate();
    $scope.class = FlightsSrv.getClass();
-
-   // var dep_hour = $scope.dep_date.getHours() - ($scope.dep_date.getHours() >= 12 ? 12 : 0);
-   // var dep_period = $scope.dep_date.getHours() >= 12 ? 'PM' : 'AM';
-   //
-   // var departureTime = $scope.dep_date.getFullYear() + '-' + $scope.dep_date.getMonth() + '-' + $scope.dep_date.getDate() + '  ' + dep_hour + ':' +  $scope.dep_date.getMinutes() + ' ' + dep_period;
+   $scope.adults = FlightsSrv.getAdults();
+   $scope.children = FlightsSrv.getChildren();
+   $scope.total_people = parseInt($scope.children) + parseInt($scope.adults);
 
    var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
    var months = ["January", "February", "March", "April", "May", "June",
@@ -209,6 +207,8 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
    $scope.dep_isSelected = $scope.class;
    $scope.ret_isSelected = $scope.class;
+   $scope.dep_price = 0;
+   $scope.ret_price = 0;
 
    /*
    Validations
@@ -221,6 +221,11 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       // check to make sure the form is completely valid
       if (isValid) {
          console.log('good');
+
+         console.log($scope.dep_price);
+         console.log($scope.ret_price);
+         FlightsSrv.setTotalPrice(parseInt($scope.dep_price) + parseInt($scope.ret_price));
+
          $location.url('/book/personalInformation');
       }
       else {

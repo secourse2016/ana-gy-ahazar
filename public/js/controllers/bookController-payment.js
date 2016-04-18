@@ -15,8 +15,6 @@ App.controller('bookController-payment', function($scope, FlightsSrv, PersonalSr
       opened: false
    };
 
-   $scope.total_cost = 1555;
-
    /*
    Promotion Code Validation
    */
@@ -48,9 +46,10 @@ App.controller('bookController-payment', function($scope, FlightsSrv, PersonalSr
          $scope.Countries = countries;
       });
    };
-   
+
    Countries();
 
+   $scope.total_price = FlightsSrv.getTotalPrice();
    /*
    Validations
    */

@@ -62,6 +62,12 @@ App.factory('FlightsSrv', function ($http) {
       getClass: function() {
          return this.class;
       },
+      setTotalPrice: function(value) {
+         this.total_price = value;
+      },
+      getTotalPrice: function() {
+         return this.total_price;
+      },
 
       getRoundFlights: function(dep_air, ret_air, dep_date, ret_date, classs) {
          var x = '/api/flights/search/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + ret_date + '/' + classs;

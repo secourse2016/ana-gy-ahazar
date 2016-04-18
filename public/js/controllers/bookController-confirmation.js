@@ -15,5 +15,5 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 
 	$scope.infants = PersonalSrv.getInfantsInfo();
 
-	$scope.total_price = 1555;
+	$scope.total_price = FlightsSrv.getTotalPrice();
 });
