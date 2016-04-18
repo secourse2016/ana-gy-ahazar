@@ -95,16 +95,17 @@ module.exports = function(app) {
 		var oneWay = {
 			"origin": req.params.origin,
 			"destination": req.params.destination,
-		   //	"departureDateTime": parseInt(req.params.departureDateTime),
+		  	"departureDateTime": parseInt(req.params.departureDateTime),
 			"class": req.params.classs
 		};
 		flights.getOtherFlights(oneWay , function(err ,data){
 			if (err)
 				throw err;
 
-				else
+				else{
 				res.json(data);
-			
+				console.log(data);
+			}
 		
 	});
 

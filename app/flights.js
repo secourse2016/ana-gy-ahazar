@@ -355,28 +355,31 @@ var getOneWayFlights = function(oneway,callback){
 var makeOnlineRequest =  function(options, onResult)
 {
     //console.log("rest::getJSON");
-
-    var prot = options.port == 443 ? https : http;
-    var req = prot.request(options, function(res)
+    
+    
+    var req = http.request(options, function(res)
     {
-        console.log("kaakkakakaka");
+        
         var output = '';
-        console.log(options.host + ':' + res.statusCode);
+       // console.log(options.host + ':' + res.statusCode);
         res.setEncoding('utf8');
 
         res.on('data', function (chunk) {
+          //console.log('l'+options.host);
             output += chunk;
+            console.log(output);
         });
 
         res.on('end', function() {
-            var obj = JSON.parse(output);
+            var obj = output;
+            //console.log(obj);
             onResult(res.statusCode, obj);
         });
     });
 
     req.on('error', function(err) {
         //res.send('error: ' + err.message);
-      //  console.log("erroooor");
+       console.log("erroooor");
     });
 
     req.end();
@@ -384,28 +387,29 @@ var makeOnlineRequest =  function(options, onResult)
 
 var getOtherFlights = function(oneway,callback){
          
-        var airlines = fs.readFileSync('data/airlines.json', 'utf8');
-        
-         //console.log(airlines);
+        var airlines = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
+        var flights = [] ;
+
        for (var i = 0; i < airlines.length; i++) {
             var currAirLine =
             {
                 "airline": airlines[i].airline ,
                 "IP": airlines[i].IP
                    }
-           // console.log(currAirLine) ;
+          
 
            var ip = currAirLine['IP']; 
-           // console.log(ip);
-          var parsedUrl = URL(ip, true);
+          
+          //var parsedUrl = URL(ip, true);
           // var parsedUrl = url.parse(ip);
-             //console.log(parsedUrl);
+            // console.log(parsedUrl);
 
           var options = {
-               host: parsedUrl.host,
-               port: parsedUrl.port,
-               // path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.departureDateTime+'/'+oneway.class+'/',
-              path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.class+'',
+               // host: parsedUrl.host,
+             //  port: parsedUrl.port,
+               host: ip ,
+               path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.departureDateTime+'/'+oneway.class+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
+              // path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.class+'',
 
                method: 'GET',
                headers: {
@@ -414,10 +418,12 @@ var getOtherFlights = function(oneway,callback){
                  };
            //console.log(options.path);
          makeOnlineRequest(options,function(statusCode, result){
-            callback(null,result) ;
+            flights.push(result);
+            
          });
      
         }; 
+        callback(null,flights) ;
    };
 
 
