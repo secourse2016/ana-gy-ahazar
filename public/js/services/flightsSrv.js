@@ -1,12 +1,15 @@
 App.factory('FlightsSrv', function ($http) {
    return {
       getAirportCodes : function() {
-         return $http.get('/api/airports');
+         return $http.get('/api/airports', {
+            "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
+         });
       },
       getCountries: function() {
-         return $http.get('/api/countries');
+         return $http.get('/api/countries', {
+            "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
+         });
       },
-
       /*Flight Info */
       setFlightType: function(value) {
          this.flightType = value;
@@ -81,16 +84,22 @@ App.factory('FlightsSrv', function ($http) {
          return this.returnFlight;
       },
       storeReservation: function(reservation) {
-         return $http.post('/api/flights/reservation', reservation);
+         return $http.post('/api/flights/reservation', reservation , {
+            "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
+         });
       },
 
       getRoundFlights: function(dep_air, ret_air, dep_date, ret_date, classs) {
          var x = '/api/flights/search/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + ret_date + '/' + classs;
-         return $http.get(x);
+         return $http.get(x , {
+            "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
+         });
       },
       getOneFlights: function(dep_air, ret_air, dep_date, classs) {
          var x = '/api/flights/search/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + classs;
-         return $http.get(x);
+         return $http.get(x , {
+            "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
+         });
       },
 
    };

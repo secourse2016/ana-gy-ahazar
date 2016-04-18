@@ -1,7 +1,9 @@
 App.factory('ManageSrv', function ($http) {
    return {
       cancelReservation: function(booking) {
-         return $http.delete('/api/flights/' + booking);
+         return $http.delete('/api/flights/' + booking , {
+            "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
+         });
       },
       setBookingReference: function(value) {
          this.bookingRef = value;
@@ -10,7 +12,9 @@ App.factory('ManageSrv', function ($http) {
          return this.bookingRef;
       },
       getReservation: function(booking) {
-         return $http.get('/api/flights/reservation/' + booking);
+         return $http.get('/api/flights/reservation/' + booking , {
+            "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
+         });
       },
       setReservationData: function(value) {
          this.reservationData = value;
