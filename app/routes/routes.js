@@ -73,16 +73,17 @@ module.exports = function(app) {
 	app.get('/api/validatepromo/:promoCode',function(req,res) {
 		var promoCode = req.params.promoCode;
 
-		db.getDatabase().collection('promotionCodes').find({"code": promoCode}, function(err, result) {
+		db.getDatabase().collection('promotionCodes').find({"code": promoCode}).toArray(function(err, result)  {
+			result = result[0];
+
 			if (err) {
 				throw err;
 			}
-			if (result && valid) {
-				var valid =	result.valid;
-				var discount = result.discount
-				db.getDatabase().collection('promotionCodes').deleteOne(promoCode,  function(err, results) {
-					res.send(discount+"");
 
+			if (result && result.valid) {
+				var discount = result.discount;
+				db.getDatabase().collection('promotionCodes').remove({"code": promoCode},  function(err, results) {
+					res.send(discount+"");
 					});
 			} else {
 				res.send(0.0+"");
