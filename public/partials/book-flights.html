@@ -95,7 +95,7 @@
 								<!-- </div> -->
 							</label>
 							<label class="col-sm-1 col-md-1 flight_body">
-								<input type="radio" ng-model="$parent.$parent.dep_reserve" name="$parent.$parent.dep_reserve" ng-change="$parent.$parent.dep_price = flight.cost" value="{{flight.flightNumber}}" ng-disabled="flight.remaining_seats == 0" required>
+								<input type="radio" ng-model="$parent.$parent.dep_reserve" name="$parent.$parent.dep_reserve" ng-change="$parent.$parent.dep_price = flight.cost; $parent.$parent.dep_flight = flight;" value="{{flight.flightNumber}}" ng-disabled="flight.remaining_seats == 0" required>
 							</label>
 							<div class="col-sm-12 col-md-12">
 								<hr style="border-color: black;">
@@ -207,7 +207,7 @@
 									<!-- </div> -->
 								</label>
 								<label class="col-sm-1 col-md-1 flight_body">
-									<input type="radio" ng-model="$parent.$parent.ret_reserve" name="$parent.$parent.ret_reserve" ng-change="$parent.$parent.$parent.ret_price = flight.cost" value="{{flight.flightNumber}}" ng-disabled="flight.remaining_seats == 0" required>
+									<input type="radio" ng-model="$parent.$parent.ret_reserve" name="$parent.$parent.ret_reserve" ng-change="$parent.$parent.$parent.ret_price = flight.cost;$parent.$parent.$parent.ret_flight = flight" value="{{flight.flightNumber}}" ng-disabled="flight.remaining_seats == 0" required>
 								</label>
 
 								<div class="col-sm-12 col-md-12">

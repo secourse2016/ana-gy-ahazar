@@ -22,6 +22,18 @@ module.exports = function(app) {
 			res.send("deleted successfully");
 		});
 	});
+
+	app.post('/api/flights/reservation', function(req, res) {
+		var reservation = req.body;
+		flights.reserve(reservation , function (err, BRN){
+			if (err) {
+				res.send("error");
+			}else{
+				res.send(BRN + '');
+			}
+		});
+	});
+
 	/**
 	* This route gets a specific reservation information
 	*
@@ -159,22 +171,6 @@ module.exports = function(app) {
 
 		});
 
-
-
-	});
-
-	app.post('/api/flights/reservation', function(req, res) {
-
-		var reservation = req.body;
-		flights.reserve(reservation , function (err){
-			if (err) {
-				res.send("error");
-			}else{
-
-				res.send("success");
-
-			}
-		});
 
 
 	});

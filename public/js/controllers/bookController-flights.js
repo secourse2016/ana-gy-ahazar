@@ -222,8 +222,8 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       if (isValid) {
          console.log('good');
 
-         console.log($scope.dep_price);
-         console.log($scope.ret_price);
+         FlightsSrv.setDepartureFlight($scope.dep_flight);
+         FlightsSrv.setReturnFlight($scope.ret_flight);
          FlightsSrv.setTotalPrice(parseInt($scope.dep_price) + parseInt($scope.ret_price));
 
          $location.url('/book/personalInformation');

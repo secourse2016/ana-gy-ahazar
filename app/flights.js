@@ -347,9 +347,9 @@ var getOneWayFlights = function(oneway,callback){
 };
 
 
-var reserve = function(reserve_info){
+var reserve = function(reserve_info, callback){
    var flag = 0 ;
-   while(flag == 0){
+   while(flag === 0){
       var code = "";
 
       for (var i = 0; i < 15; i++) {
@@ -370,10 +370,11 @@ var reserve = function(reserve_info){
          }
       });
    }
-   reserve_info.booking_ref_number = code ;
+   var booking_ref_number = code ;
 
    db.getDatabase().collection('reservation').insertOne(reserve_info) ;
 
+   callback(null, booking_ref_number);
 };
 
 var addFeedback = function (feed, callback){

@@ -68,6 +68,21 @@ App.factory('FlightsSrv', function ($http) {
       getTotalPrice: function() {
          return this.total_price;
       },
+      setDepartureFlight: function(value) {
+         this.departureFlight = value;
+      },
+      getDepartureFlight: function() {
+         return this.departureFlight;
+      },
+      setReturnFlight: function(value) {
+         this.returnFlight = value;
+      },
+      getReturnFlight: function() {
+         return this.returnFlight;
+      },
+      storeReservation: function(reservation) {
+         return $http.post('/api/flights/reservation', reservation);
+      },
 
       getRoundFlights: function(dep_air, ret_air, dep_date, ret_date, classs) {
          var x = '/api/flights/search/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + ret_date + '/' + classs;
