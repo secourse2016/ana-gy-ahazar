@@ -17,7 +17,7 @@ module.exports = function(app) {
     /*
     This route return all one way  Fligths 
     */
-	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:class' , function(req, res){
+	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:classs' , function(req, res){
 		var oneWay = {
 			"origin": req.params.origin,
 			"destination": req.params.destination,
@@ -25,11 +25,11 @@ module.exports = function(app) {
 			"class": req.params.classs
 		};
 		flights.getOneWayFlights(oneWay , function(err ,data){
-			if (err){
+			if (err)
 				throw err;
 				res.json(data);
 			
-		};
+		
 	});
 
 		});

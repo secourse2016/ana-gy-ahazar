@@ -303,42 +303,6 @@ search for all one way flights
 */
 
 
-// var getOneWayFlights = function(oneway,callback){
-//       var flights = [] ;
-
-    
-//        db.getDatabase().collection('flights').find(oneway).toArray(function(err,data){
-//               if(err){
-//                 callback(err) ;
-//               }
-//               else {
-//                 for( i=0; i<data.length ;i++){
-//                      var currFlight = data[i];
-//                      var aircraft = currFlight.aircraft
-//                      var aircraftType = aircraft.aircraftType;
-//                      var aircraftModel = aircraft.aircraftModel ;
-//                      var flight = {
-//                         "aircraftType":  aircraftType,
-//                         "aircraftModel": aircraftModel,
-//                         "flightNumber": currFlight['flightNumber'],
-//                         "departureDateTime": currFlight['departureDateTime'],
-//                         "arrivalDateTime": currFlight['arrivalDateTime'],
-//                         "origin": currFlight['origin'],
-//                         "destination": currFlight['destination'],
-//                         "cost": currFlight['cost'],
-//                         "currency": currFlight['currency'],
-//                         "class": currFlight['class'],  
-//                         "Airline": currFlight['Airline']        
-//                     };
-//                     flights.push(flight) ;
-//                   }
-
-//                 callback(null,flights) ;
-//               }
-//     });
-// }; 
-
-
 var getOneWayFlights = function(oneway,callback){
       var flights = [] ;
 
@@ -348,13 +312,34 @@ var getOneWayFlights = function(oneway,callback){
                 callback(err) ;
               }
               else {
-                console.log(data.length+"fdsds");
-               
+                for( i=0; i<data.length ;i++){
+                     var currFlight = data[i];
+                     var aircraft = currFlight.aircraft
+                     var aircraftType = aircraft.aircraftType;
+                     var aircraftModel = aircraft.aircraftModel ;
+                     var flight = {
+                        "aircraftType":  aircraftType,
+                        "aircraftModel": aircraftModel,
+                        "flightNumber": currFlight['flightNumber'],
+                        "departureDateTime": currFlight['departureDateTime'],
+                        "arrivalDateTime": currFlight['arrivalDateTime'],
+                        "origin": currFlight['origin'],
+                        "destination": currFlight['destination'],
+                        "cost": currFlight['cost'],
+                        "currency": currFlight['currency'],
+                        "class": currFlight['class'],  
+                        "Airline": currFlight['Airline']        
+                    };
+                    flights.push(flight) ;
+                  }
 
-                callback(null,data) ;
+                callback(null,flights) ;
               }
     });
-};
+}; 
+
+
+
 
 
 /*
