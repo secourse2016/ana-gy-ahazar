@@ -1,32 +1,31 @@
 <div class="flights">
-	<form name="flightsForm" ng-submit="submitForm(flightsForm.$valid)" novalidate>
-		<div class="container col-sm-12 col-md-12">
-			<div class="outgoing">
-				<img src="assets/departure.png"> <label style="font-size: 23px; color: black;">Departure Flight(s)</label>
-				<h4>Cairo To Berlin</h4>
+	<div class="container col-sm-12 col-md-12">
+		<div class="outgoing">
+			<img src="assets/departure.png"> <label style="font-size: 23px; color: black;">Departure Flight(s)</label>
+			<h4>Cairo To Berlin</h4>
 
-				<center>
-					<div class="col-sm-12 col-md-12">
-						<button type="button" id="previous_dates">
-							<img src="assets/goLeft.png" alt="goLeft" />
-						</button>
-						<!-- UI Bootstrap radio buttons for dates -->
-						<div class="btn-group">
-							<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(1)" uib-btn-radio="'dradio1'">Fri <br>20 April</label>
-							<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(2)" uib-btn-radio="'dradio2'">Sat <br>21 April</label>
-							<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(3)" uib-btn-radio="'dradio3'">Sun <br>22 April</label>
-							<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(4)" uib-btn-radio="'dradio4'">Mon <br>23 April</label>
-							<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(5)" uib-btn-radio="'dradio5'">Tue <br>24 April</label>
-						</div>
-
-						<button type="button" id="next_dates">
-							<img src="assets/goRight.png" alt="goRight" />
-						</button>
+			<center>
+				<div class="col-sm-12 col-md-12">
+					<button type="button" id="previous_dates">
+						<img src="assets/goLeft.png" alt="goLeft" />
+					</button>
+					<!-- UI Bootstrap radio buttons for dates -->
+					<div class="btn-group">
+						<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(1)" uib-btn-radio="'dradio1'">Fri <br>20 April</label>
+						<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(2)" uib-btn-radio="'dradio2'">Sat <br>21 April</label>
+						<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(3)" uib-btn-radio="'dradio3'">Sun <br>22 April</label>
+						<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(4)" uib-btn-radio="'dradio4'">Mon <br>23 April</label>
+						<label class="btn btn-default" ng-model="dradioModel" ng-click="show1(5)" uib-btn-radio="'dradio5'">Tue <br>24 April</label>
 					</div>
-				</center>
-			</div>
-			<br>
-			<div style="margin-top: 1.5%" class="col-sm-12 col-md-12">
+
+					<button type="button" id="next_dates">
+						<img src="assets/goRight.png" alt="goRight" />
+					</button>
+				</div>
+			</center>
+		</div>
+		<br>
+		<div style="margin-top: 1.5%" class="col-sm-12 col-md-12">
 
 				<!-- tabs for flight types -->
 				<div class="inner-tabs">
@@ -41,61 +40,60 @@
 						<label for="dep-in-btn-3" class="btn inner-link"><i class="fa fa-line-chart"></i> Economy</label>
 					</div>
 
-					<!-- flights table -->
-					<div class="col-sm-12 col-md-12 flights-table">
-						<div class="header">
-							<span class="col-sm-2 col-md-2 label label-success head">
-								<i class="fa fa-clock-o"></i> Time
-							</span>
-							<span class="col-sm-2 col-md-2 label label-success head">
-								<i class="fa fa-users"></i> Available Seats
-							</span>
-							<span class="col-sm-1 col-md-1 label label-success head">
-								<i class="fa fa-map-marker"></i> Stops
-							</span>
-							<span class="col-sm-2 col-md-2 label label-success head">
-								<i class="fa fa-plane"></i> Plane Model
-							</span>
-							<span class="col-sm-2 col-md-2 label label-success head">
-								<i class="fa fa-money"></i> Cost
-							</span>
-							<span class="col-sm-2 col-md-2 label label-success head">
-								<i class="fa fa-headphones"></i> Entertainment
-							</span>
-							<span class="col-sm-1 col-md-1 label label-success head">
-								Book
-							</span>
-						</div>
-						<br>
-						<br>
-						<div class="col-sm-12 col-md-12 flight" ng-if="flight.class == dep_isSelected" ng-repeat="flight in flights">
-							<label class="col-sm-2 col-md-2 flight_body">
-								{{flight.depTime}} - {{flight.arrTime}} <br>
-								{{flight.duration}}
-							</label>
-							<label class="col-sm-2 col-md-2 flight_body">
-								{{flight.remaining_seats}}
-							</label>
-							<label class="col-sm-1 col-md-1 flight_body">
-								{{flight.stops}}
-							</label>
-							<label class="col-sm-2 col-md-2 flight_body">
-								{{flight.planeModel}}
-							</label>
-							<label class="col-sm-2 col-md-2 flight_body">
-								{{flight.price}}
-							</label>
-							<label class="col-sm-2 col-md-2 flight_body">
-								<div ng-repeat="e in flight.entertainment">
-									<div ng-if="e === 'Wifi'">
-										Wifi <i class="fa fa-wifi"></i>
-									</div>
-									<div ng-if="e === 'Radio'">
-										Radio <i class="fa fa-music"></i>
-									</div>
-									<div ng-if="e === 'Power Cord'">
-										USB <i class="fa fa-usb"></i>
-									</div>
+				<!-- flights table -->
+				<div class="col-sm-12 col-md-12 flights-table">
+					<div class="header">
+						<span class="col-sm-2 col-md-2 label label-success head">
+							<i class="fa fa-clock-o"></i> Time
+						</span>
+						<span class="col-sm-2 col-md-2 label label-success head">
+							<i class="fa fa-users"></i> Available Seats
+						</span>
+						<span class="col-sm-1 col-md-1 label label-success head">
+							<i class="fa fa-map-marker"></i> Stops
+						</span>
+						<span class="col-sm-2 col-md-2 label label-success head">
+							<i class="fa fa-plane"></i> Plane Model
+						</span>
+						<span class="col-sm-2 col-md-2 label label-success head">
+							<i class="fa fa-money"></i> Cost
+						</span>
+						<span class="col-sm-2 col-md-2 label label-success head">
+							<i class="fa fa-headphones"></i> Entertainment
+						</span>
+						<span class="col-sm-1 col-md-1 label label-success head">
+							Book
+						</span>
+					</div>
+					<br>
+					<br>
+					<div class="col-sm-12 col-md-12 flight" ng-if="flight.class == dep_isSelected" ng-repeat="flight in flights">
+						<label class="col-sm-2 col-md-2 flight_body">
+							{{flight.depTime}} - {{flight.arrTime}} <br>
+							{{flight.duration}}
+						</label>
+						<label class="col-sm-2 col-md-2 flight_body">
+							{{flight.remaining_seats}}
+						</label>
+						<label class="col-sm-1 col-md-1 flight_body">
+							{{flight.stops}}
+						</label>
+						<label class="col-sm-2 col-md-2 flight_body">
+							{{flight.planeModel}}
+						</label>
+						<label class="col-sm-2 col-md-2 flight_body">
+							{{flight.price}}
+						</label>
+						<label class="col-sm-2 col-md-2 flight_body">
+							<div ng-repeat="e in flight.entertainment">
+								<div ng-if="e === 'Wifi'">
+									Wifi <i class="fa fa-wifi"></i>
+								</div>
+								<div ng-if="e === 'Radio'">
+									Radio <i class="fa fa-music"></i>
+								</div>
+								<div ng-if="e === 'Power Cord'">
+									USB <i class="fa fa-usb"></i>
 								</div>
 							</label>
 							<label class="col-sm-1 col-md-1 flight_body">
@@ -104,141 +102,148 @@
 							<div class="col-sm-12 col-md-12">
 								<hr style="border-color: black;">
 							</div>
+						</label>
+						<label class="col-sm-1 col-md-1 flight_body">
+							<input type="radio" name="reserve" ng-disabled="flight.remaining_seats == 0">
+						</label>
+
+						<div class="col-sm-12 col-md-12">
+							<hr style="border-color: black;">
 						</div>
 						<div class="has-error">
 							<p ng-show="(dep_reserve == '' || dep_reserve === undefined) && submitted" class="help-block">Departure Flight is required.</p>
 						</div>
 					</div>
 				</div>
-
-
 			</div>
-			<br>
-			<div class="incoming">
-				<img src="assets/return.png"> <label style="font-size: 23px; color: black;">Return Flight(s)</label>
-				<h4>Berlin To Cairo</h4>
-
-				<center>
-					<div class="col-sm-12 col-md-12">
-						<button type="button" id="previous_dates">
-							<img src="assets/goLeft.png" alt="goLeft" />
-						</button>
-						<!-- UI Bootstrap radio buttons for dates -->
-						<div class="btn-group">
-							<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(1)" uib-btn-radio="'retradio1'">Fri <br>1 May</label>
-							<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(2)" uib-btn-radio="'retradio2'">Sat <br>2 May</label>
-							<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(3)" uib-btn-radio="'retradio3'">Sun <br>3 May</label>
-							<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(4)" uib-btn-radio="'retradio4'">Mon <br>4 May</label>
-							<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(5)" uib-btn-radio="'retradio5'">Tue <br>5 May</label>
-						</div>
-
-						<button type="button" id="next_dates">
-							<img src="assets/goRight.png" alt="goRight" />
-						</button>
-
-					</div>
-				</center>
-			</div>
-			<br>
-			<div style="margin-top: 1.5%" class="col-sm-12 col-md-12">
-
-				<!-- tabs for flight types -->
-				<div class="inner-tabs">
-					<div class="inner-tab-links">
-						<input type="radio" name="first" id="ret-in-btn-1" ng-model="ret_radio" ng-click="ret_isSelected = 'First'; ret_reserve=''" ng-class="{checked:ret_isSelected=='First'}">
-						<label for="ret-in-btn-1" class="btn inner-link"><i class="fa fa-star"></i> First</label>
-
-						<input type="radio" name="business" id="ret-in-btn-2" ng-model="ret_radio" ng-click="ret_isSelected = 'Business'; ret_reserve=''" ng-class="{checked:ret_isSelected=='Business'}">
-						<label for="ret-in-btn-2" class="btn inner-link"><i class="fa fa-briefcase"></i> Business</label>
 
 
-						<input type="radio" name="economy" id="ret-in-btn-3" ng-model="ret_radio" ng-click="ret_isSelected = 'Economy'; ret_reserve=''" ng-class="{checked:ret_isSelected=='Economy'}">
-						<label for="ret-in-btn-3" class="btn inner-link"><i class="fa fa-line-chart"></i> Economy</label>
+		</div>
+		<br>
+		<div class="incoming">
+			<img src="assets/return.png"> <label style="font-size: 23px; color: black;">Return Flight(s)</label>
+			<h4>Berlin To Cairo</h4>
+
+			<center>
+				<div class="col-sm-12 col-md-12">
+					<button type="button" id="previous_dates">
+						<img src="assets/goLeft.png" alt="goLeft" />
+					</button>
+					<!-- UI Bootstrap radio buttons for dates -->
+					<div class="btn-group">
+						<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(1)" uib-btn-radio="'retradio1'">Fri <br>1 May</label>
+						<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(2)" uib-btn-radio="'retradio2'">Sat <br>2 May</label>
+						<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(3)" uib-btn-radio="'retradio3'">Sun <br>3 May</label>
+						<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(4)" uib-btn-radio="'retradio4'">Mon <br>4 May</label>
+						<label class="btn btn-default" ng-model="retradioModel" ng-click="show2(5)" uib-btn-radio="'retradio5'">Tue <br>5 May</label>
 					</div>
 
-					<!-- flights table -->
-					<div class="col-sm-12 col-md-12 flights-table">
-						<div class="header">
-							<span class="col-sm-2 col-md-2 label label-success head">
-								<i class="fa fa-clock-o"></i> Time
-							</span>
-							<span class="col-sm-2 col-md-2 label label-success head">
-								<i class="fa fa-users"></i> Available Seats
-							</span>
-							<span class="col-sm-1 col-md-1 label label-success head">
-								<i class="fa fa-map-marker"></i> Stops
-							</span>
-							<span class="col-sm-2 col-md-2 label label-success head">
-								<i class="fa fa-plane"></i> Plane Model
-							</span>
-							<span class="col-sm-2 col-md-2 label label-success head">
-								<i class="fa fa-money"></i> Cost
-							</span>
-							<span class="col-sm-2 col-md-2 label label-success head">
-								<i class="fa fa-headphones"></i> Entertainment
-							</span>
-							<span class="col-sm-1 col-md-1 label label-success head">
-								Book
-							</span>
-						</div>
-						<br>
-						<br>
-						<div class="col-sm-12 col-md-12 flight" ng-if="flight.class == ret_isSelected" ng-repeat="flight in flights">
-							<label class="col-sm-2 col-md-2 flight_body">
-								{{flight.depTime}} - {{flight.arrTime}} <br>
-								{{flight.duration}}
-							</label>
-							<label class="col-sm-2 col-md-2 flight_body">
-								{{flight.remaining_seats}}
-							</label>
-							<label class="col-sm-1 col-md-1 flight_body">
-								{{flight.stops}}
-							</label>
-							<label class="col-sm-2 col-md-2 flight_body">
-								{{flight.planeModel}}
-							</label>
-							<label class="col-sm-2 col-md-2 flight_body">
-								{{flight.price}}
-							</label>
-							<label class="col-sm-2 col-md-2 flight_body">
-								<div ng-repeat="e in flight.entertainment">
-									<div ng-if="e === 'Wifi'">
-										Wifi <i class="fa fa-wifi"></i>
-									</div>
-									<div ng-if="e === 'Radio'">
-										Radio <i class="fa fa-music"></i>
-									</div>
-									<div ng-if="e === 'Power Cord'">
-										USB <i class="fa fa-usb"></i>
-									</div>
+<<<<<<< HEAD
+					<button type="button" id="next_dates">
+						<img src="assets/goRight.png" alt="goRight" />
+					</button>
+
+				</div>
+			</center>
+		</div>
+		<br>
+		<div style="margin-top: 1.5%" class="col-sm-12 col-md-12">
+
+			<!-- tabs for flight types -->
+			<div class="inner-tabs">
+				<div class="inner-tab-links">
+					<input type="radio" name="first" id="ret-in-btn-1" ng-model="ret_radio" ng-click="ret_isSelected = 'First'" ng-class="{checked:ret_isSelected=='First'}">
+					<label for="ret-in-btn-1" class="btn inner-link"><i class="fa fa-star"></i> First</label>
+
+					<input type="radio" name="business" id="ret-in-btn-2" ng-model="ret_radio" ng-click="ret_isSelected = 'Business'" ng-class="{checked:ret_isSelected=='Business'}">
+					<label for="ret-in-btn-2" class="btn inner-link"><i class="fa fa-briefcase"></i> Business</label>
+
+					<input type="radio" name="economy" id="ret-in-btn-3" ng-model="ret_radio" ng-click="ret_isSelected = 'Economy'" ng-class="{checked:ret_isSelected=='Economy'}">
+					<label for="ret-in-btn-3" class="btn inner-link"><i class="fa fa-line-chart"></i> Economy</label>
+				</div>
+				
+				<!-- flights table -->
+				<div class="col-sm-12 col-md-12 flights-table">
+					<div class="header">
+						<span class="col-sm-2 col-md-2 label label-success head">
+							<i class="fa fa-clock-o"></i> Time
+						</span>
+						<span class="col-sm-2 col-md-2 label label-success head">
+							<i class="fa fa-users"></i> Available Seats
+						</span>
+						<span class="col-sm-1 col-md-1 label label-success head">
+							<i class="fa fa-map-marker"></i> Stops
+						</span>
+						<span class="col-sm-2 col-md-2 label label-success head">
+							<i class="fa fa-plane"></i> Plane Model
+						</span>
+						<span class="col-sm-2 col-md-2 label label-success head">
+							<i class="fa fa-money"></i> Cost
+						</span>
+						<span class="col-sm-2 col-md-2 label label-success head">
+							<i class="fa fa-headphones"></i> Entertainment
+						</span>
+						<span class="col-sm-1 col-md-1 label label-success head">
+							Book
+						</span>
+					</div>
+					<br>
+					<br>
+					<div class="col-sm-12 col-md-12 flight" ng-if="flight.class == ret_isSelected" ng-repeat="flight in flights">
+						<label class="col-sm-2 col-md-2 flight_body">
+							{{flight.depTime}} - {{flight.arrTime}} <br>
+							{{flight.duration}}
+						</label>
+						<label class="col-sm-2 col-md-2 flight_body">
+							{{flight.remaining_seats}}
+						</label>
+						<label class="col-sm-1 col-md-1 flight_body">
+							{{flight.stops}}
+						</label>
+						<label class="col-sm-2 col-md-2 flight_body">
+							{{flight.planeModel}}
+						</label>
+						<label class="col-sm-2 col-md-2 flight_body">
+							{{flight.price}}
+						</label>
+						<label class="col-sm-2 col-md-2 flight_body">
+							<div ng-repeat="e in flight.entertainment">
+								<div ng-if="e === 'Wifi'">
+									Wifi <i class="fa fa-wifi"></i>
 								</div>
-							</label>
-							<label class="col-sm-1 col-md-1 flight_body">
-								<input type="radio" ng-model="$parent.$parent.ret_reserve" name="$parent.$parent.ret_reserve" value="{{flight.flightNumber}}" ng-disabled="flight.remaining_seats == 0" required>
-							</label>
-
-							<div class="col-sm-12 col-md-12">
-								<hr style="border-color: black;">
+								<div ng-if="e === 'Radio'">
+									Radio <i class="fa fa-music"></i>
+								</div>
+								<div ng-if="e === 'Power Cord'">
+									USB <i class="fa fa-usb"></i>
+								</div>
 							</div>
+						</label>
+						<label class="col-sm-1 col-md-1 flight_body">
+							<input type="radio" name="reserve" ng-disabled="flight.remaining_seats == 0">
+						</label>
+
+						<div class="col-sm-12 col-md-12">
+							<hr style="border-color: black;">
 						</div>
 						<div class="has-error">
 							<p ng-show="(ret_reserve == '' || ret_reserve === undefined) && submitted" class="help-block">Return Flight is required.</p>
 						</div>
 					</div>
 				</div>
-
-
 			</div>
 
-			<br>
-			<div class="row">
-				<div class="col-sm-offset-11 col-md-offset-10 col-sm-2 col-md-2">
-					<button type="submit" class="btn btn-default btn_nxt">Next</button>
-					<br>
-					<br>
-				</div>
+
+		</div>
+
+		<br>
+		<div class="row">
+			<div class="col-sm-offset-11 col-md-offset-10 col-sm-2 col-md-2">
+				<a href="/book/personalInformation" class="btn btn-default btn_nxt">Next</a>
+				<br>
+				<br>
 			</div>
 		</div>
-	</form>
+	</div>
 
 </div>

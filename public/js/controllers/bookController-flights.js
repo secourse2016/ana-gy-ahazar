@@ -1,4 +1,4 @@
-App.controller('bookController-flights', function($scope, $location) {
+App.controller('bookController-flights', function($scope) {
 
 $scope.dradioModel = 'dradio3';
 $scope.retradioModel = 'retradio3';
@@ -19,7 +19,7 @@ $scope.flights = [   {  "flightNumber": '1',
                               "Wifi", "Radio"
                            ]},
 
-                        {  "flightNumber": '2',
+                        {  "flightNumber": '1',
                            "depTime":'12:00',
                            "arrTime":'15:00',
                            "duration":'3 hour(s)',
@@ -32,7 +32,7 @@ $scope.flights = [   {  "flightNumber": '1',
                               "Radio"
                            ]},
 
-                        {  "flightNumber": '3',
+                        {  "flightNumber": '1',
                            "depTime":'12:00',
                            "arrTime":'15:00',
                            "duration":'3 hour(s)',
@@ -45,7 +45,7 @@ $scope.flights = [   {  "flightNumber": '1',
                               "Wifi", "Radio"
                            ]},
 
-                        {  "flightNumber": '4',
+                        {  "flightNumber": '2',
                            "depTime":'19:30',
                            "arrTime":'22:30',
                            "duration":'3 hour(s)',
@@ -58,7 +58,7 @@ $scope.flights = [   {  "flightNumber": '1',
                               "Wifi"
                            ]},
 
-                           {  "flightNumber": '5',
+                           {  "flightNumber": '2',
                            "depTime":'19:30',
                            "arrTime":'22:30',
                            "duration":'3 hour(s)',

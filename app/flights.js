@@ -298,6 +298,63 @@ var seed = function(callback) {
   });
 };
 
+/*
+search for all one way flights
+*/
+
+
+var getOneWayFlights = function(oneway,callback){
+      var flights = [] ;
+
+    
+       db.getDatabase().collection('flights').find(oneway).toArray(function(err,data){
+              if(err){
+                callback(err) ;
+              }
+              else {
+                for( i=0; i<data.length ;i++){
+                     var currFlight = data[i];
+                     var aircraft = currFlight.aircraft
+                     var aircraftType = aircraft.aircraftType;
+                     var aircraftModel = aircraft.aircraftModel ;
+                     var flight = {
+                        "aircraftType":  aircraftType,
+                        "aircraftModel": aircraftModel,
+                        "flightNumber": currFlight['flightNumber'],
+                        "departureDateTime": currFlight['departureDateTime'],
+                        "arrivalDateTime": currFlight['arrivalDateTime'],
+                        "origin": currFlight['origin'],
+                        "destination": currFlight['destination'],
+                        "cost": currFlight['cost'],
+                        "currency": currFlight['currency'],
+                        "class": currFlight['class'],  
+                        "Airline": currFlight['Airline']        
+                    };
+                    flights.push(flight) ;
+                  }
+
+                callback(null,flights) ;
+              }
+    });
+}; 
+
+
+
+
+
+/*
+The function is used to insert a feedback into Database.
+*/
+   var addFeedback = function (feed, callback){
+  db.getDatabase().collection('feedbacks').insert(feed, function(err, docs) {
+    if (err){
+              callback(err , null);
+            }else{
+              callback(null,docs);
+            }
+  });
+};
+
 module.exports = {
   getCountries: getCountries,
   getAirports: getAirports,
@@ -306,5 +363,7 @@ module.exports = {
   generateFlightnumber: generateFlightnumber,
   seed: seed,
   generatePromo: generatePromo,
+  addFeedback:addFeedback,
+  getOneWayFlights:getOneWayFlights,
   getReservation: getReservation
 };
