@@ -12,14 +12,6 @@ module.exports = function(app) {
 	app.get('/', function(req, res) {
 		res.sendFile('index.html');
 	});
-
-//<<<<<<< HEAD
-	app.delete('/api/flights/:reservation', function(req, res) {
-		var r = req.params.reservation;
-		res.send('done');
-	});
-
-//=======
     /**
 	 * This route deletes the database
 	 *
@@ -79,8 +71,9 @@ module.exports = function(app) {
 	*/
 	app.get('/api/validatepromo/:promoCode',function(req,res) {
 		var promoCode = req.params.promoCode;
+		db.getDatabase().collection('promotionCodes').find({"code": promoCode}).toArray(function(err, result) {
+		  result = result[0];
 
-		db.getDatabase().collection('promotionCodes').find({"code": promoCode}, function(err, result) {
 			if (err) {
 				throw err;
 			}
@@ -88,7 +81,7 @@ module.exports = function(app) {
 				var valid =	result.valid;
 				if(valid){
 					var discount = result.discount;
-					db.getDatabase().collection('promotionCodes').delete({"code": promoCode},  function(err, results) {
+					db.getDatabase().collection('promotionCodes').remove({"code": promoCode},  function(err, results) {
 						if(err){
 							throw err;
 						}
