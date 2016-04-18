@@ -1,5 +1,5 @@
 <div class="container personal">
-	<form name="personalInfoForm" ng-submit="submitForm(personalInfoForm.$valid)" novalidate>
+	<form id="personalForm" name="personalInfoForm" ng-submit="submitForm(personalInfoForm.$valid)" novalidate>
 		<div class="form-inline">
 			<!-- forms for adults -->
 			<div ng-repeat="t in numAdults() track by $index">

@@ -3,6 +3,11 @@
 }
 
 .personal {
-	max-height: 60em;
-	overflow-y: scroll;
+	direction:rtl;
+	max-height: 65em;
+	overflow-y: auto;
+}
+
+#personalForm {
+	direction:ltr;
 }

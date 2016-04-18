@@ -22,6 +22,8 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 		var dep_flight = FlightsSrv.getDepartureFlight();
 		var ret_flight = FlightsSrv.getReturnFlight();
 
+		console.log(dep_flight);
+
 		if (FlightsSrv.getFlightType() == "round") {
 			console.log('round');
 			var reservation = {'adults': $scope.adults,
