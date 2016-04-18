@@ -13,6 +13,13 @@ module.exports = function(app) {
 		res.sendFile('index.html');
 	});
 
+//<<<<<<< HEAD
+	app.delete('/api/flights/:reservation', function(req, res) {
+		var r = req.params.reservation;
+		res.send('done');
+	});
+
+//=======
     /**
 	 * This route deletes the database
 	 *
@@ -29,7 +36,7 @@ module.exports = function(app) {
 	 app.get('/api/flights/reservation/:bookingReference', function(req, res) {
 		 flights.getReservation(function(err, data) {
 			 res.json(data);
-		 }, bookingReference);
+		 }, req.params.bookingReference);
 	 });
 
 

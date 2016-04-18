@@ -1,24 +1,46 @@
-App.controller('manageController-ticketinfo', function($scope) {
-   $scope.tabName = 'manage-ticketinfo';
-   $scope.tabPart = 'tab-part-next active';
+App.controller('manageController-ticketinfo', function($scope, ManageSrv, $location) {
 
-   $scope.title = 'Mr.';
-   $scope.firstName = 'Kareem';
-   $scope.lastName = 'Mokhtar';
-   $scope.age = 21;
-   $scope.dateOfBirth = '05 / 03 / 1995';
-   $scope.nationality = 'Egyptian';
+   $scope.origin = "Cario";
+   $scope.destination = "Berlin";
+   $scope.departureDate = "2/2/2";
+   $scope.returnDate = "3/3/3";
+   $scope.class = "First";
 
-   contactCode = '+2';
-   contactPhoneNumber = '01122064666';
-   $scope.contactEmail = 'kemdak@live.com';
-   $scope.contactMobile = contactCode + contactPhoneNumber;
+   $scope.adults = [
+      {'title': 'Mr.', 'first_name': 'Kareem', 'last_name': 'Mokhtar', 'birth_date': '5/3/1995', 'nationality': 'Egyptian',
+         'phone_number': "0123213123", 'passport': '13123', 'email': 'm@m.com', 'em_phone_number': '4324234424',
+         'em_email': 'n@n.com', 'mealPreference': 'None', 'specialNeed': 'None'},
+      {'title': 'Mr.', 'first_name': 'Nour','last_name': 'Khaled', 'birth_date': '19/9/1995', 'nationality': 'Egyptian',
+         'phone_number': "2342342344", 'passport': '123', 'email': 'nour@m.com', 'em_phone_number': '4324234424',
+         'em_email': 'n@n.com', 'mealPreference': 'None', 'specialNeed': 'None'}
+   ];
 
-   contactECode = '+2';
-   contactEPhoneNumber = '01122064666';
-   $scope.contactEEmail = 'kemdak@live.com';
-   $scope.contactEMobile = contactECode + contactEPhoneNumber;
+   $scope.children = [{'first_name': 'Hassan', 'last_name': 'Ali'}];
+   $scope.infants = [];
 
-   $scope.mealPreference = 'None';
-   $scope.specialNeed = 'None';
+   var data = ManageSrv.getReservationData();
+
+   $scope.cancel = function() {
+      swal({
+         title: "Are you sure?",
+         text: "Once the reservation is deleted it can\'t be recovered!",
+         type: "warning",
+         showCancelButton: true,
+         confirmButtonColor: "#DD6B55",
+         confirmButtonText: "Yes, delete it!",
+         closeOnConfirm: false
+      },
+      function(){
+         ManageSrv.cancelReservation(ManageSrv.getBookingReference()).success(function() {
+            console.log('done');
+            $location.url('/');
+            swal({
+               title: "Deleted!",
+               text: "Your reservation has been deleted.",
+               type: "success"
+            });
+         });
+      });
+
+   };
 });
