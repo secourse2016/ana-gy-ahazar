@@ -104,7 +104,6 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    This function is used to call the service for departure flights.
     */
    $scope.showDepartureFlights = function() {
-      console.log($scope.dep_isSelected);
 
       var month = ($scope.dep_date.getMonth() + 1);
       if (month < 10)
@@ -115,9 +114,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          day = '0' + day;
 
       var dep_time = $scope.dep_date.getFullYear() + '-' + month + '-' + day;
-      console.log(dep_time);
       FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected).success(function(response) {
-         console.log(response);
          $scope.departureFlights = response;
       });
    }
@@ -201,7 +198,6 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
    // This function is used to call the service for return flights.
    $scope.showReturnFlights = function() {
-      console.log($scope.ret_isSelected);
 
       var month = ($scope.ret_date.getMonth() + 1);
       if (month < 10)
@@ -212,9 +208,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          day = '0' + day;
 
       var ret_time = $scope.ret_date.getFullYear() + '-' + month + '-' + day;
-      console.log(ret_time);
       FlightsSrv.getOneFlights($scope.ret_airport, $scope.dep_airport, ret_time, $scope.ret_isSelected).success(function(response) {
-         console.log(response);
          $scope.returnFlights = response;
       });
    }

@@ -5,21 +5,39 @@
 
       <div class="panel panel-info">
          <div class="panel-heading">
-            <h2 class="panel-title" >Flight Information </h2>
+            <h2 class="panel-title" >Departure Flight Information </h2>
          </div>
          <div class="panel-body">
             <div class="row">
-               <label class="col-sm-5 col-md-5">From: {{ origin }}</label>
-               <label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">To: {{ destination }}</label>
+               <label class="col-sm-5 col-md-5">From: {{ departureOrigin }}</label>
+               <label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">To: {{ departureDestination }}</label>
             </div>
             <div class="row">
-               <label class="col-sm-5 col-md-5">Departure Date: {{ departureDate }}</label>
-               <label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Return Date: {{ returnDate }}</label>
+               <label class="col-sm-5 col-md-5">Departure Date: {{ departureDepDate }}</label>
+               <label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Return Date: {{ departureReturnDate }}</label>
             </div>
             <div class="row">
-               <label class="col-sm-5 col-md-5">Class: {{ class }}</label>
+               <label class="col-sm-5 col-md-5">Class: {{ departureClass }}</label>
             </div>
          </div>
+
+         <div class="panel-heading" ng-if="showReturn">
+            <h2 class="panel-title" >Return Flight Information </h2>
+         </div>
+         <div class="panel-body" ng-if="showReturn">
+            <div class="row">
+               <label class="col-sm-5 col-md-5">From: {{ returnOrigin }}</label>
+               <label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">To: {{ returnDestination }}</label>
+            </div>
+            <div class="row">
+               <label class="col-sm-5 col-md-5">return Date: {{ returnDepDate }}</label>
+               <label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Return Date: {{ returnReturnDate }}</label>
+            </div>
+            <div class="row">
+               <label class="col-sm-5 col-md-5">Class: {{ returnClass }}</label>
+            </div>
+         </div>
+         
       </div>
    </div>
 
@@ -78,70 +96,70 @@
 
       <div class="panel-group col-xs-12 col-sm-12 col-md-11">
 
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<h2 class="panel-title" >Personal Information </h2>
-				</div>
-				<div class="panel-body">
-					<div class="row">
-						<label class="col-sm-5 col-md-5">Full name: {{ child.first_name }} {{ child.last_name }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ child.birth_date }}</label>
-					</div>
-					<div class="row">
-						<label class="col-sm-5 col-md-5">Nationality: {{ child.nationality }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ child.passport_number }}</label>
-					</div>
-				</div>
+         <div class="panel panel-info">
+            <div class="panel-heading">
+               <h2 class="panel-title" >Personal Information </h2>
+            </div>
+            <div class="panel-body">
+               <div class="row">
+                  <label class="col-sm-5 col-md-5">Full name: {{ child.first_name }} {{ child.last_name }}</label>
+                  <label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ child.birth_date }}</label>
+               </div>
+               <div class="row">
+                  <label class="col-sm-5 col-md-5">Nationality: {{ child.nationality }}</label>
+                  <label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ child.passport_number }}</label>
+               </div>
+            </div>
 
-				<div class="panel-heading">
-					<h2 class="panel-title" >Special requirements </h2>
-				</div>
-				<div class="panel-body">
-					<div class="row">
-						<label class="col-sm-5 col-md-5">Meal preference: {{ child.mealPreference }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Special needs: {{ child.specialNeed }}</label>
-					</div>
-				</div>
+            <div class="panel-heading">
+               <h2 class="panel-title" >Special requirements </h2>
+            </div>
+            <div class="panel-body">
+               <div class="row">
+                  <label class="col-sm-5 col-md-5">Meal preference: {{ child.mealPreference }}</label>
+                  <label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Special needs: {{ child.specialNeed }}</label>
+               </div>
+            </div>
 
-			</div>
-		</div>
+         </div>
+      </div>
    </div>
 
    <!-- displaying all infants -->
    <div ng-repeat="infant in infants track by $index">
-		<div style="clear: both;" class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-5">
-			<h1>Infant {{ $index + 1 }} Information</h1>
-		</div>
-		<div class="panel-group col-xs-12 col-sm-12 col-md-11">
+      <div style="clear: both;" class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-5">
+         <h1>Infant {{ $index + 1 }} Information</h1>
+      </div>
+      <div class="panel-group col-xs-12 col-sm-12 col-md-11">
 
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<h2 class="panel-title" >Personal Information </h2>
-				</div>
-				<div class="panel-body">
-					<div class="row">
-						<label class="col-sm-5 col-md-5">Full name: {{ infant.first_name }} {{ infant.last_name }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ infant.birth_date }}</label>
-					</div>
-					<div class="row">
-						<label class="col-sm-5 col-md-5">Nationality: {{ infant.nationality }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ infant.passport_number }}</label>
-					</div>
-				</div>
+         <div class="panel panel-info">
+            <div class="panel-heading">
+               <h2 class="panel-title" >Personal Information </h2>
+            </div>
+            <div class="panel-body">
+               <div class="row">
+                  <label class="col-sm-5 col-md-5">Full name: {{ infant.first_name }} {{ infant.last_name }}</label>
+                  <label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ infant.birth_date }}</label>
+               </div>
+               <div class="row">
+                  <label class="col-sm-5 col-md-5">Nationality: {{ infant.nationality }}</label>
+                  <label class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-4">Passport: {{ infant.passport_number }}</label>
+               </div>
+            </div>
 
-				<div class="panel-heading">
-					<h2 class="panel-title" >Special requirements </h2>
-				</div>
-				<div class="panel-body">
-					<div class="row">
-						<label class="col-sm-5 col-md-5">Meal preference: {{ infant.mealPreference }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Special needs: {{ infant.specialNeed }}</label>
-					</div>
-				</div>
+            <div class="panel-heading">
+               <h2 class="panel-title" >Special requirements </h2>
+            </div>
+            <div class="panel-body">
+               <div class="row">
+                  <label class="col-sm-5 col-md-5">Meal preference: {{ infant.mealPreference }}</label>
+                  <label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Special needs: {{ infant.specialNeed }}</label>
+               </div>
+            </div>
 
-			</div>
-		</div>
-	</div>
+         </div>
+      </div>
+   </div>
 
    <br>
    <br>

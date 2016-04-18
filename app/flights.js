@@ -16,7 +16,7 @@ var getReservation = function(callback, bookingReference) {
 /**
 * This function returns a JSON object with all the countries.
 *
-* @param {Funtion} callback function that is called after retrieving the countries.
+* @param {Function} callback function that is called after retrieving the countries.
 * @returns {JSONObject}
 */
 var getCountries = function(callback) {
@@ -28,7 +28,7 @@ var getCountries = function(callback) {
 /**
 * This function returns a JSON object with all the Airports.
 *
-* @param {Funtion} callback function that is called after retrieving the airports.
+* @param {Function} callback function that is called after retrieving the airports.
 * @returns {JSONObject}
 */
 var getAirports = function(callback) {
@@ -365,7 +365,7 @@ var reserve = function(reserve_info, callback){
   db.getDatabase().collection('reservations').count({"booking_ref_number": code}, function(err, count) {
     if(count === 0){
       reserve_info.booking_ref_number = code;
-      db.getDatabase().collection('reservation').insert(reserve_info, function(err, docs) {
+      db.getDatabase().collection('reservations').insert(reserve_info, function(err, docs) {
         if(err){
           callback(err, null);
         }
