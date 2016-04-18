@@ -116,6 +116,7 @@ describe('API', function() {
       assert.equal(airports.length, 5881);
 
       var airport = airports[0];
+      // console.log(typeof airport.lon);
       assert.equal(typeof airport.iata != "undefined" && typeof airport.lon != "undefined" && typeof airport._id != "undefined" && typeof airport.iso != "undefined" && typeof airport.status != "undefined" && typeof airport.name != "undefined" && typeof airport.continent != "undefined" && typeof airport.type != "undefined" && typeof airport.lat != "undefined" && typeof airport.size != "undefined", true);
       done();
     });
@@ -222,16 +223,24 @@ describe("getReservation", function() {
   });
 });
 
-// /**
-// * This test tests cancelling reservation and checks that the reservation is not found in the database after cancelling it
-// */
-// describe("cancelReservation", function() {
-//   it("should cancel/delete the reservation of the given reference, and delete it from the database.", function (done){
-//     var bookingReference = 'abc1234567';
-//     flights.cancelReservation(bookingReference);
-//     assert.equal(flights.getReservation(function(err, reservation){},bookingReference),false);
-//   });
-// });
+describe("reservationsSize", function() {
+  it("should return the number of reservations", function (done){
+    var database = db.getDatabase();
+    console.log(database.collection('reservations').find().toArray());
+    assert.equal(database.collection('reservations').count(),2);
+  });
+});
+
+/**
+* This test tests cancelling reservation and checks that the reservation is not found in the database after cancelling it
+*/
+describe("cancelReservation", function() {
+  it("should cancel/delete the reservation of the given reference, and delete it from the database.", function (done){
+    var bookingReference = 'a123';
+    flights.cancelReservation(bookingReference);
+    assert.equal(flights.getReservation(function(err, reservation){},bookingReference),false);
+  });
+});
 
 // describe("updateReservation", function() {
 //   it("should update the info of the reservation of the given reference by the given info.", function (done){

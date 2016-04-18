@@ -9,9 +9,9 @@ var fs = require('fs');
 * @returns {JSONObject}
 */
 var getReservation = function(callback, bookingReference) {
-  db.getDatabase().collection('reservations').find({booking_ref_number: bookingReference}).toArray(function(err, reservation) {
-  	callback(err, reservation);
-  });
+	db.getDatabase().collection('reservations').find({booking_ref_number: bookingReference}).toArray(function(err, reservation) {
+		callback(err, reservation);
+	});
 };
 
 /**
@@ -21,9 +21,9 @@ var getReservation = function(callback, bookingReference) {
 * @returns {JSONObject}
 */
 var getCountries = function(callback) {
-  db.getDatabase().collection('countries').find().toArray(function(err, docs) {
-    callback(err, docs);
-  });
+	db.getDatabase().collection('countries').find().toArray(function(err, docs) {
+		callback(err, docs);
+	});
 };
 
 /**
@@ -33,9 +33,9 @@ var getCountries = function(callback) {
 * @returns {JSONObject}
 */
 var getAirports = function(callback) {
-  db.getDatabase().collection('airports').find().toArray(function(err, docs) {
-    callback(err, docs);
-  });
+	db.getDatabase().collection('airports').find().toArray(function(err, docs) {
+		callback(err, docs);
+	});
 };
 
 /**
@@ -44,8 +44,8 @@ var getAirports = function(callback) {
 * @returns {Boolean}
 */
 var randomBoolean = function() {
-  var chosenBoolean = Math.random() < 0.5 ? true : false;
-  return chosenBoolean;
+	var chosenBoolean = Math.random() < 0.5 ? true : false;
+	return chosenBoolean;
 };
 
 /**
@@ -55,8 +55,8 @@ var randomBoolean = function() {
 * @returns {Object}
 */
 var chooseRandomElement = function(array) {
-  var number = Math.floor(Math.random() *(array.length));
-  return array[number];
+	var number = Math.floor(Math.random() *(array.length));
+	return array[number];
 };
 
 /**
@@ -65,18 +65,18 @@ var chooseRandomElement = function(array) {
 * @returns {String}
 */
 var generateFlightnumber = function() {
-  var text = "";
-  var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  var numbers = "0123456789";
+	var text = "";
+	var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	var numbers = "0123456789";
 
-  for(var i = 0; i < 2; i++) {
-    text += letters.charAt(Math.floor(Math.random() * letters.length));
-  }
-  for(var i = 0; i < 5; i++) {
-    text += numbers.charAt(Math.floor(Math.random() * numbers.length));
-  }
+	for(var i = 0; i < 2; i++) {
+		text += letters.charAt(Math.floor(Math.random() * letters.length));
+	}
+	for(var i = 0; i < 5; i++) {
+		text += numbers.charAt(Math.floor(Math.random() * numbers.length));
+	}
 
-  return text;
+	return text;
 };
 
 /**
@@ -88,17 +88,17 @@ var generatePromo = function() {
   //genereating a code
   var code = "";
   for (var i = 0; i < 8; i++) {
-    if(randomBoolean()){
+  	if(randomBoolean()){
       //Capital Letter
       var letter = String.fromCharCode(65 + (Math.floor(Math.random() * 26)));
       code += letter;
-    }
-    else{
+  }
+  else{
       //number
       var number = Math.floor(Math.random() * 10);
       code += number;
-    }
   }
+}
 
   //genereating a discount
   var discount = ((Math.floor(Math.random() * 100)) + 1) / 100;
@@ -106,9 +106,9 @@ var generatePromo = function() {
   var valid = true;
 
   var promoCode = {
-    "code": code,
-    "discount": discount,
-    "valid": valid
+  	"code": code,
+  	"discount": discount,
+  	"valid": valid
   };
 
   return promoCode;
@@ -120,189 +120,200 @@ var generatePromo = function() {
 * @param {Function} callback function that is called after the seeding is complete.
 */
 var seed = function(callback) {
-  /* static arrays */
-  var aircraftTypes =["Aerospatiale", "ATR", "Airbus", "Antonov", "Beechcraft", "Boeing", "BAC" , "BAE", "Comac",
-  "Convair", "de Havilland", "Bombardier", "Canadair",
-  "Embraer", "Fairchild", "Fokker", "Ilyushin", "Irkut", "Lockheed",
-  "McDonnell Douglas", "Mitsubishi", "Saab", "Sukhoi", "Tupolev", "Vickers", "Yakovlev"];
+	/* static arrays */
+	var aircraftTypes =["Aerospatiale", "ATR", "Airbus", "Antonov", "Beechcraft", "Boeing", "BAC" , "BAE", "Comac",
+	"Convair", "de Havilland", "Bombardier", "Canadair",
+	"Embraer", "Fairchild", "Fokker", "Ilyushin", "Irkut", "Lockheed",
+	"McDonnell Douglas", "Mitsubishi", "Saab", "Sukhoi", "Tupolev", "Vickers", "Yakovlev"];
 
-  var originOrDestination1 =["Mumbai", "Cairo", "Hong kong", "Johannesburg", "Riyadh",
-  "London Heathrew", "Las Vegas", "Las Angeles", " Frankfurt", "Rome"];
+	var originOrDestination1 =["Mumbai", "Cairo", "Hong kong", "Johannesburg", "Riyadh",
+	"London Heathrew", "Las Vegas", "Las Angeles", " Frankfurt", "Rome"];
 
-  var originOrDestination2 =["Delhi", "Jeddah", "Taiwan", "Cape Town", "Jeddah",
-  "New York-JohnF. Kennedy", "Las Angeles", "San Francisco", "Berlin", "Milan"];
+	var originOrDestination2 =["Delhi", "Jeddah", "Taiwan", "Cape Town", "Jeddah",
+	"New York-JohnF. Kennedy", "Las Angeles", "San Francisco", "Berlin", "Milan"];
 
-  var airCrafts = [];
+	var airCrafts = [];
 
-  for (var i = 0; i < 200; i++) {
-    var generatedAircraftModel = Math.floor(100 + Math.random() * 900).toString();
-    var date_of_manufacture = moment('1990-06-10').toDate().getTime();
+	for (var i = 0; i < 200; i++) {
+		var generatedAircraftModel = Math.floor(100 + Math.random() * 900).toString();
+		var date_of_manufacture = moment('1990-06-10').toDate().getTime();
 
-    var airCraft = 	{
-      "aircraftType": chooseRandomElement(aircraftTypes),
-      "aircraftModel": generatedAircraftModel,
-      "date_of_manufacture": date_of_manufacture,
-      "capacity": "300",
-      "avg_speed": "700",
-      "total_flight_hours": "2000",
-      "in_flight_entertainment": 	{
-        "wifi": randomBoolean(),
-        "radio": randomBoolean(),
-        "power_port": randomBoolean()
-      }
-    };
+		var airCraft = 	{
+			"aircraftType": chooseRandomElement(aircraftTypes),
+			"aircraftModel": generatedAircraftModel,
+			"date_of_manufacture": date_of_manufacture,
+			"capacity": "300",
+			"avg_speed": "700",
+			"total_flight_hours": "2000",
+			"in_flight_entertainment": 	{
+				"wifi": randomBoolean(),
+				"radio": randomBoolean(),
+				"power_port": randomBoolean()
+			}
+		};
 
-    airCrafts.push(airCraft);
-  }
+		airCrafts.push(airCraft);
+	}
 
-  var number = Math.floor(Math.random() * (originOrDestination1.length));
-  var randomCost = Math.floor(600+Math.random() * 8400);
-  var date = new Date ('2016-04-11  3:25 AM');
+	var number = Math.floor(Math.random() * (originOrDestination1.length));
+	var randomCost = Math.floor(600+Math.random() * 8400);
+	var date = new Date ('2016-04-11  3:25 AM');
 
-  var flights = [];
+	var flights = [];
 
-  /* seeding the flight table back and forth form list originOrDestination1 to originOrDestination2 and vice versa */
-  for (var i = 11; i < 61; i++) {
-    for (var j = 0; j < originOrDestination1.length; j++) {
-      var flightDuration = Math.floor(1 + (Math.random() * 16));
-      var dateCode = moment(date).toDate().getTime();
-      var dateArrive = date;
-      dateArrive.setHours(dateArrive.getHours() + flightDuration);
-      dateArrive = moment(dateArrive).toDate().getTime();
+	/* seeding the flight table back and forth form list originOrDestination1 to originOrDestination2 and vice versa */
+	for (var i = 11; i < 61; i++) {
+		for (var j = 0; j < originOrDestination1.length; j++) {
+			var flightDuration = Math.floor(1 + (Math.random() * 16));
+			var dateCode = moment(date).toDate().getTime();
+			var dateArrive = date;
+			dateArrive.setHours(dateArrive.getHours() + flightDuration);
+			dateArrive = moment(dateArrive).toDate().getTime();
 
-      var origin = originOrDestination1[j];
-      var destination = originOrDestination2[j];
-      var flight =	{
-        "Airline": "Air Madagascar",
-        "departureDateTime":dateCode,
-        "arrivalDateTime": dateArrive,
-        "class": "economy",
-        "type": "Direct",
-        "tranzit": [],
-        "duration": flightDuration,
-        "origin": origin,
-        "destination": destination,
-        "remaining_seats": "50",
-        "cost": randomCost,
-        "currency": "USD",
-        "seatmap": 	[
-          {
-            "seat": 5666,
-            "taken": randomBoolean()
-          }
-        ],
-        "aircraft": airCrafts[Math.floor(Math.random() * airCrafts.length)]
-      };
+			var origin = originOrDestination1[j];
+			var destination = originOrDestination2[j];
+			var flight =	{
+				"Airline": "Air Madagascar",
+				"departureDateTime":dateCode,
+				"arrivalDateTime": dateArrive,
+				"class": "economy",
+				"type": "Direct",
+				"tranzit": [],
+				"duration": flightDuration,
+				"origin": origin,
+				"destination": destination,
+				"remaining_seats": "50",
+				"cost": randomCost,
+				"currency": "USD",
+				"seatmap": 	[
+				{
+					"seat": 5666,
+					"taken": randomBoolean()
+				}
+				],
+				"aircraft": airCrafts[Math.floor(Math.random() * airCrafts.length)]
+			};
 
-      flights.push(flight);
-      var flightF = JSON.parse(JSON.stringify(flight));
-      flightF.class = "first";
-      flights.push(flightF);
-      var flightB = JSON.parse(JSON.stringify(flight));
-      flightB.class = "business";
-      flights.push(flightB);
+			flights.push(flight);
+			var flightF = JSON.parse(JSON.stringify(flight));
+			flightF.class = "first";
+			flights.push(flightF);
+			var flightB = JSON.parse(JSON.stringify(flight));
+			flightB.class = "business";
+			flights.push(flightB);
 
-      origin = originOrDestination2[j];
-      destination = originOrDestination1[j];
-      flight =	{
-        "Airline": "Air Madagascar",
-        "flightNumber": generateFlightnumber(),
-        "departureDateTime": dateCode,
-        "arrivalDateTime": dateArrive,
-        "class": "economy",
-        "type": "Direct",
-        "tranzit": [],
-        "duration": flightDuration,
-        "origin": origin,
-        "destination": destination,
-        "remaining_seats": "50",
-        "cost": randomCost,
-        "currency": "USD",
-        "seatmap": 	[
-          {
-            "seat": 5666,
-            "taken": randomBoolean()
-          }
-        ],
-        "aircraft": airCrafts[Math.floor(Math.random() * airCrafts.length)]
-      };
+			origin = originOrDestination2[j];
+			destination = originOrDestination1[j];
+			flight =	{
+				"Airline": "Air Madagascar",
+				"flightNumber": generateFlightnumber(),
+				"departureDateTime": dateCode,
+				"arrivalDateTime": dateArrive,
+				"class": "economy",
+				"type": "Direct",
+				"tranzit": [],
+				"duration": flightDuration,
+				"origin": origin,
+				"destination": destination,
+				"remaining_seats": "50",
+				"cost": randomCost,
+				"currency": "USD",
+				"seatmap": 	[
+				{
+					"seat": 5666,
+					"taken": randomBoolean()
+				}
+				],
+				"aircraft": airCrafts[Math.floor(Math.random() * airCrafts.length)]
+			};
 
-      flights.push(flight);
-      flightF = JSON.parse(JSON.stringify(flight));
-      flightF.class = "first";
-      flights.push(flightF);
-      flightB = JSON.parse(JSON.stringify(flight));
-      flightB.class = "business";
-      flights.push(flightB);
+			flights.push(flight);
+			flightF = JSON.parse(JSON.stringify(flight));
+			flightF.class = "first";
+			flights.push(flightF);
+			flightB = JSON.parse(JSON.stringify(flight));
+			flightB.class = "business";
+			flights.push(flightB);
 
-    }
+		}
 
-    date.setDate(date.getDate() + 1);
-  }
+		date.setDate(date.getDate() + 1);
+	}
 
-  /* seeding the countries table */
-  var countries = JSON.parse(fs.readFileSync('data/countries.json', 'utf8'));
+	/* seeding the reservations table */
+	var reservations = JSON.parse(fs.readFileSync('data/reservations.json', 'utf8'));
+	// console.log(reservations);
+	/* seeding the countries table */
+	var countries = JSON.parse(fs.readFileSync('data/countries.json', 'utf8'));
 
-  /* seeding the airports table */
-  var airports = JSON.parse(fs.readFileSync('data/airports.json', 'utf8'));
+	/* seeding the airports table */
+	var airports = JSON.parse(fs.readFileSync('data/airports.json', 'utf8'));
 
-  /* seeding the promotion codes table */
-  var promotionCodes = [];
-  for (var i = 0; i < 100; i++) {
-    var promoCode = generatePromo();
+	/* seeding the promotion codes table */
+	var promotionCodes = [];
+	for (var i = 0; i < 100; i++) {
+		var promoCode = generatePromo();
 
-    promotionCodes.push(promoCode);
-  }
+		promotionCodes.push(promoCode);
+	}
 
-  var database = db.getDatabase();
+	var database = db.getDatabase();
 
   //clearing the database
   db.clear(function(){
     //seeding the database
     database.collection('airCrafts').insert(airCrafts, function(err, docs) {
-      if(err){
-        callback(err,false);
-      }
-      else{
-        database.collection('flights').insert(flights, function(err, docs) {
-          if(err){
-            callback(err,false);
-          }
-          else{
-            database.collection('countries').insert(countries, function(err, docs) {
-              if(err){
-                callback(err,false);
-              }
-              else{
-                database.collection('airports').insert(airports, function(err, docs) {
-                  if(err){
-                    callback(err,false);
-                  }
-                  else{
-                    database.collection('promotionCodes').insert(promotionCodes, function(err, docs) {
-                      if(err){
-                        callback(err,false);
-                      }
-                      else{
-                        callback(null,true);
-                      }
+    	if(err){
+    		callback(err,false);
+    	}
+    	else{
+    		database.collection('flights').insert(flights, function(err, docs) {
+    			if(err){
+    				callback(err,false);
+    			}
+    			else{
+    				database.collection('countries').insert(countries, function(err, docs) {
+    					if(err){
+    						callback(err,false);
+    					}
+    					else{
+    						database.collection('airports').insert(airports, function(err, docs) {
+    							if(err){
+    								callback(err,false);
+    							}
+    							else{
+    								database.collection('promotionCodes').insert(promotionCodes, function(err, docs) {
+    									if(err){
+    										callback(err,false);
+    									}
+    									else{
+    										database.collection('reservations').insert(reservations, function(err, docs) {
 
-                    });
-                  }
-                });
-              }
-            });
-          }
-        });
-      }
+    											if(err){
+    												callback(err,false);
+    											}
+    											else{
+    												callback(null,true);
+    											}
+    										});
+    									}
+    								});
+    							}
+    						});
+    					}
+    				});
+    			}
+    		});
+    	}
     });
-  });
-};
+ });
+}
+
 
 //Should know the datatype sent from the Frontend.
 var updateReservation = function (bookRef, newInfo){
 	var dataBase = db.getDatabase();
-	var collection = dataBase.collection("reservation");
+	var collection = dataBase.collection('reservations');
 	var adults = collection.adults;
 	var children = collection.children;
 	var infants = collection.infants;
@@ -312,7 +323,7 @@ var updateReservation = function (bookRef, newInfo){
 	for (var adult in adults) {
 		var index = i.toString();
 		var str2 = str1+index;
-		db.reservaton.update(
+		db.reservatons.update(
 			{'booking_ref_number' : bookRef},
 			
 			{ $set: {
@@ -324,8 +335,8 @@ var updateReservation = function (bookRef, newInfo){
 				'str2+".8"' : newAdults[i].special_needs,
 				'str2+".9"' : newAdults[i].contact,
 				'str2+".10"' : newAdults[i].emergency_contact
-				}				
-			}
+			}				
+		}
 		);
 		i++;
 	}
@@ -336,7 +347,7 @@ var updateReservation = function (bookRef, newInfo){
 	for (var child in children) {
 		var index = i.toString();
 		var str2 = str1+index;
-		db.reservaton.update(
+		db.reservations.update(
 			{'booking_ref_number' : bookRef},
 			
 			{$set: {
@@ -358,7 +369,7 @@ var updateReservation = function (bookRef, newInfo){
 	for (var infant in infants) {
 		var index = i.toString();
 		var str2 = str1+index;
-		db.reservaton.update(
+		db.reservations.update(
 			{'booking_ref_number' : bookRef},
 			
 			{$set: {
@@ -379,8 +390,9 @@ var updateReservation = function (bookRef, newInfo){
 
 var cancelReservation = function (bookRef) {
 	var dataBase = db.getDatabase();
-	var collection = dataBase.collection("reservation");
+	var collection = dataBase.collection('reservations');
 	var record = collection.find({'booking_ref_number' : bookRef});
+	// console.log(record);
 
 	var adultSize = record.adults.size;
 	var childrenSize = record.children.size;
@@ -398,19 +410,19 @@ var cancelReservation = function (bookRef) {
 		{'remaining_seats' : remaining + seats});
 
 	collection.remove({'booking_ref_number' : bookRef }, function(err) {
-    if (err) throw err;
-   	});
+		if (err) throw err;
+	});
 };
 
 module.exports = {
-  getCountries: getCountries,
-  getAirports: getAirports,
-  randomBoolean: randomBoolean,
-  chooseRandomElement: chooseRandomElement,
-  generateFlightnumber: generateFlightnumber,
-  seed: seed,
-  generatePromo: generatePromo,
-  getReservation: getReservation,
-  updateReservation: updateReservation,
-  cancelReservation: cancelReservation
+	getCountries: getCountries,
+	getAirports: getAirports,
+	randomBoolean: randomBoolean,
+	chooseRandomElement: chooseRandomElement,
+	generateFlightnumber: generateFlightnumber,
+	seed: seed,
+	generatePromo: generatePromo,
+	getReservation: getReservation,
+	updateReservation: updateReservation,
+	cancelReservation: cancelReservation
 };
