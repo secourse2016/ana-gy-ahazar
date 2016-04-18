@@ -1,5 +1,5 @@
-App.controller('bookController-flights', function($scope, FlightsSrv, $location) {
 
+App.controller('bookController-flights', function($scope, FlightsSrv, $location) {
    // Get The values from the previous view (search view).
    $scope.flight_type = FlightsSrv.getFlightType();
    $scope.dep_airport = FlightsSrv.getSelectedOriginAirport();
@@ -8,6 +8,10 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    $scope.ret_date = FlightsSrv.getReturnDate();
    $scope.class = FlightsSrv.getClass();
 
+   var dep_hour = $scope.dep_date.getHours() - ($scope.dep_date.getHours() >= 12 ? 12 : 0);
+   var dep_period = $scope.dep_date.getHours() >= 12 ? 'PM' : 'AM';
+
+   var departureTime = $scope.dep_date.getFullYear() + '-' + $scope.dep_date.getMonth() + '-' + $scope.dep_date.getDate() + '  ' + dep_hour + ':' +  $scope.dep_date.getMinutes() + ' ' + dep_period;
 
    var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
    var months = ["January", "February", "March", "April", "May", "June",
@@ -173,6 +177,15 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
    if ($scope.flight_type == "round") {
       $scope.show_incoming = true;
+      var ret_hour = $scope.ret_date.getHours() - ($scope.ret_date.getHours() >= 12 ? 12 : 0);
+      var ret_period = $scope.ret_date.getHours() >= 12 ? 'PM' : 'AM';
+      var returnTime = $scope.ret_date.getFullYear() + '-' + $scope.ret_date.getMonth() + '-' + $scope.ret_date.getDate() + '  ' + ret_hour + ':' +  $scope.ret_date.getMinutes() + ' ' + ret_period;
+
+      // console.log(departureTime);
+      // console.log(returnTime);
+      FlightsSrv.getFlights($scope.dep_airport, $scope.ret_airport, departureTime, returnTime, $scope.class).success(function(response) {
+         console.log(response);
+      });
    }
    else {
       $scope.show_incoming = false;

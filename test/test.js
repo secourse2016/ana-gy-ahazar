@@ -240,3 +240,11 @@ describe("clear", function() {
 
   });
 });
+
+describe("feedback",function(){
+    it("should post a feedback into the feedback collection" , function(done){
+       var feedback = {email:2356465655, message: 45643786970};
+       request.post('/feedback').send(feedback).expect(200,done);
+    });
+
+  });
