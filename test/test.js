@@ -120,22 +120,37 @@ describe('API', function() {
       done();
     });
   });
-  /**
-  it('/api/validatepromo/:promoCode', function(done) {
-<<<<<<< HEAD
-    request.get('/api/validatepromo/:promoCode')
-    .expect('Content-Type', 'application/json; charset=utf-8')
+
+  it('/api/validatepromo/:promoCode should check to see if the promoCode exists and valid then a discount is returned', function(done) {
+
+    request.get('/api/validatepromo/:d3r3g4h5')
     .expect(200)
     .end(function(err, response) {
-     done();
+      var discount = Number(response.text);
+      if(discount>0.0 && discount <1.0){
+        assert.equal((discount>0.0 && discount <1.0),true);
+      }
+      else{
+        assert.equal((discount===0.0),true);
+      }
+      done();
     });
-  });*/
-  it('/db/seed', function(done) {
+  });
+  
+  it('/db/seed should seed all the tables', function(done) {
     request.get('/db/seed')
     .expect(200)
     .end(function(err, response) {
-      assert.equal(response.boolean,true)
-     done();
+      var flag = false;
+      if(response.text ==="seeded sucessful"){
+        flag = true;
+        assert.equal(flag,true);
+      }
+      else{
+        assert.equal(flag,false);
+      }
+
+      done();
     });
   });
 });
