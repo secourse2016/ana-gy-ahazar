@@ -66,8 +66,8 @@
 								Air Madagascar
 							</label>
 							<label class="col-sm-2 col-md-2 flight_body">
-								{{flight.departureDateTime}} - {{flight.arrivalDateTime}} <br>
-								{{flight.arrivalDateTime - flight.departureDateTime}}
+								{{flight.departureDateTime | amDateFormat:'HH:mm'}} - {{flight.arrivalDateTime | amDateFormat:'HH:mm'}} <br>
+								{{flight.arrivalDateTime | amDifference : flight.departureDateTime : 'hours' }} hours
 							</label>
 							<label class="col-sm-1 col-md-1 flight_body">
 								50
@@ -76,19 +76,19 @@
 								{{flight.aircraftType}} {{flight.aircraftModel}}
 							</label>
 							<label class="col-sm-2 col-md-2 flight_body">
-								{{flight.cost*total_people}}
+								{{flight.cost*total_people}} {{flight.currency}}
 							</label>
 							<label class="col-sm-2 col-md-2 flight_body">
 								<!-- <div ng-repeat="e in flight.entertainment"> -->
-									<div >
-										Wifi <i class="fa fa-wifi"></i>
-									</div>
-									<div >
-										Radio <i class="fa fa-music"></i>
-									</div>
-									<div >
-										USB <i class="fa fa-usb"></i>
-									</div>
+								<div >
+									Wifi <i class="fa fa-wifi"></i>
+								</div>
+								<div >
+									Radio <i class="fa fa-music"></i>
+								</div>
+								<div >
+									USB <i class="fa fa-usb"></i>
+								</div>
 								<!-- </div> -->
 							</label>
 							<label class="col-sm-1 col-md-1 flight_body">
@@ -175,8 +175,8 @@
 									Air Madagascar
 								</label>
 								<label class="col-sm-2 col-md-2 flight_body">
-									{{flight.departureDateTime}} - {{flight.arrivalDateTime}} <br>
-									{{flight.arrivalDateTime - flight.departureDateTime}}
+									{{flight.departureDateTime | amDateFormat:'HH:mm'}} - {{flight.arrivalDateTime | amDateFormat:'HH:mm'}} <br>
+									{{flight.arrivalDateTime | amDifference : flight.departureDateTime : 'hours' }} hours
 								</label>
 								<label class="col-sm-1 col-md-1 flight_body">
 									50
@@ -185,19 +185,19 @@
 									{{flight.aircraftType}} {{flight.aircraftModel}}
 								</label>
 								<label class="col-sm-2 col-md-2 flight_body">
-									{{flight.cost*total_people}}
+									{{flight.cost*total_people}} {{flight.currency}}
 								</label>
 								<label class="col-sm-2 col-md-2 flight_body">
 									<!-- <div ng-repeat="e in flight.entertainment"> -->
-										<div >
-											Wifi <i class="fa fa-wifi"></i>
-										</div>
-										<div >
-											Radio <i class="fa fa-music"></i>
-										</div>
-										<div >
-											USB <i class="fa fa-usb"></i>
-										</div>
+									<div >
+										Wifi <i class="fa fa-wifi"></i>
+									</div>
+									<div >
+										Radio <i class="fa fa-music"></i>
+									</div>
+									<div >
+										USB <i class="fa fa-usb"></i>
+									</div>
 									<!-- </div> -->
 								</label>
 								<label class="col-sm-1 col-md-1 flight_body">

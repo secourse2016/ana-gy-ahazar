@@ -365,7 +365,7 @@ var reserve = function(reserve_info, callback){
   db.getDatabase().collection('reservations').count({"booking_ref_number": code}, function(err, count) {
     if(count === 0){
       reserve_info.booking_ref_number = code;
-      db.getDatabase().collection('reservation').insert(reserve_info, function(err, docs) {
+      db.getDatabase().collection('reservations').insert(reserve_info, function(err, docs) {
         if(err){
           callback(err, null);
         }

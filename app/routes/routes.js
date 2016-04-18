@@ -166,11 +166,11 @@ module.exports = function(app) {
 	app.post('/api/flights/reservation', function(req, res) {
 
 		var reservation = req.body;
-		flights.reserve(reservation , function (err){
+		flights.reserve(reservation , function (err, code){
 			if (err) {
 				res.send("error");
 			}else{
-				res.send("success");
+				res.send(code);
 			}
 		});
 	});
