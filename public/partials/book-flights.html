@@ -27,24 +27,24 @@
 				<!-- tabs for flight types -->
 				<div class="inner-tabs">
 					<div class="inner-tab-links">
-						<input type="radio" name="business" id="dep-in-btn-1" ng-model="dep_radio" ng-click="dep_isSelected = 'business'; dep_reserve=''" ng-class="{checked:dep_isSelected=='business'}">
+						<input type="radio" name="business" id="dep-in-btn-1" ng-model="dep_radio" ng-click="dep_isSelected = 'business'; showDepartureFlights(); dep_reserve=''" ng-class="{checked:dep_isSelected=='business'}">
 						<label for="dep-in-btn-1" class="btn inner-link"><i class="fa fa-briefcase"></i> Business</label>
 
-						<input type="radio" name="economy" id="dep-in-btn-3" ng-model="dep_radio" ng-click="dep_isSelected = 'economy'; dep_reserve=''" ng-class="{checked:dep_isSelected=='economy'}">
-						<label for="dep-in-btn-3" class="btn inner-link"><i class="fa fa-line-chart"></i> Economy</label>
+						<input type="radio" name="economy" id="dep-in-btn-2" ng-model="dep_radio" ng-click="dep_isSelected = 'economy'; showDepartureFlights(); dep_reserve=''" ng-class="{checked:dep_isSelected=='economy'}">
+						<label for="dep-in-btn-2" class="btn inner-link"><i class="fa fa-line-chart"></i> Economy</label>
 					</div>
 
 					<!-- flights table -->
 					<div class="col-sm-12 col-md-12 flights-table">
 						<div class="header">
-							<span class="col-sm-1 col-md-1 label label-success head">
+							<span class="col-sm-2 col-md-2 label label-success head">
 								<i class="fa fa-paper-plane"></i> Airline
 							</span>
 							<span class="col-sm-2 col-md-2 label label-success head">
 								<i class="fa fa-clock-o"></i> Time
 							</span>
-							<span class="col-sm-2 col-md-2 label label-success head">
-								<i class="fa fa-users"></i> Available Seats
+							<span class="col-sm-1 col-md-1 label label-success head">
+								<i class="fa fa-users"></i> Seats
 							</span>
 							<span class="col-sm-2 col-md-2 label label-success head">
 								<i class="fa fa-plane"></i> Plane Model
@@ -61,15 +61,15 @@
 						</div>
 						<br>
 						<br>
-						<div class="col-sm-12 col-md-12 flight" ng-if="flight.class == dep_isSelected" ng-repeat="flight in departureFlights">
-							<label class="col-sm-1 col-md-1 flight_body">
+						<div class="col-sm-12 col-md-12 flight" ng-repeat="flight in departureFlights">
+							<label class="col-sm-2 col-md-2 flight_body">
 								Air Madagascar
 							</label>
 							<label class="col-sm-2 col-md-2 flight_body">
 								{{flight.departureDateTime}} - {{flight.arrivalDateTime}} <br>
 								{{flight.arrivalDateTime - flight.departureDateTime}}
 							</label>
-							<label class="col-sm-2 col-md-2 flight_body">
+							<label class="col-sm-1 col-md-1 flight_body">
 								50
 							</label>
 							<label class="col-sm-2 col-md-2 flight_body">
@@ -135,25 +135,25 @@
 					<!-- tabs for flight types -->
 					<div class="inner-tabs">
 						<div class="inner-tab-links">
-							<input type="radio" name="business" id="ret-in-btn-1" ng-model="ret_radio" ng-click="ret_isSelected = 'business'; ret_reserve=''" ng-class="{checked:ret_isSelected=='business'}">
+							<input type="radio" name="business" id="ret-in-btn-1" ng-model="ret_radio" ng-click="$parent.ret_isSelected = 'business'; showReturnFlights(); ret_reserve=''" ng-class="{checked:ret_isSelected=='business'}">
 							<label for="ret-in-btn-1" class="btn inner-link"><i class="fa fa-briefcase"></i> Business</label>
 
 
-							<input type="radio" name="economy" id="ret-in-btn-3" ng-model="ret_radio" ng-click="ret_isSelected = 'economy'; ret_reserve=''" ng-class="{checked:ret_isSelected=='economy'}">
-							<label for="ret-in-btn-3" class="btn inner-link"><i class="fa fa-line-chart"></i> Economy</label>
+							<input type="radio" name="economy" id="ret-in-btn-2" ng-model="ret_radio" ng-click="$parent.ret_isSelected = 'economy'; showReturnFlights(); ret_reserve=''" ng-class="{checked:ret_isSelected=='economy'}">
+							<label for="ret-in-btn-2" class="btn inner-link"><i class="fa fa-line-chart"></i> Economy</label>
 						</div>
 
 						<!-- flights table -->
 						<div class="col-sm-12 col-md-12 flights-table">
 							<div class="header">
-								<span class="col-sm-1 col-md-1 label label-success head">
+								<span class="col-sm-2 col-md-2 label label-success head">
 									<i class="fa fa-paper-plane"></i> Airline
 								</span>
 								<span class="col-sm-2 col-md-2 label label-success head">
 									<i class="fa fa-clock-o"></i> Time
 								</span>
-								<span class="col-sm-2 col-md-2 label label-success head">
-									<i class="fa fa-users"></i> Available Seats
+								<span class="col-sm-1 col-md-1 label label-success head">
+									<i class="fa fa-users"></i> Seats
 								</span>
 								<span class="col-sm-2 col-md-2 label label-success head">
 									<i class="fa fa-plane"></i> Plane Model
@@ -170,15 +170,15 @@
 							</div>
 							<br>
 							<br>
-							<div class="col-sm-12 col-md-12 flight" ng-if="flight.class == ret_isSelected" ng-repeat="flight in returnFlights">
-								<label class="col-sm-1 col-md-1 flight_body">
+							<div class="col-sm-12 col-md-12 flight" ng-repeat="flight in returnFlights">
+								<label class="col-sm-2 col-md-2 flight_body">
 									Air Madagascar
 								</label>
 								<label class="col-sm-2 col-md-2 flight_body">
 									{{flight.departureDateTime}} - {{flight.arrivalDateTime}} <br>
 									{{flight.arrivalDateTime - flight.departureDateTime}}
 								</label>
-								<label class="col-sm-2 col-md-2 flight_body">
+								<label class="col-sm-1 col-md-1 flight_body">
 									50
 								</label>
 								<label class="col-sm-2 col-md-2 flight_body">

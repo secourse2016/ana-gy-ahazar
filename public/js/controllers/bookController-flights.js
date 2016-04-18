@@ -47,12 +47,8 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    $scope.dep_show = function() {
       // show the appropiate data for this date.
 
-      console.log($scope.dradioModel);
-      var dep_time = $scope.dradioModel.getFullYear() + '-' + ($scope.dradioModel.getMonth() + 1) + '-' + $scope.dradioModel.getDate();
-      FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class).success(function(response) {
-         console.log(response);
-         $scope.departureFlights = response;
-      });
+      $scope.dep_date = $scope.dradioModel;
+      $scope.showDepartureFlights();
    };
 
    /*
@@ -100,6 +96,26 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       $scope.dradioModel = new Date(dep_nextBy1);
       $scope.dep_show();
    };
+
+   // This function is used to query the database for departure flights each time the user changes the class.
+   $scope.showDepartureFlights = function() {
+      console.log($scope.dep_isSelected);
+
+      var month = ($scope.dep_date.getMonth() + 1);
+      if (month < 10)
+         month = '0' + month;
+
+      var day = $scope.dep_date.getDate();
+      if (day < 10)
+         day = '0' + day;
+
+      var dep_time = $scope.dep_date.getFullYear() + '-' + month + '-' + day;
+      console.log(dep_time);
+      // FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected).success(function(response) {
+      //    console.log(response);
+      //    $scope.departureFlights = response;
+      // });
+   }
 
    $scope.dradioModel = new Date(dep_date);
 
@@ -182,6 +198,11 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       $scope.ret_show();
    };
 
+   // This function is used to query the database for return flights each time the user changes the class.
+   $scope.showReturnFlights = function() {
+      console.log($scope.ret_isSelected);
+   }
+
    $scope.retradioModel = new Date(ret_date);
 
    if ($scope.flight_type == "round") {
@@ -209,6 +230,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    $scope.ret_isSelected = $scope.class;
    $scope.dep_price = 0;
    $scope.ret_price = 0;
+
 
    /*
    Validations
