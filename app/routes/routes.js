@@ -21,17 +21,18 @@ module.exports = function(app) {
 		var oneWay = {
 			"origin": req.params.origin,
 			"destination": req.params.destination,
-			"departureDateTime": req.params.departureDateTime,
+			"departureDateTime": parseInt(req.params.departureDateTime),
 			"class": req.params.classs
 		};
 		flights.getOneWayFlights(oneWay , function(err ,data){
 			if (err){
 				throw err;
-			}else{
 				res.json(data);
-			}
-		});
+			
+		};
 	});
+
+		});
 
      /*
      This route insert the feedback of the user into the Database
@@ -47,7 +48,7 @@ module.exports = function(app) {
 			}
 		}	);
 	});
-	
+
     /**
 	 * This route deletes the database
 	 *
