@@ -4,13 +4,18 @@
 			<div class="form-inline">
 				<!-- Row for round trip and one way -->
 				<div class="row">
-					<div class="col-sm-2 col-md-2 check">
+					<div class="col-sm-3 col-md-2 check">
 						<input type="radio" id="round" name="radio" ng-model="trip_type" ng-value="'round'" ng-change="date_show = true" />
 						<label for="round">Round Trip</label>
 					</div>
 					<div class="col-sm-offset-1 col-md-offset-1 col-sm-2 col-md-2 check">
 						<input type="radio" id="one" name="radio" ng-model="trip_type" ng-value="'one'" ng-change="date_show = false" />
 						<label for="one">One Way</label>
+					</div>
+
+					<div class="col-sm-offset-1 col-md-offset-1 col-sm-4 col-md-3 check">
+						<input type="checkbox" id="other" name="search_other" ng-model="search_other"/>
+						<label for="other">Search Other Airlines</label>
 					</div>
 				</div>
 				<br>
@@ -111,8 +116,7 @@
 				</select>
 			</div>
 			<div class="col-sm-2 col-md-2">
-				Class Type: <br><select class="form-control" id="dropdown1" ng-init="class='first'" ng-model="class">
-					<option value="first">first</option>
+				Class Type: <br><select class="form-control" id="dropdown1" ng-init="class='business'" ng-model="class">
 					<option value="business">business</option>
 					<option value="economy">economy</option>
 				</select>

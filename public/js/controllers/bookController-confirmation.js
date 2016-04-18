@@ -7,7 +7,6 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 	$scope.returnDate = FlightsSrv.getReturnDate();
 	$scope.class = FlightsSrv.getClass();
 
-	// These arrays should come from the service.
 
 	$scope.adults = PersonalSrv.getAdultsInfo();
 
