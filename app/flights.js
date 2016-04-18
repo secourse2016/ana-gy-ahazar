@@ -125,11 +125,11 @@ var seed = function(callback) {
   "Embraer", "Fairchild", "Fokker", "Ilyushin", "Irkut", "Lockheed",
   "McDonnell Douglas", "Mitsubishi", "Saab", "Sukhoi", "Tupolev", "Vickers", "Yakovlev"];
 
-  var originOrDestination1 =["Mumbai", "Cairo", "Hong kong", "Johannesburg", "Riyadh",
-  "London Heathrew", "Las Vegas", "Las Angeles", " Frankfurt", "Rome"];
+  var originOrDestination1 =["BOM", "CAI", "HKG", "JNB", "RUH",
+  "LHR", "LAS", "LAX", " FRA", "CIA"];
 
-  var originOrDestination2 =["Delhi", "Jeddah", "Taiwan", "Cape Town", "Jeddah",
-  "New York-JohnF. Kennedy", "Las Angeles", "San Francisco", "Berlin", "Milan"];
+  var originOrDestination2 =["DEL", "JED", "KNH", "CPT", "JED",
+  "JFK", "LAX", "SFO", "THF", "LIN"];
 
   var airCrafts = [];
 
