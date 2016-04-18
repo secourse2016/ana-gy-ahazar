@@ -3,6 +3,31 @@ var db = require('./db');
 var fs = require('fs');
 
 
+
+/**
+* This function returns a JSON object with all the reservations.
+*
+* @param {Funtion} callback function that is called after retrieving the reservations.
+* @returns {JSONObject}
+*/
+
+
+var getReservations = function(callback) {
+	
+	db.getDatabase().collection('reservations').find().toArray(function(err, docs) {
+		callback(err, docs);
+	});
+};
+
+// var getReservationsSize = function(callback) {
+// 	db.getDatabase().collection('reservations').remove();
+// 		db.getDatabase().collection('reservations').insert(reservations, function(err,docs){
+// 		if(err) throw err;
+// 		// console.log(docs.ops.length);
+// 		callback(docs.ops.length);
+// 	});
+
+// 	};
 /**
 * This function return an array of length 1 of a specific reservation info.
 * @param {Function} callback function, {String} the booking reference
@@ -37,6 +62,7 @@ var getAirports = function(callback) {
 		callback(err, docs);
 	});
 };
+
 
 /**
 * This function return a random boolean value.
@@ -121,40 +147,40 @@ var generatePromo = function() {
 */
 var seed = function(callback) {
 
-  /* static arrays */
-  var aircraftTypes =["Aerospatiale", "ATR", "Airbus", "Antonov", "Beechcraft", "Boeing", "BAC" , "BAE", "Comac",
-  "Convair", "de Havilland", "Bombardier", "Canadair",
-  "Embraer", "Fairchild", "Fokker", "Ilyushin", "Irkut", "Lockheed",
-  "McDonnell Douglas", "Mitsubishi", "Saab", "Sukhoi", "Tupolev", "Vickers", "Yakovlev"];
+	/* static arrays */
+	var aircraftTypes =["Aerospatiale", "ATR", "Airbus", "Antonov", "Beechcraft", "Boeing", "BAC" , "BAE", "Comac",
+	"Convair", "de Havilland", "Bombardier", "Canadair",
+	"Embraer", "Fairchild", "Fokker", "Ilyushin", "Irkut", "Lockheed",
+	"McDonnell Douglas", "Mitsubishi", "Saab", "Sukhoi", "Tupolev", "Vickers", "Yakovlev"];
 
-  var originOrDestination1 =["BOM", "CAI", "HKG", "JNB", "RUH",
-  "LHR", "LAS", "LAX", " FRA", "CIA"];
+	var originOrDestination1 =["BOM", "CAI", "HKG", "JNB", "RUH",
+	"LHR", "LAS", "LAX", " FRA", "CIA"];
 
-  var originOrDestination2 =["DEL", "JED", "KNH", "CPT", "JED",
-  "JFK", "LAX", "SFO", "THF", "LIN"];
+	var originOrDestination2 =["DEL", "JED", "KNH", "CPT", "JED",
+	"JFK", "LAX", "SFO", "THF", "LIN"];
 
-  var airCrafts = [];
+	var airCrafts = [];
 
-  for (var i = 0; i < 200; i++) {
-    var generatedAircraftModel = Math.floor(100 + Math.random() * 900).toString();
-    var date_of_manufacture = moment('1990-06-10').toDate().getTime();
+	for (var i = 0; i < 200; i++) {
+		var generatedAircraftModel = Math.floor(100 + Math.random() * 900).toString();
+		var date_of_manufacture = moment('1990-06-10').toDate().getTime();
 
-    var airCraft = 	{
-      "aircraftType": chooseRandomElement(aircraftTypes),
-      "aircraftModel": generatedAircraftModel,
-      "date_of_manufacture": date_of_manufacture,
-      "capacity": "300",
-      "avg_speed": "700",
-      "total_flight_hours": "2000",
-      "in_flight_entertainment": 	{
-        "wifi": randomBoolean(),
-        "radio": randomBoolean(),
-        "power_port": randomBoolean()
-      }
-    };
+		var airCraft = 	{
+			"aircraftType": chooseRandomElement(aircraftTypes),
+			"aircraftModel": generatedAircraftModel,
+			"date_of_manufacture": date_of_manufacture,
+			"capacity": "300",
+			"avg_speed": "700",
+			"total_flight_hours": "2000",
+			"in_flight_entertainment": 	{
+				"wifi": randomBoolean(),
+				"radio": randomBoolean(),
+				"power_port": randomBoolean()
+			}
+		};
 
-    airCrafts.push(airCraft);
-  }
+		airCrafts.push(airCraft);
+	}
 
 	var number = Math.floor(Math.random() * (originOrDestination1.length));
 	var randomCost = Math.floor(600+Math.random() * 8400);
@@ -241,14 +267,14 @@ var seed = function(callback) {
 		date.setDate(date.getDate() + 1);
 	}
 
-	/* seeding the reservations table */
-	var reservations = JSON.parse(fs.readFileSync('data/reservations.json', 'utf8'));
-	// console.log(reservations);
 	/* seeding the countries table */
 	var countries = JSON.parse(fs.readFileSync('data/countries.json', 'utf8'));
 
 	/* seeding the airports table */
 	var airports = JSON.parse(fs.readFileSync('data/airports.json', 'utf8'));
+
+	/* seeding the reservations table */
+	var reservations = JSON.parse(fs.readFileSync('data/reservations.json', 'utf8'));
 
 	/* seeding the promotion codes table */
 	var promotionCodes = [];
@@ -263,33 +289,30 @@ var seed = function(callback) {
   //clearing the database
   db.clear(function(){
     //seeding the database
-    database.collection('airCrafts').insert(airCrafts, function(err, docs) {
-    	if(err){
-    		callback(err,false);
-    	}
+    db.getDatabase().collection('reservations').insert(reservations, function(err,docs){
+    	if(err) throw err;
     	else{
-    		database.collection('flights').insert(flights, function(err, docs) {
+    		database.collection('airCrafts').insert(airCrafts, function(err, docs) {
     			if(err){
     				callback(err,false);
     			}
     			else{
-    				database.collection('countries').insert(countries, function(err, docs) {
+    				database.collection('flights').insert(flights, function(err, docs) {
     					if(err){
     						callback(err,false);
     					}
     					else{
-    						database.collection('airports').insert(airports, function(err, docs) {
+    						database.collection('countries').insert(countries, function(err, docs) {
     							if(err){
     								callback(err,false);
     							}
     							else{
-    								database.collection('promotionCodes').insert(promotionCodes, function(err, docs) {
+    								database.collection('airports').insert(airports, function(err, docs) {
     									if(err){
     										callback(err,false);
     									}
     									else{
-    										database.collection('reservations').insert(reservations, function(err, docs) {
-
+    										database.collection('promotionCodes').insert(promotionCodes, function(err, docs) {
     											if(err){
     												callback(err,false);
     											}
@@ -307,113 +330,176 @@ var seed = function(callback) {
     		});
     	}
     });
- });
+
+});
 }
 
+	// console.log(reservations);
+	// var data = db.getDatabase();
+	// db.getDatabase().collection('reservations').insert(reservations, function(err,docs){
+	// 	if(err) throw err;
+	// });
 
-//Should know the datatype sent from the Frontend.
-var updateReservation = function (bookRef, newInfo){
-	var dataBase = db.getDatabase();
-	var collection = dataBase.collection('reservations');
-	var adults = collection.adults;
-	var children = collection.children;
-	var infants = collection.infants;
-	
-	var i = 0;
-	var str1 = "adults.";
-	for (var adult in adults) {
-		var index = i.toString();
-		var str2 = str1+index;
-		db.reservatons.update(
-			{'booking_ref_number' : bookRef},
-			
-			{ $set: {
-				'str2+".0"' : newAdults[i].first_name,
-				'str2+".1"' : newAdults[i].last_name,
-				'str2+".2"' : newAdults[i].nationality,
-				'str2+".3"' : newAdults[i].date_of_birth,
-				'str2+".7"' : newAdults[i].meal_preference,
-				'str2+".8"' : newAdults[i].special_needs,
-				'str2+".9"' : newAdults[i].contact,
-				'str2+".10"' : newAdults[i].emergency_contact
-			}				
+//updating a reservation of a given booking reference with given new information
+var updateReservation = function (bookRef, newInfo, callback){
+
+	db.getDatabase().collection('reservations').find({booking_ref_number : bookRef}).toArray(function (err,record) {
+		if(err) throw err;
+
+		var adults = record[0].adults;
+		var children = record[0].children;
+		var infants = record[0].infants;
+
+		var newAdults = newInfo.adults;
+		// console.log(newAdults.length);
+		var newChildren = newInfo.children;
+		var newInfants = newInfo.infants;
+
+		var finalAdults = [];
+		var finalChildren = [];
+		var finalInfants = [];
+
+		for (var i=0; i<adults.length; i++) {
+			var passport_number = adults[i].passport_number;
+			var issue_date = adults[i].issue_date;
+			var expiration_date = adults[i].expiration_date;
+
+			newAdults[i].passport_number = passport_number;
+			newAdults[i].issue_date = issue_date;
+			newAdults[i].expiration_date = expiration_date;
+
+			finalAdults.push(newAdults[i]);
+
 		}
-		);
-		i++;
-	}
 
+		if(adults.length==0)
+			finalAdults = adults;
 
-	i = 0;
-	str1 = "children.";
-	for (var child in children) {
-		var index = i.toString();
-		var str2 = str1+index;
-		db.reservations.update(
-			{'booking_ref_number' : bookRef},
-			
-			{$set: {
-				'str2+ ".0"' : newChildren[i].first_name,
-				'str2 + ".1"' : newChildren[i].last_name,
-				'str2 + ".2"' : newChildren[i].nationality,
-				'str2 + ".3"' : newChildren[i].date_of_birth,
-				'str2 + ".7"' : newChildren[i].meal_preference,
-				'str2 + ".8"' : newChildren[i].special_needs,
-				'str2 + ".9"' : newChildren[i].contact,
-				'str2 + ".10"' : newChildren[i].emergency_contact,				
-			}
-		});
-		i++;
-	}
-
-	i = 0;
-	str1 = "infants.";
-	for (var infant in infants) {
-		var index = i.toString();
-		var str2 = str1+index;
-		db.reservations.update(
-			{'booking_ref_number' : bookRef},
-			
-			{$set: {
-				'str2 + ".0"' : newInfants[i].first_name,
-				'str2 + ".1"' : newInfants[i].last_name,
-				'str2 + ".2"' : newInfants[i].nationality,
-				'str2 + ".3"' : newInfants[i].date_of_birth,
-				'str2 + ".7"' : newInfants[i].meal_preference,
-				'str2 + ".8"' : newInfants[i].special_needs,
-				'str2 + ".9"' : newInfants[i].contact,
-				'str2 + ".10"' : newInfant[i].emergency_contact		
-			}
-		});
-		i++;
-	}
-};
-
-
-var cancelReservation = function (bookRef) {
-	var dataBase = db.getDatabase();
-	var collection = dataBase.collection('reservations');
-	var record = collection.find({'booking_ref_number' : bookRef});
-	// console.log(record);
-
-	var adultSize = record.adults.size;
-	var childrenSize = record.children.size;
-	var seats = adultSize + childrenSize;
-
-	var flight_id = record.flight_id;
-	var flightCollection = dataBase.collection("flights");
-	var flight = flightCollection.find({'flight_id' : flight_id});
-	var remaining = flight.remaining_seats;
+		db.getDatabase().collection('reservations').updateOne(
+			{booking_ref_number: bookRef},
+			{ $set:
+				{
+					adults: finalAdults
+				}
+			},
+			function(err, results) {
+					// if(err) throw err;
+					// console.log("No Error 1");
+				});
 
 
 
+		for (var i=0; i<children.length; i++) {
+			var passport_number = children[i].passport_number;
+			var issue_date = children[i].issue_date;
+			var expiration_date = children[i].expiration_date;
 
-	flightCollection.update({'flight_id' : flight_id}, 
-		{'remaining_seats' : remaining + seats});
+			newChildren[i].passport_number = passport_number;
+			newChildren[i].issue_date = issue_date;
+			newChildren[i].expiration_date = expiration_date;
+			finalChildren.push(newChildren[i]);
 
-	collection.remove({'booking_ref_number' : bookRef }, function(err) {
-		if (err) throw err;
+		}
+
+		if(children.length==0)
+			finalChildren = children;
+
+		db.getDatabase().collection('reservations').updateOne(
+			{booking_ref_number: bookRef},
+			{ $set:
+				{
+					children: finalChildren
+				}
+			},
+			function(err, results) {
+					// if(err) throw err;
+					// console.log("No Error 2");
+				}
+				);
+
+
+
+		for (var i=0; i<infants.length; i++) {
+			var passport_number = infants[i].passport_number;
+			var issue_date = infants[i].issue_date;
+			var expiration_date = infants[i].expiration_date;
+
+			newInfants[i].passport_number = passport_number;
+			newInfants[i].issue_date = issue_date;
+			newInfants[i].expiration_date = expiration_date;
+
+			finalInfants.push(newInfants[i]);
+
+		}
+
+		if (infants.length==0)
+			finalInfants=infants;
+
+		db.getDatabase().collection('reservations').updateOne(
+			{booking_ref_number: bookRef},
+			{ $set:
+				{
+					infants: finalInfants
+				}
+			},
+			function(err, results) {
+					// if(err) throw err;
+					// console.log("No Error 3");
+				});
+		callback();
 	});
-};
+
+				// console.log("Finish");
+			};
+
+//deleting/cancelling a reservation of a given booking reference
+var cancelReservation = function (bookRef, callback) {
+	db.getDatabase().collection('reservations').find({booking_ref_number : bookRef}).toArray(function (err,record){
+		if(err) throw err;
+
+		// console.log(record);
+		var adults = record[0].adults;
+		// console.log(adults);
+		var children = record[0].children;
+
+		var adultSize = adults.length;
+		// console.log(adultSize);
+		var childrenSize = children.length;
+		var seats = adultSize + childrenSize;
+		// console.log(seats);
+
+		var flight_id = record.flight_id;
+		var flight =db.getDatabase().collection("flights").find({flight_id : flight_id}).toArray(function (err2, record2){
+			if(err) throw err;
+
+			var remaining = record2.remaining_seats;
+			// console.log(remaining);
+			
+
+			db.getDatabase().collection('flights').updateOne(
+				{flight_id: flight_id},
+				{ $set:
+					{
+						remaining_seats: remaining+seats
+					}
+				},
+				function(err, results) {
+
+				});
+		// db.getDatabase().collection("flights").update({'flight_id' : flight_id}, 
+		// 	{'remaining_seats' : remaining + seats});
+
+		db.getDatabase().collection('reservations').remove({'booking_ref_number' : bookRef },1);
+		callback();
+
+	});
+
+
+
+
+
+	});
+}
 
 module.exports = {
 	getCountries: getCountries,
@@ -425,5 +511,7 @@ module.exports = {
 	generatePromo: generatePromo,
 	getReservation: getReservation,
 	updateReservation: updateReservation,
-	cancelReservation: cancelReservation
+	cancelReservation: cancelReservation,
+	getReservations: getReservations,
+	// getReservationsSize: getReservationsSize
 };

@@ -1,54 +1,62 @@
 [
 {
 	"_id":123,
-	"title":"Ms.",
 	"adults": [{
+		"title":"Ms.",
 		"first_name":"name1",
 		"last_name":"last1",
 		"nationality":"egy",
 		"date_of_birth":"1/1/2001",
-		"passport_number":"12345",
-		"issue_date":"1/1/2015",
-		"expiration_date":"1/1/2020",
 		"contact_id":"12345",
 		"emergency_contact_id":"2314",
 		"meal_preference":"none",
-		"special_needs":"none"
+		"special_needs":"none",
+		"passport_number":"12345",
+		"issue_date":"1/1/2015",
+		"expiration_date":"1/1/2020"
 		}],
-		"children": [],
-		"infants": [],
-		"ticket_type":"one-way",
-		"ticket_class":"First",
-		"payment_id":1245,
-		"flight_id":"ab123",
-		"booking_ref_number":"a123"
-		},
+	"children": [],
+	"infants": [],
+	"ticket_type":"one-way",
+	"ticket_class":"First",
+	"payment_id":1245,
+	"flight_id":"ab123",
+	"booking_ref_number":"a123"
+},
 
-		{
-			"_id":13,
-			"title":"Mr.",
-			"adults": [{
-				"first_name":"name2",
-				"last_name":"last2",
-				"nationality":"egy2",
-				"date_of_birth":"2/2/2002",
-				"passport_number":"1234522",
-				"issue_date":"2/2/2016",
-				"expiration_date":"2/2/2020",
-				"contact_id":"12345222",
-				"emergency_contact_id":"2314222",
-				"meal_preference":"none",
-				"special_needs":"none"
-				}],
-				"children": [],
-				"infants": [],
-				"ticket_type":"round",
-				"ticket_class":"Economy",
-				"payment_id":124522,
-				"flight_id":"ab12322",
-				"booking_ref_number":"a12322"
-
-			}
-
+{
+	"_id":13,
+	"adults": [{
+		"title":"Mr.",
+		"first_name":"name2",
+		"last_name":"last2",
+		"nationality":"egy2",
+		"date_of_birth":"2/2/2002",
+		"contact_id":"12345222",
+		"emergency_contact_id":"2314222",
+		"meal_preference":"none",
+		"special_needs":"none",
+		"passport_number":"1234522",
+		"issue_date":"2/2/2016",
+		"expiration_date":"2/2/2020"
+		}],
+	"children": [{
+                    "title": "Ms",
+                    "first_name":"no Baby",
+                    "last_name": "Zaky",
+                    "nationality" : "German",
+                    "date_of_birth" : "23/7/2016",
+                    "contact_id" : "1234568",
+                    "emergency_contact_id" : "123456",
+                    "meal_preference": "none",
+                    "special_needs": "chair"
+                    }],
+	"infants": [],
+	"ticket_type":"round",
+	"ticket_class":"Economy",
+	"payment_id":124522,
+	"flight_id":"ab12322",
+	"booking_ref_number":"a12322"
+}
 
 ]

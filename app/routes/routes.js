@@ -76,6 +76,16 @@ module.exports = function(app) {
 	});
 
 	/**
+	* This route returns a json objects with all the reservations.
+	*
+	*/
+	app.get('/api/reservations', function(req, res) {
+		flights.getReservations(function(err, data) {
+			res.json(data);
+		});
+	});
+
+	/**
 	* This route seeds the database
 	*
 	*/
