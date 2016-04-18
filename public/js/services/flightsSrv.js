@@ -63,10 +63,14 @@ App.factory('FlightsSrv', function ($http) {
          return this.class;
       },
 
-      getFlights: function(dep_air, ret_air, dep_date, ret_date, classs) {
+      getRoundFlights: function(dep_air, ret_air, dep_date, ret_date, classs) {
          var x = '/api/flights/search/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + ret_date + '/' + classs;
          return $http.get(x);
-      }
+      },
+      getOneFlights: function(dep_air, ret_air, dep_date, classs) {
+         var x = '/api/flights/search/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + classs;
+         return $http.get(x);
+      },
 
    };
 });

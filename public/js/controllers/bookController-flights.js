@@ -8,10 +8,10 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    $scope.ret_date = FlightsSrv.getReturnDate();
    $scope.class = FlightsSrv.getClass();
 
-   var dep_hour = $scope.dep_date.getHours() - ($scope.dep_date.getHours() >= 12 ? 12 : 0);
-   var dep_period = $scope.dep_date.getHours() >= 12 ? 'PM' : 'AM';
-
-   var departureTime = $scope.dep_date.getFullYear() + '-' + $scope.dep_date.getMonth() + '-' + $scope.dep_date.getDate() + '  ' + dep_hour + ':' +  $scope.dep_date.getMinutes() + ' ' + dep_period;
+   // var dep_hour = $scope.dep_date.getHours() - ($scope.dep_date.getHours() >= 12 ? 12 : 0);
+   // var dep_period = $scope.dep_date.getHours() >= 12 ? 'PM' : 'AM';
+   //
+   // var departureTime = $scope.dep_date.getFullYear() + '-' + $scope.dep_date.getMonth() + '-' + $scope.dep_date.getDate() + '  ' + dep_hour + ':' +  $scope.dep_date.getMinutes() + ' ' + dep_period;
 
    var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
    var months = ["January", "February", "March", "April", "May", "June",
@@ -49,6 +49,12 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    $scope.dep_show = function() {
       // show the appropiate data for this date.
 
+      console.log($scope.dradioModel);
+      var dep_time = $scope.dradioModel.getFullYear() + '-' + ($scope.dradioModel.getMonth() + 1) + '-' + $scope.dradioModel.getDate();
+      FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class).success(function(response) {
+         console.log(response);
+         $scope.departureFlights = response;
+      });
    };
 
    /*
@@ -124,7 +130,12 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    */
    $scope.ret_show = function() {
       // show the appropiate data for this date.
-
+      console.log($scope.retradioModel);
+      var ret_time = $scope.retradioModel.getFullYear() + '-' + ($scope.retradioModel.getMonth() + 1) + '-' + $scope.retradioModel.getDate();
+      FlightsSrv.getOneFlights($scope.ret_airport, $scope.dep_airport, ret_time, $scope.class).success(function(response) {
+         console.log(response);
+         $scope.returnFlights = response;
+      });
    };
 
    /*
@@ -177,105 +188,44 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
    if ($scope.flight_type == "round") {
       $scope.show_incoming = true;
-      var ret_hour = $scope.ret_date.getHours() - ($scope.ret_date.getHours() >= 12 ? 12 : 0);
-      var ret_period = $scope.ret_date.getHours() >= 12 ? 'PM' : 'AM';
-      var returnTime = $scope.ret_date.getFullYear() + '-' + $scope.ret_date.getMonth() + '-' + $scope.ret_date.getDate() + '  ' + ret_hour + ':' +  $scope.ret_date.getMinutes() + ' ' + ret_period;
 
-      // console.log(departureTime);
-      // console.log(returnTime);
-      FlightsSrv.getFlights($scope.dep_airport, $scope.ret_airport, departureTime, returnTime, $scope.class).success(function(response) {
+      var dep_time = $scope.dep_date.getFullYear() + '-' + ($scope.dep_date.getMonth() + 1) + '-' + $scope.dep_date.getDate();
+      var ret_time = $scope.ret_date.getFullYear() + '-' + ($scope.ret_date.getMonth() + 1) + '-' + $scope.ret_date.getDate();
+      FlightsSrv.getRoundFlights($scope.dep_airport, $scope.ret_airport, dep_time, ret_time, $scope.class).success(function(response) {
          console.log(response);
+         $scope.departureFlights = response.outGoing;
+         $scope.returnFlights = response.inComing;
       });
    }
    else {
       $scope.show_incoming = false;
+
+      var dep_time = $scope.dep_date.getFullYear() + '-' + ($scope.dep_date.getMonth() + 1) + '-' + $scope.dep_date.getDate();
+      FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class).success(function(response) {
+         console.log(response);
+         $scope.departureFlights = response;
+      });
    }
 
    $scope.dep_isSelected = $scope.class;
    $scope.ret_isSelected = $scope.class;
 
-   $scope.flights = [   {  "flightNumber": '1',
-   "depTime":'12:00',
-   "arrTime":'15:00',
-   "duration":'3 hour(s)',
-   "planeModel":'Airbus A319',
-   "class": 'Economy',
-   "price": '3,500 EGP',
-   "stops": '2',
-   "remaining_seats": '5',
-   "entertainment": [
-      "Wifi", "Radio"
-   ]},
+   /*
+   Validations
+   */
+   $scope.submitted = false;
+   // function to submit the form after all validation has occurred
+   $scope.submitForm = function(isValid) {
+      $scope.submitted = true;
 
-   {  "flightNumber": '2',
-   "depTime":'12:00',
-   "arrTime":'15:00',
-   "duration":'3 hour(s)',
-   "planeModel":'Airbus A319',
-   "class": 'First',
-   "stops": '2',
-   "price": '5,000 EGP',
-   "remaining_seats": '0',
-   "entertainment": [
-      "Radio"
-   ]},
+      // check to make sure the form is completely valid
+      if (isValid) {
+         console.log('good');
+         $location.url('/book/personalInformation');
+      }
+      else {
+         console.log('bad');
+      }
 
-   {  "flightNumber": '3',
-   "depTime":'12:00',
-   "arrTime":'15:00',
-   "duration":'3 hour(s)',
-   "planeModel":'Airbus A319',
-   "class": 'Business',
-   "stops": '2',
-   "price": '4,200 EGP',
-   "remaining_seats": '1',
-   "entertainment": [
-      "Wifi", "Radio"
-   ]},
-
-   {  "flightNumber": '4',
-   "depTime":'19:30',
-   "arrTime":'22:30',
-   "duration":'3 hour(s)',
-   "planeModel":'Airbus A322',
-   "class": 'Economy',
-   "price": '3,800 EGP',
-   "stops": '2',
-   "remaining_seats": '3',
-   "entertainment": [
-      "Wifi"
-   ]},
-
-   {  "flightNumber": '5',
-   "depTime":'19:30',
-   "arrTime":'22:30',
-   "duration":'3 hour(s)',
-   "planeModel":'Airbus A322',
-   "class": 'Business',
-   "price": '4,700 EGP',
-   "stops": '2',
-   "remaining_seats": '0',
-   "entertainment": [
-      "Power Cord", "Radio"
-   ]}
-];
-
-/*
-Validations
-*/
-$scope.submitted = false;
-// function to submit the form after all validation has occurred
-$scope.submitForm = function(isValid) {
-   $scope.submitted = true;
-
-   // check to make sure the form is completely valid
-   if (isValid) {
-      console.log('good');
-      $location.url('/book/personalInformation');
-   }
-   else {
-      console.log('bad');
-   }
-
-};
+   };
 });
