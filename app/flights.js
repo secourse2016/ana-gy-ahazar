@@ -71,7 +71,7 @@ var generateFlightnumber = function() {
   for(var i = 0; i < 2; i++) {
     text += letters.charAt(Math.floor(Math.random() * letters.length));
   }
-  for(var i = 0; i < 5; i++) {
+  for(var i = 0; i < 4; i++) {
     text += numbers.charAt(Math.floor(Math.random() * numbers.length));
   }
 
@@ -126,10 +126,10 @@ var seed = function(callback) {
   "McDonnell Douglas", "Mitsubishi", "Saab", "Sukhoi", "Tupolev", "Vickers", "Yakovlev"];
 
   var originOrDestination1 =["BOM", "CAI", "HKG", "JNB", "RUH",
-  "LHR", "LAS", "LAX", " FRA", "CIA"];
+  "LHR", "LCF", "LAX", " FRA", "FCO"];
 
-  var originOrDestination2 =["DEL", "JED", "KNH", "CPT", "JED",
-  "JFK", "LAX", "SFO", "THF", "LIN"];
+  var originOrDestination2 =["DEL", "JED", "TPE", "CPT", "JED",
+  "JFK", "LAX", "SFO", "TXL", "LIN"];
 
   var airCrafts = [];
 
@@ -155,7 +155,6 @@ var seed = function(callback) {
   }
 
   var number = Math.floor(Math.random() * (originOrDestination1.length));
-  var randomCost = Math.floor(600+Math.random() * 8400);
   var date = new Date ('2016-04-11  3:25 AM');
   var datePrem = new Date('2016-04-11');
 
@@ -170,6 +169,7 @@ var seed = function(callback) {
       dateArrive.setHours(dateArrive.getHours() + flightDuration);
       dateArrive = moment(dateArrive).toDate().getTime();
 
+      var randomCost = Math.floor(600+Math.random() * 8400);
       var datePremN = datePrem.getFullYear() + '' + datePrem.getMonth() + '' + datePrem.getDate();
 
       var origin = originOrDestination1[j];
@@ -199,10 +199,6 @@ var seed = function(callback) {
       };
 
       flights.push(flight);
-      var flightF = JSON.parse(JSON.stringify(flight));
-      flightF.class = "first";
-      flightF.cost = parseInt(flightF.cost) + 600;
-      flights.push(flightF);
       var flightB = JSON.parse(JSON.stringify(flight));
       flightB.class = "business";
       flightB.cost = parseInt(flightB.cost) + 300;
@@ -235,10 +231,6 @@ var seed = function(callback) {
       };
 
       flights.push(flight);
-      flightF = JSON.parse(JSON.stringify(flight));
-      flightF.class = "first";
-      flightF.cost = parseInt(flightF.cost) + 600;
-      flights.push(flightF);
       flightB = JSON.parse(JSON.stringify(flight));
       flightB.class = "business";
       flightB.cost = parseInt(flightB.cost) + 300;
@@ -324,8 +316,6 @@ var getOneWayFlights = function(oneway, callback){
     }
     else {
       for( i=0; i<data.length ;i++){
-
-
         var currFlight = data[i];
         var aircraft = currFlight.aircraft;
         var aircraftType = aircraft.aircraftType;

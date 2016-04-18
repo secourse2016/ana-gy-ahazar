@@ -51,11 +51,8 @@ module.exports = function(app) {
 		// check header or url parameters or post parameters for token
 		var token = req.body.wt || req.query.wt || req.headers['x-access-token'];
 
-		console.log("{{{{ TOKEN }}}} => ", token);
-
 		var jwtSecret = process.env.JWTSECRET;
 
-		// Get JWT contents:
 		try
 		{
 			var payload = jwt.verify(token, jwtSecret);
@@ -117,7 +114,7 @@ module.exports = function(app) {
 	* This route searchs for one ways flights.
 	*
 	*/
-	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:classs' , function(req, res){
+	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:class' , function(req, res){
 
 		var dep_date = new Date(req.params.departureDateTime);
 		dep_date = dep_date.getFullYear() + '' + dep_date.getMonth() + '' + dep_date.getDate();
@@ -125,8 +122,10 @@ module.exports = function(app) {
 		var oneWay = {
 			"origin": req.params.origin,
 			"destination": req.params.destination,
-			"departureDate": dep_date
+			"departureDate": dep_date,
+			"class": req.params.class
 		};
+
 		flights.getOneWayFlights(oneWay , function(err ,data){
 			if (err)
 			throw err;
@@ -140,11 +139,8 @@ module.exports = function(app) {
 	* This route searchs for round trip flights.
 	*
 	*/
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:classs', function(req, res) {
-		// retrieve params from req.params.{{origin | departingDate | ...}}
-		// return this exact format
+	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
 
-		console.log(req.params);
 		var dep_date = new Date(req.params.departingDate);
 		dep_date = dep_date.getFullYear() + '' + dep_date.getMonth() + '' + dep_date.getDate();
 		var ret_date = new Date(req.params.returningDate);
@@ -153,20 +149,23 @@ module.exports = function(app) {
 		var  outGoing = {
 			"origin":        req.params.origin,
 			"destination":   req.params.destination,
-			"departureDate": dep_date
+			"departureDate": dep_date,
+			"class": req.params.class
 		};
 
 		var  inComing = {
 			"origin":        req.params.destination,
 			"destination":   req.params.origin,
-			"departureDate": ret_date
+			"departureDate": ret_date,
+			"class": req.params.class
 		};
 
 		var result = {
 			outGoing : {} ,
 			inComing : {}
-		} ;
-		flights.getOneWayFlights(outGoing,function(err ,data ){
+		};
+
+		flights.getOneWayFlights(outGoing,function(err ,data){
 			if(err) throw err ;
 			else{
 				result.outGoing = data ;
@@ -174,6 +173,7 @@ module.exports = function(app) {
 				flights.getOneWayFlights(inComing,function(err ,d){
 					if(err) throw err ;
 					result.inComing = d ;
+
 					res.json(result) ;
 				});
 			}
