@@ -201,13 +201,9 @@ module.exports = function(app) {
 			if (err) {
 				res.send("error");
 			}else{
-
 				res.send("success");
-
 			}
 		});
-
-
 	});
 
 

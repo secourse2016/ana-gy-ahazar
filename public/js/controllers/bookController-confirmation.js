@@ -40,7 +40,7 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 				else {
 					swal({
 						title: "Booking Reference: " + response,
-						text: "Thank you for choosing Air Madagascar.",
+						text: "Thank you for choosing Air Madagascar :)",
 						type: "success"
 					});
 					$location.url('/book');
