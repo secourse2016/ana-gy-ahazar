@@ -13,7 +13,7 @@
 		"special_needs":"none",
 		"passport_number":"12345",
 		"issue_date":"1/1/2015",
-		"expiration_date":"1/1/2020"
+		"expiry_date":"1/1/2020"
 		}],
 	"children": [],
 	"infants": [],
@@ -38,7 +38,7 @@
 		"special_needs":"none",
 		"passport_number":"1234522",
 		"issue_date":"2/2/2016",
-		"expiration_date":"2/2/2020"
+		"expiry_date":"2/2/2020"
 		}],
 	"children": [{
                     "title": "Ms",
@@ -49,7 +49,10 @@
                     "contact_id" : "1234568",
                     "emergency_contact_id" : "123456",
                     "meal_preference": "none",
-                    "special_needs": "chair"
+                    "special_needs": "chair",
+                    "passport_number":"1234522",
+					"issue_date":"2/2/2016",
+					"expiry_date":"2/2/2020"
                     }],
 	"infants": [],
 	"ticket_type":"round",

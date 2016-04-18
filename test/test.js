@@ -230,50 +230,59 @@ describe("generatePromo", function() {
 */
 describe("getReservation", function() {
   it("should review your reservation", function (done) {
-    var bookingReference = 'a12322';
-    flights.getReservation(function(err, reservation) {
-      // console.log("hi");
-      // console.log(reservation.length);
-      assert.equal(reservation.length, 1);
-      done();
+    db.getDatabase().collection('reservations').remove();
+    var reservations = JSON.parse(fs.readFileSync('data/reservations.json', 'utf8'));
 
-    }, bookingReference);
+    db.getDatabase().collection('reservations').insert(reservations, function(err, docs) {
+      if(err){
+        throw err;
+      } 
+      else{
+        var bookingReference = 'a12322';
+        flights.getReservation(function(err, reservation) {
+          assert.equal(reservation.length, 1);
+          done();
 
+        }, bookingReference);
+    }
   });
 });
+});
 
-// describe("reservationsSize", function() {
-//   it("should return the number of reservations", function (done){
-//     flights.getReservationsSize(function(count){
-//       assert.equal(count,2);
-//       done();
-//     });
-//   });
-// });
 
 /**
 * This test tests cancelling reservation and checks that the reservation is not found in the database after cancelling it
 */
 describe("cancelReservation", function() {
   it("should cancel/delete the reservation of the given reference, and delete it from the database.", function (done){
-    var bookingReference = 'a123';
+    db.getDatabase().collection('reservations').remove();
+    /* seeding the reservations table */
+    var reservations = JSON.parse(fs.readFileSync('data/reservations.json', 'utf8'));
 
-    flights.getReservation(function(err, reservation){
-      if(err) throw err;
+    db.getDatabase().collection('reservations').insert(reservations, function(err, docs) {
+      if(err){
+        throw err;
+      }
+      else{
+        var bookingReference = 'a123';
 
-      db.getDatabase().collection('reservations').find({"booking_ref_number" : bookingReference}).toArray(function (err,record) {
-        assert.equal(record.length,1);
-      });
+        flights.getReservation(function(err, reservation){
+          if(err) throw err;
 
-      flights.cancelReservation(bookingReference, function(){
-        db.getDatabase().collection('reservations').find({"booking_ref_number" : bookingReference}).toArray(function (err,record) {
-          assert.equal(record.length,0);
-          done();
-        });
-        
-      });
-    },bookingReference);
-    
+          db.getDatabase().collection('reservations').find({"booking_ref_number" : bookingReference}).toArray(function (err,record) {
+            assert.equal(record.length,1);
+          });
+
+          flights.cancelReservation(bookingReference, function(){
+            db.getDatabase().collection('reservations').find({"booking_ref_number" : bookingReference}).toArray(function (err,record) {
+              assert.equal(record.length,0);
+              done();
+            });
+            
+          });
+        },bookingReference);
+      } 
+    });
   });
 });
 
@@ -284,48 +293,56 @@ describe("cancelReservation", function() {
 
 describe("updateReservation", function() {
   it("should update the info of the reservation of the given reference by the given info.", function (done){
-    var bookingReference = 'a12322';
-    // db.getDatabase().collection('reservations').find({"booking_ref_number" : bookingReference}).toArray(function (err,record) {
-    //   if(err) throw err;
-    //   console.log(record[0]);
-    // });
-var newInfo = { "adults":[{
-  "title": "Ms",
-  "first_name":"be5",
-  "last_name": "Zaky",
-  "nationality" : "Egyptian",
-  "date_of_birth" : "23/7/1995",
-  "contact_id" : "01119174343",
-  "emergency_contact_id" : "01119174343",
-  "meal_preference": "none",
-  "special_needs": "none"}],
+   db.getDatabase().collection('reservations').remove();
+   /* seeding the reservations table */
+    var reservations = JSON.parse(fs.readFileSync('data/reservations.json', 'utf8'));
 
-  "children":[{
-    "title": "Ms",
-    "first_name":"Baby",
-    "last_name": "Zaky",
-    "nationality" : "Egyptian",
-    "date_of_birth" : "23/7/2016",
-    "contact_id" : "1234568",
-    "emergency_contact_id" : "123456",
-    "meal_preference": "kids meal",
-    "special_needs": "none"
-  }],
+    db.getDatabase().collection('reservations').insert(reservations, function(err, docs) {
+      if(err){
+        throw err;
+      } 
+      else{
+          var bookingReference = 'a12322';
 
-  "infants":[]
-};
+          var newInfo = { "adults":[{
+            "title": "Ms",
+            "first_name":"be5",
+            "last_name": "Zaky",
+            "nationality" : "Egyptian",
+            "date_of_birth" : "23/7/1995",
+            "contact_id" : "01119174343",
+            "emergency_contact_id" : "01119174343",
+            "meal_preference": "none",
+            "special_needs": "none"}],
 
-flights.updateReservation(bookingReference,newInfo,function(){
+            "children":[{
+              "title": "Ms",
+              "first_name":"Baby",
+              "last_name": "Zaky",
+              "nationality" : "Egyptian",
+              "date_of_birth" : "23/7/2016",
+              "contact_id" : "1234568",
+              "emergency_contact_id" : "123456",
+              "meal_preference": "kids meal",
+              "special_needs": "none"
+            }],
 
-  db.getDatabase().collection('reservations').find({booking_ref_number : bookingReference}).toArray(function (err,record) {
-    if (err) throw err;
-    assert.equal(JSON.stringify(record[0].adults)==JSON.stringify(newInfo.adults), true);
-    assert.equal(JSON.stringify(record[0].children)==JSON.stringify(newInfo.children), true);
-    assert.equal(JSON.stringify(record[0].infants)==JSON.stringify(newInfo.infants), true);
-    done();
-  });
+            "infants":[]
+          };
 
-});
+        flights.updateReservation(bookingReference,newInfo,function(){
+
+          db.getDatabase().collection('reservations').find({booking_ref_number : bookingReference}).toArray(function (err,record) {
+            if (err) throw err;
+            assert.equal(JSON.stringify(record[0].adults)==JSON.stringify(newInfo.adults), true);
+            assert.equal(JSON.stringify(record[0].children)==JSON.stringify(newInfo.children), true);
+            assert.equal(JSON.stringify(record[0].infants)==JSON.stringify(newInfo.infants), true);
+            done();
+          });
+
+        });
+      }
+      });
 });
 });
 
