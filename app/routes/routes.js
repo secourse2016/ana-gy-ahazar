@@ -14,29 +14,40 @@ module.exports = function(app) {
 	});
 
 
-	app.post('/api/flights/reservation/:title/:first_name/:last_name/:nationality/:date_of_birth/:ticket_type/:ticket_class/:passport_number/:issue_date/:expiration_date/:meal_preference/:special_needs/:payment_id/:contact_id/:emergency_contact_id/:flight_id/:', function(req, res) {
+	app.post('/api/flights/reservation', function(req, res) {
 
-		var reservation = 	{
-      "title": req.params.title,
-      "first_name": req.params.first_name,
-      "last_name": req.params.last_name,
-      "nationality": req.params.nationality,
-      "date_of_birth": req.params.date_of_birth,
-      "ticket_type": req.params.ticket_type,
-      "ticket_class": req.params.ticket_class,
-      "passport_number": req.params.passport_number,
-      "expiration_date": req.params.expiration_date,
-      "meal_preference": req.params.meal_preference,
-      "special_needs": req.params.special_needs,
-      "payment_id": req.params.payment_id,
-      "contact_id": req.params.contact_id,
-      "emergency_contact_id": req.params.emergency_contact_id,
-      "flight_id": req.params.flight_id
-         };
+		var reservation = req.body;
+		 flights.Reserve(reservation , function (err){
+		 	if (err) {
+		 		res.send("error");
+		 	}else{
 
-      flights.Reserve(reservation);
+		 		res.send("success");
+
+		 	}
+		 });
+
 		
 	});
+
+	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:classs' , function(req, res){
+		var oneWay = {
+			"origin": req.params.origin,
+			"destination": req.params.destination,
+			"departureDateTime": parseInt(req.params.departureDateTime),
+			"class": req.params.classs
+		};
+		flights.getOneWayFlights(oneWay , function(err ,data){
+			if (err)
+				throw err;
+
+				else
+				res.json(data);
+			
+		
+	});
+
+		});
 
 
 	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:classs', function(req, res) {

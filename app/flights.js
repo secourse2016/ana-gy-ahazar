@@ -343,10 +343,37 @@ var getOneWayFlights = function(oneway,callback){
 }; 
 
 
+
+
  
 
 var Reserve = function(reserve_info){
+	var flag = 0 ;
+	while(flag == 0){
+	   var code = "";
+	
+  for (var i = 0; i < 15; i++) {
+    if(randomBoolean()){
+      //Capital Letter
+      var letter = String.fromCharCode(65 + (Math.floor(Math.random() * 26)));
+      code += letter;
+    }
+    else{
+      //number
+      var number = Math.floor(Math.random() * 10);
+      code += number;
+      }
+   }
+    db.getDatabase().collection('reservations').count({"booking_ref_number": code}, function(err, count) {
+    	if(count === 0){
+    		flag = 1 ;
+    	}
+    });
+ }
+     reserve_info.booking_ref_number = code ;
+
      db.getDatabase().collection('reservation').insertOne(reserve_info) ;
+     
 } 
 
 module.exports = {
