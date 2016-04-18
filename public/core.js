@@ -1,4 +1,4 @@
-App = angular.module('App', ['ngRoute', 'ngAnimate', 'ui.bootstrap']);
+App = angular.module('App', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'angularMoment']);
 
 /**
 * Configure The routes and set locationProvider for cleaner URLs.

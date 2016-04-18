@@ -15,37 +15,6 @@ module.exports = function(app) {
 		res.sendFile('index.html');
 	});
 
-	/**
-	* This route deletes the database
-	*
-	*/
-	app.get('/db/delete', function(req, res) {
-		db.clear(function(){
-			res.send("deleted successfully");
-		});
-	});
-
-	app.post('/api/flights/reservation', function(req, res) {
-		var reservation = req.body;
-		flights.reserve(reservation , function (err, BRN){
-			if (err) {
-				res.send("error");
-			}else{
-				res.send(BRN + '');
-			}
-		});
-	});
-
-	/**
-	* This route gets a specific reservation information
-	*
-	*/
-	app.get('/api/flights/reservation/:bookingReference', function(req, res) {
-		flights.getReservation(function(err, data) {
-			res.json(data);
-		}, req.params.bookingReference);
-	});
-
 	/* Middlewear to Secure API Endpoints */
 	app.use(function(req, res, next) {
 		// check header or url parameters or post parameters for token
@@ -61,10 +30,10 @@ module.exports = function(app) {
 		}
 		catch (err)
 		{
+			console.log(req.url);
 			console.error('[ERROR]: JWT Error reason:', err);
 			res.status(403).sendFile(path.join(__dirname, '../../public', '403.html'));
 		}
-
 	});
 
 	/**

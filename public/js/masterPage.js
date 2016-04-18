@@ -16,7 +16,7 @@ setInterval(function() {
       });
    });
 
-   $('body').css('background-image', 'assets/background' + currentIndex + '.jpg'); //doesn't work in firefox
+   $('body').css('background-image', '/assets/background' + currentIndex + '.jpg'); //doesn't work in firefox
 }, 4500);
 
 $(document).ready(function() {
