@@ -121,23 +121,41 @@ describe('API', function() {
       done();
     });
   });
-  it('/api/validatepromo/:promoCode', function(done) {
-    request.get('/api/validatepromo/:promoCode').
-    expect('Content-Type', 'application/json; charset=utf-8').
-    expect(200).
-    end(function(err, response) {
+
+  it('/api/validatepromo/:promoCode should check to see if the promoCode exists and valid then a discount is returned', function(done) {
+
+    request.get('/api/validatepromo/:d3r3g4h5')
+    .expect(200)
+    .end(function(err, response) {
+      var discount = Number(response.text);
+      if(discount>0.0 && discount <1.0){
+        assert.equal((discount>0.0 && discount <1.0),true);
+      }
+      else{
+        assert.equal((discount===0.0),true);
+      }
       done();
     });
   });
-  it('/db/seed', function(done) {
-    request.get('/db/seed').
-    expect('Content-Type', 'application/json; charset=utf-8').
-    expect(200).
-    end(function(err, response) {
+  
+  it('/db/seed should seed all the tables', function(done) {
+    request.get('/db/seed')
+    .expect(200)
+    .end(function(err, response) {
+      var flag = false;
+      if(response.text ==="seeded sucessful"){
+        flag = true;
+        assert.equal(flag,true);
+      }
+      else{
+        assert.equal(flag,false);
+      }
+
       done();
     });
   });
 });
+
 
 /**
 * Tests if randomBoolean returns a random boolean true or false.

@@ -120,40 +120,41 @@ var generatePromo = function() {
 * @param {Function} callback function that is called after the seeding is complete.
 */
 var seed = function(callback) {
-	/* static arrays */
-	var aircraftTypes =["Aerospatiale", "ATR", "Airbus", "Antonov", "Beechcraft", "Boeing", "BAC" , "BAE", "Comac",
-	"Convair", "de Havilland", "Bombardier", "Canadair",
-	"Embraer", "Fairchild", "Fokker", "Ilyushin", "Irkut", "Lockheed",
-	"McDonnell Douglas", "Mitsubishi", "Saab", "Sukhoi", "Tupolev", "Vickers", "Yakovlev"];
 
-	var originOrDestination1 =["Mumbai", "Cairo", "Hong kong", "Johannesburg", "Riyadh",
-	"London Heathrew", "Las Vegas", "Las Angeles", " Frankfurt", "Rome"];
+  /* static arrays */
+  var aircraftTypes =["Aerospatiale", "ATR", "Airbus", "Antonov", "Beechcraft", "Boeing", "BAC" , "BAE", "Comac",
+  "Convair", "de Havilland", "Bombardier", "Canadair",
+  "Embraer", "Fairchild", "Fokker", "Ilyushin", "Irkut", "Lockheed",
+  "McDonnell Douglas", "Mitsubishi", "Saab", "Sukhoi", "Tupolev", "Vickers", "Yakovlev"];
 
-	var originOrDestination2 =["Delhi", "Jeddah", "Taiwan", "Cape Town", "Jeddah",
-	"New York-JohnF. Kennedy", "Las Angeles", "San Francisco", "Berlin", "Milan"];
+  var originOrDestination1 =["BOM", "CAI", "HKG", "JNB", "RUH",
+  "LHR", "LAS", "LAX", " FRA", "CIA"];
 
-	var airCrafts = [];
+  var originOrDestination2 =["DEL", "JED", "KNH", "CPT", "JED",
+  "JFK", "LAX", "SFO", "THF", "LIN"];
 
-	for (var i = 0; i < 200; i++) {
-		var generatedAircraftModel = Math.floor(100 + Math.random() * 900).toString();
-		var date_of_manufacture = moment('1990-06-10').toDate().getTime();
+  var airCrafts = [];
 
-		var airCraft = 	{
-			"aircraftType": chooseRandomElement(aircraftTypes),
-			"aircraftModel": generatedAircraftModel,
-			"date_of_manufacture": date_of_manufacture,
-			"capacity": "300",
-			"avg_speed": "700",
-			"total_flight_hours": "2000",
-			"in_flight_entertainment": 	{
-				"wifi": randomBoolean(),
-				"radio": randomBoolean(),
-				"power_port": randomBoolean()
-			}
-		};
+  for (var i = 0; i < 200; i++) {
+    var generatedAircraftModel = Math.floor(100 + Math.random() * 900).toString();
+    var date_of_manufacture = moment('1990-06-10').toDate().getTime();
 
-		airCrafts.push(airCraft);
-	}
+    var airCraft = 	{
+      "aircraftType": chooseRandomElement(aircraftTypes),
+      "aircraftModel": generatedAircraftModel,
+      "date_of_manufacture": date_of_manufacture,
+      "capacity": "300",
+      "avg_speed": "700",
+      "total_flight_hours": "2000",
+      "in_flight_entertainment": 	{
+        "wifi": randomBoolean(),
+        "radio": randomBoolean(),
+        "power_port": randomBoolean()
+      }
+    };
+
+    airCrafts.push(airCraft);
+  }
 
 	var number = Math.floor(Math.random() * (originOrDestination1.length));
 	var randomCost = Math.floor(600+Math.random() * 8400);
