@@ -239,6 +239,7 @@ var seed = function(callback) {
     date.setDate(date.getDate() + 1);
   }
 
+
   /* seeding the countries table */
   var countries = JSON.parse(fs.readFileSync('data/countries.json', 'utf8'));
 
@@ -298,6 +299,83 @@ var seed = function(callback) {
   });
 };
 
+/*
+search for all one way flights
+// */
+
+var getOneWayFlights = function(oneway,callback){
+	    var flights = [] ;
+
+	  
+       db.getDatabase().collection('flights').find(oneway).toArray(function(err,data){
+              if(err){
+              	callback(err) ;
+              }
+              else {
+              	console.log(data.length+"fdsds");
+              	for( i=0; i<data.length ;i++){
+
+              		
+                     var currFlight = data[i];
+                     var aircraft = currFlight.aircraft
+                     var aircraftType = aircraft.aircraftType;
+                     var aircraftModel = aircraft.aircraftModel ;
+                     console.log(currFlight.origin);
+                     var flight =	{
+                     	"aircraftType":  aircraftType,
+		                "aircraftModel": aircraftModel,
+                        "flightNumber": currFlight['flightNumber'],
+                        "departureDateTime": currFlight['departureDateTime'],
+                        "arrivalDateTime": currFlight['arrivalDateTime'],
+                        "origin": currFlight['origin'],
+                        "destination": currFlight['destination'],
+                        "cost": currFlight['cost'],
+                        "currency": currFlight['currency'],
+                        "class": currFlight['class'],  
+                        "Airline": currFlight['Airline']        
+                    };
+                    flights.push(flight) ;
+                  }
+
+              	callback(null,flights) ;
+              }
+    });
+}; 
+
+
+
+
+ 
+
+var Reserve = function(reserve_info){
+	var flag = 0 ;
+	while(flag == 0){
+	   var code = "";
+	
+  for (var i = 0; i < 15; i++) {
+    if(randomBoolean()){
+      //Capital Letter
+      var letter = String.fromCharCode(65 + (Math.floor(Math.random() * 26)));
+      code += letter;
+    }
+    else{
+      //number
+      var number = Math.floor(Math.random() * 10);
+      code += number;
+      }
+   }
+    db.getDatabase().collection('reservations').count({"booking_ref_number": code}, function(err, count) {
+    	if(count === 0){
+    		flag = 1 ;
+    	}
+    });
+ }
+     reserve_info.booking_ref_number = code ;
+
+     db.getDatabase().collection('reservation').insertOne(reserve_info) ;
+     
+} 
+
 module.exports = {
   getCountries: getCountries,
   getAirports: getAirports,
@@ -305,6 +383,11 @@ module.exports = {
   chooseRandomElement: chooseRandomElement,
   generateFlightnumber: generateFlightnumber,
   seed: seed,
+  generatePromo: generatePromo ,
+  getOneWayFlights:getOneWayFlights ,
+  Reserve:Reserve ,
   generatePromo: generatePromo,
   getReservation: getReservation
 };
+
+

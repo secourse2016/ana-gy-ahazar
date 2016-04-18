@@ -1,4 +1,4 @@
-App.controller('bookController-personalinformation', function($scope, $http, $location) {
+App.controller('bookController-personalinformation', function($scope, $http) {
 	/*
       Angular Bootstrap Datepicker.
     */
@@ -36,24 +36,4 @@ App.controller('bookController-personalinformation', function($scope, $http, $lo
 	$http.get('/api/countries').success(function (res){
 		$scope.countries = res;
 	});
-
-
-   /*
-   Validations
-   */
-   $scope.submitted = false;
-   // function to submit the form after all validation has occurred
-   $scope.submitForm = function(isValid) {
-      $scope.submitted = true;
-
-      // check to make sure the form is completely valid
-      if (isValid) {
-         console.log('good');
-         $location.url('/book/payment');
-      }
-      else {
-         console.log('bad');
-      }
-
-   };
 })

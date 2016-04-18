@@ -1,4 +1,4 @@
-App.controller('bookController-payment', function($scope, $http, $location) {
+App.controller('bookController-payment', function($scope, $http) {
 
    /*
       To Get all the countries.
@@ -20,26 +20,6 @@ App.controller('bookController-payment', function($scope, $http, $location) {
 
    $scope.popup = {
       opened: false
-   };
-
-
-   /*
-   Validations
-   */
-   $scope.submitted = false;
-   // function to submit the form after all validation has occurred
-   $scope.submitForm = function(isValid) {
-      $scope.submitted = true;
-
-      // check to make sure the form is completely valid
-      if (isValid) {
-         console.log('good');
-         $location.url('/book/confirmation');
-      }
-      else {
-         console.log('bad');
-      }
-
    };
 
 });

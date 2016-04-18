@@ -4,6 +4,7 @@ var db = require('../app/db.js');
 var app = require('../app/app.js');
 var flights = require('../app/flights');
 var fs = require('fs');
+var moment = require('moment');
 
 before(function(done) {
   db.connect(process.env.DBURL, function(err, db) {
@@ -120,6 +121,33 @@ describe('API', function() {
       done();
     });
   });
+
+
+ it('/api/flights/search  should return a flight JSON object array with keys [aircraftType , aircraftModel ,flightNumber,departureDateTime ,origin ,destination,arrivalDateTime,cost,currency,class,Airline]', function(done) {
+    var date = new Date ('2016-04-11  3:25 AM');
+    var dateCode = moment(date).toDate().getTime();
+    date.setDate(date.getDate() + 2);
+    var dateCode1 = moment(date).toDate().getTime();
+// http://localhost:3000/api/flights/search/Mumbai/Delhi/1479115500000/1465503900000/economy
+
+    request.get('/api/flights/search/Mumbai/Delhi/' + 1479115500000 + '/' + 1465503900000 + '/economy').
+    expect('Content-Type', 'application/json; charset=utf-8').
+    expect(200).
+    end(function(err, response) {
+      if(err)
+      throw err;
+
+      var flights = JSON.parse(response.text);
+       console.log(flights);
+       assert.equal(typeof flights.outGoing != "undefined" && typeof flights.inComing != "undefined");
+
+      var flight= flights[0];
+      assert.equal(typeof flight.aircraftType != "undefined" && typeof flight.aircraftModel != "undefined" && typeof flight.flightNumber != "undefined" && typeof flight.departureDateTime != "undefined" && typeof flight.cost != "undefined" && typeof flight.currency != "undefined" && typeof flight.class != "undefined" && typeof flight.Airline != "undefined" , true);
+      done();
+  });
+
+});
+
   it('/api/validatepromo/:promoCode', function(done) {
     request.get('/api/validatepromo/:promoCode').
     expect('Content-Type', 'application/json; charset=utf-8').
@@ -240,3 +268,10 @@ describe("clear", function() {
 
   });
 });
+describe("reservation",function(){
+    it("should post a reservation into the reservation collection" , function(done){
+       var reservation = {email : 2356465655, message: 45643786970};
+       request.post('/api/flights/reservation').send(reservation).expect(200,done);
+    });
+
+  });
