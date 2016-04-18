@@ -1,6 +1,14 @@
 var moment = require('moment');
 var db = require('./db');
 var fs = require('fs');
+var http = require('http');
+var https = require('https');
+var url = require('url');
+var URL = require('url-parse');
+
+
+
+
 
 /**
 * This function return an array of length 1 of a specific reservation info.
@@ -298,6 +306,121 @@ var seed = function(callback) {
   });
 };
 
+
+
+/*
+search for all one way flights
+// */
+
+var getOneWayFlights = function(oneway,callback){
+      var flights = [] ;
+
+       db.getDatabase().collection('flights').find(oneway).toArray(function(err,data){
+              if(err){
+                callback(err) ;
+              }
+              else {
+                console.log(data.length+"fdsds");
+                for( i=0; i<data.length ;i++){
+
+                  
+                     var currFlight = data[i];
+                     var aircraft = currFlight.aircraft
+                     var aircraftType = aircraft.aircraftType;
+                     var aircraftModel = aircraft.aircraftModel ;
+                     console.log(currFlight.origin);
+                     var flight = {
+                        "aircraftType":  aircraftType,
+                        "aircraftModel": aircraftModel,
+                        "flightNumber": currFlight['flightNumber'],
+                        "departureDateTime": currFlight['departureDateTime'],
+                        "arrivalDateTime": currFlight['arrivalDateTime'],
+                        "origin": currFlight['origin'],
+                        "destination": currFlight['destination'],
+                        "cost": currFlight['cost'],
+                        "currency": currFlight['currency'],
+                        "class": currFlight['class'],  
+                        "Airline": currFlight['Airline']        
+                    };
+                    flights.push(flight) ;
+                  }
+
+
+                callback(null,flights) ;
+              }
+    });
+}; 
+
+
+var makeOnlineRequest =  function(options, onResult)
+{
+    //console.log("rest::getJSON");
+
+    var prot = options.port == 443 ? https : http;
+    var req = prot.request(options, function(res)
+    {
+        console.log("kaakkakakaka");
+        var output = '';
+        console.log(options.host + ':' + res.statusCode);
+        res.setEncoding('utf8');
+
+        res.on('data', function (chunk) {
+            output += chunk;
+        });
+
+        res.on('end', function() {
+            var obj = JSON.parse(output);
+            onResult(res.statusCode, obj);
+        });
+    });
+
+    req.on('error', function(err) {
+        //res.send('error: ' + err.message);
+      //  console.log("erroooor");
+    });
+
+    req.end();
+};
+
+var getOtherFlights = function(oneway,callback){
+         
+        var airlines = fs.readFileSync('data/airlines.json', 'utf8');
+        
+         //console.log(airlines);
+       for (var i = 0; i < airlines.length; i++) {
+            var currAirLine =
+            {
+                "airline": airlines[i].airline ,
+                "IP": airlines[i].IP
+                   }
+           // console.log(currAirLine) ;
+
+           var ip = currAirLine['IP']; 
+           // console.log(ip);
+          var parsedUrl = URL(ip, true);
+          // var parsedUrl = url.parse(ip);
+             //console.log(parsedUrl);
+
+          var options = {
+               host: parsedUrl.host,
+               port: parsedUrl.port,
+               // path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.departureDateTime+'/'+oneway.class+'/',
+              path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.class+'',
+
+               method: 'GET',
+               headers: {
+                         'Content-Type': 'application/json'
+                         }
+                 };
+           //console.log(options.path);
+         makeOnlineRequest(options,function(statusCode, result){
+            callback(null,result) ;
+         });
+     
+        }; 
+   };
+
+
 module.exports = {
   getCountries: getCountries,
   getAirports: getAirports,
@@ -305,6 +428,9 @@ module.exports = {
   chooseRandomElement: chooseRandomElement,
   generateFlightnumber: generateFlightnumber,
   seed: seed,
+  getOneWayFlights : getOneWayFlights ,
+  getOtherFlights :getOtherFlights ,
+  makeOnlineRequest : makeOnlineRequest ,
   generatePromo: generatePromo,
   getReservation: getReservation
 };
