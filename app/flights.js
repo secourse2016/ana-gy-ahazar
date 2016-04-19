@@ -2,9 +2,7 @@ var moment = require('moment');
 var db = require('./db');
 var fs = require('fs');
 var http = require('http');
-var https = require('https');
-var url = require('url');
-var URL = require('url-parse');
+
 
 
 
@@ -320,15 +318,13 @@ var getOneWayFlights = function(oneway,callback){
                 callback(err) ;
               }
               else {
-                console.log(data.length+"fdsds");
                 for( i=0; i<data.length ;i++){
 
-                  
+        
                      var currFlight = data[i];
                      var aircraft = currFlight.aircraft
                      var aircraftType = aircraft.aircraftType;
                      var aircraftModel = aircraft.aircraftModel ;
-                     console.log(currFlight.origin);
                      var flight = {
                         "aircraftType":  aircraftType,
                         "aircraftModel": aircraftModel,
@@ -365,12 +361,9 @@ var makeOnlineRequest =  function(options, onResult)
         res.setEncoding('utf8');
 
         res.on('data', function (chunk) {
-          //console.log('l'+options.host);
-          // if(typeof chunk == 'object')
+        
                output += chunk;
-           // console.log(output);
-               
-           
+
         });
 
         res.on('end', function() {
@@ -381,7 +374,6 @@ var makeOnlineRequest =  function(options, onResult)
     });
 
     req.on('error', function(err) {
-        //res.send('error: ' + err.message);
        console.log("erroooor");
     });
 
