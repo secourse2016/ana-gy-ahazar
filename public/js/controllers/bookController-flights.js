@@ -114,15 +114,15 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
       var dep_time = $scope.dep_date.getFullYear() + '-' + month + '-' + day;
       FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected).success(function(response) {
-         $scope.departureFlights = response;
+         $scope.departureFlights = response.outgoingFlights;
 
-         var hasFlights = (response.length > 0);
+         var hasFlights = (response.outgoingFlights.length > 0);
 
          if(search_other){
             FlightsSrv.getOtherOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected).success(function(res) {
-               $scope.departureFlights.push(res);
+               $scope.departureFlights.push(res.outgoingFlights);
 
-               if (res.length > 0)
+               if (res.outgoingFlights.length > 0)
                $scope.dep_empty = false;
                else
                $scope.dep_empty = !hasFlights;
@@ -224,14 +224,14 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
       var ret_time = $scope.ret_date.getFullYear() + '-' + month + '-' + day;
       FlightsSrv.getOneFlights($scope.ret_airport, $scope.dep_airport, ret_time, $scope.ret_isSelected).success(function(response) {
-         $scope.returnFlights = response;
-         var hasFlights = (response.length > 0);
+         $scope.returnFlights = response.outgoingFlights;
+         var hasFlights = (response.outgoingFlights.length > 0);
 
          if(search_other){
             FlightsSrv.getOtherOneFlights($scope.ret_airport, $scope.dep_airport, ret_time, $scope.ret_isSelected).success(function(res) {
-               $scope.returnFlights.push(res);
+               $scope.returnFlights.push(res.outgoingFlights);
 
-               if (res.length > 0)
+               if (res.outgoingFlights.length > 0)
                $scope.ret_empty = false;
                else
                $scope.ret_empty = !hasFlights;
@@ -273,24 +273,24 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
       FlightsSrv.getRoundFlights($scope.dep_airport, $scope.ret_airport, dep_time, ret_time, $scope.class).success(function(response) {
          console.log(response);
-         $scope.departureFlights = response.outGoing;
-         $scope.returnFlights = response.inComing;
+         $scope.departureFlights = response.outgoingFlights;
+         $scope.returnFlights = response.returnFlights;
 
-         var departureHasFlights = (response.outGoing.length > 0);
-         var returnHasFlights = (response.inComing.length > 0);
+         var departureHasFlights = (response.outgoingFlights.length > 0);
+         var returnHasFlights = (response.returnFlights.length > 0);
 
          if(search_other){
             FlightsSrv.getOtherRoundFlights($scope.dep_airport, $scope.ret_airport, dep_time, ret_time, $scope.class).success(function(res) {
-               $scope.departureFlights.push(res.outGoing);
-               $scope.returnFlights.push(res.inComing);
+               $scope.departureFlights.push(res.outgoingFlights);
+               $scope.returnFlights.push(res.returnFlights);
 
-               if (res.outGoing.length > 0)
+               if (res.outgoingFlights.length > 0)
                $scope.dep_empty = false;
                else
                $scope.dep_empty = !departureHasFlights;
 
 
-               if (res.inComing.length > 0)
+               if (res.returnFlights.length > 0)
                $scope.ret_empty = false;
                else
                $scope.ret_empty = !returnHasFlights;
@@ -320,15 +320,15 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
       FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class).success(function(response) {
          console.log(response);
-         $scope.departureFlights = response;
+         $scope.departureFlights = response.outgoingFlights;
 
-         var hasFlights = (response.length > 0);
+         var hasFlights = (response.outgoingFlights.length > 0);
 
          if(search_other){
             FlightsSrv.getOtherOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class).success(function(res) {
-               $scope.departureFlights.push(res);
+               $scope.departureFlights.push(res.outgoingFlights);
 
-               if (res.length > 0)
+               if (res.outgoingFlights.length > 0)
                $scope.dep_empty = false;
                else
                $scope.dep_empty = !hasFlights;
