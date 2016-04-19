@@ -51,7 +51,7 @@ describe('getCountriesFromDB', function() {
   it('should return all countries documents in the database', function(done) {
     flights.getCountries(function(err, countries) {
       if(err)
-      throw err;
+        throw err;
 
       assert.equal(countries.length, 241);
       done();
@@ -67,7 +67,7 @@ describe('getAirportsFromDB', function() {
   it('should return all airports documents in the database', function(done) {
     flights.getAirports(function(err, airports) {
       if(err)
-      throw err;
+        throw err;
 
       assert.equal(airports.length, 5881);
       done();
@@ -91,7 +91,7 @@ describe('API', function() {
     expect(200).
     end(function(err, response) {
       if(err)
-      throw err;
+        throw err;
 
       var countries = JSON.parse(response.text);
 
@@ -109,10 +109,9 @@ describe('API', function() {
     expect(200).
     end(function(err, response) {
       if(err)
-      throw err;
+        throw err;
 
       var airports = JSON.parse(response.text);
-
       assert.equal(airports.length, 5881);
 
       var airport = airports[0];
@@ -230,14 +229,121 @@ describe("generatePromo", function() {
 * This test tests if the length of the array that is returned from the getReservation funtion equals to 1 (each booking reference has only one reservation)
 */
 describe("getReservation", function() {
-  it("should review your reservation", function() {
-    var bookingReference = 'abc1234567';
-    flights.getReservation(function(err, reservation) {
-      assert.equal(reservation.length, 1);
+  it("should review your reservation", function (done) {
+    db.getDatabase().collection('reservations').remove();
+    var reservations = JSON.parse(fs.readFileSync('data/reservations.json', 'utf8'));
 
-    }, bookingReference);
+    db.getDatabase().collection('reservations').insert(reservations, function(err, docs) {
+      if(err){
+        throw err;
+      } 
+      else{
+        var bookingReference = 'a12322';
+        flights.getReservation(function(err, reservation) {
+          assert.equal(reservation.length, 1);
+          done();
 
+        }, bookingReference);
+    }
   });
+});
+});
+
+
+/**
+* This test tests cancelling reservation and checks that the reservation is not found in the database after cancelling it
+*/
+describe("cancelReservation", function() {
+  it("should cancel/delete the reservation of the given reference, and delete it from the database.", function (done){
+    db.getDatabase().collection('reservations').remove();
+    /* seeding the reservations table */
+    var reservations = JSON.parse(fs.readFileSync('data/reservations.json', 'utf8'));
+
+    db.getDatabase().collection('reservations').insert(reservations, function(err, docs) {
+      if(err){
+        throw err;
+      }
+      else{
+        var bookingReference = 'a123';
+
+        flights.getReservation(function(err, reservation){
+          if(err) throw err;
+
+          db.getDatabase().collection('reservations').find({"booking_ref_number" : bookingReference}).toArray(function (err,record) {
+            assert.equal(record.length,1);
+          });
+
+          flights.cancelReservation(bookingReference, function(){
+            db.getDatabase().collection('reservations').find({"booking_ref_number" : bookingReference}).toArray(function (err,record) {
+              assert.equal(record.length,0);
+              done();
+            });
+            
+          });
+        },bookingReference);
+      } 
+    });
+  });
+});
+
+/**
+* This test tests updating a specific reservation with a given new info
+* and checks that the updated reservation have the exact same new info it was updated with
+*/
+
+describe("updateReservation", function() {
+  it("should update the info of the reservation of the given reference by the given info.", function (done){
+   db.getDatabase().collection('reservations').remove();
+   /* seeding the reservations table */
+    var reservations = JSON.parse(fs.readFileSync('data/reservations.json', 'utf8'));
+
+    db.getDatabase().collection('reservations').insert(reservations, function(err, docs) {
+      if(err){
+        throw err;
+      } 
+      else{
+          var bookingReference = 'a12322';
+
+          var newInfo = { "adults":[{
+            "title": "Ms",
+            "first_name":"be5",
+            "last_name": "Zaky",
+            "nationality" : "Egyptian",
+            "date_of_birth" : "23/7/1995",
+            "contact_id" : "01119174343",
+            "emergency_contact_id" : "01119174343",
+            "meal_preference": "none",
+            "special_needs": "none"}],
+
+            "children":[{
+              "title": "Ms",
+              "first_name":"Baby",
+              "last_name": "Zaky",
+              "nationality" : "Egyptian",
+              "date_of_birth" : "23/7/2016",
+              "contact_id" : "1234568",
+              "emergency_contact_id" : "123456",
+              "meal_preference": "kids meal",
+              "special_needs": "none"
+            }],
+
+            "infants":[]
+          };
+
+        flights.updateReservation(bookingReference,newInfo,function(){
+
+          db.getDatabase().collection('reservations').find({booking_ref_number : bookingReference}).toArray(function (err,record) {
+            if (err) throw err;
+            assert.equal(JSON.stringify(record[0].adults)==JSON.stringify(newInfo.adults), true);
+            assert.equal(JSON.stringify(record[0].children)==JSON.stringify(newInfo.children), true);
+            assert.equal(JSON.stringify(record[0].infants)==JSON.stringify(newInfo.infants), true);
+            done();
+          });
+
+        });
+      }
+      });
+});
 });
 
 /**
