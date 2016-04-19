@@ -23,9 +23,15 @@
 			</div>
 			<br>
 			<div style="margin-top: 1.5%" class="col-sm-12 col-md-12">
+				<!-- if there is no flights -->
+				<center>
+					<div class="has-error" ng-show="dep_empty">
+						<p style="font-size: 18px;" class="help-block">No Available Flights From {{ dep_airport }} To {{ ret_airport }} on this day.<br> Please Choose Another One.</p>
+					</div>
+				</center>
 
 				<!-- tabs for flight types -->
-				<div class="inner-tabs">
+				<div ng-show="!dep_empty" class="inner-tabs">
 					<div class="inner-tab-links">
 						<input type="radio" name="business" id="dep-in-btn-1" ng-model="dep_radio" ng-click="dep_isSelected = 'business'; showDepartureFlights(); dep_reserve=''" ng-class="{checked:dep_isSelected=='business'}">
 						<label for="dep-in-btn-1" class="btn inner-link"><i class="fa fa-briefcase"></i> Business</label>
@@ -131,9 +137,13 @@
 				</div>
 				<br>
 				<div style="margin-top: 1.5%" class="col-sm-12 col-md-12">
-
+					<center>
+						<div class="has-error" ng-show="ret_empty">
+							<p style="font-size: 18px;" class="help-block">No Available Flights From {{ ret_airport }} To {{ dep_airport }} on this day.<br> Please Choose Another One.</p>
+						</div>
+					</center>
 					<!-- tabs for flight types -->
-					<div class="inner-tabs">
+					<div ng-show="!ret_empty" class="inner-tabs">
 						<div class="inner-tab-links">
 							<input type="radio" name="business" id="ret-in-btn-1" ng-model="ret_radio" ng-click="$parent.ret_isSelected = 'business'; showReturnFlights(); ret_reserve=''" ng-class="{checked:ret_isSelected=='business'}">
 							<label for="ret-in-btn-1" class="btn inner-link"><i class="fa fa-briefcase"></i> Business</label>
@@ -221,7 +231,7 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-offset-11 col-md-offset-10 col-sm-2 col-md-2">
-					<button type="submit" class="btn btn-default btn_nxt">Next</button>
+					<button type="submit" class="btn btn-default btn_nxt" ng-disabled="dep_empty || ret_empty">Next</button>
 					<br>
 					<br>
 				</div>

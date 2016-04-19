@@ -116,6 +116,10 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       var dep_time = $scope.dep_date.getFullYear() + '-' + month + '-' + day;
       FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected).success(function(response) {
          $scope.departureFlights = response;
+         if (response.length > 0)
+            $scope.dep_empty = false;
+         else
+            $scope.dep_empty = true;
       });
    }
 
@@ -210,10 +214,17 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       var ret_time = $scope.ret_date.getFullYear() + '-' + month + '-' + day;
       FlightsSrv.getOneFlights($scope.ret_airport, $scope.dep_airport, ret_time, $scope.ret_isSelected).success(function(response) {
          $scope.returnFlights = response;
+         if (response.length > 0)
+            $scope.ret_empty = false;
+         else
+            $scope.ret_empty = true;
       });
    }
 
    $scope.retradioModel = new Date(ret_date);
+
+   $scope.dep_empty = false;
+   $scope.ret_empty = false;
 
    if ($scope.flight_type == "round") {
       $scope.show_incoming = true;
@@ -242,6 +253,17 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          console.log(response);
          $scope.departureFlights = response.outGoing;
          $scope.returnFlights = response.inComing;
+
+         if ($scope.departureFlights.length > 0)
+            $scope.dep_empty = false;
+         else
+            $scope.dep_empty = true;
+
+         if ($scope.returnFlights.length > 0)
+            $scope.ret_empty = false;
+         else
+            $scope.ret_empty = true;
+
       });
    }
    else {
@@ -260,6 +282,10 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class).success(function(response) {
          console.log(response);
          $scope.departureFlights = response;
+         if ($scope.departureFlights.length > 0)
+            $scope.dep_empty = false;
+         else
+            $scope.dep_empty = true;
       });
    }
 
