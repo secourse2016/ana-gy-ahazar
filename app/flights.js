@@ -475,27 +475,25 @@ var getOneWayFlights = function(oneway,callback){
 */
 var makeOnlineRequest =  function(options, onResult)
 {    
+
+   
     var req = http.request(options, function(res)
     {
-        
         var output = '';
         res.setEncoding('utf8');
 
         res.on('data', function (chunk) {
-        
-               output += chunk;
-
+            output += chunk;
         });
 
         res.on('end', function() {
             var obj = output;
-            console.log(obj);
             onResult(res.statusCode, obj);
         });
     });
 
     req.on('error', function(err) {
-      throw err;
+        //res.send('error: ' + err.message);
     });
 
     req.end();
@@ -506,12 +504,16 @@ var makeOnlineRequest =  function(options, onResult)
 *
 * @param {Function} callback function that is called after the searching is complete.
 */
-var getOtherFlights = function(oneway,callback){
-         
+ 
         var airlines = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
         var flights = [] ;
-
-       for (var i = 0; i < airlines.length; i++) {
+    var getOtherFlights = function(oneway,i,callback){
+        
+         if(i === airlines.length){
+           console.log(flights);
+           return callback(null,flights);
+           }
+      
             var currAirLine =
             {
                 "airline": airlines[i].airline ,
@@ -531,12 +533,15 @@ var getOtherFlights = function(oneway,callback){
                          }
                  };
             makeOnlineRequest(options,function(statusCode, result){
+
             flights.push(result);
-            
+            getOtherFlights(oneway,(i+1),callback) ;
+             
          });
-     
-        }; 
-        callback(null,flights) ;
+         
+        
+      
+        
    };
 
 

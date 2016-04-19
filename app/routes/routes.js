@@ -1,7 +1,6 @@
 var flights = require('../flights');
 var db = require('../db');
 
-
 module.exports = function(app) {
 
 	var jwt = require('jsonwebtoken');
@@ -33,26 +32,6 @@ module.exports = function(app) {
 		 }, req.params.bookingReference);
 	 });
 
-	/**
-	 * This route edits a specific reservation info
-	 *
-	 */
-	app.put('/api/flights/reservation', function (req,res) {
-		var newInfo = req.body;
-		var bookingRef = newInfo.booking_ref_number;
-		flights.updateReservation(bookingRef, newInfo);
-	});
-
-
-	/**
-	 * This route deletes a certain reservation from the database
-	 *
-	 */
-	app.delete('/api/flights/:reservation', function (req,res) {
-		var bookingRef = req.params.reservation;
-		flights.cancelReservation(bookingRef);
-		res.send("Reservation cancelled!");
-	});
 
 	/**
 	* This route returns a json object with all the countries.
@@ -70,16 +49,6 @@ module.exports = function(app) {
 	*/
 	app.get('/api/airports', function(req, res) {
 		flights.getAirports(function(err, data) {
-			res.json(data);
-		});
-	});
-
-	/**
-	* This route returns a json objects with all the reservations.
-	*
-	*/
-	app.get('/api/reservations', function(req, res) {
-		flights.getReservations(function(err, data) {
 			res.json(data);
 		});
 	});
@@ -120,11 +89,10 @@ module.exports = function(app) {
 				res.send(0.0+"");
 			}
 		});
-
 	});
 
 	/**
-	* This route returns a json objects with required  One Way flights from other Airlines.
+	* This route returns a json objects with required  One way flights from other Airlines.
 	*
 	*/
 
@@ -135,7 +103,7 @@ module.exports = function(app) {
 		  	"departureDateTime": parseInt(req.params.departureDateTime),
 			"class": req.params.classs
 		};
-		flights.getOtherFlights(oneWay , function(err ,data){
+		flights.getOtherFlights(oneWay ,0,function(err ,data){
 			if (err)
 				throw err;
 
@@ -175,12 +143,12 @@ app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:re
            outGoing : {} ,
            inComing : {}
            } ;
-        flights.getOtherFlights(outGoing,function(err ,data ){
+        flights.getOtherFlights(outGoing,0,function(err ,data ){
         	if(err) throw err ;
         	else{
               result.outGoing = data ;
              
-              flights.getOtherFlights(inComing,function(err ,d){
+              flights.getOtherFlights(inComing,0,function(err ,d){
               	if(err) throw err ;
                 result.inComing = d ;
                 res.json(result) ;
