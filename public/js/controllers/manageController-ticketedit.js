@@ -40,6 +40,7 @@ App.controller('manageController-ticketedit', function($scope, ManageSrv, Flight
       json.phone_number = currentAdult.phone_number;
       json.em_email = currentAdult.em_email;
       json.em_phone_number = currentAdult.em_phone_number;
+      json.passport_number = currentAdult.passport_number;
 
       $scope.adultFormData[i] = json;
    }
@@ -71,6 +72,7 @@ App.controller('manageController-ticketedit', function($scope, ManageSrv, Flight
       reservationData.adults = $scope.adultFormData;
       reservationData.children = $scope.childFormData;
       reservationData.infants = $scope.infantFormData;
+
       ManageSrv.setReservationData(reservationData);
 
       ManageSrv.editReservation(reservationData).success(function() {
