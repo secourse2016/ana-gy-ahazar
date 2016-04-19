@@ -15,7 +15,7 @@ App.controller('bookController-personalinformation', function($scope, FlightsSrv
    $scope.format = $scope.formats[0];
    $scope.altInputFormats = ['M!/d!/yyyy'];
 
-
+   /* Get All The Countries With Their Country Codes */
    function Countries() {
       FlightsSrv.getCountries().success(function(countries) {
          $scope.Countries = countries;

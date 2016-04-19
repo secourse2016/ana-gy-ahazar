@@ -2,7 +2,6 @@ App.controller('manageController-ticketinfo', function($scope, ManageSrv, $locat
 
    var reservationData = ManageSrv.getReservationData();
 
-   console.log(reservationData);
    // Departure Flight Info
    $scope.departureOrigin = reservationData.dep_flight.origin;
    $scope.departureDestination = reservationData.dep_flight.destination;
@@ -50,5 +49,9 @@ App.controller('manageController-ticketinfo', function($scope, ManageSrv, $locat
          });
       });
 
+   };
+
+   $scope.edit = function() {
+      $location.url('/manage/ticketedit');
    };
 });

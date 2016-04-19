@@ -5,6 +5,12 @@ App.factory('ManageSrv', function ($http) {
             "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
          });
       },
+      editReservation: function(newInfo) {
+         return $http.put('/api/flights/reservation',newInfo , {
+            "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
+         });
+      },
+
       setBookingReference: function(value) {
          this.bookingRef = value;
       },
@@ -21,6 +27,6 @@ App.factory('ManageSrv', function ($http) {
       },
       getReservationData: function() {
          return this.reservationData;
-      }
+      },
    };
 });
