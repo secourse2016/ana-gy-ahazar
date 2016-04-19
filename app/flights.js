@@ -348,16 +348,16 @@ var getOneWayFlights = function(oneway,callback){
 }; 
 
 
+/**
+* This function make http request
+* @param {onResult} callback function that is called after the requesting is complete.
+*/
 var makeOnlineRequest =  function(options, onResult)
-{
-    //console.log("rest::getJSON");
-    
-    
+{    
     var req = http.request(options, function(res)
     {
         
         var output = '';
-       // console.log(options.host + ':' + res.statusCode);
         res.setEncoding('utf8');
 
         res.on('data', function (chunk) {
@@ -374,12 +374,17 @@ var makeOnlineRequest =  function(options, onResult)
     });
 
     req.on('error', function(err) {
-       console.log("erroooor");
+      throw err;
     });
 
     req.end();
 };
 
+/**
+* This function search for flights in airlines.json .
+*
+* @param {Function} callback function that is called after the searching is complete.
+*/
 var getOtherFlights = function(oneway,callback){
          
         var airlines = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
@@ -394,25 +399,17 @@ var getOtherFlights = function(oneway,callback){
           
 
            var ip = currAirLine['IP']; 
-          
-          //var parsedUrl = URL(ip, true);
-          // var parsedUrl = url.parse(ip);
-            // console.log(parsedUrl);
+
 
           var options = {
-               // host: parsedUrl.host,
-             //  port: parsedUrl.port,
                host: ip ,
                path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.departureDateTime+'/'+oneway.class+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
-              // path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.class+'',
-
                method: 'GET',
                headers: {
                          'Content-Type': 'application/json'
                          }
                  };
-           //console.log(options.path);
-         makeOnlineRequest(options,function(statusCode, result){
+            makeOnlineRequest(options,function(statusCode, result){
             flights.push(result);
             
          });

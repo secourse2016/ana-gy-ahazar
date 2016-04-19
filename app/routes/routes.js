@@ -91,6 +91,11 @@ module.exports = function(app) {
 		});
 	});
 
+	/**
+	* This route returns a json objects with required  One Way flights from other Airlines.
+	*
+	*/
+
 		app.get('/api/flights/searchOutSide/:origin/:destination/:departureDateTime/:classs' , function(req, res){
 		var oneWay = {
 			"origin": req.params.origin,
@@ -104,14 +109,16 @@ module.exports = function(app) {
 
 				else{
 				res.json(data);
-				console.log(data);
 			}
 		
 	});
 
 		});
 
-
+/**
+	* This route returns a json objects with required  RoundTrip flights from other Airlines.
+	*
+	*/
 
 app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:classs', function(req, res) {
         // retrieve params from req.params.{{origin | departingDate | ...}}
@@ -154,6 +161,10 @@ app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:re
          
       
     }); 
+ /**
+	* This route returns a json objects with required  one way flights.
+	*
+	*/
 		app.get('/api/flights/search/:origin/:destination/:departureDateTime/:classs' , function(req, res){
 		var oneWay = {
 			"origin": req.params.origin,
@@ -174,6 +185,11 @@ app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:re
 		});
 
 
+
+/**
+	* This route returns a json objects with required  RoundTrip flights.
+	*
+	*/
 	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:classs', function(req, res) {
         // retrieve params from req.params.{{origin | departingDate | ...}}
         // return this exact format
