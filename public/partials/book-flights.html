@@ -69,7 +69,7 @@
 						<br>
 						<div class="col-sm-12 col-md-12 flight" ng-repeat="flight in departureFlights">
 							<label class="col-sm-2 col-md-2 flight_body">
-								Air Madagascar
+								{{flight.Airline}}
 							</label>
 							<label class="col-sm-2 col-md-2 flight_body">
 								{{flight.departureDateTime | amDateFormat:'HH:mm'}} - {{flight.arrivalDateTime | amDateFormat:'HH:mm'}} <br>
@@ -182,7 +182,7 @@
 							<br>
 							<div class="col-sm-12 col-md-12 flight" ng-repeat="flight in returnFlights">
 								<label class="col-sm-2 col-md-2 flight_body">
-									Air Madagascar
+									{{flight.Airline}}
 								</label>
 								<label class="col-sm-2 col-md-2 flight_body">
 									{{flight.departureDateTime | amDateFormat:'HH:mm'}} - {{flight.arrivalDateTime | amDateFormat:'HH:mm'}} <br>

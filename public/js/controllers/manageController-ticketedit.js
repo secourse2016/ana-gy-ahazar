@@ -1,7 +1,7 @@
 App.controller('manageController-ticketedit', function($scope, ManageSrv, FlightsSrv, $location) {
    var reservationData = ManageSrv.getReservationData();
 
-   console.log("reservation "+reservationData);
+   console.log(reservationData);
    $scope.adults = reservationData.adults;
    $scope.children = reservationData.children;
    $scope.infants = reservationData.infants;
@@ -82,5 +82,9 @@ App.controller('manageController-ticketedit', function($scope, ManageSrv, Flight
 
          $location.url('/manage/ticketinfo');
       });
+   };
+
+   $scope.goBack = function() {
+      $location.url('/manage/ticketinfo');
    }
 });

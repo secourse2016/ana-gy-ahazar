@@ -289,6 +289,7 @@ module.exports = function(app) {
 		flights.getOtherFlights(outGoing, 0, function(err ,data ){
 			if(err) throw err ;
 			else{
+				console.log(data);
 				result.outGoing = data ;
 
 				flights.getOtherFlights(inComing, 0, function(err ,d){

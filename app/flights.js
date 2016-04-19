@@ -578,7 +578,6 @@ var updateReservation = function (bookRef, newInfo, callback){
 
 				res.on('end', function() {
 					var obj = output;
-					console.log(obj);
 					onResult(res.statusCode, obj);
 				});
 			});
@@ -600,6 +599,7 @@ var updateReservation = function (bookRef, newInfo, callback){
 		var getOtherFlights = function(oneway, i, callback){
 			if(i === airlines.length){
 				callback(null,flights);
+				return;
 			}
 
 				var currAirLine =
@@ -621,9 +621,13 @@ var updateReservation = function (bookRef, newInfo, callback){
 					}
 				};
 				makeOnlineRequest(options,function(statusCode, result){
-					flights.push(result);
+					try {
+						var json = JSON.parse(result);
+						flights.push(json);
+					}catch(err) {
 
-					getOtherFlights(oneway, (i + 1), callbac);
+					}
+					getOtherFlights(oneway, (i + 1), callback);
 				});
 		};
 

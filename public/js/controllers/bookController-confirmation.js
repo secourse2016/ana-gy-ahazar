@@ -32,14 +32,12 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 
 
 	$scope.addReservation = function() {
-		console.log('here');
 		var dep_flight = FlightsSrv.getDepartureFlight();
 		var ret_flight = FlightsSrv.getReturnFlight();
 
 		console.log(dep_flight);
 
 		if (FlightsSrv.getFlightType() == "round") {
-			console.log('round');
 			var reservation = {'adults': $scope.adults,
 			'children': $scope.children,
 			'infants': $scope.infants,
@@ -63,7 +61,6 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 			});
 		}
 		else {
-			console.log('one');
 			var reservation = {'adults': $scope.adults,
 			'children': $scope.children,
 			'infants': $scope.infants,
@@ -72,7 +69,6 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 			'type': 'Direct'};
 
 			FlightsSrv.storeReservation(reservation).success(function(response) {
-				console.log(response);
 				if (response == "error") {
 					swal('title','Something went wrong please try again!', 'error');
 				}

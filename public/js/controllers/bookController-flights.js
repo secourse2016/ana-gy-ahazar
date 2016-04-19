@@ -119,18 +119,18 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          var hasFlights = (response.length > 0);
 
          if(search_other){
-         FlightsSrv.getOtherOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected).success(function(res) {
-           $scope.departureFlights.push(res);
+            FlightsSrv.getOtherOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected).success(function(res) {
+               $scope.departureFlights.push(res);
 
-           if (res.length > 0)
-           $scope.dep_empty = false;
-           else
-           $scope.dep_empty = hasFlights;
-         });
-       }
-       else{
-         $scope.dep_empty = !hasFlights;
-       }
+               if (res.length > 0)
+               $scope.dep_empty = false;
+               else
+               $scope.dep_empty = !hasFlights;
+            });
+         }
+         else{
+            $scope.dep_empty = !hasFlights;
+         }
       });
    };
 
@@ -225,10 +225,21 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       var ret_time = $scope.ret_date.getFullYear() + '-' + month + '-' + day;
       FlightsSrv.getOneFlights($scope.ret_airport, $scope.dep_airport, ret_time, $scope.ret_isSelected).success(function(response) {
          $scope.returnFlights = response;
-         if (response.length > 0)
-            $scope.ret_empty = false;
-         else
-            $scope.ret_empty = true;
+         var hasFlights = (response.length > 0);
+
+         if(search_other){
+            FlightsSrv.getOtherOneFlights($scope.ret_airport, $scope.dep_airport, ret_time, $scope.ret_isSelected).success(function(res) {
+               $scope.returnFlights.push(res);
+
+               if (res.length > 0)
+               $scope.ret_empty = false;
+               else
+               $scope.ret_empty = !hasFlights;
+            });
+         }
+         else{
+            $scope.ret_empty = !hasFlights;
+         }
       });
    }
 
@@ -265,15 +276,32 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          $scope.departureFlights = response.outGoing;
          $scope.returnFlights = response.inComing;
 
-         if ($scope.departureFlights.length > 0)
-            $scope.dep_empty = false;
-         else
-            $scope.dep_empty = true;
+         var departureHasFlights = (response.outGoing.length > 0);
+         var returnHasFlights = (response.inComing.length > 0);
 
-         if ($scope.returnFlights.length > 0)
-            $scope.ret_empty = false;
-         else
-            $scope.ret_empty = true;
+         if(search_other){
+            FlightsSrv.getOtherRoundFlights($scope.dep_airport, $scope.ret_airport, dep_time, ret_time, $scope.class).success(function(res) {
+               $scope.departureFlights.push(res.outGoing);
+               $scope.returnFlights.push(res.inComing);
+
+               if (res.outGoing.length > 0)
+               $scope.dep_empty = false;
+               else
+               $scope.dep_empty = !departureHasFlights;
+
+
+               if (res.inComing.length > 0)
+               $scope.ret_empty = false;
+               else
+               $scope.ret_empty = !returnHasFlights;
+
+
+            });
+         }
+         else{
+            $scope.dep_empty = !departureHasFlights;
+            $scope.ret_empty = !returnHasFlights;
+         }
 
       });
    }
@@ -293,10 +321,22 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class).success(function(response) {
          console.log(response);
          $scope.departureFlights = response;
-         if ($scope.departureFlights.length > 0)
-            $scope.dep_empty = false;
-         else
-            $scope.dep_empty = true;
+
+         var hasFlights = (response.length > 0);
+
+         if(search_other){
+            FlightsSrv.getOtherOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class).success(function(res) {
+               $scope.departureFlights.push(res);
+
+               if (res.length > 0)
+               $scope.dep_empty = false;
+               else
+               $scope.dep_empty = !hasFlights;
+            });
+         }
+         else{
+            $scope.dep_empty = !hasFlights;
+         }
       });
    }
 
