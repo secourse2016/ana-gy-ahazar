@@ -366,13 +366,16 @@ var makeOnlineRequest =  function(options, onResult)
 
         res.on('data', function (chunk) {
           //console.log('l'+options.host);
-            output += chunk;
-            console.log(output);
+          // if(typeof chunk == 'object')
+               output += chunk;
+           // console.log(output);
+               
+           
         });
 
         res.on('end', function() {
             var obj = output;
-            //console.log(obj);
+            console.log(obj);
             onResult(res.statusCode, obj);
         });
     });

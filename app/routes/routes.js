@@ -112,6 +112,48 @@ module.exports = function(app) {
 		});
 
 
+
+app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:classs', function(req, res) {
+        // retrieve params from req.params.{{origin | departingDate | ...}}
+        // return this exact format
+          var  outGoing = {    	
+         "origin":        req.params.origin,
+         "destination":   req.params.destination,
+         "departureDateTime": parseInt(req.params.departingDate),
+         "class":         req.params.classs
+         };
+
+          var  inComing = {    	
+         "origin":        req.params.destination,
+         "destination":   req.params.origin,
+         "departureDateTime": parseInt(req.params.returningDate),
+         "class":         req.params.classs
+         };
+         
+          
+          
+          var result = {
+           outGoing : {} ,
+           inComing : {}
+           } ;
+        flights.getOtherFlights(outGoing,function(err ,data ){
+        	if(err) throw err ;
+        	else{
+              result.outGoing = data ;
+             
+              flights.getOtherFlights(inComing,function(err ,d){
+              	if(err) throw err ;
+                result.inComing = d ;
+                res.json(result) ;
+             });
+        	}
+        	
+
+        });
+
+         
+      
+    }); 
 		app.get('/api/flights/search/:origin/:destination/:departureDateTime/:classs' , function(req, res){
 		var oneWay = {
 			"origin": req.params.origin,
