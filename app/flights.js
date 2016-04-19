@@ -156,31 +156,29 @@ var seed = function(callback) {
 	}
 
 	var number = Math.floor(Math.random() * (originOrDestination1.length));
-	var date = new Date ('2016-04-11  3:25 AM');
-	var datePrem = new Date('2016-04-11');
+	var dep_date = moment('2016-04-11', 'YYYY-MM-DD');
+	var dep_dateTime = moment('2016-04-11 03:40 AM', 'YYYY-MM-DD hh:mm A');
 
 	var flights = [];
 
 	/* seeding the flight table back and forth form list originOrDestination1 to originOrDestination2 and vice versa */
-	for (var i = 11; i < 61; i++) {
+	for (var i = 11; i < 62; i++) {
 		for (var j = 0; j < originOrDestination1.length; j++) {
 			var flightDuration = Math.floor(1 + (Math.random() * 16));
-			var dateCode = moment(date).toDate().getTime();
-			var dateArrive = date;
-			dateArrive.setHours(dateArrive.getHours() + flightDuration);
-			dateArrive = moment(dateArrive).toDate().getTime();
-
 			var randomCost = Math.floor(600+Math.random() * 8400);
-      var datePremN = moment(datePrem).toDate().getTime();
+
+			var ret_dateTime = dep_dateTime;
+			ret_dateTime.add(flightDuration, 'h');
+			console.log(dep_date.format('YYYY-MM-DD'));
 
 			var origin = originOrDestination1[j];
 			var destination = originOrDestination2[j];
 			var flight =	{
 				"Airline": "Air Madagascar",
 				"flightNumber": generateFlightnumber(),
-				"departureDate":  datePremN,
-				"departureDateTime":dateCode,
-				"arrivalDateTime": dateArrive,
+				"departureDate":  dep_date.toDate().getTime(),
+				"departureDateTime":dep_dateTime.toDate().getTime(),
+				"arrivalDateTime": ret_dateTime.toDate().getTime(),
 				"class": "economy",
 				"type": "Direct",
 				"tranzit": [],
@@ -210,9 +208,9 @@ var seed = function(callback) {
 			flight =	{
 				"Airline": "Air Madagascar",
 				"flightNumber": generateFlightnumber(),
-				"departureDate": datePremN,
-				"departureDateTime": dateCode,
-				"arrivalDateTime": dateArrive,
+				"departureDate": dep_date.toDate().getTime(),
+				"departureDateTime": dep_dateTime.toDate().getTime(),
+				"arrivalDateTime": ret_dateTime.toDate().getTime(),
 				"class": "economy",
 				"type": "Direct",
 				"tranzit": [],
@@ -239,8 +237,8 @@ var seed = function(callback) {
 
 		}
 
-		date.setDate(date.getDate() + 1);
-		datePrem.setDate(datePrem.getDate() + 1);
+		dep_date.add('1', 'd');
+		dep_dateTime.add('1', 'd');
 	}
 
 	/* seeding the countries table */
@@ -551,12 +549,14 @@ var updateReservation = function (bookRef, newInfo, callback){
 		* @param {Function} callback function that is called after the searching is complete.
 		*/
 		var airlines = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
-		var flightsOne = {
+		flightsOne = {
 			outgoingFlights: []
-		} ;
+		};
 		var getOtherFlightsOneWay = function(oneway, i, callback){
+			console.log(i);
 			if(i === airlines.length){
-				return callback(null,flightsOne);
+				callback(null,flightsOne);
+				return;
 			}
 
 			var currAirLine =
@@ -580,9 +580,8 @@ var updateReservation = function (bookRef, newInfo, callback){
 				makeOnlineRequest(options,function(statusCode, result){
 					try {
 						var json = JSON.parse(result);
-
-
-						flightsOne.outgoingFlights.concat(json.outgoingFlights);
+console.log(json);
+						flightsOne.outgoingFlights = concat(flightsOne.outgoingFlights, json.outgoingFlights);
 					}catch(err) {
 
 					}
@@ -599,7 +598,7 @@ var updateReservation = function (bookRef, newInfo, callback){
 		*
 		* @param {Function} callback function that is called after the searching is complete.
 		*/
-		var flightsRound = {
+		flightsRound = {
 			outgoingFlights: [],
 			returnFlights: []
 		};

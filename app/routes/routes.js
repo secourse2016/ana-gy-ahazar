@@ -253,6 +253,10 @@ module.exports = function(app) {
 			"class": req.params.class
 		};
 
+		flightsOne = {
+			outgoingFlights: []
+		};
+
 		flights.getOtherFlightsOneWay(oneWay , 0, function(err ,data){
 			if (err)
 			throw err;
@@ -275,6 +279,11 @@ module.exports = function(app) {
 			"departureDateTime": parseInt(req.params.departingDate),
 			"returnDate": parseInt(req.params.returningDate),
 			"class":         req.params.class
+		};
+
+		flightsRound = {
+			outgoingFlights: [],
+			returnFlights: []
 		};
 
 		flights.getOtherFlightsRound(constraints, 0, function(err ,data ){
