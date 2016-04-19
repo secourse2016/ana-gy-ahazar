@@ -15,7 +15,7 @@ var connect = function(dbURL, callback) {
 
     db = database;
 
-    if(callback) callback();
+    if(callback) callback(err, database);
   });
 };
 
@@ -39,8 +39,8 @@ var clear = function(callback) {
     collections.forEach(function (c) {
       db.collection(c.name).removeMany();
     });
-    done();
-  }).catch(done);
+    callback();
+  }).catch(callback);
 };
 
 /**
