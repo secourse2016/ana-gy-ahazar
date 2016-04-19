@@ -98,12 +98,19 @@ module.exports = function(app) {
 			"class": req.params.class
 		};
 
+		var result = {
+			outgoingFlights : {}
+		};
+
 		flights.getOneWayFlights(oneWay , function(err ,data){
 			if (err)
 			throw err;
 
-			else
-			res.json(data);
+			else{
+				result.outgoingFlights = data;
+
+				res.json(result);
+			}
 		});
 	});
 
@@ -133,18 +140,18 @@ module.exports = function(app) {
 		};
 
 		var result = {
-			outGoing : {} ,
-			inComing : {}
+			outgoingFlights : {} ,
+			returnFlights : {}
 		};
 
 		flights.getOneWayFlights(outGoing,function(err ,data){
 			if(err) throw err ;
 			else{
-				result.outGoing = data ;
+				result.outgoingFlights = data ;
 
 				flights.getOneWayFlights(inComing,function(err ,d){
 					if(err) throw err ;
-					result.inComing = d ;
+					result.returnFlights = d ;
 
 					res.json(result) ;
 				});
@@ -252,7 +259,8 @@ module.exports = function(app) {
 			"departureDateTime": parseInt(req.params.departureDateTime),
 			"class": req.params.class
 		};
-		flights.getOtherFlights(oneWay , 0, function(err ,data){
+
+		flights.getOtherFlightsOneWay(oneWay , 0, function(err ,data){
 			if (err)
 			throw err;
 
@@ -268,35 +276,18 @@ module.exports = function(app) {
 	*/
 	app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
 
-		var  outGoing = {
+		var  constraints = {
 			"origin":        req.params.origin,
 			"destination":   req.params.destination,
 			"departureDateTime": parseInt(req.params.departingDate),
+			"returnDate": parseInt(req.params.returningDate),
 			"class":         req.params.class
 		};
 
-		var  inComing = {
-			"origin":        req.params.destination,
-			"destination":   req.params.origin,
-			"departureDateTime": parseInt(req.params.returningDate),
-			"class":         req.params.classs
-		};
-
-		var result = {
-			outGoing : {} ,
-			inComing : {}
-		} ;
-		flights.getOtherFlights(outGoing, 0, function(err ,data ){
+		flights.getOtherFlightsRound(constraints, 0, function(err ,data ){
 			if(err) throw err ;
 			else{
-				console.log(data);
-				result.outGoing = data ;
-
-				flights.getOtherFlights(inComing, 0, function(err ,d){
-					if(err) throw err ;
-					result.inComing = d ;
-					res.json(result) ;
-				});
+				res.json(data);
 			}
 		});
 	});
