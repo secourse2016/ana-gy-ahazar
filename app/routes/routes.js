@@ -88,9 +88,6 @@ module.exports = function(app) {
 	*/
 	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:class' , function(req, res){
 
-		//var dep_date = new Date(req.params.departureDateTime);
-		//dep_date = dep_date.getFullYear() + '' + dep_date.getMonth() + '' + dep_date.getDate();
-
 		var oneWay = {
 			"origin": req.params.origin,
 			"destination": req.params.destination,
@@ -120,22 +117,18 @@ module.exports = function(app) {
 	*/
 	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
 
-		var dep_date = new Date(req.params.departingDate);
-		dep_date = dep_date.getFullYear() + '' + dep_date.getMonth() + '' + dep_date.getDate();
-		var ret_date = new Date(req.params.returningDate);
-		ret_date = ret_date.getFullYear() + '' +ret_date.getMonth() + '' + ret_date.getDate();
 
 		var  outGoing = {
 			"origin":        req.params.origin,
 			"destination":   req.params.destination,
-			"departureDate": dep_date,
+			"departureDate": parseInt(req.params.departingDate),
 			"class": req.params.class
 		};
 
 		var  inComing = {
 			"origin":        req.params.destination,
 			"destination":   req.params.origin,
-			"departureDate": ret_date,
+			"departureDate": parseInt(req.params.returningDate),
 			"class": req.params.class
 		};
 

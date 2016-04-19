@@ -434,7 +434,6 @@ var updateReservation = function (bookRef, newInfo, callback){
 					callback(err) ;
 				}
 				else {
-          console.log(oneway.departureDate);
 					for( i=0; i<data.length ;i++){
 						var currFlight = data[i];
 						var aircraft = currFlight.aircraft;
