@@ -1,6 +1,12 @@
 var moment = require('moment');
 var db = require('./db');
 var fs = require('fs');
+var http = require('http');
+
+
+
+
+
 
 
 
@@ -419,7 +425,123 @@ var cancelReservation = function (bookRef, callback) {
 
 }
 
+
+
+/*
+search for all one way flights
+// */
+
+var getOneWayFlights = function(oneway,callback){
+      var flights = [] ;
+
+       db.getDatabase().collection('flights').find(oneway).toArray(function(err,data){
+              if(err){
+                callback(err) ;
+              }
+              else {
+                for( i=0; i<data.length ;i++){
+
+        
+                     var currFlight = data[i];
+                     var aircraft = currFlight.aircraft
+                     var aircraftType = aircraft.aircraftType;
+                     var aircraftModel = aircraft.aircraftModel ;
+                     var flight = {
+                        "aircraftType":  aircraftType,
+                        "aircraftModel": aircraftModel,
+                        "flightNumber": currFlight['flightNumber'],
+                        "departureDateTime": currFlight['departureDateTime'],
+                        "arrivalDateTime": currFlight['arrivalDateTime'],
+                        "origin": currFlight['origin'],
+                        "destination": currFlight['destination'],
+                        "cost": currFlight['cost'],
+                        "currency": currFlight['currency'],
+                        "class": currFlight['class'],  
+                        "Airline": currFlight['Airline']        
+                    };
+                    flights.push(flight) ;
+                  }
+
+
+                callback(null,flights) ;
+              }
+    });
+}; 
+
+
+/**
+* This function make http request
+* @param {onResult} callback function that is called after the requesting is complete.
+*/
+var makeOnlineRequest =  function(options, onResult)
+{    
+    var req = http.request(options, function(res)
+    {
+        
+        var output = '';
+        res.setEncoding('utf8');
+
+        res.on('data', function (chunk) {
+        
+               output += chunk;
+
+        });
+
+        res.on('end', function() {
+            var obj = output;
+            console.log(obj);
+            onResult(res.statusCode, obj);
+        });
+    });
+
+    req.on('error', function(err) {
+      throw err;
+    });
+
+    req.end();
+};
+
+/**
+* This function search for flights in airlines.json .
+*
+* @param {Function} callback function that is called after the searching is complete.
+*/
+var getOtherFlights = function(oneway,callback){
+         
+        var airlines = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
+        var flights = [] ;
+
+       for (var i = 0; i < airlines.length; i++) {
+            var currAirLine =
+            {
+                "airline": airlines[i].airline ,
+                "IP": airlines[i].IP
+                   }
+          
+
+           var ip = currAirLine['IP']; 
+
+
+          var options = {
+               host: ip ,
+               path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.departureDateTime+'/'+oneway.class+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
+               method: 'GET',
+               headers: {
+                         'Content-Type': 'application/json'
+                         }
+                 };
+            makeOnlineRequest(options,function(statusCode, result){
+            flights.push(result);
+            
+         });
+     
+        }; 
+        callback(null,flights) ;
+   };
+
+
 module.exports = {
+
 	getCountries: getCountries,
 	getAirports: getAirports,
 	randomBoolean: randomBoolean,
@@ -430,5 +552,8 @@ module.exports = {
 	getReservation: getReservation,
 	updateReservation: updateReservation,
 	cancelReservation: cancelReservation,
+  getOneWayFlights : getOneWayFlights ,
+  getOtherFlights :getOtherFlights ,
+  makeOnlineRequest : makeOnlineRequest ,
 
 };

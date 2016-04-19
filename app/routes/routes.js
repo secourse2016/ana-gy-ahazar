@@ -122,4 +122,146 @@ module.exports = function(app) {
 		});
 
 	});
+
+	/**
+	* This route returns a json objects with required  One Way flights from other Airlines.
+	*
+	*/
+
+		app.get('/api/flights/searchOutSide/:origin/:destination/:departureDateTime/:classs' , function(req, res){
+		var oneWay = {
+			"origin": req.params.origin,
+			"destination": req.params.destination,
+		  	"departureDateTime": parseInt(req.params.departureDateTime),
+			"class": req.params.classs
+		};
+		flights.getOtherFlights(oneWay , function(err ,data){
+			if (err)
+				throw err;
+
+				else{
+				res.json(data);
+			}
+		
+	});
+
+		});
+
+/**
+	* This route returns a json objects with required  RoundTrip flights from other Airlines.
+	*
+	*/
+
+app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:classs', function(req, res) {
+        // retrieve params from req.params.{{origin | departingDate | ...}}
+        // return this exact format
+          var  outGoing = {    	
+         "origin":        req.params.origin,
+         "destination":   req.params.destination,
+         "departureDateTime": parseInt(req.params.departingDate),
+         "class":         req.params.classs
+         };
+
+          var  inComing = {    	
+         "origin":        req.params.destination,
+         "destination":   req.params.origin,
+         "departureDateTime": parseInt(req.params.returningDate),
+         "class":         req.params.classs
+         };
+         
+          
+          
+          var result = {
+           outGoing : {} ,
+           inComing : {}
+           } ;
+        flights.getOtherFlights(outGoing,function(err ,data ){
+        	if(err) throw err ;
+        	else{
+              result.outGoing = data ;
+             
+              flights.getOtherFlights(inComing,function(err ,d){
+              	if(err) throw err ;
+                result.inComing = d ;
+                res.json(result) ;
+             });
+        	}
+        	
+
+        });
+
+         
+      
+    }); 
+ /**
+	* This route returns a json objects with required  one way flights.
+	*
+	*/
+		app.get('/api/flights/search/:origin/:destination/:departureDateTime/:classs' , function(req, res){
+		var oneWay = {
+			"origin": req.params.origin,
+			"destination": req.params.destination,
+			//"departureDateTime": parseInt(req.params.departureDateTime),
+			"class": req.params.classs
+		};
+		flights.getOneWayFlights(oneWay , function(err ,data){
+			if (err)
+				throw err;
+
+				else
+				res.json(data);
+			
+		
+	});
+
+		});
+
+
+
+/**
+	* This route returns a json objects with required  RoundTrip flights.
+	*
+	*/
+	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:classs', function(req, res) {
+        // retrieve params from req.params.{{origin | departingDate | ...}}
+        // return this exact format
+          var  outGoing = {    	
+         "origin":        req.params.origin,
+         "destination":   req.params.destination,
+         "departureDateTime": parseInt(req.params.departingDate),
+         "class":         req.params.classs
+         };
+
+          var  inComing = {    	
+         "origin":        req.params.destination,
+         "destination":   req.params.origin,
+         "departureDateTime": parseInt(req.params.returningDate),
+         "class":         req.params.classs
+         };
+         
+          
+          
+          var result = {
+           outGoing : {} ,
+           inComing : {}
+           } ;
+        flights.getOneWayFlights(outGoing,function(err ,data ){
+        	if(err) throw err ;
+        	else{
+              result.outGoing = data ;
+             
+              flights.getOneWayFlights(inComing,function(err ,d){
+              	if(err) throw err ;
+                result.inComing = d ;
+                res.json(result) ;
+             });
+        	}
+        	
+
+        });
+
+         
+      
+    }); 
+
 };
