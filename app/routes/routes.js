@@ -14,7 +14,6 @@ module.exports = function(app) {
 		res.sendFile('index.html');
 	});
 
-
     /**
 	 * This route deletes the database
 	 *
