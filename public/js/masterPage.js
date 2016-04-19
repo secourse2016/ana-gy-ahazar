@@ -1,7 +1,7 @@
 var currentIndex = 0; // index for background and promo.
 var totalCount = 4; // total number of background images and promos.
-var promos = ['Experience Peace, Comfort & Luxury', 'Great Flight Deals To Domestic Destinations',
-'Air Madagascar, The Natural Choice', 'Have Safe Flights'];
+var promos = ['Experience Comfort & Luxury', 'Great Flight Deals To Domestic and international Destinations',
+'Air Madagascar, The Natural Choice', 'Experience of a lifetime'];
 
 /*
 Every 4.5 seconds change the background image and change the text promo text.
