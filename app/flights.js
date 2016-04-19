@@ -3,13 +3,6 @@ var db = require('./db');
 var fs = require('fs');
 var http = require('http');
 
-
-
-
-
-
-
-
 /**
 * This function return an array of length 1 of a specific reservation info.
 * @param {Function} callback function, {String} the booking reference
@@ -24,7 +17,7 @@ var getReservation = function(callback, bookingReference) {
 /**
 * This function returns a JSON object with all the countries.
 *
-* @param {Funtion} callback function that is called after retrieving the countries.
+* @param {Function} callback function that is called after retrieving the countries.
 * @returns {JSONObject}
 */
 var getCountries = function(callback) {
@@ -36,7 +29,7 @@ var getCountries = function(callback) {
 /**
 * This function returns a JSON object with all the Airports.
 *
-* @param {Funtion} callback function that is called after retrieving the airports.
+* @param {Function} callback function that is called after retrieving the airports.
 * @returns {JSONObject}
 */
 var getAirports = function(callback) {
@@ -44,7 +37,6 @@ var getAirports = function(callback) {
 		callback(err, docs);
 	});
 };
-
 
 /**
 * This function return a random boolean value.
@@ -80,7 +72,7 @@ var generateFlightnumber = function() {
 	for(var i = 0; i < 2; i++) {
 		text += letters.charAt(Math.floor(Math.random() * letters.length));
 	}
-	for(var i = 0; i < 5; i++) {
+	for(var i = 0; i < 4; i++) {
 		text += numbers.charAt(Math.floor(Math.random() * numbers.length));
 	}
 
@@ -93,33 +85,33 @@ var generateFlightnumber = function() {
 * @returns {JSONObject}
 */
 var generatePromo = function() {
-  //genereating a code
-  var code = "";
-  for (var i = 0; i < 8; i++) {
-  	if(randomBoolean()){
-      //Capital Letter
-      var letter = String.fromCharCode(65 + (Math.floor(Math.random() * 26)));
-      code += letter;
-  }
-  else{
-      //number
-      var number = Math.floor(Math.random() * 10);
-      code += number;
-  }
-}
+	//genereating a code
+	var code = "";
+	for (var i = 0; i < 8; i++) {
+		if(randomBoolean()){
+			//Capital Letter
+			var letter = String.fromCharCode(65 + (Math.floor(Math.random() * 26)));
+			code += letter;
+		}
+		else{
+			//number
+			var number = Math.floor(Math.random() * 10);
+			code += number;
+		}
+	}
 
-  //genereating a discount
-  var discount = ((Math.floor(Math.random() * 100)) + 1) / 100;
+	//genereating a discount
+	var discount = ((Math.floor(Math.random() * 100)) + 1) / 100;
 
-  var valid = true;
+	var valid = true;
 
-  var promoCode = {
-  	"code": code,
-  	"discount": discount,
-  	"valid": valid
-  };
+	var promoCode = {
+		"code": code,
+		"discount": discount,
+		"valid": valid
+	};
 
-  return promoCode;
+	return promoCode;
 };
 
 /**
@@ -128,7 +120,6 @@ var generatePromo = function() {
 * @param {Function} callback function that is called after the seeding is complete.
 */
 var seed = function(callback) {
-
 	/* static arrays */
 	var aircraftTypes =["Aerospatiale", "ATR", "Airbus", "Antonov", "Beechcraft", "Boeing", "BAC" , "BAE", "Comac",
 	"Convair", "de Havilland", "Bombardier", "Canadair",
@@ -136,10 +127,10 @@ var seed = function(callback) {
 	"McDonnell Douglas", "Mitsubishi", "Saab", "Sukhoi", "Tupolev", "Vickers", "Yakovlev"];
 
 	var originOrDestination1 =["BOM", "CAI", "HKG", "JNB", "RUH",
-	"LHR", "LAS", "LAX", " FRA", "CIA"];
+	"LHR", "LCF", "LAX", " FRA", "FCO"];
 
-	var originOrDestination2 =["DEL", "JED", "KNH", "CPT", "JED",
-	"JFK", "LAX", "SFO", "THF", "LIN"];
+	var originOrDestination2 =["DEL", "JED", "TPE", "CPT", "JED",
+	"JFK", "LAX", "SFO", "TXL", "LIN"];
 
 	var airCrafts = [];
 
@@ -165,8 +156,8 @@ var seed = function(callback) {
 	}
 
 	var number = Math.floor(Math.random() * (originOrDestination1.length));
-	var randomCost = Math.floor(600+Math.random() * 8400);
 	var date = new Date ('2016-04-11  3:25 AM');
+	var datePrem = new Date('2016-04-11');
 
 	var flights = [];
 
@@ -179,10 +170,15 @@ var seed = function(callback) {
 			dateArrive.setHours(dateArrive.getHours() + flightDuration);
 			dateArrive = moment(dateArrive).toDate().getTime();
 
+			var randomCost = Math.floor(600+Math.random() * 8400);
+			var datePremN = datePrem.getFullYear() + '' + datePrem.getMonth() + '' + datePrem.getDate();
+
 			var origin = originOrDestination1[j];
 			var destination = originOrDestination2[j];
 			var flight =	{
 				"Airline": "Air Madagascar",
+				"flightNumber": generateFlightnumber(),
+				"departureDate":  datePremN,
 				"departureDateTime":dateCode,
 				"arrivalDateTime": dateArrive,
 				"class": "economy",
@@ -195,20 +191,18 @@ var seed = function(callback) {
 				"cost": randomCost,
 				"currency": "USD",
 				"seatmap": 	[
-				{
-					"seat": 5666,
-					"taken": randomBoolean()
-				}
+					{
+						"seat": 5666,
+						"taken": randomBoolean()
+					}
 				],
 				"aircraft": airCrafts[Math.floor(Math.random() * airCrafts.length)]
 			};
 
 			flights.push(flight);
-			var flightF = JSON.parse(JSON.stringify(flight));
-			flightF.class = "first";
-			flights.push(flightF);
 			var flightB = JSON.parse(JSON.stringify(flight));
 			flightB.class = "business";
+			flightB.cost = parseInt(flightB.cost) + 300;
 			flights.push(flightB);
 
 			origin = originOrDestination2[j];
@@ -216,6 +210,7 @@ var seed = function(callback) {
 			flight =	{
 				"Airline": "Air Madagascar",
 				"flightNumber": generateFlightnumber(),
+				"departureDate": datePremN,
 				"departureDateTime": dateCode,
 				"arrivalDateTime": dateArrive,
 				"class": "economy",
@@ -228,25 +223,24 @@ var seed = function(callback) {
 				"cost": randomCost,
 				"currency": "USD",
 				"seatmap": 	[
-				{
-					"seat": 5666,
-					"taken": randomBoolean()
-				}
+					{
+						"seat": 5666,
+						"taken": randomBoolean()
+					}
 				],
 				"aircraft": airCrafts[Math.floor(Math.random() * airCrafts.length)]
 			};
 
 			flights.push(flight);
-			flightF = JSON.parse(JSON.stringify(flight));
-			flightF.class = "first";
-			flights.push(flightF);
 			flightB = JSON.parse(JSON.stringify(flight));
 			flightB.class = "business";
+			flightB.cost = parseInt(flightB.cost) + 300;
 			flights.push(flightB);
 
 		}
 
 		date.setDate(date.getDate() + 1);
+		datePrem.setDate(datePrem.getDate() + 1);
 	}
 
 	/* seeding the countries table */
@@ -265,47 +259,48 @@ var seed = function(callback) {
 
 	var database = db.getDatabase();
 
-  //clearing the database
-  db.clear(function(){
-    //seeding the database
-    database.collection('airCrafts').insert(airCrafts, function(err, docs) {
-    	if(err){
-    		callback(err,false);
-    	}
-    	else{
-    		database.collection('flights').insert(flights, function(err, docs) {
-    			if(err){
-    				callback(err,false);
-    			}
-    			else{
-    				database.collection('countries').insert(countries, function(err, docs) {
-    					if(err){
-    						callback(err,false);
-    					}
-    					else{
-    						database.collection('airports').insert(airports, function(err, docs) {
-    							if(err){
-    								callback(err,false);
-    							}
-    							else{
-    								database.collection('promotionCodes').insert(promotionCodes, function(err, docs) {
-    									if(err){
-    										callback(err,false);
-    									}
-    									else{
-    										callback(null,true);
-    									}
-    								});
-    							}
-    						});
-    					}
-    				});
-    			}
-    		});
-    	}
-    });
-});
+	//clearing the database
+	db.clear(function(){
+		//seeding the database
+		database.collection('airCrafts').insert(airCrafts, function(err, docs) {
+			if(err){
+				callback(err,false);
+			}
+			else{
+				database.collection('flights').insert(flights, function(err, docs) {
+					if(err){
+						callback(err,false);
+					}
+					else{
+						database.collection('countries').insert(countries, function(err, docs) {
+							if(err){
+								callback(err,false);
+							}
+							else{
+								database.collection('airports').insert(airports, function(err, docs) {
+									if(err){
+										callback(err,false);
+									}
+									else{
+										database.collection('promotionCodes').insert(promotionCodes, function(err, docs) {
+											if(err){
+												callback(err,false);
+											}
+											else{
+												callback(null,true);
+											}
+										});
+									}
+								});
+							}
+						});
+					}
+				});
+			}
+		});
+	});
 };
+
 //updating a reservation of a given booking reference with given new information
 var updateReservation = function (bookRef, newInfo, callback){
 
@@ -337,8 +332,8 @@ var updateReservation = function (bookRef, newInfo, callback){
 
 		}
 
-		if(adults.length==0)
-			finalAdults = adults;
+		if(adults.length === 0)
+		finalAdults = adults;
 
 		db.getDatabase().collection('reservations').updateOne(
 			{booking_ref_number: bookRef},
@@ -353,207 +348,304 @@ var updateReservation = function (bookRef, newInfo, callback){
 
 
 
-		for (var i=0; i<children.length; i++) {
-			var passport_number = children[i].passport_number;
-			var issue_date = children[i].issue_date;
-			var expiry_date = children[i].expiry_date;
+			for (var i=0; i<children.length; i++) {
+				var passport_number = children[i].passport_number;
+				var issue_date = children[i].issue_date;
+				var expiry_date = children[i].expiry_date;
 
-			newChildren[i].passport_number = passport_number;
-			newChildren[i].issue_date = issue_date;
-			newChildren[i].expiry_date = expiry_date;
-			finalChildren.push(newChildren[i]);
-
-		}
-
-		if(children.length==0)
-			finalChildren = children;
-
-		db.getDatabase().collection('reservations').updateOne(
-			{booking_ref_number: bookRef},
-			{ $set:
-				{
-					children: finalChildren
-				}
-			},
-			function(err, results) {
+				newChildren[i].passport_number = passport_number;
+				newChildren[i].issue_date = issue_date;
+				newChildren[i].expiry_date = expiry_date;
+				finalChildren.push(newChildren[i]);
 
 			}
+
+			if(children.length === 0)
+			finalChildren = children;
+
+			db.getDatabase().collection('reservations').updateOne(
+				{booking_ref_number: bookRef},
+				{ $set:
+					{
+						children: finalChildren
+					}
+				},
+				function(err, results) {
+
+				}
 			);
 
 
 
-		for (var i=0; i<infants.length; i++) {
-			var passport_number = infants[i].passport_number;
-			var issue_date = infants[i].issue_date;
-			var expiry = infants[i].expiry;
+			for (var i=0; i<infants.length; i++) {
+				var passport_number = infants[i].passport_number;
+				var issue_date = infants[i].issue_date;
+				var expiry = infants[i].expiry;
 
-			newInfants[i].passport_number = passport_number;
-			newInfants[i].issue_date = issue_date;
-			newInfants[i].expiry = expiry_date;
+				newInfants[i].passport_number = passport_number;
+				newInfants[i].issue_date = issue_date;
+				newInfants[i].expiry = expiry_date;
 
-			finalInfants.push(newInfants[i]);
+				finalInfants.push(newInfants[i]);
 
-		}
+			}
 
-		if (infants.length==0)
+			if (infants.length === 0)
 			finalInfants=infants;
 
-		db.getDatabase().collection('reservations').updateOne(
-			{booking_ref_number: bookRef},
-			{ $set:
-				{
-					infants: finalInfants
-				}
-			},
-			function(err, results) {
+			db.getDatabase().collection('reservations').updateOne(
+				{booking_ref_number: bookRef},
+				{ $set:
+					{
+						infants: finalInfants
+					}
+				},
+				function(err, results) {
+
+				});
+				callback();
+			});
+
+		};
+
+		//deleting/cancelling a reservation of a given booking reference
+		var cancelReservation = function (bookRef, callback) {
+			db.getDatabase().collection('reservations').find({booking_ref_number : bookRef}).toArray(function (err,record){
+				if(err) throw err;
+
+				db.getDatabase().collection('reservations').remove({'booking_ref_number' : bookRef },1);
+				callback();
 
 			});
-		callback();
-	});
 
-};
+		};
 
-//deleting/cancelling a reservation of a given booking reference
-var cancelReservation = function (bookRef, callback) {
-	db.getDatabase().collection('reservations').find({booking_ref_number : bookRef}).toArray(function (err,record){
-		if(err) throw err;
+		/**
+		* This function searchs for one way trip flights.
+		*
+		* @param {JSONObject} search constraints, {Function} callback function that is called after the search is complete.
+		* @returns {JSONObject}
+		*/
+		var getOneWayFlights = function(oneway, callback){
+			var flights = [] ;
 
-		db.getDatabase().collection('reservations').remove({'booking_ref_number' : bookRef },1);
-		callback();
+			db.getDatabase().collection('flights').find(oneway).toArray(function(err,data){
+				if(err){
+					callback(err) ;
+				}
+				else {
+					for( i=0; i<data.length ;i++){
+						var currFlight = data[i];
+						var aircraft = currFlight.aircraft;
+						var aircraftType = aircraft.aircraftType;
+						var aircraftModel = aircraft.aircraftModel ;
+						var flight =	{
+							"aircraftType":  aircraftType,
+							"aircraftModel": aircraftModel,
+							"flightNumber": currFlight.flightNumber,
+							"departureDateTime": currFlight.departureDateTime,
+							"arrivalDateTime": currFlight.arrivalDateTime,
+							"origin": currFlight.origin,
+							"destination": currFlight.destination,
+							"cost": currFlight.cost,
+							"currency": currFlight.currency,
+							"class": currFlight.class,
+							"Airline": currFlight.Airline
+						};
+						flights.push(flight) ;
+					}
 
-	});
+					callback(null,flights) ;
+				}
+			});
+		};
 
-}
+		/**
+		* This function adds a reservation to the database and generates a unique booking reference.
+		*
+		* @param {JSONObject} reservation, {Function} callback function that is called after the insertion is complete.
+		*/
+		var reserve = function(reserve_info, callback){
+			var code = "";
 
+			for (var i = 0; i < 15; i++) {
+				if(randomBoolean()){
+					//Capital Letter
+					var letter = String.fromCharCode(65 + (Math.floor(Math.random() * 26)));
+					code += letter;
+				}
+				else{
+					//number
+					var number = Math.floor(Math.random() * 10);
+					code += number;
+				}
+			}
 
+			db.getDatabase().collection('reservations').count({"booking_ref_number": code}, function(err, count) {
+				if(count === 0){
+					reserve_info.booking_ref_number = code;
+					db.getDatabase().collection('reservations').insert(reserve_info, function(err, docs) {
+						if(err){
+							callback(err, null);
+						}
+						else{
+							callback(null, code);
+						}
+					});
+				}
+				else{
+					reserve(reserve_info, callback);
+				}
+			});
+		};
 
-/*
-search for all one way flights
-// */
-
-var getOneWayFlights = function(oneway,callback){
-      var flights = [] ;
-
-       db.getDatabase().collection('flights').find(oneway).toArray(function(err,data){
-              if(err){
-                callback(err) ;
-              }
-              else {
-                for( i=0; i<data.length ;i++){
-
-        
-                     var currFlight = data[i];
-                     var aircraft = currFlight.aircraft
-                     var aircraftType = aircraft.aircraftType;
-                     var aircraftModel = aircraft.aircraftModel ;
-                     var flight = {
-                        "aircraftType":  aircraftType,
-                        "aircraftModel": aircraftModel,
-                        "flightNumber": currFlight['flightNumber'],
-                        "departureDateTime": currFlight['departureDateTime'],
-                        "arrivalDateTime": currFlight['arrivalDateTime'],
-                        "origin": currFlight['origin'],
-                        "destination": currFlight['destination'],
-                        "cost": currFlight['cost'],
-                        "currency": currFlight['currency'],
-                        "class": currFlight['class'],  
-                        "Airline": currFlight['Airline']        
-                    };
-                    flights.push(flight) ;
-                  }
-
-
-                callback(null,flights) ;
-              }
-    });
-}; 
-
-
-/**
-* This function make http request
-* @param {onResult} callback function that is called after the requesting is complete.
-*/
-var makeOnlineRequest =  function(options, onResult)
-{    
-    var req = http.request(options, function(res)
-    {
-        
-        var output = '';
-        res.setEncoding('utf8');
-
-        res.on('data', function (chunk) {
-        
-               output += chunk;
-
-        });
-
-        res.on('end', function() {
-            var obj = output;
-            console.log(obj);
-            onResult(res.statusCode, obj);
-        });
-    });
-
-    req.on('error', function(err) {
-      throw err;
-    });
-
-    req.end();
-};
-
-/**
-* This function search for flights in airlines.json .
-*
-* @param {Function} callback function that is called after the searching is complete.
-*/
-var getOtherFlights = function(oneway,callback){
-         
-        var airlines = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
-        var flights = [] ;
-
-       for (var i = 0; i < airlines.length; i++) {
-            var currAirLine =
-            {
-                "airline": airlines[i].airline ,
-                "IP": airlines[i].IP
-                   }
-          
-
-           var ip = currAirLine['IP']; 
+		/**
+		* This function adds a feedback to the database.
+		*
+		* @param {JSONObject} feedback, {Function} callback function that is called after the insertion is complete.
+		*/
+		var addFeedback = function (feed, callback){
+			db.getDatabase().collection('feedbacks').insert(feed, function(err, docs) {
+				if (err){
+					callback(err , null);
+				}else{
+					callback(null,docs);
+				}
+			});
+		};
 
 
-          var options = {
-               host: ip ,
-               path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.departureDateTime+'/'+oneway.class+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
-               method: 'GET',
-               headers: {
-                         'Content-Type': 'application/json'
-                         }
-                 };
-            makeOnlineRequest(options,function(statusCode, result){
-            flights.push(result);
-            
-         });
-     
-        }; 
-        callback(null,flights) ;
-   };
+
+		/*
+		search for all one way flights
+		// */
+
+		var getOneWayFlights = function(oneway,callback){
+			var flights = [] ;
+
+			db.getDatabase().collection('flights').find(oneway).toArray(function(err,data){
+				if(err){
+					callback(err) ;
+				}
+				else {
+					for( i=0; i<data.length ;i++){
 
 
-module.exports = {
+						var currFlight = data[i];
+						var aircraft = currFlight.aircraft
+						var aircraftType = aircraft.aircraftType;
+						var aircraftModel = aircraft.aircraftModel ;
+						var flight = {
+							"aircraftType":  aircraftType,
+							"aircraftModel": aircraftModel,
+							"flightNumber": currFlight['flightNumber'],
+							"departureDateTime": currFlight['departureDateTime'],
+							"arrivalDateTime": currFlight['arrivalDateTime'],
+							"origin": currFlight['origin'],
+							"destination": currFlight['destination'],
+							"cost": currFlight['cost'],
+							"currency": currFlight['currency'],
+							"class": currFlight['class'],
+							"Airline": currFlight['Airline']
+						};
+						flights.push(flight) ;
+					}
 
-	getCountries: getCountries,
-	getAirports: getAirports,
-	randomBoolean: randomBoolean,
-	chooseRandomElement: chooseRandomElement,
-	generateFlightnumber: generateFlightnumber,
-	seed: seed,
-	generatePromo: generatePromo,
-	getReservation: getReservation,
-	updateReservation: updateReservation,
-	cancelReservation: cancelReservation,
-  getOneWayFlights : getOneWayFlights ,
-  getOtherFlights :getOtherFlights ,
-  makeOnlineRequest : makeOnlineRequest ,
 
-};
+					callback(null,flights) ;
+				}
+			});
+		};
+
+
+		/**
+		* This function make http request
+		* @param {onResult} callback function that is called after the requesting is complete.
+		*/
+		var makeOnlineRequest =  function(options, onResult)
+		{
+			var req = http.request(options, function(res)
+			{
+
+				var output = '';
+				res.setEncoding('utf8');
+
+				res.on('data', function (chunk) {
+
+					output += chunk;
+
+				});
+
+				res.on('end', function() {
+					var obj = output;
+					onResult(res.statusCode, obj);
+				});
+			});
+
+			req.on('error', function(err) {
+				throw err;
+			});
+
+			req.end();
+		};
+
+		/**
+		* This function search for flights in airlines.json .
+		*
+		* @param {Function} callback function that is called after the searching is complete.
+		*/
+		var airlines = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
+		var flights = [] ;
+		var getOtherFlights = function(oneway, i, callback){
+			if(i === airlines.length){
+				callback(null,flights);
+				return;
+			}
+
+				var currAirLine =
+				{
+					"airline": airlines[i].airline ,
+					"IP": airlines[i].IP
+				}
+
+
+				var ip = currAirLine['IP'];
+
+
+				var options = {
+					host: ip ,
+					path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.departureDateTime+'/'+oneway.class+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				};
+				makeOnlineRequest(options,function(statusCode, result){
+					try {
+						var json = JSON.parse(result);
+						flights.push(json);
+					}catch(err) {
+
+					}
+					getOtherFlights(oneway, (i + 1), callback);
+				});
+		};
+
+
+		module.exports = {
+			getCountries: getCountries,
+			getAirports: getAirports,
+			randomBoolean: randomBoolean,
+			chooseRandomElement: chooseRandomElement,
+			generateFlightnumber: generateFlightnumber,
+			seed: seed,
+			addFeedback:addFeedback,
+			getOneWayFlights:getOneWayFlights,
+			reserve:reserve,
+			generatePromo: generatePromo,
+			getReservation: getReservation,
+			updateReservation: updateReservation,
+			cancelReservation: cancelReservation,
+			getOtherFlights :getOtherFlights ,
+			makeOnlineRequest : makeOnlineRequest
+		};

@@ -18,11 +18,11 @@
                </div>
                <div class="col-sm-4 col-md-4">
                   <div ng-class="{'has-error' : manageSearchForm.last_name.$invalid &&  (submitted || manageSearchForm.last_name.$dirty)}">
-                     <input type="text" name="last_name" ng-model="last_name" class="form-control" placeholder="Last name" required>
+                     <input type="text" name="last_name" autocomplete="off" ng-model="last_name" class="form-control" placeholder="Last name" required>
                      <p ng-show="manageSearchForm.last_name.$error.required && (submitted || manageSearchForm.last_name.$dirty)" class="help-block">Last Name is required.</p>
                   </div>
                   <div ng-class="{'has-error' : manageSearchForm.reference.$invalid &&  (submitted || manageSearchForm.reference.$dirty)}">
-                     <input type="text" name="reference" ng-model="reference" class="form-control" placeholder="Booking reference" required>
+                     <input type="text" name="reference" autocomplete="off" ng-model="reference" class="form-control" placeholder="Booking reference" required>
                      <p ng-show="manageSearchForm.reference.$error.required && (submitted || manageSearchForm.reference.$dirty)" class="help-block">Booking Number is required.</p>
                   </div>
                </div>

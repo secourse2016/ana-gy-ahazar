@@ -1,19 +1,91 @@
-App.controller('bookController-confirmation', function($scope) {
-	$scope.title = 'Mr.';
-	$scope.firstName = 'Mohamed';
-	$scope.lastName = "Waheed";
-	$scope.dateOfBirth = "13/13/2013";
-	$scope.nationality = "Egyptian" ;
-	$scope.passport = "1234";
-	$scope.origin = "Miami" ;
-	$scope.destination = "Malibu" ;
-	$scope.departureDate = "1/5/2778" ;
-	$scope.returnDate = "5/5/2868";
-	$scope.class = "First" ;
-	$scope.phone = "+201097642897";
-	$scope.email = "mohammed.waheed44@gmail.com";
-	$scope.emailEmg = "mdsfafa@yahoo.com" ;
-	$scope.phoneEmg = "+201097642897";
-	$scope.mealPreference = "None";
-	$scope.specialNeed = "None";
+App.controller('bookController-confirmation', function($scope, FlightsSrv, PersonalSrv, $location) {
+
+	// Departure Flight Info
+	var departureFlight = FlightsSrv.getDepartureFlight();
+	$scope.departureOrigin = departureFlight.origin;
+	$scope.departureDestination = departureFlight.destination;
+	$scope.departureDepDate = departureFlight.departureDateTime;
+	$scope.departureReturnDate = departureFlight.arrivalDateTime;
+	$scope.departureClass = departureFlight.class;
+
+	// Return Flight Info
+	var returnFlight = FlightsSrv.getReturnFlight();
+	if (typeof returnFlight != 'undefined') {
+		$scope.returnOrigin = returnFlight.origin;
+		$scope.returnDestination = returnFlight.destination;
+		$scope.returnDepDate = returnFlight.departureDateTime;
+		$scope.returnReturnDate = returnFlight.arrivalDateTime;
+		$scope.returnClass = returnFlight.class;
+
+		$scope.showReturn = true;
+	}
+	else {
+		$scope.showReturn = false;
+	}
+
+
+	$scope.adults = PersonalSrv.getAdultsInfo();
+	$scope.children = PersonalSrv.getChildrenInfo();
+	$scope.infants = PersonalSrv.getInfantsInfo();
+
+	$scope.total_price = FlightsSrv.getTotalPrice();
+
+
+	$scope.addReservation = function() {
+		var dep_flight = FlightsSrv.getDepartureFlight();
+		var ret_flight = FlightsSrv.getReturnFlight();
+
+		console.log(dep_flight);
+
+		if (FlightsSrv.getFlightType() == "round") {
+			var reservation = {'adults': $scope.adults,
+			'children': $scope.children,
+			'infants': $scope.infants,
+			'dep_flight': dep_flight,
+			'ret_flight': ret_flight,
+			'class': $scope.class,
+			'type': 'Direct'};
+			FlightsSrv.storeReservation(reservation).success(function(response) {
+				console.log(response);
+				if (response == "error") {
+					swal('Something went wrong please try again!', 'error');
+				}
+				else {
+					swal({
+						title: "Booking Reference: " + response,
+						text: "Thank you for choosing Air Madagascar :)",
+						type: "success"
+					});
+					$location.url('/book');
+				}
+			});
+		}
+		else {
+			var reservation = {'adults': $scope.adults,
+			'children': $scope.children,
+			'infants': $scope.infants,
+			'dep_flight': dep_flight,
+			'class': $scope.class,
+			'type': 'Direct'};
+
+			FlightsSrv.storeReservation(reservation).success(function(response) {
+				if (response == "error") {
+					swal('title','Something went wrong please try again!', 'error');
+				}
+				else {
+					swal({
+						title: "Booking Reference: " + response,
+						text: "Thank you for choosing Air Madagascar.",
+						type: "success"
+					});
+					$location.url('/book');
+				}
+			})
+			.error(function() {
+				console.log('error');
+			});
+		}
+
+
+	}
 });

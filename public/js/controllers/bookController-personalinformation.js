@@ -1,42 +1,38 @@
-App.controller('bookController-personalinformation', function($scope, $http, $location) {
-	/*
-      Angular Bootstrap Datepicker.
-    */
+App.controller('bookController-personalinformation', function($scope, FlightsSrv, PersonalSrv, $location) {
+
+   $scope.adultFormData = [];
+   $scope.childFormData = [];
+   $scope.infantFormData = [];
+
+   $scope.adults = parseInt(FlightsSrv.getAdults());
+   $scope.children = parseInt(FlightsSrv.getChildren());
+   $scope.infants = parseInt(FlightsSrv.getInfants());
+
+   /*
+   Angular Bootstrap Datepicker.
+   */
    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
    $scope.format = $scope.formats[0];
    $scope.altInputFormats = ['M!/d!/yyyy'];
 
-   $scope.open1 = function() {
-      $scope.popup1.opened = true;
+   /* Get All The Countries With Their Country Codes */
+   function Countries() {
+      FlightsSrv.getCountries().success(function(countries) {
+         $scope.Countries = countries;
+      });
    };
 
-   $scope.popup1 = {
-      opened: false
+   Countries();
+
+   $scope.numAdults = function(){
+      return new Array($scope.adults);
    };
-
-	$scope.open2 = function() {
-      $scope.popup2.opened = true;
+   $scope.numChildren = function(){
+      return new Array($scope.children);
    };
-
-   $scope.popup2 = {
-      opened: false
+   $scope.numInfants = function(){
+      return new Array($scope.infants);
    };
-
-	$scope.open3 = function() {
-      $scope.popup3.opened = true;
-   };
-
-   $scope.popup3 = {
-      opened: false
-   };
-
-	/*
-		Get The countries for the country code dropdown list.
-	 */
-	$http.get('/api/countries').success(function (res){
-		$scope.countries = res;
-	});
-
 
    /*
    Validations
@@ -46,9 +42,18 @@ App.controller('bookController-personalinformation', function($scope, $http, $lo
    $scope.submitForm = function(isValid) {
       $scope.submitted = true;
 
+      console.log($scope.adultFormData);
+      console.log($scope.childFormData);
+      console.log($scope.infantFormData);
       // check to make sure the form is completely valid
       if (isValid) {
          console.log('good');
+
+
+         PersonalSrv.setAdultsInfo($scope.adultFormData);
+         PersonalSrv.setChildrenInfo($scope.childFormData);
+         PersonalSrv.setInfantsInfo($scope.infantFormData);
+
          $location.url('/book/payment');
       }
       else {
@@ -56,4 +61,5 @@ App.controller('bookController-personalinformation', function($scope, $http, $lo
       }
 
    };
-})
+
+});

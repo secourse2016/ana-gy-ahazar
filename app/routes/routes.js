@@ -1,11 +1,15 @@
 var flights = require('../flights');
 var db = require('../db');
-
+var moment = require('moment');
+var jwt = require('jsonwebtoken');
+var path = require('path');
 
 module.exports = function(app) {
 
-	var jwt = require('jsonwebtoken');
-
+	var protect = ['/api/countries','/api/airports','/db/seed','/db/delete',
+	'/api/flights/search/:origin/:destination/:departureDateTime/:class','/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class',
+	'/api/flights/reservation/:bookingReference','/api/flights/reservation','/api/flights/reservation',
+	'/api/flights/:reservation','/api/validatepromo/:promoCode','/feedback'];
 	/**
 	* This route returns the master page
 	*
@@ -14,44 +18,25 @@ module.exports = function(app) {
 		res.sendFile('index.html');
 	});
 
-    /**
-	 * This route deletes the database
-	 *
-	 */
-	app.get('/db/delete', function(req, res) {
-    db.clear(function(){
-    	res.send("deleted successfully");
-       });
-   });
-     /**
-	 * This route gets a specific reservation information
-	 *
-	 */
-	 app.get('/api/flights/reservation/:bookingReference', function(req, res) {
-		 flights.getReservation(function(err, data) {
-			 res.json(data);
-		 }, req.params.bookingReference);
-	 });
+	/* Middlewear to Secure API Endpoints */
+	app.use(function(req, res, next) {
 
-	/**
-	 * This route edits a specific reservation info
-	 *
-	 */
-	app.put('/api/flights/reservation', function (req,res) {
-		var newInfo = req.body;
-		var bookingRef = newInfo.booking_ref_number;
-		flights.updateReservation(bookingRef, newInfo);
-	});
+		var token = req.body.wt || req.query.wt || req.headers['x-access-token'];
 
+		var jwtSecret = process.env.JWTSECRET;
 
-	/**
-	 * This route deletes a certain reservation from the database
-	 *
-	 */
-	app.delete('/api/flights/:reservation', function (req,res) {
-		var bookingRef = req.params.reservation;
-		flights.cancelReservation(bookingRef);
-		res.send("Reservation cancelled!");
+		try
+		{
+			var payload = jwt.verify(token, jwtSecret);
+			req.payload = payload;
+			next();
+		}
+		catch (err)
+		{
+			console.log(req.url);
+			console.error('[ERROR]: JWT Error reason:', err);
+			res.status(403).sendFile(path.join(__dirname, '../../public', '403.html'));
+		}
 	});
 
 	/**
@@ -75,16 +60,6 @@ module.exports = function(app) {
 	});
 
 	/**
-	* This route returns a json objects with all the reservations.
-	*
-	*/
-	app.get('/api/reservations', function(req, res) {
-		flights.getReservations(function(err, data) {
-			res.json(data);
-		});
-	});
-
-	/**
 	* This route seeds the database
 	*
 	*/
@@ -98,12 +73,140 @@ module.exports = function(app) {
 	});
 
 	/**
+	* This route deletes the database
+	*
+	*/
+	app.get('/db/delete', function(req, res) {
+		db.clear(function(){
+			res.send("deleted successfully");
+		});
+	});
+
+	/**
+	* This route searchs for one ways flights.
+	*
+	*/
+	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:class' , function(req, res){
+
+		var dep_date = new Date(req.params.departureDateTime);
+		dep_date = dep_date.getFullYear() + '' + dep_date.getMonth() + '' + dep_date.getDate();
+
+		var oneWay = {
+			"origin": req.params.origin,
+			"destination": req.params.destination,
+			"departureDate": dep_date,
+			"class": req.params.class
+		};
+
+		flights.getOneWayFlights(oneWay , function(err ,data){
+			if (err)
+			throw err;
+
+			else
+			res.json(data);
+		});
+	});
+
+	/**
+	* This route searchs for round trip flights.
+	*
+	*/
+	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
+
+		var dep_date = new Date(req.params.departingDate);
+		dep_date = dep_date.getFullYear() + '' + dep_date.getMonth() + '' + dep_date.getDate();
+		var ret_date = new Date(req.params.returningDate);
+		ret_date = ret_date.getFullYear() + '' +ret_date.getMonth() + '' + ret_date.getDate();
+
+		var  outGoing = {
+			"origin":        req.params.origin,
+			"destination":   req.params.destination,
+			"departureDate": dep_date,
+			"class": req.params.class
+		};
+
+		var  inComing = {
+			"origin":        req.params.destination,
+			"destination":   req.params.origin,
+			"departureDate": ret_date,
+			"class": req.params.class
+		};
+
+		var result = {
+			outGoing : {} ,
+			inComing : {}
+		};
+
+		flights.getOneWayFlights(outGoing,function(err ,data){
+			if(err) throw err ;
+			else{
+				result.outGoing = data ;
+
+				flights.getOneWayFlights(inComing,function(err ,d){
+					if(err) throw err ;
+					result.inComing = d ;
+
+					res.json(result) ;
+				});
+			}
+		});
+	});
+
+	/**
+	* This route gets a specific reservation information
+	*
+	*/
+	app.get('/api/flights/reservation/:bookingReference', function(req, res) {
+		flights.getReservation(function(err, data) {
+			res.json(data);
+		}, req.params.bookingReference);
+	});
+
+	/**
+	* This route posts a new reservation into the database and returns the booking reference.
+	*
+	*/
+	app.post('/api/flights/reservation', function(req, res) {
+
+		var reservation = req.body;
+		flights.reserve(reservation , function (err, code){
+			if (err) {
+				res.send("error");
+			}else{
+				res.send(code);
+			}
+		});
+	});
+
+	/**
+	* This route edits a specific reservation info
+	*
+	*/
+	app.put('/api/flights/reservation', function (req,res) {
+		var newInfo = req.body;
+		var bookingRef = newInfo.booking_ref_number;
+		flights.updateReservation(bookingRef, newInfo, function() {
+			res.send('updated successfully');
+		});
+	});
+
+	/**
+	* This route deletes a certain reservation from the database
+	*
+	*/
+	app.delete('/api/flights/:reservation', function (req,res) {
+		var bookingRef = req.params.reservation;
+		flights.cancelReservation(bookingRef, function() {
+			res.send("Reservation cancelled!");
+		});
+	});
+
+	/**
 	* This route validates the promotion_code
 	*
 	*/
 	app.get('/api/validatepromo/:promoCode',function(req,res) {
 		var promoCode = req.params.promoCode;
-
 		db.getDatabase().collection('promotionCodes').find({"code": promoCode}).toArray(function(err, result)  {
 			result = result[0];
 
@@ -115,7 +218,7 @@ module.exports = function(app) {
 				var discount = result.discount;
 				db.getDatabase().collection('promotionCodes').remove({"code": promoCode},  function(err, results) {
 					res.send(discount+"");
-					});
+				});
 			} else {
 				res.send(0.0+"");
 			}
@@ -124,144 +227,77 @@ module.exports = function(app) {
 	});
 
 	/**
+	* This route posts a feedback to the database.
+	*
+	*/
+	app.post('/feedback', function( req , res ){
+		var feedback = req.body;
+		flights.addFeedback(feedback , function(err){
+			if (err){
+				res.send("error") ;
+			}else{
+				res.send("success");
+			}
+		});
+	});
+
+	/**
 	* This route returns a json objects with required  One Way flights from other Airlines.
 	*
 	*/
-
-		app.get('/api/flights/searchOutSide/:origin/:destination/:departureDateTime/:classs' , function(req, res){
+	app.get('/api/flights/searchOutSide/:origin/:destination/:departureDateTime/:class' , function(req, res){
 		var oneWay = {
 			"origin": req.params.origin,
 			"destination": req.params.destination,
-		  	"departureDateTime": parseInt(req.params.departureDateTime),
-			"class": req.params.classs
+			"departureDateTime": parseInt(req.params.departureDateTime),
+			"class": req.params.class
 		};
-		flights.getOtherFlights(oneWay , function(err ,data){
+		flights.getOtherFlights(oneWay , 0, function(err ,data){
 			if (err)
-				throw err;
+			throw err;
 
-				else{
+			else{
 				res.json(data);
 			}
-		
+		});
 	});
 
-		});
-
-/**
-	* This route returns a json objects with required  RoundTrip flights from other Airlines.
+	/**
+	* This route returns a json objects with required RoundTrip flights from other Airlines.
 	*
 	*/
+	app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
 
-app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:classs', function(req, res) {
-        // retrieve params from req.params.{{origin | departingDate | ...}}
-        // return this exact format
-          var  outGoing = {    	
-         "origin":        req.params.origin,
-         "destination":   req.params.destination,
-         "departureDateTime": parseInt(req.params.departingDate),
-         "class":         req.params.classs
-         };
-
-          var  inComing = {    	
-         "origin":        req.params.destination,
-         "destination":   req.params.origin,
-         "departureDateTime": parseInt(req.params.returningDate),
-         "class":         req.params.classs
-         };
-         
-          
-          
-          var result = {
-           outGoing : {} ,
-           inComing : {}
-           } ;
-        flights.getOtherFlights(outGoing,function(err ,data ){
-        	if(err) throw err ;
-        	else{
-              result.outGoing = data ;
-             
-              flights.getOtherFlights(inComing,function(err ,d){
-              	if(err) throw err ;
-                result.inComing = d ;
-                res.json(result) ;
-             });
-        	}
-        	
-
-        });
-
-         
-      
-    }); 
- /**
-	* This route returns a json objects with required  one way flights.
-	*
-	*/
-		app.get('/api/flights/search/:origin/:destination/:departureDateTime/:classs' , function(req, res){
-		var oneWay = {
-			"origin": req.params.origin,
-			"destination": req.params.destination,
-			//"departureDateTime": parseInt(req.params.departureDateTime),
-			"class": req.params.classs
+		var  outGoing = {
+			"origin":        req.params.origin,
+			"destination":   req.params.destination,
+			"departureDateTime": parseInt(req.params.departingDate),
+			"class":         req.params.class
 		};
-		flights.getOneWayFlights(oneWay , function(err ,data){
-			if (err)
-				throw err;
 
-				else
-				res.json(data);
-			
-		
-	});
+		var  inComing = {
+			"origin":        req.params.destination,
+			"destination":   req.params.origin,
+			"departureDateTime": parseInt(req.params.returningDate),
+			"class":         req.params.classs
+		};
 
+		var result = {
+			outGoing : {} ,
+			inComing : {}
+		} ;
+		flights.getOtherFlights(outGoing, 0, function(err ,data ){
+			if(err) throw err ;
+			else{
+				console.log(data);
+				result.outGoing = data ;
+
+				flights.getOtherFlights(inComing, 0, function(err ,d){
+					if(err) throw err ;
+					result.inComing = d ;
+					res.json(result) ;
+				});
+			}
 		});
-
-
-
-/**
-	* This route returns a json objects with required  RoundTrip flights.
-	*
-	*/
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:classs', function(req, res) {
-        // retrieve params from req.params.{{origin | departingDate | ...}}
-        // return this exact format
-          var  outGoing = {    	
-         "origin":        req.params.origin,
-         "destination":   req.params.destination,
-         "departureDateTime": parseInt(req.params.departingDate),
-         "class":         req.params.classs
-         };
-
-          var  inComing = {    	
-         "origin":        req.params.destination,
-         "destination":   req.params.origin,
-         "departureDateTime": parseInt(req.params.returningDate),
-         "class":         req.params.classs
-         };
-         
-          
-          
-          var result = {
-           outGoing : {} ,
-           inComing : {}
-           } ;
-        flights.getOneWayFlights(outGoing,function(err ,data ){
-        	if(err) throw err ;
-        	else{
-              result.outGoing = data ;
-             
-              flights.getOneWayFlights(inComing,function(err ,d){
-              	if(err) throw err ;
-                result.inComing = d ;
-                res.json(result) ;
-             });
-        	}
-        	
-
-        });
-
-         
-      
-    }); 
-
+	});
 };

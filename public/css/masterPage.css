@@ -185,3 +185,15 @@ body {
 .g_span {
    background-color: #219138;
 }
+
+/* scrollable containers */
+
+.scrollable {
+	direction:rtl;
+	max-height: 65em;
+	overflow-y: auto;
+}
+
+.scrollableBody {
+	direction:ltr;
+}

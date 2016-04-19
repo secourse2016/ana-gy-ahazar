@@ -1,6 +1,9 @@
 App.controller('bookController-search', function($scope, FlightsSrv, $location) {
    $('#btn-1').prop('checked', true);
 
+   $scope.trip_type = "round";
+
+   $scope.search_other = false;
    /*
    Angular Bootstrap Datepicker.
    */
@@ -9,8 +12,8 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
    $scope.altInputFormats = ['M!/d!/yyyy'];
 
    $scope.today = function() {
-      $scope.dt1 = new Date();
-      $scope.dt2 = new Date();
+      $scope.departureDate = new Date();
+      $scope.returnDate = new Date();
    };
    $scope.today();
 
@@ -23,11 +26,11 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
    };
 
    $scope.setDate1 = function(year, month, day) {
-      $scope.dt1 = new Date(year, month, day);
+      $scope.departureDate = new Date(year, month, day);
    };
 
    $scope.setDate2 = function(year, month, day) {
-      $scope.dt2 = new Date(year, month, day);
+      $scope.returnDate = new Date(year, month, day);
    };
 
    $scope.popup1 = {
@@ -47,16 +50,6 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
       FlightsSrv.getAirportCodes().success(function(airports) {
          $scope.Airports = airports;
       });
-   };
-
-   /* Record User's Selected Origin Airport  */
-   $scope.SetOriginAirport = function(originAirport) {
-      FlightsSrv.setSelectedOriginAirport(originAirport);
-   };
-
-   /* Record User's Selected Destination Airport  */
-   $scope.SetDestinationAirport = function(destAirport) {
-      FlightsSrv.setSelectedDestinationAirport(destAirport);
    };
 
    Airports();
@@ -82,11 +75,22 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
       // check to make sure the form is completely valid
       if (isValid) {
          console.log('good');
+
+         FlightsSrv.setSearchOther($scope.search_other);
+         FlightsSrv.setFlightType($scope.trip_type);
+         FlightsSrv.setSelectedOriginAirport($scope.selectedOrigin);
+         FlightsSrv.setSelectedDestinationAirport($scope.selectedDestination);
+         FlightsSrv.setDepartureDate($scope.departureDate);
+         FlightsSrv.setReturnDate($scope.returnDate);
+         FlightsSrv.setAdults($scope.Adult);
+         FlightsSrv.setChildren($scope.child);
+         FlightsSrv.setInfants($scope.infant);
+         FlightsSrv.setClass($scope.class);
+
          $location.url('/book/flights');
       }
       else {
          console.log('bad');
       }
-
    };
 });

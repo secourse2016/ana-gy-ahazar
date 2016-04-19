@@ -1,4 +1,4 @@
-App = angular.module('App', ['ngRoute', 'ngAnimate', 'ui.bootstrap']);
+App = angular.module('App', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'angularMoment']);
 
 /**
 * Configure The routes and set locationProvider for cleaner URLs.
@@ -44,6 +44,11 @@ App.config(function($routeProvider, $locationProvider) {
    .when('/manage/ticketinfo', {
       templateUrl: 'partials/manage-ticketinfo.html',
       controller: 'manageController-ticketinfo'
+   })
+
+   .when('/manage/ticketedit', {
+      templateUrl: 'partials/manage-ticketedit.html',
+      controller: 'manageController-ticketedit'
    })
 
    .when('/check-in', {
