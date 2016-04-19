@@ -120,6 +120,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          var hasFlights = (response.outgoingFlights.length > 0);
 
          if(search_other){
+            $scope.loading = true;
             FlightsSrv.getOtherOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected).success(function(res) {
                var otherFlights = res.outgoingFlights;
                var allFlights = concat(myFlights, otherFlights);
@@ -129,9 +130,12 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
                $scope.dep_empty = false;
                else
                $scope.dep_empty = !hasFlights;
+
+               $scope.loading = false;
             });
          }
          else{
+            $scope.departureFlights = myFlights;
             $scope.dep_empty = !hasFlights;
          }
       });
@@ -233,6 +237,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          var hasFlights = (response.outgoingFlights.length > 0);
 
          if(search_other){
+            $scope.loading = true;
             FlightsSrv.getOtherOneFlights($scope.ret_airport, $scope.dep_airport, ret_time, $scope.ret_isSelected).success(function(res) {
                var otherFlights = res.outgoingFlights;
                var allFlights = concat(myFlights, otherFlights);
@@ -242,14 +247,18 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
                $scope.ret_empty = false;
                else
                $scope.ret_empty = !hasFlights;
+
+               $scope.loading = false;
             });
          }
          else{
+            $scope.returnFlights = myFlights;
             $scope.ret_empty = !hasFlights;
          }
       });
    }
 
+   $scope.loading = false;
    $scope.retradioModel = new Date(ret_date);
 
    $scope.dep_empty = false;
@@ -288,6 +297,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          var returnHasFlights = (response.returnFlights.length > 0);
 
          if(search_other){
+            $scope.loading = true;
             FlightsSrv.getOtherRoundFlights($scope.dep_airport, $scope.ret_airport, dep_time, ret_time, $scope.class).success(function(res) {
                var otherOutgoingFlights = res.outgoingFlights;
                var otherReturnFlights = res.returnFlights;
@@ -307,10 +317,12 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
                else
                $scope.ret_empty = !returnHasFlights;
 
-
+               $scope.loading = false;
             });
          }
          else{
+            $scope.departureFlights = myOutgoingFlights;
+            $scope.returnFlights = myReturnFlights;
             $scope.dep_empty = !departureHasFlights;
             $scope.ret_empty = !returnHasFlights;
          }
@@ -336,6 +348,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          var hasFlights = (response.outgoingFlights.length > 0);
 
          if(search_other){
+            $scope.loading = true;
             FlightsSrv.getOtherOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class).success(function(res) {
                var otherFlights = res.outgoingFlights;
                var allFlights = concat(myFlights, otherFlights);
@@ -345,9 +358,12 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
                $scope.dep_empty = false;
                else
                $scope.dep_empty = !hasFlights;
+
+               $scope.loading = false;
             });
          }
          else{
+            $scope.departureFlights = myFlights;
             $scope.dep_empty = !hasFlights;
          }
       });
