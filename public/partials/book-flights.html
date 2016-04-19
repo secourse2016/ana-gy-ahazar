@@ -15,8 +15,8 @@
 							<label class="btn btn-default" ng-repeat="date in dep_dates track by $index" ng-model="$parent.dradioModel" ng-click="dep_show()" uib-btn-radio="date">{{dayName(date.getDay())}} <br>{{date.getDate()}} {{monthName(date.getMonth())}}</label>
 						</div>
 
-						<button type="button" id="next_dates">
-							<img src="assets/goRight.png" alt="goRight" ng-click="dep_next()"/>
+						<button type="button" id="next_dates" ng-click="dep_next()">
+							<img src="assets/goRight.png" alt="goRight"/>
 						</button>
 					</div>
 				</center>
@@ -120,16 +120,16 @@
 
 					<center>
 						<div class="col-sm-12 col-md-12">
-							<button type="button" id="previous_dates">
-								<img src="assets/goLeft.png" alt="goLeft" ng-click="ret_prev()"/>
+							<button type="button" id="previous_dates"  ng-click="ret_prev()">
+								<img src="assets/goLeft.png" alt="goLeft"/>
 							</button>
 							<!-- UI Bootstrap radio buttons for dates -->
 							<div class="btn-group">
 								<label class="btn btn-default" ng-repeat="date in ret_dates track by $index" ng-model="$parent.$parent.retradioModel" ng-click="ret_show()" uib-btn-radio="date">{{dayName(date.getDay())}} <br>{{date.getDate()}} {{monthName(date.getMonth())}}</label>
 							</div>
 
-							<button type="button" id="next_dates">
-								<img src="assets/goRight.png" alt="goRight" ng-click="ret_next()"/>
+							<button type="button" id="next_dates" ng-click="ret_next()">
+								<img src="assets/goRight.png" alt="goRight" />
 							</button>
 
 						</div>
