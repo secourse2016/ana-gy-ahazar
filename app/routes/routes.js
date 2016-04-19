@@ -181,7 +181,9 @@ module.exports = function(app) {
 	app.put('/api/flights/reservation', function (req,res) {
 		var newInfo = req.body;
 		var bookingRef = newInfo.booking_ref_number;
-		flights.updateReservation(bookingRef, newInfo);
+		flights.updateReservation(bookingRef, newInfo, function() {
+			res.send('updated successfully');
+		});
 	});
 
 	/**
@@ -190,8 +192,9 @@ module.exports = function(app) {
 	*/
 	app.delete('/api/flights/:reservation', function (req,res) {
 		var bookingRef = req.params.reservation;
-		flights.cancelReservation(bookingRef);
-		res.send("Reservation cancelled!");
+		flights.cancelReservation(bookingRef, function() {
+			res.send("Reservation cancelled!");
+		});
 	});
 
 	/**
