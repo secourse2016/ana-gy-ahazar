@@ -1,123 +1,82 @@
 [
   {
     "airline":"Lufthansa",
-    "IP" :"http://ec2-54-152-123-100.compute-1.amazonaws.com/#/"
-  },
-  {
-    "airline":"Egypt Air",
-    "IP":"N/A"
+    "IP" :"ec2-54-152-123-100.compute-1.amazonaws.com"
   },
   {
     "airline":"Turkish Airlines",
-    "IP":"http://52.27.150.19/#/home"
+    "IP":"52.27.150.19"
   },
   {
     "airline":"KLM Airlines",
-    "IP":"http://ec2-52-26-166-80.us-west-2.compute.amazonaws.com/#/"
+    "IP":"ec2-52-26-166-80.us-west-2.compute.amazonaws.com"
   },
   {
     "airline":"Emirates Airlines",
-    "IP": "http://52.90.46.68/#/home"
+    "IP": "52.90.46.68"
   },
   {
     "airline":"Air France",
-    "IP":"http://52.34.160.140/"
+    "IP":"52.34.160.140"
   },
   {
     "airline":"British Airways",
-    "IP":"http://52.36.195.124/#/"
+    "IP":"52.36.195.124"
   },
-
   {
     "airline":"Swissair",
-    "IP":"http://www.swiss-air.me/#/"
-  },
-  {
-    "airline":"Air Berlin",
-    "IP":"http://ec2-52-38-101-89.us-west-2.compute.amazonaws.com:8080/#/Air Berlin"
+    "IP":"www.swiss-air.me"
   },
   {
     "airline":"Delta Airlines",
-    "IP":"http://52.25.15.124/"
+    "IP":"52.25.15.124"
   },
   {
     "airline":"Air Canada",
-    "IP":"http://52.36.250.55/#/"
+    "IP":"52.36.250.55"
   },
   {
     "airline":"Japan Airlines",
-    "IP":"http://54.187.208.145/"
+    "IP":"54.187.208.145"
   },
   {
     "airline":"Singapore Airlines",
-    "IP":"http://sebitsplease.com.s3-website-us-east-1.amazonaws.com/"
-  },
-  {
-    "airline":"Austrian Airlines",
-    "IP":"http://ec2-52-90-41-197.compute-1.amazonaws.com/"
+    "IP":"sebitsplease.com.s3-website-us-east-1.amazonaws.com"
   },
   {
     "airline":"Dragonair",
-    "IP":"http://52.58.46.74/#/"
-  },
-  {
-    "airline":"Oceanic Airlines",
-    "IP":"http://52.38.78.176/"
+    "IP":"52.58.46.74"
   },
   {
     "airline":"Hawaiian Airlines",
-    "IP":"http://54.93.36.94/#/"
+    "IP":"54.93.36.94"
   },
   {
     "airline":"South African Airways",
-    "IP":"http://54.213.157.185/#/"
+    "IP":"54.213.157.185"
   },
   {
     "airline":"Air New Zealand",
-    "IP":"http://52.28.246.230/#/"
-  },
-  {
-    "airline":"Virgin Australia Airlines",
-    "IP":"http://54.93.116.90/"
+    "IP":"52.28.246.230"
   },
   {
     "airline":"Iberia",
-    "IP":"http://mynksh.com/"
-  },
-  {
-    "airline":"Spirit Airlines",
-    "IP":"N/A"
+    "IP":"mynksh.com"
   },
   {
     "airline":"Alaska Airlines",
-    "IP":"http://52.207.211.179/#/"
+    "IP":"52.207.211.179"
   },
   {
     "airline":"Malaysia Airlines",
-    "IP":"http://52.32.109.147/"
-  },
-  {
-    "airline":"United Airlines",
-    "IP":"54.187.103.196:3000"
+    "IP":"52.32.109.147"
   },
   {
     "airline":"Northwest Airlines",
-    "IP":"http://52.36.169.206/"
-  },
-  {
-    "airline":"Alitalia Airlines",
-    "IP":"http://54.93.74.125/#/"
+    "IP":"52.36.169.206"
   },
   {
     "airline":"Cathay Pacific Airlines",
-    "IP":"http://ec2-52-91-94-227.compute-1.amazonaws.com/"
-  },
-  {
-    "airline":"Croatia Airlines",
-    "IP":"N/A"
-  },
-  {
-    "airline":"Swiss Airlines",
-    "IP":"ec2-54-213-214-212.us-west-2.compute.amazonaws.com:3000/#/"
+    "IP":"ec2-52-91-94-227.compute-1.amazonaws.com"
   }
 ]

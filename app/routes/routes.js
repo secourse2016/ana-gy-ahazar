@@ -6,6 +6,10 @@ var path = require('path');
 
 module.exports = function(app) {
 
+	var protect = ['/api/countries','/api/airports','/db/seed','/db/delete',
+	'/api/flights/search/:origin/:destination/:departureDateTime/:class','/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class',
+	'/api/flights/reservation/:bookingReference','/api/flights/reservation','/api/flights/reservation',
+	'/api/flights/:reservation','/api/validatepromo/:promoCode','/feedback'];
 	/**
 	* This route returns the master page
 	*
@@ -14,8 +18,18 @@ module.exports = function(app) {
 		res.sendFile('index.html');
 	});
 
+	app.use(function(req, res, next) {
+		if(!(protect.indexOf(req.url) != -1))
+			res.status(404).sendFile(path.join(__dirname, '../../public', '404.html'));
+		else
+			next();
+	});
+
 	/* Middlewear to Secure API Endpoints */
 	app.use(function(req, res, next) {
+
+		// console.log(err.name);
+		// res.status(404).sendFile(path.join(__dirname, '../../public', '404.html'));
 		// check header or url parameters or post parameters for token
 		var token = req.body.wt || req.query.wt || req.headers['x-access-token'];
 
@@ -233,6 +247,65 @@ module.exports = function(app) {
 				res.send("error") ;
 			}else{
 				res.send("success");
+			}
+		});
+	});
+
+	/**
+	* This route returns a json objects with required  One Way flights from other Airlines.
+	*
+	*/
+	app.get('/api/flights/searchOutSide/:origin/:destination/:departureDateTime/:class' , function(req, res){
+		var oneWay = {
+			"origin": req.params.origin,
+			"destination": req.params.destination,
+			"departureDateTime": parseInt(req.params.departureDateTime),
+			"class": req.params.class
+		};
+		flights.getOtherFlights(oneWay , function(err ,data){
+			if (err)
+			throw err;
+
+			else{
+				res.json(data);
+			}
+		});
+	});
+
+	/**
+	* This route returns a json objects with required  RoundTrip flights from other Airlines.
+	*
+	*/
+	app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
+
+		var  outGoing = {
+			"origin":        req.params.origin,
+			"destination":   req.params.destination,
+			"departureDateTime": parseInt(req.params.departingDate),
+			"class":         req.params.class
+		};
+
+		var  inComing = {
+			"origin":        req.params.destination,
+			"destination":   req.params.origin,
+			"departureDateTime": parseInt(req.params.returningDate),
+			"class":         req.params.classs
+		};
+
+		var result = {
+			outGoing : {} ,
+			inComing : {}
+		} ;
+		flights.getOtherFlights(outGoing,function(err ,data ){
+			if(err) throw err ;
+			else{
+				result.outGoing = data ;
+
+				flights.getOtherFlights(inComing,function(err ,d){
+					if(err) throw err ;
+					result.inComing = d ;
+					res.json(result) ;
+				});
 			}
 		});
 	});

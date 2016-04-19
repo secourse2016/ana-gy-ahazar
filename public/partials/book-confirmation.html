@@ -13,8 +13,8 @@
 						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">To: {{ departureDestination }}</label>
 					</div>
 					<div class="row">
-						<label class="col-sm-5 col-md-5">Departure Date: {{ departureDepDate }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Return Date: {{ departureReturnDate }}</label>
+						<label class="col-sm-5 col-md-5">Departure Date: {{departureDepDate | amDateFormat:'Do MMM YYYY HH:mm'}}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Return Date: {{departureReturnDate | amDateFormat:'Do MMM YYYY HH:mm'}}</label>
 					</div>
 					<div class="row">
 						<label class="col-sm-5 col-md-5">Class: {{ departureClass }}</label>
@@ -30,8 +30,8 @@
 						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">To: {{ returnDestination }}</label>
 					</div>
 					<div class="row">
-						<label class="col-sm-5 col-md-5">Departure Date: {{ returnDepDate }}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Return Date: {{ returnReturnDate }}</label>
+						<label class="col-sm-5 col-md-5">Departure Date: {{returnDepDate | amDateFormat:'Do MMM YYYY HH:mm'}}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Return Date: {{returnReturnDate | amDateFormat:'Do MMM YYYY HH:mm'}}</label>
 					</div>
 					<div class="row">
 						<label class="col-sm-5 col-md-5">Class: {{ returnClass }}</label>
