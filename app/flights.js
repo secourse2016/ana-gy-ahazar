@@ -171,7 +171,7 @@ var seed = function(callback) {
 			dateArrive = moment(dateArrive).toDate().getTime();
 
 			var randomCost = Math.floor(600+Math.random() * 8400);
-			var datePremN = datePrem.getFullYear() + '' + datePrem.getMonth() + '' + datePrem.getDate();
+      var datePremN = moment(datePrem).toDate().getTime();
 
 			var origin = originOrDestination1[j];
 			var destination = originOrDestination2[j];
@@ -434,11 +434,13 @@ var updateReservation = function (bookRef, newInfo, callback){
 					callback(err) ;
 				}
 				else {
+          console.log(oneway.departureDate);
 					for( i=0; i<data.length ;i++){
 						var currFlight = data[i];
 						var aircraft = currFlight.aircraft;
 						var aircraftType = aircraft.aircraftType;
 						var aircraftModel = aircraft.aircraftModel ;
+
 						var flight =	{
 							"flightNumber": currFlight.flightNumber,
 							"aircraftType":  aircraftType,
