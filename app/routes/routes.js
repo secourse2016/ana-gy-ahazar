@@ -2,10 +2,9 @@ var flights = require('../flights');
 var db = require('../db');
 var moment = require('moment');
 var jwt = require('jsonwebtoken');
+var path = require('path');
 
 module.exports = function(app) {
-
-	var path = require('path');
 
 	/**
 	* This route returns the master page
@@ -175,6 +174,25 @@ module.exports = function(app) {
 		});
 	});
 
+	/**
+	* This route edits a specific reservation info
+	*
+	*/
+	app.put('/api/flights/reservation', function (req,res) {
+		var newInfo = req.body;
+		var bookingRef = newInfo.booking_ref_number;
+		flights.updateReservation(bookingRef, newInfo);
+	});
+
+	/**
+	* This route deletes a certain reservation from the database
+	*
+	*/
+	app.delete('/api/flights/:reservation', function (req,res) {
+		var bookingRef = req.params.reservation;
+		flights.cancelReservation(bookingRef);
+		res.send("Reservation cancelled!");
+	});
 
 	/**
 	* This route validates the promotion_code
@@ -198,6 +216,7 @@ module.exports = function(app) {
 				res.send(0.0+"");
 			}
 		});
+
 	});
 
 	/**
@@ -212,6 +231,6 @@ module.exports = function(app) {
 			}else{
 				res.send("success");
 			}
-		}	);
+		});
 	});
 };
