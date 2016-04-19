@@ -537,7 +537,17 @@ var updateReservation = function (bookRef, newInfo, callback){
 				});
 			});
 
+			req.setTimeout(3000, function() {
+				console.log('timeout');
+			});
+
+			req.on('end', function() {
+				console.log('done');
+				req.abort();
+			});
+
 			req.on('error', function(err) {
+				req.abort();
 			});
 
 			req.end();
@@ -580,7 +590,7 @@ var updateReservation = function (bookRef, newInfo, callback){
 				makeOnlineRequest(options,function(statusCode, result){
 					try {
 						var json = JSON.parse(result);
-console.log(json);
+
 						flightsOne.outgoingFlights = concat(flightsOne.outgoingFlights, json.outgoingFlights);
 					}catch(err) {
 
