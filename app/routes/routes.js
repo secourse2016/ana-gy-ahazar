@@ -262,7 +262,7 @@ module.exports = function(app) {
 			"departureDateTime": parseInt(req.params.departureDateTime),
 			"class": req.params.class
 		};
-		flights.getOtherFlights(oneWay , function(err ,data){
+		flights.getOtherFlights(oneWay , 0, function(err ,data){
 			if (err)
 			throw err;
 
@@ -273,7 +273,7 @@ module.exports = function(app) {
 	});
 
 	/**
-	* This route returns a json objects with required  RoundTrip flights from other Airlines.
+	* This route returns a json objects with required RoundTrip flights from other Airlines.
 	*
 	*/
 	app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
@@ -296,12 +296,12 @@ module.exports = function(app) {
 			outGoing : {} ,
 			inComing : {}
 		} ;
-		flights.getOtherFlights(outGoing,function(err ,data ){
+		flights.getOtherFlights(outGoing, 0, function(err ,data ){
 			if(err) throw err ;
 			else{
 				result.outGoing = data ;
 
-				flights.getOtherFlights(inComing,function(err ,d){
+				flights.getOtherFlights(inComing, 0, function(err ,d){
 					if(err) throw err ;
 					result.inComing = d ;
 					res.json(result) ;

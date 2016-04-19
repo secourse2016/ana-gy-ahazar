@@ -11,6 +11,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    $scope.adults = FlightsSrv.getAdults();
    $scope.children = FlightsSrv.getChildren();
    $scope.total_people = parseInt($scope.children) + parseInt($scope.adults);
+   var search_other = FlightsSrv.getSearchOther();
 
    var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
    var months = ["January", "February", "March", "April", "May", "June",
@@ -41,7 +42,6 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
    $scope.dep_dates = [dep_beforeTwo, dep_beforeOne, dep_date, dep_afterOne, dep_afterTwo];
 
-
    /*
    This function gets the flights associated with the checked date.
    */
@@ -50,7 +50,6 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       $scope.dep_date = $scope.dradioModel;
       $scope.showDepartureFlights();
    };
-
 
    /*
    This function gets the 5 previous days starting from the last day on the left.
@@ -116,12 +115,24 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       var dep_time = $scope.dep_date.getFullYear() + '-' + month + '-' + day;
       FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected).success(function(response) {
          $scope.departureFlights = response;
-         if (response.length > 0)
-            $scope.dep_empty = false;
-         else
-            $scope.dep_empty = true;
+
+         var hasFlights = (response.length > 0);
+
+         if(search_other){
+         FlightsSrv.getOtherOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected).success(function(res) {
+           $scope.departureFlights.push(res);
+
+           if (res.length > 0)
+           $scope.dep_empty = false;
+           else
+           $scope.dep_empty = hasFlights;
+         });
+       }
+       else{
+         $scope.dep_empty = !hasFlights;
+       }
       });
-   }
+   };
 
    $scope.dradioModel = new Date(dep_date);
 

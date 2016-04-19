@@ -595,12 +595,13 @@ var updateReservation = function (bookRef, newInfo, callback){
 		*
 		* @param {Function} callback function that is called after the searching is complete.
 		*/
-		var getOtherFlights = function(oneway,callback){
+		var airlines = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
+		var flights = [] ;
+		var getOtherFlights = function(oneway, i, callback){
+			if(i === airlines.length){
+				callback(null,flights);
+			}
 
-			var airlines = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
-			var flights = [] ;
-
-			for (var i = 0; i < airlines.length; i++) {
 				var currAirLine =
 				{
 					"airline": airlines[i].airline ,
@@ -622,9 +623,8 @@ var updateReservation = function (bookRef, newInfo, callback){
 				makeOnlineRequest(options,function(statusCode, result){
 					flights.push(result);
 
+					getOtherFlights(oneway, (i + 1), callbac);
 				});
-			}
-			callback(null,flights) ;
 		};
 
 

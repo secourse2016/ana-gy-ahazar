@@ -76,6 +76,7 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
       if (isValid) {
          console.log('good');
 
+         FlightsSrv.setSearchOther($scope.search_other);
          FlightsSrv.setFlightType($scope.trip_type);
          FlightsSrv.setSelectedOriginAirport($scope.selectedOrigin);
          FlightsSrv.setSelectedDestinationAirport($scope.selectedDestination);
@@ -91,6 +92,5 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
       else {
          console.log('bad');
       }
-
    };
 });
