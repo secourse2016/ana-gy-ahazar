@@ -36,6 +36,7 @@
    <script src="js/services/personalSrv.js"></script>
    <script src="js/services/manageSrv.js"></script>
    <script src="js/services/promotionSrv.js"></script>
+   <script src="js/services/feedbackSrv.js"></script>
 
    <!-- Controllers -->
    <script src="js/controllers/bookController-search.js"></script>
@@ -56,9 +57,9 @@
    <link rel="stylesheet" href="css/personal-info.css">
    <link rel="stylesheet" href="css/book-confirmation.css">
 
-
-
-
+   <!-- toastr -->
+   <script src="js/libraries/toastr.min.js"></script>
+   <link rel="stylesheet" href="css/libraries/toastr.min.css">
 
    <!-- Sweet Dialog -->
    <link rel="stylesheet" href="css/libraries/sweetalert.min.css">
@@ -98,78 +99,78 @@
    <div class="active-tabs">
       <div class="tab-links">
          <a href="/book"><input type="radio" name="active_tabs" id="btn-1" checked>
-         <label for="btn-1" class="btn link"><i class="fa fa-plane"></i> Book A Flight</label></a>
+            <label for="btn-1" class="btn link"><i class="fa fa-plane"></i> Book A Flight</label></a>
 
-         <a href="/manage"><input type="radio" name="active_tabs" id="btn-2">
-         <label for="btn-2" class="btn link"><i class="fa fa-suitcase"></i> Manage Flight</label></a>
+            <a href="/manage"><input type="radio" name="active_tabs" id="btn-2">
+               <label for="btn-2" class="btn link"><i class="fa fa-suitcase"></i> Manage Flight</label></a>
 
-         <a href="/check-in"><input type="radio" name="active_tabs" id="btn-3">
-         <label for="btn-3" class="btn link"><i class="fa fa-laptop"></i> Check-in Online</label></a>
+               <a href="/check-in"><input type="radio" name="active_tabs" id="btn-3">
+                  <label for="btn-3" class="btn link"><i class="fa fa-laptop"></i> Check-in Online</label></a>
 
-         <a href="/offers"><input type="radio" name="active_tabs" id="btn-4">
-         <label for="btn-4" class="btn link"><i class="fa fa-clock-o"></i> Offers</label></a>
-      </div>
+                  <a href="/offers"><input type="radio" name="active_tabs" id="btn-4">
+                     <label for="btn-4" class="btn link"><i class="fa fa-clock-o"></i> Offers</label></a>
+                  </div>
 
-      <div class="tabs-container">
-         <div id="containerBody" style="margin-top: 2%;" ng-view></div>
-      </div>
+                  <div class="tabs-container">
+                     <div id="containerBody" style="margin-top: 2%;" ng-view></div>
+                  </div>
 
-   </div>
-
-   <!-- footer area -->
-   <div id="footer" class="footer">
-      <div class="row">
-         <div class="col-md-12">
-            <div class="container about-contact">
-               <div class="col-sm-5 col-md-5 about-us">
-                  <h3>Something <span class="label label-success g_span">ABOUT US</span></h3>
-                  <p align="justify">
-                     Since 1961 the Madagascan national airline Air Madagascar has been connecting the "Grande Ile" to the world while its many domestic destinations contribute to the opening and development of its different regions.
-                     <br><br>
-                     Its vision: to be the preferred African airline.
-                     <br>
-                     Its mission: to be a lever to Madagascar's economic growth.
-                     <br>
-                     Its values: Honesty, Integrity, Respect, Excellence.
-                     <br><br>
-                     The airline was formed in 1947 to feed into flights by Transports Aériens Intercontinentaux and Air France, and upon the independence of Madagascar, it became the national airline.
-                  </p>
                </div>
 
-               <div class="col-sm-6 col-md-5 contact-us" ng-controller="feedbackController">
-                  <h3>Send Your <span class="label label-success g_span">FEEDBACK</span></h3>
+               <!-- footer area -->
+               <div id="footer" class="footer">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="container about-contact">
+                           <div class="col-sm-5 col-md-5 about-us">
+                              <h3>Something <span class="label label-success g_span">ABOUT US</span></h3>
+                              <p align="justify">
+                                 Since 1961 the Madagascan national airline Air Madagascar has been connecting the "Grande Ile" to the world while its many domestic destinations contribute to the opening and development of its different regions.
+                                 <br><br>
+                                 Its vision: to be the preferred African airline.
+                                 <br>
+                                 Its mission: to be a lever to Madagascar's economic growth.
+                                 <br>
+                                 Its values: Honesty, Integrity, Respect, Excellence.
+                                 <br><br>
+                                 The airline was formed in 1947 to feed into flights by Transports Aériens Intercontinentaux and Air France, and upon the independence of Madagascar, it became the national airline.
+                              </p>
+                           </div>
 
-                  <form name="feedbackForm" ng-submit="submitForm(feedbackForm.$valid)" novalidate>
-                     <div class="form-group">
-                        <div ng-class="{'has-error' : feedbackForm.email.$invalid &&  (submitted || feedbackForm.email.$dirty)}">
-                           <input type="email" name="email" class="form-control" ng-model="email" placeholder="Email" required >
-                           <p ng-show="feedbackForm.email.$error.required && (submitted || feedbackForm.email.$dirty)" class="help-block">Email is required.</p>
-                           <p ng-show="feedbackForm.email.$error.email && (submitted || feedbackForm.email.$dirty)" class="help-block">Please Enter a Valid Email.</p>
+                           <div class="col-sm-6 col-md-5 contact-us" ng-controller="feedbackController">
+                              <h3>Send Your <span class="label label-success g_span">FEEDBACK</span></h3>
+
+                              <form name="feedbackForm" ng-submit="submitForm(feedbackForm.$valid)" novalidate>
+                                 <div class="form-group">
+                                    <div ng-class="{'has-error' : feedbackForm.email.$invalid && submitted}">
+                                       <input type="email" name="email" class="form-control" ng-model="feedbackData.email" placeholder="Email" required >
+                                       <p ng-show="feedbackForm.email.$error.required && submitted" class="help-block">Email is required.</p>
+                                       <p ng-show="feedbackForm.email.$error.email && submitted" class="help-block">Please Enter a Valid Email.</p>
+                                    </div>
+                                    <div ng-class="{'has-error' : feedbackForm.message.$invalid && submitted}">
+                                       <textarea type="text" name="message" class="form-control" ng-model="feedbackData.message" placeholder="Message" required> </textarea>
+                                       <p ng-show="feedbackForm.message.$error.required && submitted" class="help-block">Message is required.</p>
+                                    </div>
+                                    <button class="btn btn-primary">Send <i class="fa fa-paper-plane"></i> </button>
+                                 </div>
+                              </form>
+                           </div>
                         </div>
-                        <div ng-class="{'has-error' : feedbackForm.message.$invalid &&  (submitted || feedbackForm.message.$dirty)}">
-                           <textarea type="text" name="message" class="form-control" ng-model="message" placeholder="Message" required> </textarea>
-                           <p ng-show="feedbackForm.message.$error.required && (submitted || feedbackForm.message.$dirty)" class="help-block">Message is required.</p>
-                        </div>
-                        <button class="btn btn-primary">Send <i class="fa fa-paper-plane"></i> </button>
                      </div>
-                  </form>
+                  </div>
+
+                  <div class="container copyrights">
+                     <div class="col-md-6">
+                        Air Madagascar &copy; 2016,
+                        All Rights Reserved
+                        <div class="icons">
+                           <a id="fb" href="https://www.facebook.com/air.madagascar.officiel"><i class="fa fa-facebook"></i></a>
+                           <a id="tw" href="https://twitter.com/airmad"><i class="fa fa-twitter"></i></a>
+                           <a id="go" href="https://plus.google.com/102865486670617862631/about"><i class="fa fa-google-plus"></i></a>
+                        </div>
+                     </div>
+                  </div>
                </div>
-            </div>
-         </div>
-      </div>
 
-      <div class="container copyrights">
-         <div class="col-md-6">
-            Air Madagascar &copy; 2016,
-            All Rights Reserved
-            <div class="icons">
-               <a id="fb" href="https://www.facebook.com/air.madagascar.officiel"><i class="fa fa-facebook"></i></a>
-               <a id="tw" href="https://twitter.com/airmad"><i class="fa fa-twitter"></i></a>
-               <a id="go" href="https://plus.google.com/102865486670617862631/about"><i class="fa fa-google-plus"></i></a>
-            </div>
-         </div>
-      </div>
-   </div>
-
-</body>
-</html>
+            </body>
+            </html>
