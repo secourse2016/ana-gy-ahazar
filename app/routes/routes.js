@@ -18,19 +18,9 @@ module.exports = function(app) {
 		res.sendFile('index.html');
 	});
 
-	app.use(function(req, res, next) {
-		if(!(protect.indexOf(req.url) != -1))
-			res.status(404).sendFile(path.join(__dirname, '../../public', '404.html'));
-		else
-			next();
-	});
-
 	/* Middlewear to Secure API Endpoints */
 	app.use(function(req, res, next) {
 
-		// console.log(err.name);
-		// res.status(404).sendFile(path.join(__dirname, '../../public', '404.html'));
-		// check header or url parameters or post parameters for token
 		var token = req.body.wt || req.query.wt || req.headers['x-access-token'];
 
 		var jwtSecret = process.env.JWTSECRET;
