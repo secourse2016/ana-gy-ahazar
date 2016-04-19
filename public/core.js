@@ -46,6 +46,11 @@ App.config(function($routeProvider, $locationProvider) {
       controller: 'manageController-ticketinfo'
    })
 
+   .when('/manage/ticketedit', {
+      templateUrl: 'partials/manage-ticketedit.html',
+      controller: 'manageController-ticketedit'
+   })
+
    .when('/check-in', {
       templateUrl: 'partials/checkin.html',
       controller: 'checkinController'
