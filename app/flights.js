@@ -187,7 +187,7 @@ var seed = function(callback) {
 				"duration": flightDuration,
 				"origin": origin,
 				"destination": destination,
-				"remaining_seats": "50",
+				"remaining_seats": 50,
 				"cost": randomCost,
 				"currency": "USD",
 				"seatmap": 	[
