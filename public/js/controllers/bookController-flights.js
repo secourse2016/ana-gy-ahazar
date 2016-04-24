@@ -341,7 +341,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          dep_day = '0' + dep_day;
 
       var dep_time = $scope.dep_date.getFullYear() + '-' + dep_month + '-' + dep_day;
-      dep_time = moment(dep_time).toDate().getTime();
+      dep_time = moment(dep_time + ' 12:00 AM', 'YYYY-MM-DD hh:mm A').toDate().getTime();
 
       FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class).success(function(response) {
          var myFlights = response.outgoingFlights;

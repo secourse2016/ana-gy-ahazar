@@ -156,7 +156,7 @@ var seed = function(callback) {
 	}
 
 	var number = Math.floor(Math.random() * (originOrDestination1.length));
-	var dep_date = moment('2016-04-11', 'YYYY-MM-DD');
+	var dep_date = moment('2016-04-11');
 	var dep_dateTime = moment('2016-04-11 03:40 AM', 'YYYY-MM-DD hh:mm A');
 
 	var flights = [];
@@ -166,17 +166,19 @@ var seed = function(callback) {
 		for (var j = 0; j < originOrDestination1.length; j++) {
 			var flightDuration = Math.floor(1 + (Math.random() * 16));
 			var randomCost = Math.floor(600+Math.random() * 8400);
+			
 
-			var ret_dateTime = dep_dateTime;
-			ret_dateTime.add(flightDuration, 'h');
-			console.log(dep_date.format('YYYY-MM-DD'));
+			var ret_dateTime = dep_dateTime.clone();
+			ret_dateTime = ret_dateTime.add(flightDuration, 'h');
+			console.log(dep_dateTime.format('YYYY-MM-DD hh:mm'));
+			console.log(ret_dateTime.format('YYYY-MM-DD hh:mm'));
 
 			var origin = originOrDestination1[j];
 			var destination = originOrDestination2[j];
 			var flight =	{
 				"Airline": "Air Madagascar",
 				"flightNumber": generateFlightnumber(),
-				"departureDate":  dep_date.toDate().getTime(),
+				"departureDate":  dep_date.format('YYYY-MM-DD'),
 				"departureDateTime":dep_dateTime.toDate().getTime(),
 				"arrivalDateTime": ret_dateTime.toDate().getTime(),
 				"class": "economy",
@@ -208,7 +210,7 @@ var seed = function(callback) {
 			flight =	{
 				"Airline": "Air Madagascar",
 				"flightNumber": generateFlightnumber(),
-				"departureDate": dep_date.toDate().getTime(),
+				"departureDate": dep_date.format('YYYY-MM-DD'),
 				"departureDateTime": dep_dateTime.toDate().getTime(),
 				"arrivalDateTime": ret_dateTime.toDate().getTime(),
 				"class": "economy",
@@ -237,8 +239,8 @@ var seed = function(callback) {
 
 		}
 
-		dep_date.add('1', 'd');
-		dep_dateTime.add('1', 'd');
+		dep_date = dep_date.add('1', 'd');
+		dep_dateTime = dep_dateTime.add('1', 'd');
 	}
 
 	/* seeding the countries table */
