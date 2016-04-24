@@ -632,7 +632,7 @@ var updateReservation = function (bookRef, newInfo, callback){
 
 					var options = {
 						host: ip ,
-						path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.departureDateTime+'/'+oneway.class+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
+						path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.departureDateTime+'/'+oneway.class+'/'+oneway.numberOfSeats+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
 						method: 'GET',
 						headers: {
 							'Content-Type': 'application/json'
@@ -677,7 +677,7 @@ var updateReservation = function (bookRef, newInfo, callback){
 
 					var options = {
 						host: ip ,
-						path: '/api/flights/search/'+constraints.origin+'/'+constraints.destination+'/'+constraints.departureDateTime+'/'+constraints.returnDate+'/'+constraints.class+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
+						path: '/api/flights/search/'+constraints.origin+'/'+constraints.destination+'/'+constraints.departureDateTime+'/'+constraints.returnDate+'/'+constraints.class+'/'+constraints.numberOfSeats+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
 						method: 'GET',
 						headers: {
 							'Content-Type': 'application/json'
