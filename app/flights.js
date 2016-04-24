@@ -2,6 +2,7 @@ var moment = require('moment');
 var db = require('./db');
 var fs = require('fs');
 var http = require('http');
+var mongo = require('mongodb');
 
 /**
 * This function return an array of length 1 of a specific reservation info.
@@ -413,17 +414,21 @@ var updateReservation = function (bookRef, newInfo, callback){
 			db.getDatabase().collection('reservations').find({booking_ref_number : bookRef}).toArray(function (err,record){
 				if(err) throw err;
 
+				record = record[0];
+
 				var totalSeats = record.total_seats;
 
 				db.getDatabase().collection('reservations').remove({'booking_ref_number' : bookRef }, 1, function(err, result) {
+					record.dep_flight._id = new mongo.ObjectID(record.dep_flight._id);
 					db.getDatabase().collection('flights').updateOne(
 						{ _id: record.dep_flight._id },
 						{ $inc: { remaining_seats: totalSeats } },
 						function(err, result) {
-							if(record.ret_flight._id === null){
+							if(!record.ret_flight){
 								callback();
 							}
 							else{
+								record.ret_flight._id = new mongo.ObjectID(record.ret_flight._id);
 								db.getDatabase().collection('flights').updateOne(
 									{ _id: record.ret_flight._id },
 									{ $inc: { remaining_seats: totalSeats } },
@@ -508,6 +513,7 @@ var updateReservation = function (bookRef, newInfo, callback){
 								callback(err, null);
 							}
 							else{
+								reserve_info.dep_flight._id = new mongo.ObjectID(reserve_info.dep_flight._id);
 								db.getDatabase().collection('flights').updateOne(
 									{ _id: reserve_info.dep_flight._id },
 									{ $inc: { remaining_seats: -totalSeats } },
@@ -516,10 +522,11 @@ var updateReservation = function (bookRef, newInfo, callback){
 											callback(err, null);
 										}
 										else{
-											if(reserve_info.ret_flight === null){
+											if(!reserve_info.ret_flight){
 												callback(null, code);
 											}
 											else{
+												reserve_info.ret_flight._id = new mongo.ObjectID(reserve_info.ret_flight._id);
 												db.getDatabase().collection('flights').updateOne(
 													{ _id: reserve_info.ret_flight._id },
 													{ $inc: { remaining_seats: -totalSeats } },
