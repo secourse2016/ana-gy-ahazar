@@ -462,7 +462,7 @@ var updateReservation = function (bookRef, newInfo, callback){
 							var aircraftModel = aircraft.aircraftModel ;
 
 							var flight =	{
-								"_id": currFlight._id,
+								"flightId": currFlight._id,
 								"flightNumber": currFlight.flightNumber,
 								"aircraftType":  aircraftType,
 								"aircraftModel": aircraftModel,

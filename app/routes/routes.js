@@ -85,7 +85,10 @@ module.exports = function(app) {
 	* This route searchs for one ways flights.
 	*
 	*/
-	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:class/:numberOfSeats' , function(req, res){
+	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:class/:numberOfSeats?' , function(req, res){
+		if(!req.params.numberOfSeats){
+			req.params.numberOfSeats = 1;
+		}
 
 		var dep_date = moment(parseInt(req.params.departureDateTime));
 
@@ -97,7 +100,7 @@ module.exports = function(app) {
 			"class": req.params.class ,
 			"remaining_seats" : { $gte: parseInt(req.params.numberOfSeats)}
 		};
-                
+
                 console.log("oneWay: ", oneWay);
 
 		var result = {
@@ -110,7 +113,7 @@ module.exports = function(app) {
 
 			else{
 				result.outgoingFlights = data;
-       
+
 				res.json(result);
 			}
 		});
@@ -120,7 +123,10 @@ module.exports = function(app) {
 	* This route searchs for round trip flights.
 	*
 	*/
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:numberOfSeats', function(req, res) {
+	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:numberOfSeats?', function(req, res) {
+		if(!req.params.numberOfSeats){
+			req.params.numberOfSeats = 1;
+		}
 
 		var dep_date = moment(parseInt(req.params.departingDate));
 		var ret_date = moment(parseInt(req.params.returningDate));
@@ -254,7 +260,11 @@ module.exports = function(app) {
 	* This route returns a json objects with required  One Way flights from other Airlines.
 	*
 	*/
-	app.get('/api/flights/searchOutSide/:origin/:destination/:departureDateTime/:class/:numberOfSeats' , function(req, res){
+	app.get('/api/flights/searchOutSide/:origin/:destination/:departureDateTime/:class/:numberOfSeats?' , function(req, res){
+		if(!req.params.numberOfSeats){
+			req.params.numberOfSeats = 1;
+		}
+
 		var oneWay = {
 			"origin": req.params.origin,
 			"destination": req.params.destination,
@@ -282,7 +292,10 @@ module.exports = function(app) {
 	* This route returns a json objects with required RoundTrip flights from other Airlines.
 	*
 	*/
-	app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:class/:numberOfSeats', function(req, res) {
+	app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:class/:numberOfSeats?', function(req, res) {
+		if(!req.params.numberOfSeats){
+			req.params.numberOfSeats = 1;
+		}
 
 		var  constraints = {
 			"origin":        req.params.origin,
