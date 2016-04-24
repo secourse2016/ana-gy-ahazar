@@ -34,6 +34,7 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 	$scope.addReservation = function() {
 		var dep_flight = FlightsSrv.getDepartureFlight();
 		var ret_flight = FlightsSrv.getReturnFlight();
+		var totalSeats = parseInt(FlightsSrv.getAdults()) + parseInt(FlightsSrv.getChildren());
 
 		console.log(dep_flight);
 
@@ -43,6 +44,7 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 			'infants': $scope.infants,
 			'dep_flight': dep_flight,
 			'ret_flight': ret_flight,
+			'total_seats': totalSeats,
 			'class': $scope.class,
 			'type': 'Direct'};
 			FlightsSrv.storeReservation(reservation).success(function(response) {
@@ -65,6 +67,7 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 			'children': $scope.children,
 			'infants': $scope.infants,
 			'dep_flight': dep_flight,
+			'total_seats': totalSeats,
 			'class': $scope.class,
 			'type': 'Direct'};
 

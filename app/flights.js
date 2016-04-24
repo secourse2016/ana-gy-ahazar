@@ -166,7 +166,7 @@ var seed = function(callback) {
 		for (var j = 0; j < originOrDestination1.length; j++) {
 			var flightDuration = Math.floor(1 + (Math.random() * 16));
 			var randomCost = Math.floor(600+Math.random() * 8400);
-			
+
 
 			var ret_dateTime = dep_dateTime.clone();
 			ret_dateTime = ret_dateTime.add(flightDuration, 'h');
@@ -187,7 +187,7 @@ var seed = function(callback) {
 				"duration": flightDuration,
 				"origin": origin,
 				"destination": destination,
-				"remaining_seats": "50",
+				"remaining_seats": 50,
 				"cost": randomCost,
 				"currency": "USD",
 				"seatmap": 	[
@@ -219,7 +219,7 @@ var seed = function(callback) {
 				"duration": flightDuration,
 				"origin": origin,
 				"destination": destination,
-				"remaining_seats": "50",
+				"remaining_seats": 50,
 				"cost": randomCost,
 				"currency": "USD",
 				"seatmap": 	[
@@ -413,272 +413,311 @@ var updateReservation = function (bookRef, newInfo, callback){
 			db.getDatabase().collection('reservations').find({booking_ref_number : bookRef}).toArray(function (err,record){
 				if(err) throw err;
 
-				db.getDatabase().collection('reservations').remove({'booking_ref_number' : bookRef },1);
-				callback();
+				var totalSeats = record.total_seats;
 
-			});
+				db.getDatabase().collection('reservations').remove({'booking_ref_number' : bookRef }, 1, function(err, result) {
+					db.getDatabase().collection('flights').updateOne(
+						{ _id: record.dep_flight._id },
+						{ $inc: { remaining_seats: totalSeats } },
+						function(err, result) {
+							if(record.ret_flight._id === null){
+								callback();
+							}
+							else{
+								db.getDatabase().collection('flights').updateOne(
+									{ _id: record.ret_flight._id },
+									{ $inc: { remaining_seats: totalSeats } },
+									function(err, result) {
+											callback();
+								});
+							}
+						});
+					});
+				});
+			};
 
-		};
+			/**
+			* This function searchs for one way trip flights.
+			*
+			* @param {JSONObject} search constraints, {Function} callback function that is called after the search is complete.
+			* @returns {JSONObject}
+			*/
+			var getOneWayFlights = function(oneway, callback){
+				var flights = [] ;
 
-		/**
-		* This function searchs for one way trip flights.
-		*
-		* @param {JSONObject} search constraints, {Function} callback function that is called after the search is complete.
-		* @returns {JSONObject}
-		*/
-		var getOneWayFlights = function(oneway, callback){
-			var flights = [] ;
-
-			db.getDatabase().collection('flights').find(oneway).toArray(function(err,data){
-				if(err){
-					callback(err) ;
-				}
-				else {
-					for( i=0; i<data.length ;i++){
-						var currFlight = data[i];
-						var aircraft = currFlight.aircraft;
-						var aircraftType = aircraft.aircraftType;
-						var aircraftModel = aircraft.aircraftModel ;
-
-						var flight =	{
-							"flightNumber": currFlight.flightNumber,
-							"aircraftType":  aircraftType,
-							"aircraftModel": aircraftModel,
-							"departureDateTime": currFlight.departureDateTime,
-							"arrivalDateTime": currFlight.arrivalDateTime,
-							"origin": currFlight.origin,
-							"destination": currFlight.destination,
-							"cost": currFlight.cost,
-							"currency": currFlight.currency,
-							"class": currFlight.class,
-							"Airline": currFlight.Airline
-						};
-						flights.push(flight) ;
+				db.getDatabase().collection('flights').find(oneway).toArray(function(err,data){
+					if(err){
+						callback(err) ;
 					}
+					else {
+						for( i=0; i<data.length ;i++){
+							var currFlight = data[i];
+							var aircraft = currFlight.aircraft;
+							var aircraftType = aircraft.aircraftType;
+							var aircraftModel = aircraft.aircraftModel ;
 
-					callback(null,flights) ;
+							var flight =	{
+								"_id": currFlight._id,
+								"flightNumber": currFlight.flightNumber,
+								"aircraftType":  aircraftType,
+								"aircraftModel": aircraftModel,
+								"departureDateTime": currFlight.departureDateTime,
+								"arrivalDateTime": currFlight.arrivalDateTime,
+								"origin": currFlight.origin,
+								"destination": currFlight.destination,
+								"cost": currFlight.cost,
+								"currency": currFlight.currency,
+								"class": currFlight.class,
+								"Airline": currFlight.Airline
+							};
+							flights.push(flight) ;
+						}
+
+						callback(null,flights) ;
+					}
+				});
+			};
+
+			/**
+			* This function adds a reservation to the database and generates a unique booking reference.
+			*
+			* @param {JSONObject} reservation, {Function} callback function that is called after the insertion is complete.
+			*/
+			var reserve = function(reserve_info, callback){
+				var code = "";
+				var totalSeats = parseInt(reserve_info.total_seats);
+
+				for (var i = 0; i < 15; i++) {
+					if(randomBoolean()){
+						//Capital Letter
+						var letter = String.fromCharCode(65 + (Math.floor(Math.random() * 26)));
+						code += letter;
+					}
+					else{
+						//number
+						var number = Math.floor(Math.random() * 10);
+						code += number;
+					}
 				}
-			});
-		};
 
-		/**
-		* This function adds a reservation to the database and generates a unique booking reference.
-		*
-		* @param {JSONObject} reservation, {Function} callback function that is called after the insertion is complete.
-		*/
-		var reserve = function(reserve_info, callback){
-			var code = "";
-
-			for (var i = 0; i < 15; i++) {
-				if(randomBoolean()){
-					//Capital Letter
-					var letter = String.fromCharCode(65 + (Math.floor(Math.random() * 26)));
-					code += letter;
-				}
-				else{
-					//number
-					var number = Math.floor(Math.random() * 10);
-					code += number;
-				}
-			}
-
-			db.getDatabase().collection('reservations').count({"booking_ref_number": code}, function(err, count) {
-				if(count === 0){
-					reserve_info.booking_ref_number = code;
-					db.getDatabase().collection('reservations').insert(reserve_info, function(err, docs) {
-						if(err){
-							callback(err, null);
+				db.getDatabase().collection('reservations').count({"booking_ref_number": code}, function(err, count) {
+					if(count === 0){
+						reserve_info.booking_ref_number = code;
+						db.getDatabase().collection('reservations').insert(reserve_info, function(err, docs) {
+							if(err){
+								callback(err, null);
+							}
+							else{
+								db.getDatabase().collection('flights').updateOne(
+									{ _id: reserve_info.dep_flight._id },
+									{ $inc: { remaining_seats: -totalSeats } },
+									function(err, docs) {
+										if(err){
+											callback(err, null);
+										}
+										else{
+											if(reserve_info.ret_flight === null){
+												callback(null, code);
+											}
+											else{
+												db.getDatabase().collection('flights').updateOne(
+													{ _id: reserve_info.ret_flight._id },
+													{ $inc: { remaining_seats: -totalSeats } },
+													function(err, docs) {
+														if(err){
+															callback(err, null);
+														}
+														else{
+															callback(null, code);
+														}
+													});
+											}
+										}
+									});
+								}
+							});
 						}
 						else{
-							callback(null, code);
+							reserve(reserve_info, callback);
 						}
 					});
-				}
-				else{
-					reserve(reserve_info, callback);
-				}
-			});
-		};
+				};
 
-		/**
-		* This function adds a feedback to the database.
-		*
-		* @param {JSONObject} feedback, {Function} callback function that is called after the insertion is complete.
-		*/
-		var addFeedback = function (feed, callback){
-			db.getDatabase().collection('feedbacks').insert(feed, function(err, docs) {
-				if (err){
-					callback(err , null);
-				}else{
-					callback(null,docs);
-				}
-			});
-		};
+				/**
+				* This function adds a feedback to the database.
+				*
+				* @param {JSONObject} feedback, {Function} callback function that is called after the insertion is complete.
+				*/
+				var addFeedback = function (feed, callback){
+					db.getDatabase().collection('feedbacks').insert(feed, function(err, docs) {
+						if (err){
+							callback(err , null);
+						}else{
+							callback(null,docs);
+						}
+					});
+				};
 
-		/**
-		* This function make http request
-		* @param {onResult} callback function that is called after the requesting is complete.
-		*/
-		var makeOnlineRequest =  function(options, onResult)
-		{
-			var req = http.request(options, function(res)
-			{
+				/**
+				* This function make http request
+				* @param {onResult} callback function that is called after the requesting is complete.
+				*/
+				var makeOnlineRequest =  function(options, onResult)
+				{
+					var req = http.request(options, function(res)
+					{
 
-				var output = '';
-				res.setEncoding('utf8');
+						var output = '';
+						res.setEncoding('utf8');
 
-				res.on('data', function (chunk) {
+						res.on('data', function (chunk) {
 
-					output += chunk;
+							output += chunk;
 
-				});
+						});
 
-				res.on('end', function() {
-					var obj = output;
-					onResult(res.statusCode, obj);
-				});
-			});
+						res.on('end', function() {
+							var obj = output;
+							onResult(res.statusCode, obj);
+						});
+					});
 
-			req.setTimeout(3000, function() {
-				console.log('timeout');
-			});
+					req.setTimeout(3000, function() {
+						console.log('timeout');
+					});
 
-			req.on('end', function() {
-				console.log('done');
-				req.abort();
-			});
+					req.on('end', function() {
+						console.log('done');
+						req.abort();
+					});
 
-			req.on('error', function(err) {
-				req.abort();
-			});
+					req.on('error', function(err) {
+						req.abort();
+					});
 
-			req.end();
-		};
+					req.end();
+				};
 
-		/**
-		* This function search for flights in airlines.json One way.
-		*
-		* @param {Function} callback function that is called after the searching is complete.
-		*/
-		var airlines = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
-		flightsOne = {
-			outgoingFlights: []
-		};
-		var getOtherFlightsOneWay = function(oneway, i, callback){
-			console.log(i);
-			if(i === airlines.length){
-				callback(null,flightsOne);
-				return;
-			}
-
-			var currAirLine =
-			{
-				"IP": airlines[i].IP
-			};
-
-
-			var ip = currAirLine.IP;
-
-
-			var options = {
-				host: ip ,
-				path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.departureDateTime+'/'+oneway.class+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			};
-			try{
-				makeOnlineRequest(options,function(statusCode, result){
-					try {
-						var json = JSON.parse(result);
-
-						flightsOne.outgoingFlights = concat(flightsOne.outgoingFlights, json.outgoingFlights);
-					}catch(err) {
-
+				/**
+				* This function search for flights in airlines.json One way.
+				*
+				* @param {Function} callback function that is called after the searching is complete.
+				*/
+				var airlines = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
+				flightsOne = {
+					outgoingFlights: []
+				};
+				var getOtherFlightsOneWay = function(oneway, i, callback){
+					console.log(i);
+					if(i === airlines.length){
+						callback(null,flightsOne);
+						return;
 					}
-					getOtherFlightsOneWay(oneway, (i + 1), callback);
-				});
-			}
-			catch(err){
-				getOtherFlightsOneWay(oneway, (i + 1), callback);
-			}
-		};
 
-		/**
-		* This function search for flights in airlines.json round trip.
-		*
-		* @param {Function} callback function that is called after the searching is complete.
-		*/
-		flightsRound = {
-			outgoingFlights: [],
-			returnFlights: []
-		};
-		var getOtherFlightsRound = function(constraints, i, callback){
-			console.log(i);
-			if(i === airlines.length){
-				return callback(null,flightsRound);
-			}
-
-			var currAirLine =
-			{
-				"IP": airlines[i].IP
-			};
+					var currAirLine =
+					{
+						"IP": airlines[i].IP
+					};
 
 
-			var ip = currAirLine.IP;
+					var ip = currAirLine.IP;
 
 
-			var options = {
-				host: ip ,
-				path: '/api/flights/search/'+constraints.origin+'/'+constraints.destination+'/'+constraints.departureDateTime+'/'+constraints.returnDate+'/'+constraints.class+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			};
-			try{
-				makeOnlineRequest(options,function(statusCode, result){
-					try {
-						var json = JSON.parse(result);
+					var options = {
+						host: ip ,
+						path: '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.departureDateTime+'/'+oneway.class+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					};
+					try{
+						makeOnlineRequest(options,function(statusCode, result){
+							try {
+								var json = JSON.parse(result);
 
-						flightsRound.outgoingFlights = concat(flightsRound.outgoingFlights, json.outgoingFlights);
-						flightsRound.returnFlights = concat(flightsRound.returnFlights, json.returnFlights);
-					}catch(err) {
+								flightsOne.outgoingFlights = concat(flightsOne.outgoingFlights, json.outgoingFlights);
+							}catch(err) {
 
+							}
+							getOtherFlightsOneWay(oneway, (i + 1), callback);
+						});
 					}
-					getOtherFlightsRound(constraints, (i + 1), callback);
-				});
-			}
-			catch(err){
-				getOtherFlightsRound(constraints, (i + 1), callback);
-			}
-		};
+					catch(err){
+						getOtherFlightsOneWay(oneway, (i + 1), callback);
+					}
+				};
 
-		var concat = function(x, y) {
-			for (var i = 0; i < y.length; i++) {
-				x.push(y[i]);
-			}
+				/**
+				* This function search for flights in airlines.json round trip.
+				*
+				* @param {Function} callback function that is called after the searching is complete.
+				*/
+				flightsRound = {
+					outgoingFlights: [],
+					returnFlights: []
+				};
+				var getOtherFlightsRound = function(constraints, i, callback){
+					if(i === airlines.length){
+						return callback(null,flightsRound);
+					}
 
-			return x;
-		};
+					var currAirLine = airlines[i];
 
-		module.exports = {
-			getCountries: getCountries,
-			getAirports: getAirports,
-			randomBoolean: randomBoolean,
-			chooseRandomElement: chooseRandomElement,
-			generateFlightnumber: generateFlightnumber,
-			seed: seed,
-			addFeedback:addFeedback,
-			getOneWayFlights:getOneWayFlights,
-			reserve:reserve,
-			generatePromo: generatePromo,
-			getReservation: getReservation,
-			updateReservation: updateReservation,
-			cancelReservation: cancelReservation,
-			getOtherFlightsOneWay :getOtherFlightsOneWay ,
-			getOtherFlightsRound: getOtherFlightsRound,
-			makeOnlineRequest : makeOnlineRequest,
-			concat: concat
-		};
+					console.log(currAirLine.airline);
+					var ip = currAirLine.IP;
+
+
+					var options = {
+						host: ip ,
+						path: '/api/flights/search/'+constraints.origin+'/'+constraints.destination+'/'+constraints.departureDateTime+'/'+constraints.returnDate+'/'+constraints.class+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					};
+					try{
+						makeOnlineRequest(options,function(statusCode, result){
+							try {
+								var json = JSON.parse(result);
+
+								flightsRound.outgoingFlights = concat(flightsRound.outgoingFlights, json.outgoingFlights);
+								flightsRound.returnFlights = concat(flightsRound.returnFlights, json.returnFlights);
+							}catch(err) {
+
+							}
+							getOtherFlightsRound(constraints, (i + 1), callback);
+						});
+					}
+					catch(err){
+						getOtherFlightsRound(constraints, (i + 1), callback);
+					}
+				};
+
+				var concat = function(x, y) {
+					for (var i = 0; i < y.length; i++) {
+						x.push(y[i]);
+					}
+
+					return x;
+				};
+
+				module.exports = {
+					getCountries: getCountries,
+					getAirports: getAirports,
+					randomBoolean: randomBoolean,
+					chooseRandomElement: chooseRandomElement,
+					generateFlightnumber: generateFlightnumber,
+					seed: seed,
+					addFeedback:addFeedback,
+					getOneWayFlights:getOneWayFlights,
+					reserve:reserve,
+					generatePromo: generatePromo,
+					getReservation: getReservation,
+					updateReservation: updateReservation,
+					cancelReservation: cancelReservation,
+					getOtherFlightsOneWay :getOtherFlightsOneWay ,
+					getOtherFlightsRound: getOtherFlightsRound,
+					makeOnlineRequest : makeOnlineRequest,
+					concat: concat
+				};
