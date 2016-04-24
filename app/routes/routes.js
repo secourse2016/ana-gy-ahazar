@@ -34,7 +34,6 @@ module.exports = function(app) {
 		catch (err)
 		{
 			console.log(req.url);
-			console.error('[ERROR]: JWT Error reason:', err);
 			res.status(403).sendFile(path.join(__dirname, '../../public', '403.html'));
 		}
 	});
@@ -88,12 +87,17 @@ module.exports = function(app) {
 	*/
 	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:class' , function(req, res){
 
+		var dep_date = moment(parseInt(req.params.departureDateTime));
+
+                console.log("inside api/flights/search");
 		var oneWay = {
 			"origin": req.params.origin,
 			"destination": req.params.destination,
-			"departureDate": parseInt(req.params.departureDateTime),
+			"departureDate": dep_date.format('YYYY-MM-DD'),
 			"class": req.params.class
 		};
+                
+                console.log("oneWay: ", oneWay);
 
 		var result = {
 			outgoingFlights : {}
@@ -105,7 +109,7 @@ module.exports = function(app) {
 
 			else{
 				result.outgoingFlights = data;
-
+       
 				res.json(result);
 			}
 		});
@@ -117,18 +121,20 @@ module.exports = function(app) {
 	*/
 	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
 
+		var dep_date = moment(parseInt(req.params.departingDate));
+		var ret_date = moment(parseInt(req.params.returningDate));
 
 		var  outGoing = {
 			"origin":        req.params.origin,
 			"destination":   req.params.destination,
-			"departureDate": parseInt(req.params.departingDate),
+			"departureDate": dep_date.format('YYYY-MM-DD'),
 			"class": req.params.class
 		};
 
 		var  inComing = {
 			"origin":        req.params.destination,
 			"destination":   req.params.origin,
-			"departureDate": parseInt(req.params.returningDate),
+			"departureDate": ret_date.format('YYYY-MM-DD'),
 			"class": req.params.class
 		};
 
