@@ -85,7 +85,7 @@ module.exports = function(app) {
 	* This route searchs for one ways flights.
 	*
 	*/
-	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:class' , function(req, res){
+	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:class/:numberOfSeats' , function(req, res){
 
 		var dep_date = moment(parseInt(req.params.departureDateTime));
 
@@ -94,7 +94,8 @@ module.exports = function(app) {
 			"origin": req.params.origin,
 			"destination": req.params.destination,
 			"departureDate": dep_date.format('YYYY-MM-DD'),
-			"class": req.params.class
+			"class": req.params.class ,
+			"remaining_seats" : { $gte: parseInt(req.params.numberOfSeats)}
 		};
                 
                 console.log("oneWay: ", oneWay);
@@ -119,7 +120,7 @@ module.exports = function(app) {
 	* This route searchs for round trip flights.
 	*
 	*/
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
+	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:numberOfSeats', function(req, res) {
 
 		var dep_date = moment(parseInt(req.params.departingDate));
 		var ret_date = moment(parseInt(req.params.returningDate));
@@ -128,14 +129,16 @@ module.exports = function(app) {
 			"origin":        req.params.origin,
 			"destination":   req.params.destination,
 			"departureDate": dep_date.format('YYYY-MM-DD'),
-			"class": req.params.class
+			"class": req.params.class,
+			"remaining_seats" : { $gte: req.params.numberOfSeats}
 		};
 
 		var  inComing = {
 			"origin":        req.params.destination,
 			"destination":   req.params.origin,
 			"departureDate": ret_date.format('YYYY-MM-DD'),
-			"class": req.params.class
+			"class": req.params.class,
+			"remaining_seats" : { $gte: req.params.numberOfSeats}
 		};
 
 		var result = {
@@ -251,12 +254,14 @@ module.exports = function(app) {
 	* This route returns a json objects with required  One Way flights from other Airlines.
 	*
 	*/
-	app.get('/api/flights/searchOutSide/:origin/:destination/:departureDateTime/:class' , function(req, res){
+	app.get('/api/flights/searchOutSide/:origin/:destination/:departureDateTime/:class/:numberOfSeats' , function(req, res){
 		var oneWay = {
 			"origin": req.params.origin,
 			"destination": req.params.destination,
 			"departureDateTime": parseInt(req.params.departureDateTime),
-			"class": req.params.class
+			"class": req.params.class,
+		    "remaining_seats" : { $gte: req.params.numberOfSeats}
+
 		};
 
 		flightsOne = {
@@ -277,14 +282,16 @@ module.exports = function(app) {
 	* This route returns a json objects with required RoundTrip flights from other Airlines.
 	*
 	*/
-	app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
+	app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:class/:numberOfSeats', function(req, res) {
 
 		var  constraints = {
 			"origin":        req.params.origin,
 			"destination":   req.params.destination,
 			"departureDateTime": parseInt(req.params.departingDate),
 			"returnDate": parseInt(req.params.returningDate),
-			"class":         req.params.class
+			"class":         req.params.class,
+			"remaining_seats" : { $gte: req.params.numberOfSeats}
+
 		};
 
 		flightsRound = {
