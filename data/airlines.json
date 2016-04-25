@@ -16,7 +16,7 @@
     "IP":"52.34.160.140"
   },
   {
-    "airline":"Swissair",
+    "airline":"Swiss Air",
     "IP":"www.swiss-air.me"
   },
   {
@@ -62,5 +62,17 @@
   {
     "airline":"Cathay Pacific Airlines",
     "IP":"ec2-52-91-94-227.compute-1.amazonaws.com"
+  },
+  {
+    "airline":"Alaska",
+    "IP":"52.207.211.179"
+  },
+  {
+    "airline":"Turkish Airlines",
+    "IP":"52.27.150.19"
+  },
+  {
+    "airline":"Virgin australia",
+    "IP":"54.93.116.90"
   }
 ]
