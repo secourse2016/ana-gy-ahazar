@@ -55,15 +55,25 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 		};
 			FlightsSrv.storeReservation(reservation).success(function(response) {
 				console.log(response);
-				if (response == "error") {
+				if (response === "error") {
 					swal('Something went wrong please try again!', 'error');
 				}
 				else {
+					if(response.inIP){
+						swal({
+							title: "Outgoing Flight Booking Reference: \n" + response.refNumOut + "\n You can review your booking in:\n" + response.outIP +
+							"\nIncoming Flight Booking Reference: \n" + response.refNumIn + "\n You can review your booking in:\n" + response.inIP,
+							text: "Thank you for booking with us :)",
+							type: "success"
+						});
+					}
+					else{
 					swal({
-						title: "Booking Reference: " + response,
-						text: "Thank you for choosing Air Madagascar :)",
+						title: "Booking Reference:\n" + response.refNumOut + "\n You can review your booking in:\n" + response.outIP,
+						text: "Thank you for booking with us :)",
 						type: "success"
 					});
+				}
 					$location.url('/book');
 				}
 			});
@@ -79,15 +89,15 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 			'type': 'Direct',
 			'paymentToken': token
 		};
-		
+
 			FlightsSrv.storeReservation(reservation).success(function(response) {
-				if (response == "error") {
+				if (response === "error") {
 					swal('title','Something went wrong please try again!', 'error');
 				}
 				else {
 					swal({
-						title: "Booking Reference: " + response,
-						text: "Thank you for choosing Air Madagascar.",
+						title: "Booking Reference:\n" + response.refNumOut + "\n You can review your booking in:\n" + response.outIP,
+						text: "Thank you for booking with us :)",
 						type: "success"
 					});
 					$location.url('/book');
