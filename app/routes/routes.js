@@ -270,11 +270,11 @@ module.exports = function(app) {
                
                flights.reserve(outgoingIP, dep_request,reservation, function( resOut) {
 				try {
-					var jsonOut = JSON.parse(resOut);
+					var jsonOut = (resOut);
 
 					flights.reserve(incomingIP, ret_request,reservation, function( resIn) {
 						try{
-							var jsonIn = JSON.parse(resIn);
+							var jsonIn = (resIn);
 
 							res.json({
 								"outIP": outgoingIP,
@@ -297,9 +297,9 @@ module.exports = function(app) {
 				dep_request.returnFlightId = returnFlightId;
 				dep_request.cost = dep_request.cost + ret_cost;
 
-				flights.reserve(outgoingIP, dep_request,reservation, function(statusCode, response) {
+				flights.reserve(outgoingIP, dep_request,reservation, function( response) {
 					try {
-						var json = JSON.parse(response);
+						var json = (response);
 
 						res.json({
 							"outIP": outgoingIP,
