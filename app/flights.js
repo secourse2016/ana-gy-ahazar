@@ -192,10 +192,10 @@ var seed = function(callback) {
 				"cost": randomCost,
 				"currency": "USD",
 				"seatmap": 	[
-					{
-						"seat": 5666,
-						"taken": randomBoolean()
-					}
+				{
+					"seat": 5666,
+					"taken": randomBoolean()
+				}
 				],
 				"aircraft": airCrafts[Math.floor(Math.random() * airCrafts.length)]
 			};
@@ -224,10 +224,10 @@ var seed = function(callback) {
 				"cost": randomCost,
 				"currency": "USD",
 				"seatmap": 	[
-					{
-						"seat": 5666,
-						"taken": randomBoolean()
-					}
+				{
+					"seat": 5666,
+					"taken": randomBoolean()
+				}
 				],
 				"aircraft": airCrafts[Math.floor(Math.random() * airCrafts.length)]
 			};
@@ -334,7 +334,7 @@ var updateReservation = function (bookRef, newInfo, callback){
 		}
 
 		if(adults.length === 0)
-		finalAdults = adults;
+			finalAdults = adults;
 
 		db.getDatabase().collection('reservations').updateOne(
 			{booking_ref_number: bookRef},
@@ -349,65 +349,65 @@ var updateReservation = function (bookRef, newInfo, callback){
 
 
 
-			for (var i=0; i<children.length; i++) {
-				var passport_number = children[i].passport_number;
-				var issue_date = children[i].issue_date;
-				var expiry_date = children[i].expiry_date;
+		for (var i=0; i<children.length; i++) {
+			var passport_number = children[i].passport_number;
+			var issue_date = children[i].issue_date;
+			var expiry_date = children[i].expiry_date;
 
-				newChildren[i].passport_number = passport_number;
-				newChildren[i].issue_date = issue_date;
-				newChildren[i].expiry_date = expiry_date;
-				finalChildren.push(newChildren[i]);
+			newChildren[i].passport_number = passport_number;
+			newChildren[i].issue_date = issue_date;
+			newChildren[i].expiry_date = expiry_date;
+			finalChildren.push(newChildren[i]);
 
-			}
+		}
 
-			if(children.length === 0)
+		if(children.length === 0)
 			finalChildren = children;
 
-			db.getDatabase().collection('reservations').updateOne(
-				{booking_ref_number: bookRef},
-				{ $set:
-					{
-						children: finalChildren
-					}
-				},
-				function(err, results) {
-
+		db.getDatabase().collection('reservations').updateOne(
+			{booking_ref_number: bookRef},
+			{ $set:
+				{
+					children: finalChildren
 				}
+			},
+			function(err, results) {
+
+			}
 			);
 
 
 
-			for (var i=0; i<infants.length; i++) {
-				var passport_number = infants[i].passport_number;
-				var issue_date = infants[i].issue_date;
-				var expiry = infants[i].expiry;
+		for (var i=0; i<infants.length; i++) {
+			var passport_number = infants[i].passport_number;
+			var issue_date = infants[i].issue_date;
+			var expiry = infants[i].expiry;
 
-				newInfants[i].passport_number = passport_number;
-				newInfants[i].issue_date = issue_date;
-				newInfants[i].expiry = expiry_date;
+			newInfants[i].passport_number = passport_number;
+			newInfants[i].issue_date = issue_date;
+			newInfants[i].expiry = expiry_date;
 
-				finalInfants.push(newInfants[i]);
+			finalInfants.push(newInfants[i]);
 
-			}
+		}
 
-			if (infants.length === 0)
+		if (infants.length === 0)
 			finalInfants=infants;
 
-			db.getDatabase().collection('reservations').updateOne(
-				{booking_ref_number: bookRef},
-				{ $set:
-					{
-						infants: finalInfants
-					}
-				},
-				function(err, results) {
+		db.getDatabase().collection('reservations').updateOne(
+			{booking_ref_number: bookRef},
+			{ $set:
+				{
+					infants: finalInfants
+				}
+			},
+			function(err, results) {
 
-				});
-				callback();
 			});
+		callback();
+	});
 
-		};
+};
 
 		//deleting/cancelling a reservation of a given booking reference
 		var cancelReservation = function (bookRef, callback) {
@@ -435,11 +435,11 @@ var updateReservation = function (bookRef, newInfo, callback){
 									function(err, result) {
 										callback();
 									});
-								}
-							});
+							}
 						});
-					});
-				};
+				});
+			});
+		};
 
 				/**
 				* This function searchs for one way trip flights.
@@ -488,7 +488,7 @@ var updateReservation = function (bookRef, newInfo, callback){
 				*
 				* @param {JSONObject} reservation, {Function} callback function that is called after the insertion is complete.
 				*/
-				var reserve = function(reserve_info, callback){
+				var reserveHelp = function(reserve_info, callback){
 					var code = "";
 					var totalSeats = parseInt(reserve_info.total_seats);
 
@@ -538,17 +538,17 @@ var updateReservation = function (bookRef, newInfo, callback){
 																callback(null, code);
 															}
 														});
-													}
 												}
-											});
-										}
-									});
-								}
-								else{
-									reserve(reserve_info, callback);
+											}
+										});
 								}
 							});
-						};
+						}
+						else{
+							reserve(reserve_info, callback);
+						}
+					});
+				};
 
 						/**
 						* This function adds a feedback to the database.
@@ -682,19 +682,19 @@ var updateReservation = function (bookRef, newInfo, callback){
 								}
 							};
 
-								makeOnlineRequest(options, {}, function(statusCode, result){
-									try {
-										var json = JSON.parse(result);
+							makeOnlineRequest(options, {}, function(statusCode, result){
+								try {
+									var json = JSON.parse(result);
 
-										flightsRound.outgoingFlights = concat(flightsRound.outgoingFlights, json.outgoingFlights, ip);
-										flightsRound.returnFlights = concat(flightsRound.returnFlights, json.returnFlights, ip);
-									}catch(err) {
+									flightsRound.outgoingFlights = concat(flightsRound.outgoingFlights, json.outgoingFlights, ip);
+									flightsRound.returnFlights = concat(flightsRound.returnFlights, json.returnFlights, ip);
+								}catch(err) {
 
-									}
-									finally{
-										getOtherFlightsRound(constraints, (i + 1), callback);
-									}
-								});
+								}
+								finally{
+									getOtherFlightsRound(constraints, (i + 1), callback);
+								}
+							});
 						};
 
 						var concat = function(x, y, ip) {
@@ -705,23 +705,129 @@ var updateReservation = function (bookRef, newInfo, callback){
 
 							return x;
 						};
+/**
+* This function calculates the age from a given birthDate
+*
+* @param {String} birthDate
+* @returns {Integer}
+*/
+var getAge = function(dateString){
+	var today = new Date();
+	var birthDate = new Date(dateString);
+	var age = today.getFullYear() - birthDate.getFullYear();
+	var m = today.getMonth() - birthDate.getMonth();
+	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
+	{
+		age--;
+	}
+	return age;
+}
+/**
+* This function charges a credit card with a specific amount
+*
+* @param {Token} paymentToken, {Integer} cost, {Function} callback function that is called once the payment is done
+* @returns
+*/
+var charge  = function (token, cost, callback) {
+	callback(null);
+}
 
-						module.exports = {
-							getCountries: getCountries,
-							getAirports: getAirports,
-							randomBoolean: randomBoolean,
-							chooseRandomElement: chooseRandomElement,
-							generateFlightnumber: generateFlightnumber,
-							seed: seed,
-							addFeedback:addFeedback,
-							getOneWayFlights:getOneWayFlights,
-							reserve:reserve,
-							generatePromo: generatePromo,
-							getReservation: getReservation,
-							updateReservation: updateReservation,
-							cancelReservation: cancelReservation,
-							getOtherFlightsOneWay :getOtherFlightsOneWay ,
-							getOtherFlightsRound: getOtherFlightsRound,
-							makeOnlineRequest : makeOnlineRequest,
-							concat: concat
-						};
+
+/**
+* This function books a flight in the database
+*
+* @param {JSONObject} reservation info, {Function} callback function that is called when the reservation is done.
+*/
+var reserveLocal  = function(reservation, callback) {
+	charge(reservation.paymentToken, reservation.cost, function(err) {
+		if(err){
+			callback({
+				"refNum": null,
+				"errorMessage": 'An error occurred while trying to charge the given credit card'
+			});
+		}
+		else{
+			delete reservation.paymentToken;
+			
+			   reserveHelp(reservation, function(err, code) {
+				if(err){
+					callback({
+						"refNum": null,
+						"errorMessage": 'An error occurred while trying to book the flight'
+					});
+				}
+				else{
+					callback({
+						"refNum": code,
+						"errorMessage": null
+					});
+				}
+			});
+		}
+	});
+}
+var reserve = function (ip , out ,reservation , callback){
+   if(ip === "54.191.202.17"){
+   	            delete reservation.dep_price;
+				delete reservation.ret_price;
+				reservation.cost = out.cost;
+
+				reserveLocal(reservation, function(object) {
+					callback(object);
+				});
+
+   }
+   else{
+   	var options = {
+				host: ip,
+				port: 3000,
+				path: '/booking/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+			};
+
+
+			makeOnlineRequest(options, out, function(statusCode, response) {
+					try {
+						var json = JSON.parse(response);
+
+						callback({
+							"outIP": ip,
+							"refNumOut": response.refNum
+						});
+					}catch(err) {
+						callback('error');
+					}
+				});
+
+   }
+
+};
+
+module.exports = {
+	getCountries: getCountries,
+	getAirports: getAirports,
+	randomBoolean: randomBoolean,
+	chooseRandomElement: chooseRandomElement,
+	generateFlightnumber: generateFlightnumber,
+	seed: seed,
+	addFeedback:addFeedback,
+	getOneWayFlights:getOneWayFlights,
+	reserve:reserve,
+	generatePromo: generatePromo,
+	getReservation: getReservation,
+	updateReservation: updateReservation,
+	cancelReservation: cancelReservation,
+	getOtherFlightsOneWay :getOtherFlightsOneWay ,
+	getOtherFlightsRound: getOtherFlightsRound,
+	makeOnlineRequest : makeOnlineRequest,
+	concat: concat,
+
+	reserveHelp : reserveHelp ,
+	reserveLocal : reserveLocal,
+	getAge : getAge ,
+	charge : charge 
+
+};
