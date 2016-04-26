@@ -133,7 +133,7 @@ module.exports = function(app) {
 			"destination":   req.params.destination,
 			"departureDate": dep_date.format('YYYY-MM-DD'),
 			"class": req.params.class,
-			"remaining_seats" : { $gte: req.params.numberOfSeats}
+			"remaining_seats" : { $gte: parseInt(req.params.numberOfSeats)}
 		};
 
 		var  inComing = {
@@ -141,7 +141,7 @@ module.exports = function(app) {
 			"destination":   req.params.origin,
 			"departureDate": ret_date.format('YYYY-MM-DD'),
 			"class": req.params.class,
-			"remaining_seats" : { $gte: req.params.numberOfSeats}
+			"remaining_seats" : { $gte: parseInt(req.params.numberOfSeats)}
 		};
 
 		var result = {
@@ -272,7 +272,7 @@ module.exports = function(app) {
 		if(!ret_request){
 			//the request will be sent to one airline
 			//don't forget to add the data
-outgoingIP = 'localhost'; // delete this line ASAP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+			outgoingIP = 'localhost'; // delete this line ASAP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 			var options = {
 				host: outgoingIP ,
 				port: 3000,
@@ -281,21 +281,31 @@ outgoingIP = 'localhost'; // delete this line ASAP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				data: dep_request
 			};
 
-			flights.makeOnlineRequest(options, function(statusCode, response) {
-				try {
-					var json = JSON.parse(response);
+			if(outgoingIP === "54.191.202.17"){
+				delete reservation.dep_price;
+				delete reservation.ret_price;
+				reservation.cost = dep_request.cost;
 
-					res.json({
-						"outIP": outgoingIP,
-						"refNumOut": response.refNum
-					});
-				}catch(err) {
-					res.send('error');
-				}
-			});
+				reserveLocal(reservation, function(object) {
+					res.json(object);
+				});
+			}
+			else{
+				flights.makeOnlineRequest(options, dep_request, function(statusCode, response) {
+					try {
+						var json = JSON.parse(response);
+
+						res.json({
+							"outIP": outgoingIP,
+							"refNumOut": response.refNum
+						});
+					}catch(err) {
+						res.send('error');
+					}
+				});
+			}
 		}
 		else {
 			//there must be two requests to be sent
@@ -307,7 +317,6 @@ outgoingIP = 'localhost'; // delete this line ASAP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: dep_request
 			};
 
 			//don't forget to add the data
@@ -318,14 +327,13 @@ outgoingIP = 'localhost'; // delete this line ASAP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: ret_request
 			};
 
-			flights.makeOnlineRequest(optionsOut, function(statusCode, resOut) {
+			flights.makeOnlineRequest(optionsOut, dep_request, function(statusCode, resOut) {
 				try {
 					var jsonOut = JSON.parse(resOut);
 
-					flights.makeOnlineRequest(optionsIn, function(statusCode, resIn) {
+					flights.makeOnlineRequest(optionsIn, ret_request, function(statusCode, resIn) {
 						try{
 							var jsonIn = JSON.parse(resIn);
 
@@ -389,9 +397,6 @@ app.delete('/api/flights/:reservation', function (req,res) {
 app.post('/booking', function(req, res) {
 	var reservation = req.body;
 
-console.log('wasal');
-console.log(reservation);
-
 	var adults = [];
 	var children = [];
 	var infants = [];
@@ -410,10 +415,10 @@ console.log(reservation);
 	var totalSeats = 0;
 
 	for(var i = 0; i < reservation.passengerDetails.length; i++) {
-		var curPassenger = reservaion.passengerDetails[i];
+		var curPassenger = reservation.passengerDetails[i];
 
 		var age = getAge(reservation.dateOfBirth);
-
+		console.log(age);
 		if(age <= 2){
 			infants.push(curPassenger);
 		}
@@ -477,6 +482,40 @@ console.log(reservation);
 */
 function charge(token, cost, callback) {
 	callback(null);
+}
+
+/**
+* This function books a flight in the database
+*
+* @param {JSONObject} reservation info, {Function} callback function that is called when the reservation is done.
+*/
+function reserveLocal(reservation, callback) {
+	charge(reservation.paymentToken, reservation.cost, function(err) {
+		if(err){
+			callback({
+				"refNum": null,
+				"errorMessage": 'An error occurred while trying to charge the given credit card'
+			});
+		}
+		else{
+			delete reservation.paymentToken;
+			
+			flights.reserve(reservation, function(err, code) {
+				if(err){
+					callback({
+						"refNum": null,
+						"errorMessage": 'An error occurred while trying to book the flight'
+					});
+				}
+				else{
+					callback({
+						"refNum": code,
+						"errorMessage": null
+					});
+				}
+			});
+		}
+	});
 }
 
 /**

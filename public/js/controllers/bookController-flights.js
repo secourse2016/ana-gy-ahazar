@@ -308,7 +308,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          for(var i = 0; i < myReturnFlights.length; i++) {
            myReturnFlights[i].IP = "54.191.202.17";
          }
-
+         
          var departureHasFlights = (response.outgoingFlights.length > 0);
          var returnHasFlights = (response.returnFlights.length > 0);
 

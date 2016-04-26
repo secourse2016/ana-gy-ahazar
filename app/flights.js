@@ -569,7 +569,7 @@ var updateReservation = function (bookRef, newInfo, callback){
 						* This function make http request
 						* @param {onResult} callback function that is called after the requesting is complete.
 						*/
-						var makeOnlineRequest =  function(options, onResult)
+						var makeOnlineRequest =  function(options, body, onResult)
 						{
 							var req = http.request(options, function(res)
 							{
@@ -604,6 +604,7 @@ var updateReservation = function (bookRef, newInfo, callback){
 								onResult(400, null);
 							});
 
+							req.write(JSON.stringify(body));
 							req.end();
 						};
 
@@ -638,7 +639,7 @@ var updateReservation = function (bookRef, newInfo, callback){
 								}
 							};
 
-							makeOnlineRequest(options,function(statusCode, result){
+							makeOnlineRequest(options, {}, function(statusCode, result){
 								try {
 									var json = JSON.parse(result);
 
@@ -681,7 +682,7 @@ var updateReservation = function (bookRef, newInfo, callback){
 								}
 							};
 
-								makeOnlineRequest(options,function(statusCode, result){
+								makeOnlineRequest(options, {}, function(statusCode, result){
 									try {
 										var json = JSON.parse(result);
 
