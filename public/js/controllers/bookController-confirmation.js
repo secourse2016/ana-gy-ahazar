@@ -36,7 +36,9 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 		var ret_flight = FlightsSrv.getReturnFlight();
 		var totalSeats = parseInt(FlightsSrv.getAdults()) + parseInt(FlightsSrv.getChildren());
 
-		console.log(dep_flight);
+		//creating payment token
+		var token = ""; // dummy value;
+		//the token is created
 
 		if (FlightsSrv.getFlightType() == "round") {
 			var reservation = {'adults': $scope.adults,
@@ -44,9 +46,13 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 			'infants': $scope.infants,
 			'dep_flight': dep_flight,
 			'ret_flight': ret_flight,
+			'dep_price': FlightsSrv.getOutgoingPrice(),
+			'ret_price': FlightsSrv.getIncomingPrice(),
 			'total_seats': totalSeats,
 			'class': $scope.class,
-			'type': 'Direct'};
+			'type': 'Direct',
+			'paymentToken': token
+		};
 			FlightsSrv.storeReservation(reservation).success(function(response) {
 				console.log(response);
 				if (response == "error") {
@@ -67,10 +73,13 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 			'children': $scope.children,
 			'infants': $scope.infants,
 			'dep_flight': dep_flight,
+			'dep_price': FlightsSrv.getOutgoingPrice(),
 			'total_seats': totalSeats,
 			'class': $scope.class,
-			'type': 'Direct'};
-
+			'type': 'Direct',
+			'paymentToken': token
+		};
+		
 			FlightsSrv.storeReservation(reservation).success(function(response) {
 				if (response == "error") {
 					swal('title','Something went wrong please try again!', 'error');

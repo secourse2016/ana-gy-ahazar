@@ -77,6 +77,18 @@ App.factory('FlightsSrv', function ($http) {
       getTotalPrice: function() {
          return this.total_price;
       },
+      setOutgoingPrice: function(value) {
+         this.outgoing_price = value;
+      },
+      getOutgoingPrice: function() {
+         return this.outgoing_price;
+      },
+      setIncomingPrice: function(value) {
+         this.incoming_price = value;
+      },
+      getIncomingPrice: function() {
+         return this.incoming_price;
+      },
       setDepartureFlight: function(value) {
          this.departureFlight = value;
       },

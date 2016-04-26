@@ -30,7 +30,11 @@ App.controller('bookController-payment', function($scope, FlightsSrv, PersonalSr
          if (num > 0.0) {
             $scope.success = true;
             $scope.discount = num * 100;
+            var diff = ($scope.total_price - ($scope.total_price * num)) / 2;
             $scope.total_price -= ($scope.total_price * num);
+            FlightsSrv.setTotalPrice($scope.total_price);
+            FlightsSrv.setOutgoingPrice(FlightsSrv.getOutgoingPrice() - diff);
+            FlightsSrv.setIncomingPrice(FlightsSrv.getIncomingPrice() - diff);
          }
          else {
             $scope.success = false;

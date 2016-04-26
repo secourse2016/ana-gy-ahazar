@@ -118,6 +118,10 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
       FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected, totalSeats).success(function(response) {
          var myFlights = response.outgoingFlights;
+         for(var i = 0; i < myFlights.length; i++) {
+           myFlights[i].IP = "54.191.202.17";
+         }
+
          var hasFlights = (response.outgoingFlights.length > 0);
 
          if(search_other){
@@ -235,6 +239,10 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
       FlightsSrv.getOneFlights($scope.ret_airport, $scope.dep_airport, ret_time, $scope.ret_isSelected, totalSeats).success(function(response) {
          var myFlights = response.outgoingFlights;
+         for(var i = 0; i < myFlights.length; i++) {
+           myFlights[i].IP = "54.191.202.17";
+         }
+
          var hasFlights = (response.outgoingFlights.length > 0);
 
          if(search_other){
@@ -292,7 +300,14 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
       FlightsSrv.getRoundFlights($scope.dep_airport, $scope.ret_airport, dep_time, ret_time, $scope.class, totalSeats).success(function(response) {
          var myOutgoingFlights = response.outgoingFlights;
+         for(var i = 0; i < myOutgoingFlights.length; i++) {
+           myOutgoingFlights[i].IP = "54.191.202.17";
+         }
+
          var myReturnFlights = response.returnFlights;
+         for(var i = 0; i < myReturnFlights.length; i++) {
+           myReturnFlights[i].IP = "54.191.202.17";
+         }
 
          var departureHasFlights = (response.outgoingFlights.length > 0);
          var returnHasFlights = (response.returnFlights.length > 0);
@@ -346,6 +361,10 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
       FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class, totalSeats).success(function(response) {
          var myFlights = response.outgoingFlights;
+         for(var i = 0; i < myFlights.length; i++) {
+           myFlights[i].IP = "54.191.202.17";
+         }
+
          var hasFlights = (response.outgoingFlights.length > 0);
 
          if(search_other){
@@ -390,6 +409,8 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
          FlightsSrv.setDepartureFlight($scope.dep_flight);
          FlightsSrv.setReturnFlight($scope.ret_flight);
+         FlightsSrv.setOutgoingPrice(parseInt($scope.dep_price));
+         FlightsSrv.setIncomingPrice(parseInt($scope.ret_price));
          FlightsSrv.setTotalPrice(parseInt($scope.dep_price) + parseInt($scope.ret_price));
 
          $location.url('/book/personalInformation');
