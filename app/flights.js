@@ -862,6 +862,7 @@ var cancelReservation = function (bookRef, callback) {
 					getOtherFlightsRound: getOtherFlightsRound,
 					makeOnlineRequest : makeOnlineRequest,
 					concat: concat,
+					addFlights: addFlights,
 					reserveHelp : reserveHelp ,
 					reserveLocal : reserveLocal,
 					getAge : getAge ,
