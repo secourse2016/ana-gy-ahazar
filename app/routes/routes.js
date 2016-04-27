@@ -241,8 +241,12 @@ module.exports = function(app) {
 		var paymentToken = reservation.paymentToken;
 		var outgoingFlightId = reservation.dep_flight.flightId;
 
+		reservation.dep_flight._id = reservation.dep_flight.flightId;
+		delete reservation.dep_flight.flightId;
+
 		var dep_request = {
 			"passengerDetails": passengers,
+			"class": reservation.class,
 			"cost": dep_cost,
 			"outgoingFlightId": outgoingFlightId,
 			"paymentToken": paymentToken
@@ -253,43 +257,51 @@ module.exports = function(app) {
 
 
 		//The requests are ready. statrting sending
-		if(ret_request){
-			//the request will be sent to one airline
-			//don't forget to add the data
-			console.log("no");
+		if(reservation.ret_flight){
 			incomingIP = reservation.ret_flight.IP;
 			var returnFlightId = reservation.ret_flight.flightId;
 			var ret_cost = reservation.ret_price;
 
+			reservation.ret_flight._id = reservation.ret_flight.flightId;
+			delete reservation.ret_flight.flightId;
 
-			if(outgoingIP  != incomingIP){ 
+			if(outgoingIP  != incomingIP){
+				//the request will be sent to two different airline
 
 				ret_request = JSON.parse(JSON.stringify(dep_request));
 				ret_request.outgoingFlightId = returnFlightId;
 				ret_request.cost = ret_cost;
-               
-               flights.reserve(outgoingIP, dep_request,reservation, function( resOut) {
-				try {
-					var jsonOut = (resOut);
 
-					flights.reserve(incomingIP, ret_request,reservation, function( resIn) {
-						try{
-							var jsonIn = (resIn);
-
-							res.json({
-								"outIP": outgoingIP,
-								"refNumOut": resOut.refNum,
-								"inIP": incomingIP,
-								"refNumIn": resIn.refNum
-							});
-						}catch(err){
+				flights.reserve(outgoingIP, dep_request, reservation, function(resOut) {
+					try {
+						var jsonOut = (resOut);
+						if(resIn.errorMessage){
 							res.send('error');
 						}
-					});
-				}catch(err) {
-					res.send('error');
-				}
-			});
+						else{
+							flights.reserve(incomingIP, ret_request, reservation, function(resIn) {
+								try{
+									var jsonIn = (resIn);
+									if(resIn.errorMessage){
+										res.send('error');
+									}
+									else{
+										res.json({
+											"outIP": outgoingIP,
+											"refNumOut": resOut.refNum,
+											"inIP": incomingIP,
+											"refNumIn": resIn.refNum
+										});
+									}
+								}catch(err){
+									res.send('error');
+								}
+							});
+						}
+					}catch(err) {
+						res.send('error');
+					}
+				});
 
 			}
 			else{
@@ -297,35 +309,42 @@ module.exports = function(app) {
 				dep_request.returnFlightId = returnFlightId;
 				dep_request.cost = dep_request.cost + ret_cost;
 
-				flights.reserve(outgoingIP, dep_request,reservation, function( response) {
+				flights.reserve(outgoingIP, dep_request, reservation, function(response) {
 					try {
 						var json = (response);
-
-						res.json({
-							"outIP": outgoingIP,
-							"refNumOut": response.refNum
-						});
+						if(response.errorMessage){
+							res.send('error');
+						}
+						else{
+							res.json({
+								"outIP": outgoingIP,
+								"refNumOut": response.refNum
+							});
+						}
 					}catch(err) {
 						res.send('error');
 					}
 				});
 			}
 		}
-			else{
-				flights.reserve(outgoingIP, dep_request,reservation, function(response) {
-					try {
-
-
-						var json = (response);
+		else{
+			flights.reserve(outgoingIP, dep_request,reservation, function(response) {
+				try {
+					var json = (response);
+					if(response.errorMessage){
+						res.send('error');
+					}
+					else{
 						res.json({
 							"outIP": outgoingIP,
 							"refNumOut": response.refNum
 						});
-					}catch(err) {
-						res.send('error');
 					}
-				});
-			}
+				}catch(err) {
+					res.send('error');
+				}
+			});
+		}
 
 
 });
@@ -383,14 +402,63 @@ app.post('/booking', function(req, res) {
 		var age = flights.getAge(reservation.dateOfBirth);
 		console.log(age);
 		if(age <= 2){
-			infants.push(curPassenger);
+			var fInfant = {
+				"title" : "Mr.",
+				"phone_code" : "Afghanistan (+93)",
+				"em_phone_code" : "Afghanistan (+93)",
+				"mealPreference" : "None",
+				"specialNeed" : "None",
+				"first_name" : curPassenger.firstName,
+				"last_name" : curPassenger.lastName,
+				"nationality" : curPassenger.nationality || 'Egyptian',
+				"birth_date" : curPassenger.dateOfBirth,
+				"passport_number" : curPassenger.passportNum,
+				"issue_date" : new Date().getTime(),
+				"expiry_date" : curPassenger.passportExpiryDate
+			};
+
+			infants.push(fInfant);
 		}
 		else if(age <= 12){
-			children.push(curPassenger);
+			var fChild = {
+				"title" : "Mr.",
+				"phone_code" : "Afghanistan (+93)",
+				"em_phone_code" : "Afghanistan (+93)",
+				"mealPreference" : "None",
+				"specialNeed" : "None",
+				"first_name" : curPassenger.firstName,
+				"last_name" : curPassenger.lastName,
+				"nationality" : curPassenger.nationality || 'Egyptian',
+				"birth_date" : curPassenger.dateOfBirth,
+				"passport_number" : curPassenger.passportNum,
+				"issue_date" : new Date().getTime(),
+				"expiry_date" : curPassenger.passportExpiryDate
+			};
+
+			children.push(fChild);
 			totalSeats++;
 		}
 		else{
-			adults.push(curPassenger);
+			var fAdult = {
+				"title" : "Mr.",
+				"phone_code" : "Afghanistan (+93)",
+				"em_phone_code" : "Afghanistan (+93)",
+				"mealPreference" : "None",
+				"specialNeed" : "None",
+				"first_name" : curPassenger.firstName,
+				"last_name" : curPassenger.lastName,
+				"email" : curPassenger.email || 'No E-mail',
+				"nationality" : curPassenger.nationality || 'Egyptian',
+				"birth_date" : curPassenger.dateOfBirth,
+				"passport_number" : curPassenger.passportNum,
+				"issue_date" : new Date().getTime(),
+				"expiry_date" : curPassenger.passportExpiryDate,
+				"phone_number" : 'No Phone',
+				"em_email" : 'No emergency mail',
+				"em_phone_number" : 'No emergency phone'
+			};
+
+			adults.push(fAdult);
 			totalSeats++;
 		}
 	}
@@ -436,11 +504,6 @@ app.post('/booking', function(req, res) {
 	});
 
 });
-
-
-
-
-
 
 /**
 * This route validates the promotion_code
@@ -547,4 +610,3 @@ app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:re
 });
 
 };
-

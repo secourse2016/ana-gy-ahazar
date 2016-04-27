@@ -37,7 +37,7 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 		var totalSeats = parseInt(FlightsSrv.getAdults()) + parseInt(FlightsSrv.getChildren());
 
 		//creating payment token
-		var token = ""; // dummy value;
+		var token = PersonalSrv.getPaymentToken();
 		//the token is created
 
 		if (FlightsSrv.getFlightType() == "round") {
