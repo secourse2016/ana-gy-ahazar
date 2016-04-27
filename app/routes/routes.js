@@ -251,91 +251,30 @@ module.exports = function(app) {
 		var ret_request = null;
 		var incomingIP = null;
 
-		if(reservation.ret_flight){
-			//rount trip flight
+
+		//The requests are ready. statrting sending
+		if(ret_request){
+			//the request will be sent to one airline
+			//don't forget to add the data
+			console.log("no");
 			incomingIP = reservation.ret_flight.IP;
 			var returnFlightId = reservation.ret_flight.flightId;
 			var ret_cost = reservation.ret_price;
 
-			if(outgoingIP === incomingIP){
-				dep_request.returnFlightId = returnFlightId;
-				dep_request.cost = dep_request.cost + ret_cost;
-			}
-			else{
+
+			if(outgoingIP  != incomingIP){ 
+
 				ret_request = JSON.parse(JSON.stringify(dep_request));
 				ret_request.outgoingFlightId = returnFlightId;
 				ret_request.cost = ret_cost;
-			}
-		}
-
-		//The requests are ready. statrting sending
-		if(!ret_request){
-			//the request will be sent to one airline
-			//don't forget to add the data
-			outgoingIP = 'localhost'; // delete this line ASAP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-			var options = {
-				host: outgoingIP ,
-				port: 3000,
-				path: '/booking/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-			};
-
-			if(outgoingIP === "54.191.202.17"){
-				delete reservation.dep_price;
-				delete reservation.ret_price;
-				reservation.cost = dep_request.cost;
-
-				reserveLocal(reservation, function(object) {
-					res.json(object);
-				});
-			}
-			else{
-				flights.makeOnlineRequest(options, dep_request, function(statusCode, response) {
-					try {
-						var json = JSON.parse(response);
-
-						res.json({
-							"outIP": outgoingIP,
-							"refNumOut": response.refNum
-						});
-					}catch(err) {
-						res.send('error');
-					}
-				});
-			}
-		}
-		else {
-			//there must be two requests to be sent
-			//don't forget to add the data
-			var optionsOut = {
-				host: outgoingIP ,
-				path: '/booking/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-			};
-
-			//don't forget to add the data
-			var optionsIn = {
-				host: incomingIP ,
-				path: '/booking/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-			};
-
-			flights.makeOnlineRequest(optionsOut, dep_request, function(statusCode, resOut) {
+               
+               flights.reserve(outgoingIP, dep_request,reservation, function( resOut) {
 				try {
-					var jsonOut = JSON.parse(resOut);
+					var jsonOut = (resOut);
 
-					flights.makeOnlineRequest(optionsIn, ret_request, function(statusCode, resIn) {
+					flights.reserve(incomingIP, ret_request,reservation, function( resIn) {
 						try{
-							var jsonIn = JSON.parse(resIn);
+							var jsonIn = (resIn);
 
 							res.json({
 								"outIP": outgoingIP,
@@ -351,20 +290,44 @@ module.exports = function(app) {
 					res.send('error');
 				}
 			});
-		}
 
-		/*
-		The response of this route should be either "error"
-		or an array of booking references
-		[
-		{
-		"outIP": "{{ the ip of the operating Airline outgoing }}",
-		"refNumOut": {{ booking reference returned outgoing by the opretating Airline }},
-		"inIP": "{{ the ip of the operating Airline incoming }}",
-		"refNumIn": {{ booking reference returned inconing by the opretating Airline }},
-	}
-]
-*/
+			}
+			else{
+
+				dep_request.returnFlightId = returnFlightId;
+				dep_request.cost = dep_request.cost + ret_cost;
+
+				flights.reserve(outgoingIP, dep_request,reservation, function( response) {
+					try {
+						var json = (response);
+
+						res.json({
+							"outIP": outgoingIP,
+							"refNumOut": response.refNum
+						});
+					}catch(err) {
+						res.send('error');
+					}
+				});
+			}
+		}
+			else{
+				flights.reserve(outgoingIP, dep_request,reservation, function(response) {
+					try {
+
+
+						var json = (response);
+						res.json({
+							"outIP": outgoingIP,
+							"refNumOut": response.refNum
+						});
+					}catch(err) {
+						res.send('error');
+					}
+				});
+			}
+
+
 });
 
 /**
@@ -417,7 +380,7 @@ app.post('/booking', function(req, res) {
 	for(var i = 0; i < reservation.passengerDetails.length; i++) {
 		var curPassenger = reservation.passengerDetails[i];
 
-		var age = getAge(reservation.dateOfBirth);
+		var age = flights.getAge(reservation.dateOfBirth);
 		console.log(age);
 		if(age <= 2){
 			infants.push(curPassenger);
@@ -447,7 +410,7 @@ app.post('/booking', function(req, res) {
 	}
 
 	//trying the payment
-	charge(reservation.paymentToken, reservation.cost, function(err) {
+	flights.charge(reservation.paymentToken, reservation.cost, function(err) {
 		if(err){
 			res.json({
 				"refNum": null,
@@ -474,67 +437,10 @@ app.post('/booking', function(req, res) {
 
 });
 
-/**
-* This function charges a credit card with a specific amount
-*
-* @param {Token} paymentToken, {Integer} cost, {Function} callback function that is called once the payment is done
-* @returns
-*/
-function charge(token, cost, callback) {
-	callback(null);
-}
 
-/**
-* This function books a flight in the database
-*
-* @param {JSONObject} reservation info, {Function} callback function that is called when the reservation is done.
-*/
-function reserveLocal(reservation, callback) {
-	charge(reservation.paymentToken, reservation.cost, function(err) {
-		if(err){
-			callback({
-				"refNum": null,
-				"errorMessage": 'An error occurred while trying to charge the given credit card'
-			});
-		}
-		else{
-			delete reservation.paymentToken;
-			
-			flights.reserve(reservation, function(err, code) {
-				if(err){
-					callback({
-						"refNum": null,
-						"errorMessage": 'An error occurred while trying to book the flight'
-					});
-				}
-				else{
-					callback({
-						"refNum": code,
-						"errorMessage": null
-					});
-				}
-			});
-		}
-	});
-}
 
-/**
-* This function calculates the age from a given birthDate
-*
-* @param {String} birthDate
-* @returns {Integer}
-*/
-function getAge(dateString){
-	var today = new Date();
-	var birthDate = new Date(dateString);
-	var age = today.getFullYear() - birthDate.getFullYear();
-	var m = today.getMonth() - birthDate.getMonth();
-	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
-	{
-		age--;
-	}
-	return age;
-}
+
+
 
 /**
 * This route validates the promotion_code
@@ -639,4 +545,6 @@ app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:re
 		}
 	});
 });
+
 };
+
