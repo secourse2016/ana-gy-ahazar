@@ -7,7 +7,9 @@ var promos = ['Experience Comfort & Luxury', 'Great Flight Deals To Domestic Des
 Every 4.5 seconds change the background image and change the text promo text.
 */
 setInterval(function() {
+   var now = $('#bg' + currentIndex);
    currentIndex = (currentIndex+1)%totalCount;
+   var nxt = $('#bg' + currentIndex);
 
    // fade out whatever is in #promo then fade in the new text.
    $(function() {
@@ -16,7 +18,10 @@ setInterval(function() {
       });
    });
 
-   $('body').css('background-image', 'url(/assets/background' + currentIndex + '.jpg)'); //doesn't work in firefox
+
+   now.fadeOut(700);
+   nxt.fadeIn(700);
+   // $('body').css('background-image', 'url(/assets/background' + currentIndex + '.jpg)'); //doesn't work in firefox
 }, 4500);
 
 $(document).ready(function() {
