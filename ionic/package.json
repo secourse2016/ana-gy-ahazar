@@ -1,7 +1,7 @@
 {
-  "name": "ionic",
-  "version": "1.1.1",
-  "description": "ionic: An Ionic project",
+  "name": "online-booking-system",
+  "version": "1.0.0",
+  "description": "This is an online booking system for Air Madagascar.",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
