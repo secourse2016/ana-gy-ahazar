@@ -607,4 +607,21 @@ app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:re
 		}
 	});
 });
+
+app.get('/stripe/pubkey', function(req, res) {
+	var ip = req.body.IP;
+
+	var fs = require('fs');
+
+	var airports = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
+
+	for(var i = 0; i < airports.length; i++) {
+		if(airports[i].IP === ip){
+			res.send(airports[i].publishableKey);
+			return;
+		}
+	}
+
+	res.send('pk_test_0hp9j1pvGDdsbY4zEyqvfwpD');
+});
 };

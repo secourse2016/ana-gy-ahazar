@@ -79,41 +79,54 @@ App.controller('bookController-payment', function($scope, FlightsSrv, PersonalSr
       PersonalSrv.setAddress($scope.address);
       PersonalSrv.setPromotionCode($scope.promotion_code);
 
-      Stripe.setPublishableKey('pk_test_0hp9j1pvGDdsbY4zEyqvfwpD');
-      Stripe.card.createToken({
-        number: $scope.card_number,
-        cvc: $scope.cvs,
-        exp_month: ($scope.card_expiry_date.getMonth() + 1),
-        exp_year: $scope.card_expiry_date.getFullYear()
-      }, function(status, responseDep) {
-        if(responseDep.error){
-          console.log('payment error');
-          sweetAlert("Opps...", responseDep.error.message, "error");
-        }
-        else{
-          PersonalSrv.setPaymentTokenDep(responseDep.id);
-          Stripe.card.createToken({
-            number: $scope.card_number,
-            cvc: $scope.cvs,
-            exp_month: ($scope.card_expiry_date.getMonth() + 1),
-            exp_year: $scope.card_expiry_date.getFullYear()
-          }, function(status, responseRet) {
-            if(responseRet.error){
-              console.log('payment error');
-              sweetAlert("Opps...", responseRet.error.message, "error");
+      FlightsSrv.getPublishableKey(FlightsSrv.getDepartureFlight().IP).success(function(publishableKeyDep) {
+        Stripe.setPublishableKey(publishableKeyDep);
+
+        Stripe.card.createToken({
+          number: $scope.card_number,
+          cvc: $scope.cvs,
+          exp_month: ($scope.card_expiry_date.getMonth() + 1),
+          exp_year: $scope.card_expiry_date.getFullYear()
+        }, function(status, responseDep) {
+          if(responseDep.error){
+            console.log('payment error');
+            sweetAlert("Opps...", responseDep.error.message, "error");
+          }
+          else{
+            PersonalSrv.setPaymentTokenDep(responseDep.id);
+
+            if(FlightsSrv.getFlightType() == "round") {
+
+              FlightsSrv.getPublishableKey(FlightsSrv.getDepartureFlight().IP).success(function(publishableKeyRet) {
+                Stripe.setPublishableKey(publishableKeyRet);
+
+                Stripe.card.createToken({
+                  number: $scope.card_number,
+                  cvc: $scope.cvs,
+                  exp_month: ($scope.card_expiry_date.getMonth() + 1),
+                  exp_year: $scope.card_expiry_date.getFullYear()
+                }, function(status, responseRet) {
+                  if(responseRet.error){
+                    console.log('payment error');
+                    sweetAlert("Opps...", responseRet.error.message, "error");
+                  }
+                  else{
+                    console.log('payment done');
+                    PersonalSrv.setPaymentTokenRet(responseRet.id);
+                    $location.url('/book/confirmation');
+                    $scope.$apply();
+                  }
+                });
+              });
             }
             else{
               console.log('payment done');
-              PersonalSrv.setPaymentTokenRet(responseRet.id);
-              done = true;
-              $scope.submitForm(true);
+              $location.url('/book/confirmation');
+              $scope.$apply();
             }
-          });
-        }
+          }
+        });
       });
-
-      $location.url('/book/confirmation');
-
     }
     else {
       console.log('bad');
