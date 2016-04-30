@@ -1,11 +1,17 @@
 App.factory('PersonalSrv', function ($http) {
    return {
       /* personal Infromation Part*/
-      setPaymentToken: function(value) {
-         this.paymentToken = value;
+      setPaymentTokenDep: function(value) {
+         this.paymentTokenDep = value;
       },
-      getPaymentToken: function() {
-         return this.paymentToken;
+      getPaymentTokenDep: function() {
+         return this.paymentTokenDep;
+      },
+      setPaymentTokenRet: function(value) {
+         this.paymentTokenRet = value;
+      },
+      getPaymentTokenRet: function() {
+         return this.paymentTokenRet;
       },
       setAdultsInfo: function(value) {
          this.adultsInfo = value;

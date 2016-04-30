@@ -37,11 +37,13 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 		var totalSeats = parseInt(FlightsSrv.getAdults()) + parseInt(FlightsSrv.getChildren());
 
 		//creating payment token
-		var token = PersonalSrv.getPaymentToken();
+		var tokenDep = PersonalSrv.getPaymentTokenDep();
+		var tokenRet = PersonalSrv.getPaymentTokenRet();
 		//the token is created
 
 		if (FlightsSrv.getFlightType() == "round") {
-			var reservation = {'adults': $scope.adults,
+			var reservation = {
+			'adults': $scope.adults,
 			'children': $scope.children,
 			'infants': $scope.infants,
 			'dep_flight': dep_flight,
@@ -51,12 +53,13 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 			'total_seats': totalSeats,
 			'class': $scope.class,
 			'type': 'Direct',
-			'paymentToken': token
+			'paymentTokenDep': tokenDep,
+			'paymentTokenRet': tokenRet
 		};
 			FlightsSrv.storeReservation(reservation).success(function(response) {
 				console.log(response);
 				if (response === "error") {
-					swal('Something went wrong please try again!', 'error');
+					sweetAlert("Opps...", "Something went wrong please try again!", "error");
 				}
 				else {
 					if(response.inIP){
@@ -79,7 +82,8 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 			});
 		}
 		else {
-			var reservation = {'adults': $scope.adults,
+			var reservation = {
+			'adults': $scope.adults,
 			'children': $scope.children,
 			'infants': $scope.infants,
 			'dep_flight': dep_flight,
@@ -87,17 +91,17 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 			'total_seats': totalSeats,
 			'class': $scope.class,
 			'type': 'Direct',
-			'paymentToken': token
+			'paymentTokenDep': tokenDep
 		};
 
 			FlightsSrv.storeReservation(reservation).success(function(response) {
 				if (response === "error") {
-					swal('title','Something went wrong please try again!', 'error');
+					sweetAlert("Opps...", "Something went wrong please try again!", "error");
 				}
 				else {
 					swal({
 						title: "Booking Reference:\n" + response.refNumOut + "\n You can review your booking in:\n" + response.outIP,
-						text: "Thank you for booking with us :)",
+						text: "Thank you for booking with us :",
 						type: "success"
 					});
 					$location.url('/book');
@@ -107,7 +111,5 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 				console.log('error');
 			});
 		}
-
-
-	}
+	};
 });

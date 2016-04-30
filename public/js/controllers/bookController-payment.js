@@ -49,7 +49,7 @@ App.controller('bookController-payment', function($scope, FlightsSrv, PersonalSr
     FlightsSrv.getCountries().success(function(countries) {
       $scope.Countries = countries;
     });
-  };
+  }
 
   Countries();
 
@@ -58,55 +58,65 @@ App.controller('bookController-payment', function($scope, FlightsSrv, PersonalSr
   Validations
   */
   $scope.submitted = false;
-  var done = false;
   // function to submit the form after all validation has occurred
   $scope.submitForm = function(isValid) {
-    if(done){
-      done = false;
+
+    $scope.submitted = true;
+
+    // check to make sure the form is completely valid
+    if (isValid) {
+      console.log('good');
+
+      PersonalSrv.setCardholder($scope.cardholder);
+      PersonalSrv.setMethod($scope.method);
+      PersonalSrv.setCardNumber($scope.card_number);
+      PersonalSrv.setCVS($scope.cvs);
+      PersonalSrv.setExpiryDate($scope.card_expiry_date);
+      PersonalSrv.setBillingCountry($scope.billing_country);
+      PersonalSrv.setBillingCity($scope.billing_city);
+      PersonalSrv.setBillingState($scope.billing_state);
+      PersonalSrv.setZipCode($scope.zip_code);
+      PersonalSrv.setAddress($scope.address);
+      PersonalSrv.setPromotionCode($scope.promotion_code);
+
+      Stripe.setPublishableKey('pk_test_0hp9j1pvGDdsbY4zEyqvfwpD');
+      Stripe.card.createToken({
+        number: $scope.card_number,
+        cvc: $scope.cvs,
+        exp_month: ($scope.card_expiry_date.getMonth() + 1),
+        exp_year: $scope.card_expiry_date.getFullYear()
+      }, function(status, responseDep) {
+        if(responseDep.error){
+          console.log('payment error');
+          sweetAlert("Opps...", responseDep.error.message, "error");
+        }
+        else{
+          PersonalSrv.setPaymentTokenDep(responseDep.id);
+          Stripe.card.createToken({
+            number: $scope.card_number,
+            cvc: $scope.cvs,
+            exp_month: ($scope.card_expiry_date.getMonth() + 1),
+            exp_year: $scope.card_expiry_date.getFullYear()
+          }, function(status, responseRet) {
+            if(responseRet.error){
+              console.log('payment error');
+              sweetAlert("Opps...", responseRet.error.message, "error");
+            }
+            else{
+              console.log('payment done');
+              PersonalSrv.setPaymentTokenRet(responseRet.id);
+              done = true;
+              $scope.submitForm(true);
+            }
+          });
+        }
+      });
+
       $location.url('/book/confirmation');
+
     }
     else {
-      $scope.submitted = true;
-
-      // check to make sure the form is completely valid
-      if (isValid) {
-        console.log('good');
-
-        PersonalSrv.setCardholder($scope.cardholder);
-        PersonalSrv.setMethod($scope.method);
-        PersonalSrv.setCardNumber($scope.card_number);
-        PersonalSrv.setCVS($scope.cvs);
-        PersonalSrv.setExpiryDate($scope.card_expiry_date);
-        PersonalSrv.setBillingCountry($scope.billing_country);
-        PersonalSrv.setBillingCity($scope.billing_city);
-        PersonalSrv.setBillingState($scope.billing_state);
-        PersonalSrv.setZipCode($scope.zip_code);
-        PersonalSrv.setAddress($scope.address);
-        PersonalSrv.setPromotionCode($scope.promotion_code);
-
-        Stripe.setPublishableKey('pk_test_0hp9j1pvGDdsbY4zEyqvfwpD');
-        Stripe.card.createToken({
-          number: $scope.card_number,
-          cvc: $scope.cvs,
-          exp_month: ($scope.card_expiry_date.getMonth() + 1),
-          exp_year: $scope.card_expiry_date.getFullYear()
-        }, function(status, response) {
-          if(response.error){
-            console.log('payment error');
-            swal(response.error.message, 'error');
-          }
-          else{
-            console.log('payment done');
-            PersonalSrv.setPaymentToken(response.id);
-            done = true;
-            $scope.submitForm(true);
-          }
-        });
-
-      }
-      else {
-        console.log('bad');
-      }
+      console.log('bad');
     }
   };
 });

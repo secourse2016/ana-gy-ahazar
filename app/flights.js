@@ -780,7 +780,7 @@ var cancelReservation = function (bookRef, callback) {
 				* @param {JSONObject} reservation info, {Function} callback function that is called when the reservation is done.
 				*/
 				var reserveLocal  = function(reservation, callback) {
-					charge(reservation.paymentToken, reservation.cost, function(err) {
+					charge(reservation.paymentTokenDep, reservation.cost, function(err) {
 						if(err){
 							callback({
 								"refNum": null,
@@ -788,7 +788,7 @@ var cancelReservation = function (bookRef, callback) {
 							});
 						}
 						else{
-							delete reservation.paymentToken;
+							delete reservation.paymentTokenDep;
 
 							reserveHelp(reservation, function(err, code) {
 								if(err){
@@ -808,16 +808,20 @@ var cancelReservation = function (bookRef, callback) {
 					});
 				};
 
-				var reserve = function (ip , out ,reservation , callback){
+				var reserve = function (ip, out, reservation, isReturn,  callback){
 					if(ip === "54.191.202.17"){
 						delete reservation.dep_price;
 						delete reservation.ret_price;
 						reservation.cost = out.cost;
 
+						if(isReturn){
+							reservation.paymentTokenDep = reservation.paymentTokenRet;
+							delete reservation.paymentTokenRet;
+						}
+
 						reserveLocal(reservation, function(object) {
 							callback(object);
 						});
-
 					}
 					else{
 						var options = {
@@ -833,10 +837,12 @@ var cancelReservation = function (bookRef, callback) {
 						makeOnlineRequest(options, out, function(statusCode, response) {
 							try {
 								var json = JSON.parse(response);
-
 								callback(response);
 							}catch(err) {
-								callback('error');
+								callback({
+									"refNum": null,
+									"errorMessage": 'An error occurred while trying to book the flight'
+								});
 							}
 						});
 

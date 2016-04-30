@@ -6,10 +6,6 @@ var path = require('path');
 
 module.exports = function(app) {
 
-	var protect = ['/api/countries','/api/airports','/db/seed','/db/delete',
-	'/api/flights/search/:origin/:destination/:departureDateTime/:class','/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class',
-	'/api/flights/reservation/:bookingReference','/api/flights/reservation','/api/flights/reservation',
-	'/api/flights/:reservation','/api/validatepromo/:promoCode','/feedback'];
 	/**
 	* This route returns the master page
 	*
@@ -238,7 +234,7 @@ module.exports = function(app) {
 
 		var outgoingIP = reservation.dep_flight.IP;
 		var dep_cost = reservation.dep_price;
-		var paymentToken = reservation.paymentToken;
+		var paymentToken = reservation.paymentTokenDep;
 		var outgoingFlightId = reservation.dep_flight.flightId;
 
 		reservation.dep_flight._id = reservation.dep_flight.flightId;
@@ -271,15 +267,16 @@ module.exports = function(app) {
 				ret_request = JSON.parse(JSON.stringify(dep_request));
 				ret_request.outgoingFlightId = returnFlightId;
 				ret_request.cost = ret_cost;
+				ret_request.paymentToken = reservation.paymentTokenRet;
 
-				flights.reserve(outgoingIP, dep_request, reservation, function(resOut) {
+				flights.reserve(outgoingIP, dep_request, reservation, false, function(resOut) {
 					try {
 						var jsonOut = (resOut);
 						if(resIn.errorMessage){
 							res.send('error');
 						}
 						else{
-							flights.reserve(incomingIP, ret_request, reservation, function(resIn) {
+							flights.reserve(incomingIP, ret_request, reservation, true, function(resIn) {
 								try{
 									var jsonIn = (resIn);
 									if(resIn.errorMessage){
@@ -308,8 +305,9 @@ module.exports = function(app) {
 
 				dep_request.returnFlightId = returnFlightId;
 				dep_request.cost = dep_request.cost + ret_cost;
+				delete reservation.paymentTokenRet;
 
-				flights.reserve(outgoingIP, dep_request, reservation, function(response) {
+				flights.reserve(outgoingIP, dep_request, reservation, false, function(response) {
 					try {
 						var json = (response);
 						if(response.errorMessage){
@@ -328,7 +326,9 @@ module.exports = function(app) {
 			}
 		}
 		else{
-			flights.reserve(outgoingIP, dep_request,reservation, function(response) {
+			delete reservation.paymentTokenRet;
+
+			flights.reserve(outgoingIP, dep_request,reservation, false, function(response) {
 				try {
 					var json = (response);
 					if(response.errorMessage){
@@ -486,7 +486,7 @@ app.post('/booking', function(req, res) {
 			});
 		}
 		else{
-			flights.reserve(reservation_info, function(err, code) {
+			flights.reserveHelp(reservation_info, function(err, code) {
 				if(err){
 					res.json({
 						"refNum": null,
@@ -502,7 +502,6 @@ app.post('/booking', function(req, res) {
 			});
 		}
 	});
-
 });
 
 /**
@@ -608,5 +607,4 @@ app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:re
 		}
 	});
 });
-
 };
