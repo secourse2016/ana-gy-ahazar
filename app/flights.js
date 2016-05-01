@@ -630,7 +630,9 @@ var cancelReservation = function (bookRef, callback) {
 						onResult(400, null);
 					});
 
-					req.write(JSON.stringify(body));
+					if(options.method === 'POST'){
+						req.write(JSON.stringify(body));
+					}
 					req.end();
 				};
 
@@ -667,6 +669,7 @@ var cancelReservation = function (bookRef, callback) {
 
 					makeOnlineRequest(options, {}, function(statusCode, result){
 						try {
+							console.log(result);
 							var json = JSON.parse(result);
 
 							flightsOne.outgoingFlights = concat(flightsOne.outgoingFlights, json.outgoingFlights, ip);
@@ -689,6 +692,7 @@ var cancelReservation = function (bookRef, callback) {
 					returnFlights: []
 				};
 				var getOtherFlightsRound = function(constraints, i, callback){
+					console.log(i);
 					if(i === airlines.length){
 						return callback(null,flightsRound);
 					}

@@ -608,16 +608,16 @@ app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:re
 	});
 });
 
-app.get('/stripe/pubkey', function(req, res) {
+app.post('/stripe/pubkey', function(req, res) {
 	var ip = req.body.IP;
 
 	var fs = require('fs');
 
-	var airports = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
+	var airlines = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
 
-	for(var i = 0; i < airports.length; i++) {
-		if(airports[i].IP === ip){
-			res.send(airports[i].publishableKey);
+	for(var i = 0; i < airlines.length; i++) {
+		if(airlines[i].IP === ip){
+			res.send(airlines[i].publishableKey);
 			return;
 		}
 	}
