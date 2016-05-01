@@ -5,7 +5,6 @@
   },
   {
     "airline":"KLM Airlines",
-    "publishableKey": "pk_test_sQmJKmvytXUZo98BJ2eTVh7S",
     "IP":"ec2-52-26-166-80.us-west-2.compute.amazonaws.com"
   },
   {
@@ -38,7 +37,6 @@
   },
   {
     "airline":"Hawaiian Airlines",
-    "publishableKey": "pk_test_wAzEmAILhEkjKJZdSiui6s98",
     "IP":"54.93.36.94"
   },
   {
@@ -75,12 +73,10 @@
   },
   {
     "airline":"Virgin australia",
-    "publishableKey": "pk_test_FX4O5SPvyU2LpRV7xFGVTOIL",
     "IP":"54.93.116.90"
   },
   {
     "airline":"Iberia",
-    "publishableKey": "pk_test_fWP8viqFbT95teED8zWD3ieK",
     "IP":"52.58.24.76"
   },
   {
