@@ -34,48 +34,74 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 	$scope.addReservation = function() {
 		var dep_flight = FlightsSrv.getDepartureFlight();
 		var ret_flight = FlightsSrv.getReturnFlight();
+		var totalSeats = parseInt(FlightsSrv.getAdults()) + parseInt(FlightsSrv.getChildren());
 
-		console.log(dep_flight);
+		//creating payment token
+		var tokenDep = PersonalSrv.getPaymentTokenDep();
+		var tokenRet = PersonalSrv.getPaymentTokenRet();
+		//the token is created
 
 		if (FlightsSrv.getFlightType() == "round") {
-			var reservation = {'adults': $scope.adults,
+			var reservation = {
+			'adults': $scope.adults,
 			'children': $scope.children,
 			'infants': $scope.infants,
 			'dep_flight': dep_flight,
 			'ret_flight': ret_flight,
+			'dep_price': FlightsSrv.getOutgoingPrice(),
+			'ret_price': FlightsSrv.getIncomingPrice(),
+			'total_seats': totalSeats,
 			'class': $scope.class,
-			'type': 'Direct'};
+			'type': 'Direct',
+			'paymentTokenDep': tokenDep,
+			'paymentTokenRet': tokenRet
+		};
 			FlightsSrv.storeReservation(reservation).success(function(response) {
 				console.log(response);
-				if (response == "error") {
-					swal('Something went wrong please try again!', 'error');
+				if (response === "error") {
+					sweetAlert("Opps...", "Something went wrong please try again!", "error");
 				}
 				else {
+					if(response.inIP){
+						swal({
+							title: "Outgoing Flight Booking Reference: \n" + response.refNumOut + "\n You can review your booking in:\n" + response.outIP +
+							"\nIncoming Flight Booking Reference: \n" + response.refNumIn + "\n You can review your booking in:\n" + response.inIP,
+							text: "Thank you for booking with us :)",
+							type: "success"
+						});
+					}
+					else{
 					swal({
-						title: "Booking Reference: " + response,
-						text: "Thank you for choosing Air Madagascar :)",
+						title: "Booking Reference:\n" + response.refNumOut + "\n You can review your booking in:\n" + response.outIP,
+						text: "Thank you for booking with us :)",
 						type: "success"
 					});
+				}
 					$location.url('/book');
 				}
 			});
 		}
 		else {
-			var reservation = {'adults': $scope.adults,
+			var reservation = {
+			'adults': $scope.adults,
 			'children': $scope.children,
 			'infants': $scope.infants,
 			'dep_flight': dep_flight,
+			'dep_price': FlightsSrv.getOutgoingPrice(),
+			'total_seats': totalSeats,
 			'class': $scope.class,
-			'type': 'Direct'};
+			'type': 'Direct',
+			'paymentTokenDep': tokenDep
+		};
 
 			FlightsSrv.storeReservation(reservation).success(function(response) {
-				if (response == "error") {
-					swal('title','Something went wrong please try again!', 'error');
+				if (response === "error") {
+					sweetAlert("Opps...", "Something went wrong please try again!", "error");
 				}
 				else {
 					swal({
-						title: "Booking Reference: " + response,
-						text: "Thank you for choosing Air Madagascar.",
+						title: "Booking Reference:\n" + response.refNumOut + "\n You can review your booking in:\n" + response.outIP,
+						text: "Thank you for booking with us :",
 						type: "success"
 					});
 					$location.url('/book');
@@ -85,7 +111,5 @@ App.controller('bookController-confirmation', function($scope, FlightsSrv, Perso
 				console.log('error');
 			});
 		}
-
-
-	}
+	};
 });
