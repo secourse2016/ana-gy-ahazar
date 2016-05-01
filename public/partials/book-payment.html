@@ -1,4 +1,9 @@
 <div class="payment">
+  <div id="loadingScreen" ng-show="loading">
+    <div class="jumbotron jmb">
+      <h2 style="color: black; margin-left: 45%;">Loading...</h2>
+    </div>
+  </div>
    <div class="container">
       <form name="paymentForm" ng-submit="submitForm(paymentForm.$valid)" novalidate>
          <div class="form-inline">
