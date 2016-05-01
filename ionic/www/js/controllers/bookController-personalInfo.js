@@ -1,7 +1,7 @@
 App.controller('bookController-personalInfo',function($scope) {
-   $scope.adults = 1;
-   $scope.children = 1;
-   $scope.infants = 1;
+   $scope.adults = 2;
+   $scope.children = 2;
+   $scope.infants = 2;
 
    $scope.numAdults = function(){
       return new Array($scope.adults);

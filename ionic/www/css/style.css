@@ -14,9 +14,13 @@
    opacity: 0.9;
 }
 
-
 .tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
    background-color: white;
    color: #1BABBB;
    opacity: 0.9;
+}
+
+.divide {
+   background-color: #d9edf7;
+   color: #31708f;
 }
