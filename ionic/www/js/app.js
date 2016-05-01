@@ -44,20 +44,75 @@ App.config(function($stateProvider, $urlRouterProvider) {
       }
    })
 
-   .state('tabs.book', {
+   .state('tabs.book-search', {
       url: '/book',
       views: {
          'tabs-book': {
-            templateUrl: 'templates/book.html'
+            templateUrl: 'templates/book-search.html'
          }
       }
    })
 
-   .state('tabs.manage', {
+   .state('tabs.book-flights', {
+      url: '/flights',
+      views: {
+         'tabs-book': {
+            templateUrl: 'templates/book-flights.html'
+         }
+      }
+   })
+
+   .state('tabs.book-personalInfo', {
+      url: '/personalInfo',
+      views: {
+         'tabs-book': {
+            templateUrl: 'templates/book-personalInfo.html'
+         }
+      }
+   })
+
+   .state('tabs.book-payment', {
+      url: '/payment',
+      views: {
+         'tabs-book': {
+            templateUrl: 'templates/book-payment.html'
+         }
+      }
+   })
+
+
+   .state('tabs.book-confirmation', {
+      url: '/confirmation',
+      views: {
+         'tabs-book': {
+            templateUrl: 'templates/book-confirmation.html'
+         }
+      }
+   })
+
+   .state('tabs.manage-ticketSearch', {
       url: '/manage',
       views: {
          'tabs-manage': {
-            templateUrl: 'templates/manage.html'
+            templateUrl: 'templates/manage-ticketSearch.html'
+         }
+      }
+   })
+
+   .state('tabs.manage-ticketInfo', {
+      url: '/manage/ticketInfo',
+      views: {
+         'tabs-manage': {
+            templateUrl: 'templates/manage-ticketInfo.html'
+         }
+      }
+   })
+
+   .state('tabs.manage-ticketEdit', {
+      url: '/manage/ticketEdit',
+      views: {
+         'tabs-manage': {
+            templateUrl: 'templates/manage-ticketEdit.html'
          }
       }
    })
