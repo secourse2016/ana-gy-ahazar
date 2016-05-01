@@ -1,1 +1,22 @@
 /* Empty. Add your own CSS if you like */
+.ourBg {
+   background-color: rgba(27,171,187,0.9);
+   color: white;
+}
+
+.tab {
+   color: white;
+}
+
+.tabs-fullwidth, .tab-item {
+   max-width: 100%;
+   background-color: #1BABBB;
+   opacity: 0.9;
+}
+
+
+.tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
+   background-color: white;
+   color: #1BABBB;
+   opacity: 0.9;
+}
