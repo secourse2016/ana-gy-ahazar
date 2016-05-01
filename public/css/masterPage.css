@@ -198,3 +198,13 @@ body {
 .scrollableBody {
 	direction:ltr;
 }
+
+/* ====================== Loading Div ====================== */
+#loadingScreen {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	z-index: 10;
+	top: 0%;
+}

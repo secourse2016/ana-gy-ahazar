@@ -172,8 +172,6 @@ var seed = function(callback) {
 
 			var ret_dateTime = dep_dateTime.clone();
 			ret_dateTime = ret_dateTime.add(flightDuration, 'h');
-			console.log(dep_dateTime.format('YYYY-MM-DD hh:mm'));
-			console.log(ret_dateTime.format('YYYY-MM-DD hh:mm'));
 
 			var origin = originOrDestination1[j];
 			var destination = originOrDestination2[j];
@@ -572,6 +570,9 @@ var cancelReservation = function (bookRef, callback) {
 								callback();
 							});
 						}
+						else{
+							callback();
+						}
 					});
 				};
 
@@ -657,6 +658,7 @@ var cancelReservation = function (bookRef, callback) {
 					console.log(currAirLine.airline);
 					var ip = currAirLine.IP;
 
+					console.log('searcing for flights in: ' + ip + '/api/flights/search/'+oneway.origin+'/'+oneway.destination+'/'+oneway.departureDateTime+'/'+oneway.class+'/'+oneway.numberOfSeats+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI');
 
 					var options = {
 						host: ip ,
@@ -702,6 +704,7 @@ var cancelReservation = function (bookRef, callback) {
 					console.log(currAirLine.airline);
 					var ip = currAirLine.IP;
 
+					console.log('searcing for flights in: ' + ip + '/api/flights/search/'+constraints.origin+'/'+constraints.destination+'/'+constraints.departureDateTime+'/'+constraints.returnDate+'/'+constraints.class+'/'+constraints.numberOfSeats+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI');
 
 					var options = {
 						host: ip ,
@@ -729,7 +732,7 @@ var cancelReservation = function (bookRef, callback) {
 
 				var concat = function(x, y, ip) {
 					for (var i = 0; i < y.length; i++) {
-						y.IP = ip;
+						y[i].IP = ip;
 						x.push(y[i]);
 					}
 
@@ -744,7 +747,7 @@ var cancelReservation = function (bookRef, callback) {
 				*/
 				var getAge = function(dateString){
 					var today = new Date();
-					var birthDate = new Date(dateString);
+					var birthDate = new Date(new moment(parseInt(dateString)).format('YYYY-MM-DD'));
 					var age = today.getFullYear() - birthDate.getFullYear();
 					var m = today.getMonth() - birthDate.getMonth();
 					if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
@@ -821,6 +824,8 @@ var cancelReservation = function (bookRef, callback) {
 						if(isReturn){
 							reservation.paymentTokenDep = reservation.paymentTokenRet;
 							delete reservation.paymentTokenRet;
+							reservation.dep_flight = reservation.ret_flight;
+							delete reservation.ret_flight;
 						}
 
 						reserveLocal(reservation, function(object) {
@@ -841,7 +846,9 @@ var cancelReservation = function (bookRef, callback) {
 						makeOnlineRequest(options, out, function(statusCode, response) {
 							try {
 								var json = JSON.parse(response);
-								callback(response);
+								console.log('response: ');
+								console.log(json);
+								callback(json);
 							}catch(err) {
 								callback({
 									"refNum": null,
