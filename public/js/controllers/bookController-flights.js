@@ -12,6 +12,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    $scope.children = FlightsSrv.getChildren();
    $scope.total_people = parseInt($scope.children) + parseInt($scope.adults);
    var search_other = FlightsSrv.getSearchOther();
+   var totalSeats = parseInt(FlightsSrv.getAdults()) + parseInt(FlightsSrv.getChildren());
 
    var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
    var months = ["January", "February", "March", "April", "May", "June",
@@ -115,13 +116,17 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       var dep_time = $scope.dep_date.getFullYear() + '-' + month + '-' + day;
       dep_time = moment(dep_time).toDate().getTime();
 
-      FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected).success(function(response) {
+      FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected, totalSeats).success(function(response) {
          var myFlights = response.outgoingFlights;
+         for(var i = 0; i < myFlights.length; i++) {
+           myFlights[i].IP = "54.191.202.17";
+         }
+
          var hasFlights = (response.outgoingFlights.length > 0);
 
          if(search_other){
             $scope.loading = true;
-            FlightsSrv.getOtherOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected).success(function(res) {
+            FlightsSrv.getOtherOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.dep_isSelected, totalSeats).success(function(res) {
                var otherFlights = res.outgoingFlights;
                var allFlights = concat(myFlights, otherFlights);
                $scope.departureFlights = allFlights;
@@ -232,13 +237,17 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       var ret_time = $scope.ret_date.getFullYear() + '-' + month + '-' + day;
       ret_time = moment(ret_time).toDate().getTime();
 
-      FlightsSrv.getOneFlights($scope.ret_airport, $scope.dep_airport, ret_time, $scope.ret_isSelected).success(function(response) {
+      FlightsSrv.getOneFlights($scope.ret_airport, $scope.dep_airport, ret_time, $scope.ret_isSelected, totalSeats).success(function(response) {
          var myFlights = response.outgoingFlights;
+         for(var i = 0; i < myFlights.length; i++) {
+           myFlights[i].IP = "54.191.202.17";
+         }
+
          var hasFlights = (response.outgoingFlights.length > 0);
 
          if(search_other){
             $scope.loading = true;
-            FlightsSrv.getOtherOneFlights($scope.ret_airport, $scope.dep_airport, ret_time, $scope.ret_isSelected).success(function(res) {
+            FlightsSrv.getOtherOneFlights($scope.ret_airport, $scope.dep_airport, ret_time, $scope.ret_isSelected, totalSeats).success(function(res) {
                var otherFlights = res.outgoingFlights;
                var allFlights = concat(myFlights, otherFlights);
                $scope.returnFlights = allFlights;
@@ -289,16 +298,23 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       var ret_time = $scope.ret_date.getFullYear() + '-' + ret_month + '-' + ret_day;
       ret_time = moment(ret_time).toDate().getTime();
 
-      FlightsSrv.getRoundFlights($scope.dep_airport, $scope.ret_airport, dep_time, ret_time, $scope.class).success(function(response) {
+      FlightsSrv.getRoundFlights($scope.dep_airport, $scope.ret_airport, dep_time, ret_time, $scope.class, totalSeats).success(function(response) {
          var myOutgoingFlights = response.outgoingFlights;
-         var myReturnFlights = response.returnFlights;
+         for(var i = 0; i < myOutgoingFlights.length; i++) {
+           myOutgoingFlights[i].IP = "54.191.202.17";
+         }
 
+         var myReturnFlights = response.returnFlights;
+         for(var i = 0; i < myReturnFlights.length; i++) {
+           myReturnFlights[i].IP = "54.191.202.17";
+         }
+         
          var departureHasFlights = (response.outgoingFlights.length > 0);
          var returnHasFlights = (response.returnFlights.length > 0);
 
          if(search_other){
             $scope.loading = true;
-            FlightsSrv.getOtherRoundFlights($scope.dep_airport, $scope.ret_airport, dep_time, ret_time, $scope.class).success(function(res) {
+            FlightsSrv.getOtherRoundFlights($scope.dep_airport, $scope.ret_airport, dep_time, ret_time, $scope.class, totalSeats).success(function(res) {
                var otherOutgoingFlights = res.outgoingFlights;
                var otherReturnFlights = res.returnFlights;
                var allOutgoingFlights = concat(myOutgoingFlights, otherOutgoingFlights);
@@ -341,15 +357,19 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          dep_day = '0' + dep_day;
 
       var dep_time = $scope.dep_date.getFullYear() + '-' + dep_month + '-' + dep_day;
-      dep_time = moment(dep_time).toDate().getTime();
+      dep_time = moment(dep_time + ' 12:00 AM', 'YYYY-MM-DD hh:mm A').toDate().getTime();
 
-      FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class).success(function(response) {
+      FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class, totalSeats).success(function(response) {
          var myFlights = response.outgoingFlights;
+         for(var i = 0; i < myFlights.length; i++) {
+           myFlights[i].IP = "54.191.202.17";
+         }
+
          var hasFlights = (response.outgoingFlights.length > 0);
 
          if(search_other){
             $scope.loading = true;
-            FlightsSrv.getOtherOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class).success(function(res) {
+            FlightsSrv.getOtherOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, $scope.class, totalSeats).success(function(res) {
                var otherFlights = res.outgoingFlights;
                var allFlights = concat(myFlights, otherFlights);
                $scope.departureFlights = allFlights;
@@ -389,6 +409,8 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
          FlightsSrv.setDepartureFlight($scope.dep_flight);
          FlightsSrv.setReturnFlight($scope.ret_flight);
+         FlightsSrv.setOutgoingPrice(parseInt($scope.dep_price));
+         FlightsSrv.setIncomingPrice(parseInt($scope.ret_price));
          FlightsSrv.setTotalPrice(parseInt($scope.dep_price) + parseInt($scope.ret_price));
 
          $location.url('/book/personalInformation');
