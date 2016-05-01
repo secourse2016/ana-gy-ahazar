@@ -59,10 +59,10 @@
          <form ng-submit="send()">
            <div class="list list-inset">
              <label class="item item-input">
-               <input type="text" placeholder="Email" ng-model="data.email">
+               <input type="email" placeholder="Email" ng-model="data.email" required>
              </label>
              <label class="item item-input">
-                <textarea placeholder="Message" rows="8" ng-model="data.message"></textarea>
+                <textarea placeholder="Message" rows="8" ng-model="data.message" required></textarea>
              </label>
            </div>
            <div class="padding">
