@@ -1,23 +1,90 @@
 [
-  {"IP": "52.27.150.19"},
-  {"IP":"ec2-52-26-166-80.us-west-2.compute.amazonaws.com"},
-  {"IP":"52.90.46.68"},
-  {"IP":"52.34.160.140"},
-  {"IP":"52.36.195.124"},
-  {"IP":"www.swiss-air.me"},
-  {"IP":"52.25.15.124"},
-  {"IP":"52.36.250.55"},
-  {"IP":"54.187.208.145"},
-  {"IP":"sebitsplease.com.s3-website-us-east-1.amazonaws.com"},
-  {"IP":"52.58.46.74"},
-  {"IP":"54.93.36.94"},
-  {"IP":"ec2-52-90-41-197.compute-1.amazonaws.com"},
-  {"IP":"54.213.157.185"},
-  {"IP":"mynksh.com"},
-  {"IP":"52.207.211.179"},
-  {"IP":"52.32.109.147"},
-  {"IP":"52.36.169.206"},
-  {"IP":"ec2-52-91-94-227.compute-1.amazonaws.com"},
-  {"IP": "ec2-54-152-123-100.compute-1.amazonaws.com"},
-  {"IP":"52.28.246.230"}
+  {
+    "airline":"Lufthansa",
+    "IP" :"ec2-54-152-123-100.compute-1.amazonaws.com"
+  },
+  {
+    "airline":"KLM Airlines",
+    "IP":"ec2-52-26-166-80.us-west-2.compute.amazonaws.com"
+  },
+  {
+    "airline":"Emirates Airlines",
+    "IP": "52.90.46.68"
+  },
+  {
+    "airline":"Air France",
+    "IP":"52.34.160.140"
+  },
+  {
+    "airline":"Swiss Air",
+    "IP":"www.swiss-air.me"
+  },
+  {
+    "airline":"Delta Airlines",
+    "IP":"52.25.15.124"
+  },
+  {
+    "airline":"Japan Airlines",
+    "IP":"54.187.208.145"
+  },
+  {
+    "airline":"Singapore Airlines",
+    "IP":"sebitsplease.com.s3-website-us-east-1.amazonaws.com"
+  },
+  {
+    "airline":"Dragonair",
+    "IP":"52.58.46.74"
+  },
+  {
+    "airline":"Hawaiian Airlines",
+    "IP":"54.93.36.94"
+  },
+  {
+    "airline":"Austrian Airlines",
+    "IP":"ec2-52-90-41-197.compute-1.amazonaws.com"
+  },
+  {
+    "airline":"South African Airways",
+    "IP":"54.213.157.185"
+  },
+  {
+    "airline":"Iberia",
+    "IP":"mynksh.com"
+  },
+  {
+    "airline":"Malaysia Airlines",
+    "IP":"52.32.109.147"
+  },
+  {
+    "airline":"Northwest Airlines",
+    "IP":"52.36.169.206"
+  },
+  {
+    "airline":"Cathay Pacific Airlines",
+    "IP":"ec2-52-91-94-227.compute-1.amazonaws.com"
+  },
+  {
+    "airline":"Alaska",
+    "IP":"52.207.211.179"
+  },
+  {
+    "airline":"Turkish Airlines",
+    "IP":"52.27.150.19"
+  },
+  {
+    "airline":"Virgin australia",
+    "IP":"54.93.116.90"
+  },
+  {
+    "airline":"Iberia",
+    "IP":"52.58.24.76"
+  },
+  {
+    "airline":"United",
+    "IP":"54.187.103.196"
+  },
+  {
+    "airline":"AirNewZealand",
+    "IP":"52.28.246.230"
+  }
 ]

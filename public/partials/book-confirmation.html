@@ -1,3 +1,8 @@
+<div id="loadingScreen" ng-show="loading">
+	<div class="jumbotron jmb">
+		<h2 style="color: black; margin-left: 45%;">Loading...</h2>
+	</div>
+</div>
 <div class="container scrollable">
 	<div class="scrollableBody">
 		<!-- displaying the flight information -->
@@ -14,7 +19,7 @@
 					</div>
 					<div class="row">
 						<label class="col-sm-5 col-md-5">Departure Date: {{departureDepDate | amDateFormat:'Do MMM YYYY HH:mm'}}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Return Date: {{departureReturnDate | amDateFormat:'Do MMM YYYY HH:mm'}}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Arrival Date: {{departureReturnDate | amDateFormat:'Do MMM YYYY HH:mm'}}</label>
 					</div>
 					<div class="row">
 						<label class="col-sm-5 col-md-5">Class: {{ departureClass }}</label>
@@ -31,7 +36,7 @@
 					</div>
 					<div class="row">
 						<label class="col-sm-5 col-md-5">Departure Date: {{returnDepDate | amDateFormat:'Do MMM YYYY HH:mm'}}</label>
-						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Return Date: {{returnReturnDate | amDateFormat:'Do MMM YYYY HH:mm'}}</label>
+						<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Arrival Date: {{returnReturnDate | amDateFormat:'Do MMM YYYY HH:mm'}}</label>
 					</div>
 					<div class="row">
 						<label class="col-sm-5 col-md-5">Class: {{ returnClass }}</label>
@@ -56,7 +61,7 @@
 					<div class="panel-body">
 						<div class="row">
 							<label class="col-sm-5 col-md-5">Full name:  {{ adult.title }} {{ adult.first_name }} {{ adult.last_name }}</label>
-							<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ adult.birth_date }}</label>
+							<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ adult.birth_date | amDateFormat:'Do MMM YYYY'}}</label>
 						</div>
 						<div class="row">
 							<label class="col-sm-5 col-md-5">Nationality: {{ adult.nationality }}</label>
@@ -114,7 +119,7 @@
 					<div class="panel-body">
 						<div class="row">
 							<label class="col-sm-5 col-md-5">Full name: {{ child.first_name }} {{ child.last_name }}</label>
-							<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ child.birth_date }}</label>
+							<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ child.birth_date | amDateFormat:'Do MMM YYYY'}}</label>
 						</div>
 						<div class="row">
 							<label class="col-sm-5 col-md-5">Nationality: {{ child.nationality }}</label>
@@ -151,7 +156,7 @@
 					<div class="panel-body">
 						<div class="row">
 							<label class="col-sm-5 col-md-5">Full name: {{ infant.first_name }} {{ infant.last_name }}</label>
-							<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ infant.birth_date }}</label>
+							<label class="col-sm-offset-1 col-md-offset-1 col-sm-5 col-md-5">Date of birth: {{ infant.birth_date | amDateFormat:'Do MMM YYYY'}}</label>
 						</div>
 						<div class="row">
 							<label class="col-sm-5 col-md-5">Nationality: {{ infant.nationality }}</label>
