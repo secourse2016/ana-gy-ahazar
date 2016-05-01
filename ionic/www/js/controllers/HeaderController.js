@@ -1,4 +1,4 @@
-App.controller('HeaderController', function($scope, $ionicModal, FeedbackSrv) {
+App.controller('HeaderController', function($scope, $ionicModal, FeedbackSrv, $ionicLoading) {
    $scope.data = {};
 
    // Create and load the Modal
@@ -11,13 +11,13 @@ App.controller('HeaderController', function($scope, $ionicModal, FeedbackSrv) {
 
    // This function sends the feedback to the API.
    $scope.send = function() {
-      var r = FeedbackSrv.storeFeedback($scope.data);
-      if (r) {
-         window.plugins.toast.show("message", "short", "bottom");
-      }
-      // FeedbackSrv.storeFeedback($scope.data).success(function(response) {
-      //    console.log(response);
-      // });
+      FeedbackSrv.storeFeedback($scope.data).success(function(response) {
+         $ionicLoading.show({ template: 'Your feedback has been sent!', noBackdrop: true, duration: 2000 });
+      })
+      .error(function() {
+         console.log('error');
+      });
+
       $scope.feedbackModal.hide();
       $scope.data = {};
    };
