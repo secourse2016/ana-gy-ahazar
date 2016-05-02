@@ -7,6 +7,9 @@ App.controller('bookController-payment', function($scope, FlightsSrv, PersonalSr
   $scope.format = $scope.formats[0];
   $scope.altInputFormats = ['M!/d!/yyyy'];
 
+  //loading disabled
+  $scope.loading = false;
+
   $scope.open = function() {
     $scope.popup.opened = true;
   };
@@ -65,6 +68,9 @@ App.controller('bookController-payment', function($scope, FlightsSrv, PersonalSr
 
     // check to make sure the form is completely valid
     if (isValid) {
+      //loading enabled
+      $scope.loading = true;
+
       console.log('good');
 
       PersonalSrv.setCardholder($scope.cardholder);
@@ -80,52 +86,74 @@ App.controller('bookController-payment', function($scope, FlightsSrv, PersonalSr
       PersonalSrv.setPromotionCode($scope.promotion_code);
 
       FlightsSrv.getPublishableKey(FlightsSrv.getDepartureFlight().IP).success(function(publishableKeyDep) {
-        Stripe.setPublishableKey(publishableKeyDep);
+        if(publishableKeyDep === 'not found'){
+          console.log('payment error');
+          $scope.loading = false;
+          $scope.$apply();
+          sweetAlert("Opps...", 'The booking service on the choosen airline is currently down. Please try again later.', "error");
+        }
+        else{
+          Stripe.setPublishableKey(publishableKeyDep);
 
-        Stripe.card.createToken({
-          number: $scope.card_number,
-          cvc: $scope.cvs,
-          exp_month: ($scope.card_expiry_date.getMonth() + 1),
-          exp_year: $scope.card_expiry_date.getFullYear()
-        }, function(status, responseDep) {
-          if(responseDep.error){
-            console.log('payment error');
-            sweetAlert("Opps...", responseDep.error.message, "error");
-          }
-          else{
-            PersonalSrv.setPaymentTokenDep(responseDep.id);
-
-            if(FlightsSrv.getFlightType() == "round") {
-
-              FlightsSrv.getPublishableKey(FlightsSrv.getDepartureFlight().IP).success(function(publishableKeyRet) {
-                Stripe.setPublishableKey(publishableKeyRet);
-
-                Stripe.card.createToken({
-                  number: $scope.card_number,
-                  cvc: $scope.cvs,
-                  exp_month: ($scope.card_expiry_date.getMonth() + 1),
-                  exp_year: $scope.card_expiry_date.getFullYear()
-                }, function(status, responseRet) {
-                  if(responseRet.error){
-                    console.log('payment error');
-                    sweetAlert("Opps...", responseRet.error.message, "error");
-                  }
-                  else{
-                    console.log('payment done');
-                    PersonalSrv.setPaymentTokenRet(responseRet.id);
-                    $location.url('/book/confirmation');
-                    $scope.$apply();
-                  }
-                });
-              });
-            }
-            else{
-              console.log('payment done');
-              $location.url('/book/confirmation');
+          Stripe.card.createToken({
+            number: $scope.card_number,
+            cvc: $scope.cvs,
+            exp_month: ($scope.card_expiry_date.getMonth() + 1),
+            exp_year: $scope.card_expiry_date.getFullYear()
+          }, function(status, responseDep) {
+            if(responseDep.error){
+              console.log('payment error');
+              $scope.loading = false;
+              sweetAlert("Opps...", responseDep.error.message, "error");
               $scope.$apply();
             }
-          }
-        });
+            else{
+              PersonalSrv.setPaymentTokenDep(responseDep.id);
+
+              if(FlightsSrv.getFlightType() == "round") {
+
+                FlightsSrv.getPublishableKey(FlightsSrv.getReturnFlight().IP).success(function(publishableKeyRet) {
+                  if(publishableKeyRet === 'not found'){
+                    console.log('payment error');
+                    $scope.loading = false;
+                    sweetAlert("Opps...", 'The booking service on the choosen airline is currently down. Please try again later.', "error");
+                    $scope.$apply();
+                  }
+                  else{
+                    Stripe.setPublishableKey(publishableKeyRet);
+
+                    Stripe.card.createToken({
+                      number: $scope.card_number,
+                      cvc: $scope.cvs,
+                      exp_month: ($scope.card_expiry_date.getMonth() + 1),
+                      exp_year: $scope.card_expiry_date.getFullYear()
+                    }, function(status, responseRet) {
+                      if(responseRet.error){
+                        console.log('payment error');
+                        $scope.loading = false;
+                        sweetAlert("Opps...", responseRet.error.message, "error");
+                        $scope.$apply();
+                      }
+                      else{
+                        console.log('payment done');
+                        PersonalSrv.setPaymentTokenRet(responseRet.id);
+                        $scope.loading = false;
+                        $location.url('/book/confirmation');
+                        $scope.$apply();
+                      }
+                    });
+                  }
+                });
+              }
+              else{
+                console.log('payment done');
+                $scope.loading = false;
+                $location.url('/book/confirmation');
+                $scope.$apply();
+              }
+            }
+          });
+        }
       });
     }
     else {
