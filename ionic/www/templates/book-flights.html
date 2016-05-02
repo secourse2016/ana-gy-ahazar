@@ -13,14 +13,12 @@
      </div>
 
         <div class="row header">
-          <!-- <div class="col">Airline</div> -->
           <div class="col"><h4>Book</h4></div>
           <div class="col"><h4>Time</h4></div>
           <div class="col"><h4>Cost</h4></div>
           <div class="col"></div>
         </div>
         <div class="row" ng-repeat="flight in flights">
-          <!-- <div class="col">{{flight.Airline}}</div> -->
           <div class="col"><ion-radio ng-model="choice" name="dep_reserve" ng-value="flight.id" id="bookID">Choose</ion-radio></div>
           <div class="col">{{flight.Time}}</div>
           <div class="col">{{flight.Cost}}</div>
