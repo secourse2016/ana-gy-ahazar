@@ -1,5 +1,12 @@
 <ion-view view-title="Home">
    <ion-content class="padding">
       Home
-   </ion-content>
+      <div class="col" id="date1"><div class="item item-divider">Depurture Date</div>
+      <div class="item item-icon-left" ion-datetime-picker date ng-model="dateValue" >
+         <i class="icon ion-ios-calendar calm"></i>
+
+         <strong>{{dateValue| date: "yyyy-MMMM-dd"}}</strong>
+      </div>
+   </div>
+</ion-content>
 </ion-view>
