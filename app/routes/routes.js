@@ -37,8 +37,8 @@ module.exports = function(app) {
 	/* Middlewear to allow these API end points to be used by other hosts */
 	app.use(function(req, res, next) {
 		res.header('Access-Control-Allow-Origin', "*");
-		res.header('Access-Control-Allow-Methods­', 'GET,PUT,POST,DELETE');
-		res.header('Access-Control-Allow-Headers­', 'Content-Type, x-access-token');
+		res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+		res.header('Access-Control-Allow-Headers', 'Content-Type, x-access-token');
 		next();
 	});
 
