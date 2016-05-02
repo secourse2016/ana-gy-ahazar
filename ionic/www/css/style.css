@@ -20,3 +20,27 @@
    color: #1BABBB;
    opacity: 0.9;
 }
+
+.bg {
+   background: url(../img/background.jpg) center center fixed;
+   background-repeat: no-repeat;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+}
+
+.promo {
+   margin-top: 10%;
+   text-align: center;
+}
+
+#holder {
+   background-color: rgba(255, 255, 255, 0);
+   color: white;
+   text-shadow: #ffffff 0 0 5px;
+}
+
+.go {
+   margin-top: 100px;
+}
