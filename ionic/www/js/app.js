@@ -104,6 +104,7 @@ App.config(function($stateProvider, $urlRouterProvider) {
       views: {
          'tabs-manage': {
             templateUrl: 'templates/manage-ticketInfo.html'
+            controller: 'js/controllers/manageController-ticketinfo.js'
          }
       }
    })
