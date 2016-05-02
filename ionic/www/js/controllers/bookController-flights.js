@@ -1,41 +1,60 @@
 
-App.controller('bookController-flights', function($scope, $location) { 
+App.controller('bookController-flights', function($scope, FlightSrv, $location) { 
+      FlightSrv.setFlightType("round"); //dummy
+      FlightSrv.setSelectedOriginAirport("CAI"); //dummy
+      FlightSrv.setSelectedDestinationAirport("TXL"); //dummy
+
        var flights = 
       [
-        {id:"1", Airline:"Air Madagascar", Time:"03:40 - 07:40", Seats:"50", planeModel:"Bombardier F868", Cost:"8127 USD",  Entertainment:"Wifi Radio USB "},
-        {id:"2", Airline:"Air Madagascar", Time:"03:40 - 07:40", Seats:"50", planeModel:"Bombardier F868", Cost:"8127 USD",  Entertainment:"Wifi Radio USB "},
-        {id:"3", Airline:"Air Madagascar", Time:"03:40 - 07:40", Seats:"50", planeModel:"Bombardier F868", Cost:"8127 USD",  Entertainment:"Wifi Radio USB "},
+        {id:1, Airline:"Air Madagascar", Time:"03:40 - 07:40", Seats:"50", planeModel:"Bombardier F868", Cost:"8127 USD",  Entertainment:"Wifi Radio USB "},
+        {id:2, Airline:"Air Madagascar", Time:"03:40 - 07:40", Seats:"50", planeModel:"Bombardier F868", Cost:"8127 USD",  Entertainment:"Wifi Radio USB "},
+        {id:3, Airline:"Air Madagascar", Time:"03:40 - 07:40", Seats:"50", planeModel:"Bombardier F868", Cost:"8127 USD",  Entertainment:"Wifi Radio USB "},
         ];
         $scope.flights = flights;
 
       var retFlights = 
       [
-        {id:"4", Airline:"Air Madagascar", Time:"03:40 - 07:40", Seats:"50", planeModel:"Bombardier F868", Cost:"8127 USD",  Entertainment:"Wifi Radio USB "},
-        {id:"5", Airline:"Air Madagascar", Time:"03:40 - 07:40", Seats:"50", planeModel:"Bombardier F868", Cost:"8127 USD",  Entertainment:"Wifi Radio USB "},
+        {id:4, Airline:"Air Madagascar", Time:"03:40 - 07:40", Seats:"50", planeModel:"Bombardier F868", Cost:"8127 USD",  Entertainment:"Wifi Radio USB "},
+        {id:5, Airline:"Air Madagascar", Time:"03:40 - 07:40", Seats:"50", planeModel:"Bombardier F868", Cost:"8127 USD",  Entertainment:"Wifi Radio USB "},
       ];
       $scope.retFlights = retFlights;
 
+
+      if (FlightSrv.getFlightType() == "round") {
+      $scope.show_incoming = true;
+      }
+
+      $scope.depAirport = FlightSrv.getSelectedOriginAirport();
+      $scope.arrAirport = FlightSrv.getSelectedDestinationAirport();
+      
       $scope.showInfo = function(flightID) {
         console.log("clicked");
+        console.log(flightID);
         var flight;
-       for (var i = 0; i < flights.length; i++) {
-        if (flights[i].id === parseInt(flightID)) {
+        var found=false;
+       for (var i = 0; i < flights.length && !found; i++) {
+        if (flights[i].id === flightID) {
           flight= flights[i];
-          break;
+          found=true;
         }
       }
-      for (var i = 0; i < retFlights.length; i++) {
-        if (retFlights[i].id === parseInt(flightID)) {
+      for (var i = 0; i < retFlights.length && !found; i++) {
+        if (retFlights[i].id === flightID) {
           flight= retFlights[i];
-          break;
+          found=true;
         }
       }
-      $scope.airline=flight.Airline;
-      $scope.time = flight.Time;
-      $scope.seats = flight.Seats;
-      $scope.planeModel = flight.planeModel;
-      $scope.cost = flight.Cost;
-      $scope.entertainment = flight.Entertainment;
+
+      FlightSrv.setAirline(flight.Airline);
+      FlightSrv.setFlightTime(flight.Time);
+      FlightSrv.setSeats(flight.Seats);
+      FlightSrv.setPlaneModel(flight.planeModel);
+      FlightSrv.setCost(flight.Cost);
+      FlightSrv.setEntertainment(flight.Entertainment);
+      $location.url("/tabs/flights-details");
+      console.log(flight);
+      
+
       
       }
 

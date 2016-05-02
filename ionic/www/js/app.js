@@ -57,7 +57,8 @@ App.config(function($stateProvider, $urlRouterProvider) {
       url: '/flights',
       views: {
          'tabs-book': {
-            templateUrl: 'templates/book-flights.html'
+            templateUrl: 'templates/book-flights.html',
+            controller: 'bookController-flights'
          }
       }
    })
@@ -67,6 +68,7 @@ App.config(function($stateProvider, $urlRouterProvider) {
       views: {
          'tabs-book': {
             templateUrl: 'templates/book-flights-details.html',
+            controller: 'bookController-flightDetails'
          }
       }
    })
