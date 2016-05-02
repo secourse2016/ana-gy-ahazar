@@ -33,7 +33,12 @@
                   <p ng-show="personalInfoForm.nationality_adult_{{$index}}.$error.required && (submitted || personalInfoForm.nationality_adult_{{$index}}.$dirty)" class="has-error">Nationality is required.</p>
                </label>
 
-               <!-- date of birth -->
+               <div class="item item-icon-left" ion-datetime-picker date name="birth_date_adult_{{$index}}" ng-model="adultFormData[$index].birth_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Date of Birth:
+                  &nbsp;{{adultFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.birth_date_adult_{{$index}}.$error.required && (submitted || personalInfoForm.birth_date_adult_{{$index}}.$dirty)" class="has-error padding">Date of Birth is required.</p>
 
                <div class="item item-divider divide">Passport Information</div>
                <label class="item item-input item-floating-label">
@@ -42,7 +47,19 @@
                   <p ng-show="personalInfoForm.passport_number_adult_{{$index}}.$error.required && (submitted || personalInfoForm.passport_number_adult_{{$index}}.$dirty)" class="has-error">Passport Number is required.</p>
                </label>
 
-               <!-- expiry and issue date -->
+               <div class="item item-icon-left" ion-datetime-picker date name="issue_date_adult_{{$index}}" ng-model="adultFormData[$index].issue_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Issue Date:
+                  &nbsp;{{adultFormData[$index].issue_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.issue_date_adult_{{$index}}.$error.required && (submitted || personalInfoForm.issue_date_adult_{{$index}}.$dirty)" class="has-error padding">Issue Date is required.</p>
+
+               <div class="item item-icon-left" ion-datetime-picker date name="expiry_date_adult_{{$index}}" ng-model="adultFormData[$index].expiry_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Expiry Date:
+                  &nbsp;{{adultFormData[$index].expiry_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.expiry_date_adult_{{$index}}.$error.required && (submitted || personalInfoForm.expiry_date_adult_{{$index}}.$dirty)" class="has-error padding">Expiry Date is required.</p>
 
                <div class="item item-divider divide">Contact Information</div>
                <label class="item item-input item-floating-label">
@@ -118,7 +135,7 @@
 
          <div ng-repeat="t in numChildren() track by $index">
             <center>
-               <h3 class="padding">Child {{$index + 1}}</h3
+               <h3 class="padding">Child {{$index + 1}}</h3>
             </center>
             <div class="list">
                <div class="item item-divider divide">Personal Information</div>
@@ -136,10 +153,14 @@
                   <span class="input-label">Nationality</span>
                   <input type="text" name="nationality_child_{{$index}}" placeholder="Nationality" ng-model="childFormData[$index].nationality" required>
                   <p ng-show="personalInfoForm.nationality_child_{{$index}}.$error.required && (submitted || personalInfoForm.nationality_child_{{$index}}.$dirty)" class="has-error">Nationality is required.</p>
-
                </label>
 
-               <!-- date of birth -->
+               <div class="item item-icon-left" ion-datetime-picker date name="birth_date_child_{{$index}}" ng-model="childFormData[$index].birth_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Date of Birth:
+                  &nbsp;{{childFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.birth_date_child_{{$index}}.$error.required && (submitted || personalInfoForm.birth_date_child_{{$index}}.$dirty)" class="has-error padding">Date of Birth is required.</p>
 
                <div class="item item-divider divide">Passport Information</div>
                <label class="item item-input item-floating-label">
@@ -149,7 +170,19 @@
 
                </label>
 
-               <!-- expiry and issue date -->
+               <div class="item item-icon-left" ion-datetime-picker date name="issue_date_child_{{$index}}" ng-model="childFormData[$index].issue_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Issue Date:
+                  &nbsp;{{childFormData[$index].issue_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.issue_date_child_{{$index}}.$error.required && (submitted || personalInfoForm.issue_date_child_{{$index}}.$dirty)" class="has-error padding">Issue Date is required.</p>
+
+               <div class="item item-icon-left" ion-datetime-picker date name="expiry_date_child_{{$index}}" ng-model="childFormData[$index].expiry_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Expiry Date:
+                  &nbsp;{{childFormData[$index].expiry_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.expiry_date_child_{{$index}}.$error.required && (submitted || personalInfoForm.expiry_date_child_{{$index}}.$dirty)" class="has-error padding">Expiry Date is required.</p>
 
                <div class="item item-divider divide">Special Requirements</div>
                <label class="item item-input item-select">
@@ -216,7 +249,12 @@
                   <p ng-show="personalInfoForm.nationality_infant_{{$index}}.$error.required && (submitted || personalInfoForm.nationality_infant_{{$index}}.$dirty)" class="has-error">Nationality is required.</p>
                </label>
 
-               <!-- date of birth -->
+               <div class="item item-icon-left" ion-datetime-picker date name="birth_date_infant_{{$index}}" ng-model="infantFormData[$index].birth_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Date of Birth:
+                  &nbsp;{{infantFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.birth_date_infant_{{$index}}.$error.required && (submitted || personalInfoForm.birth_date_infant_{{$index}}.$dirty)" class="has-error padding">Date of Birth is required.</p>
 
                <div class="item item-divider divide">Passport Information</div>
                <label class="item item-input item-floating-label">
@@ -225,7 +263,19 @@
                   <p ng-show="personalInfoForm.passport_number_infant_{{$index}}.$error.required && (submitted || personalInfoForm.passport_number_infant_{{$index}}.$dirty)" class="has-error">Passport Number is required.</p>
                </label>
 
-               <!-- expiry and issue date -->
+               <div class="item item-icon-left" ion-datetime-picker date name="issue_date_infant_{{$index}}" ng-model="infantFormData[$index].issue_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Issue Date:
+                  &nbsp;{{infantFormData[$index].issue_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.issue_date_infant_{{$index}}.$error.required && (submitted || personalInfoForm.issue_date_infant_{{$index}}.$dirty)" class="has-error padding">Issue Date is required.</p>
+
+               <div class="item item-icon-left" ion-datetime-picker date name="expiry_date_infant_{{$index}}" ng-model="infantFormData[$index].expiry_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Expiry Date:
+                  &nbsp;{{infantFormData[$index].expiry_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.expiry_date_infant_{{$index}}.$error.required && (submitted || personalInfoForm.expiry_date_infant_{{$index}}.$dirty)" class="help-block">Expiry Date is required.</p>
 
                <div class="item item-divider divide">Special Requirements</div>
                <label class="item item-input item-select">
