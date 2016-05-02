@@ -6,7 +6,4 @@ App.controller('bookController-flightDetails', function($scope, $location, Fligh
 	$scope.cost = FlightSrv.getCost();
 	$scope.entertainment = FlightSrv.getEntertainment();
 
-	var book = function () {
-		$location.url("/tabs/personalInfo");
-	};
 })
