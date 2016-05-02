@@ -11,9 +11,9 @@ App.factory('FlightsSrv', function ($http) {
          });
       },
       getPublishableKey: function(ip) {
-         return $http.get('/stripe/pubkey', {
+         return $http.get('/stripe/pubkey/' + ip, {
             "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
-         }, {"IP": ip});
+         });
       },
       /*Flight Info */
       setSearchOther: function(value) {
@@ -118,6 +118,7 @@ App.factory('FlightsSrv', function ($http) {
          console.log("ret_date: ", ret_date);
          console.log("classs: ", classs);
          console.log("total seats", totalSeats);
+
          return $http.get('/api/flights/search/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + ret_date + '/' + classs + '/' + totalSeats , {
             "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
          });
@@ -129,8 +130,8 @@ App.factory('FlightsSrv', function ($http) {
          console.log("classs: ", classs);
          console.log("total seats", totalSeats);
 
-	return $http.get('/api/flights/search/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + classs + '/' + totalSeats , {
-            "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
+         return $http.get('/api/flights/search/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + classs + '/' + totalSeats , {
+           "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
          });
       },
       getOtherRoundFlights: function(dep_air, ret_air, dep_date, ret_date, classs, totalSeats) {
