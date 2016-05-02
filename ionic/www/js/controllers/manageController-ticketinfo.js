@@ -27,21 +27,16 @@ App.controller('manageController-ticketinfo', function($scope){
                     {'title': 'Mr.','first_name': 'Hassan', 'last_name': 'Ali', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
                     'email': 'm2@2m.com', 'phone_number': '124353', 'em_email': 'n2@2n.com', 'em_phone_number': '456', 'mealPreference': 'None', "specialNeeds": 'None'}  ];
 
-  $scope.adults = [{'title': 'Mr.','first_name': 'Nour ElDin', 'last_name': 'Khaled', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
-                                      'email': 'm@m.com', 'phone_number': '123', 'em_email': 'n@n.com', 'em_phone_number': '456', 'mealPreference': 'None', "specialNeeds": 'None'},
-                                      {'title': 'Mr.','first_name': 'Hassan', 'last_name': 'Ali', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
-                                      'email': 'm2@2m.com', 'phone_number': '124353', 'em_email': 'n2@2n.com', 'em_phone_number': '456', 'mealPreference': 'None', "specialNeeds": 'None'}  ];
-
-  $scope.adults = [{'title': 'Mr.','first_name': 'Nour ElDin', 'last_name': 'Khaled', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
-                                                        'email': 'm@m.com', 'phone_number': '123', 'em_email': 'n@n.com', 'em_phone_number': '456', 'mealPreference': 'None', "specialNeeds": 'None'},
+  $scope.children = [{'first_name': 'Nour ElDin', 'last_name': 'Khaled', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
+                                                         'mealPreference': 'None', "specialNeeds": 'None'},
                                                         {'title': 'Mr.','first_name': 'Hassan', 'last_name': 'Ali', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
-                                                        'email': 'm2@2m.com', 'phone_number': '124353', 'em_email': 'n2@2n.com', 'em_phone_number': '456', 'mealPreference': 'None', "specialNeeds": 'None'}  ];
+                                                         'mealPreference': 'None', "specialNeeds": 'None'}  ];
 
-  // $scope.adults = PersonalSrv.getAdultsInfo();
-  // $scope.children = PersonalSrv.getChildrenInfo();
-  // $scope.infants = PersonalSrv.getInfantsInfo();
-  //
-  // $scope.total_price = FlightsSrv.getTotalPrice();
+  $scope.infants = [{'first_name': 'Nour ElDin', 'last_name': 'Khaled', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
+                                                         'mealPreference': 'None', "specialNeeds": 'None'},
+                                                        {'title': 'Mr.','first_name': 'Hassan', 'last_name': 'Ali', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
+                                                         'mealPreference': 'None', "specialNeeds": 'None'}  ];
+
 
 
 });
