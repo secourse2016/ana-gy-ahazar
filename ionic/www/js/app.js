@@ -62,6 +62,15 @@ App.config(function($stateProvider, $urlRouterProvider) {
       }
    })
 
+   .state('tabs.book-flights-details', {
+      url: '/flights-details',
+      views: {
+         'tabs-book': {
+            templateUrl: 'templates/book-flights-details.html',
+         }
+      }
+   })
+
    .state('tabs.book-personalInfo', {
       url: '/personalInfo',
       views: {
