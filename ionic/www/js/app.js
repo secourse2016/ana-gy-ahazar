@@ -48,7 +48,8 @@ App.config(function($stateProvider, $urlRouterProvider) {
       url: '/book',
       views: {
          'tabs-book': {
-            templateUrl: 'templates/book-search.html'
+            templateUrl: 'templates/book-search.html',
+            controller: 'bookSearch'
          }
       }
    })
