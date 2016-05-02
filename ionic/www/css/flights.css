@@ -1,17 +1,21 @@
 .header .col {
-    background-color:lightgrey;
+    background-color:#11c1f3;
 }
 
-.col {
-    border: solid 1px grey;
+/*.col {
+    border: solid 1px black;
     border-bottom-style: none;
     border-right-style: none;
-}
+}*/
 
-.col:last-child {
-    border-right: solid 1px grey;
-}
+/*.col:last-child {
+    border-right: solid 1px black;
+}*/
 
-.row:last-child .col {
-    border-bottom: solid 1px grey;
+/*.row:last-child .col {
+    border-bottom: solid 1px black;
+}*/
+
+#infoID, #bookID{
+	font-size: 12px;
 }
