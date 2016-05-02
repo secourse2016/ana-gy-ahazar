@@ -275,7 +275,7 @@
                   Expiry Date:
                   &nbsp;{{infantFormData[$index].expiry_date| date: "yyyy-MMMM-dd"}}
                </div>
-               <p ng-show="personalInfoForm.expiry_date_infant_{{$index}}.$error.required && (submitted || personalInfoForm.expiry_date_infant_{{$index}}.$dirty)" class="help-block">Expiry Date is required.</p>
+               <p ng-show="personalInfoForm.expiry_date_infant_{{$index}}.$error.required && (submitted || personalInfoForm.expiry_date_infant_{{$index}}.$dirty)" class="has-error padding">Expiry Date is required.</p>
 
                <div class="item item-divider divide">Special Requirements</div>
                <label class="item item-input item-select">

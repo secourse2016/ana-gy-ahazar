@@ -39,7 +39,8 @@ App.config(function($stateProvider, $urlRouterProvider) {
       url: '/home',
       views: {
          'tabs-home': {
-            templateUrl: 'templates/home.html'
+            templateUrl: 'templates/home.html',
+            controller: 'HomeController'
          }
       }
    })
