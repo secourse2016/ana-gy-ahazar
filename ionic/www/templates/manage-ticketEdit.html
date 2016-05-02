@@ -1,5 +1,101 @@
 <ion-view view-title="Edit">
-  <ion-content class="padding">
-     Edit
-  </ion-content>
+<ion-content>
+<div ng-repeat="adult in adults track by $index">
+	<h3 class="padding">Adult {{$index+1}}</h3>
+	<div class="item item-divider divide">Personal Information</div>
+	<div class="list">
+
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Title
+			</div>
+			<select>
+				<option selected>Mr.</option>
+				<option>Mrs.</option>
+				<option>Ms.</option>
+			</select>
+		</label>
+
+		<label class="item item-input item-floating-label">
+			<span class="input-label">First Name</span>
+			<input type="text" placeholder="First Name">
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Last Name</span>
+			<input type="text" placeholder="Last Name">
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Nationality</span>
+			<input type="text" placeholder="Nationality">
+		</label>
+	</div>
+	<div class="item item-divider divide">Passport Information</div>
+	<div class="list">
+
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Passport Number</span>
+			<input type="text" placeholder="Passport Number">
+		</label>
+	</div>
+	<div class="item item-divider divide">Contact Information</div>
+	<div class="list">
+
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Email</span>
+			<input type="text" placeholder="Email">
+		</label>
+	</div>
+	<div class="item item-divider divide">Emergency Contact Information</div>
+	<div class="list">
+
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Email</span>
+			<input type="text" placeholder="Email">
+		</label>
+	</div>
+	<div class="item item-divider divide">Special Requirements</div>
+	<div class="list">
+
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Meal preference
+			</div>
+			<select>
+				<option selected>None</option>
+				<option>Asian vegetarian meal</option>
+                <option>Baby food</option>
+                <option>Bland meal</option>
+                <option>Child food</option>
+                <option>Diabetic meal</option>
+                <option>Gelatin free meal</option>
+                <option>Low calorie meal</option>
+                <option>Low fat meal</option>
+                <option>Salt free meal</option>
+                <option>Lacto-ovo vegetarian meal</option>
+			</select>
+		</label>
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Special needs
+			</div>
+			<select>
+				
+				<option selected>None</option>
+				<option>Deaf passenger</option>
+				<option>Wheelchair for cabin seat</option>
+				<option>Wheelchair for ramp</option>
+				<option>Wheelchair for steps</option>
+				<option>Wheelchair dry cell battery</option>
+				<option>Wheelchair wet cell battery</opti
+			</select>
+		</label>
+	</div>
+</div>
+<div ng-repeat="child in children track by $index">
+	<h3 class="padding">Child {{$index+1}}</h3>
+</div>
+<div ng-repeat="infant in infants track by $index">
+	<h3  class="padding">Infant {{$index+1}}</h3>
+</div>
+</ion-content>
 </ion-view>
