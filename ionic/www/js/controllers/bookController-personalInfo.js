@@ -1,7 +1,7 @@
 App.controller('bookController-personalInfo',function($scope, PersonalSrv, $location) {
    $scope.adults = 1;
-   $scope.children = 0;
-   $scope.infants = 0;
+   $scope.children = 1;
+   $scope.infants = 2;
 
    $scope.adultFormData = [];
    $scope.childFormData = [];

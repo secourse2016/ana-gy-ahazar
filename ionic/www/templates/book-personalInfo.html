@@ -2,7 +2,9 @@
    <ion-content class="">
       <form name="personalInfoForm" ng-submit="submitForm(personalInfoForm.$valid)" novalidate>
          <div ng-repeat="t in numAdults() track by $index">
-            <h2 class="padding">Adult {{$index + 1}}</h2>
+            <center>
+               <h3 class="padding">Adult {{$index + 1}}</h3>
+            </center>
             <div class="list">
                <div class="item item-divider divide">Personal Information</div>
                <label class="item item-input item-select">
@@ -115,7 +117,9 @@
          </div>
 
          <div ng-repeat="t in numChildren() track by $index">
-            <h2 class="padding">Child {{$index + 1}}</h2>
+            <center>
+               <h3 class="padding">Child {{$index + 1}}</h3
+            </center>
             <div class="list">
                <div class="item item-divider divide">Personal Information</div>
                <label class="item item-input item-floating-label">
@@ -191,7 +195,9 @@
          </div>
 
          <div ng-repeat="t in numInfants() track by $index">
-            <h2 class="padding">Infant {{$index + 1}}</h2>
+            <center>
+               <h3 class="padding">Infant {{$index + 1}}</h3>
+            </center>
             <div class="list">
                <div class="item item-divider divide">Personal Information</div>
                <label class="item item-input item-floating-label">
