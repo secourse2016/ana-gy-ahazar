@@ -1,5 +1,44 @@
 <ion-view view-title="Flights">
-   <ion-content class="padding">
-      Flights
-   </ion-content>
+    <ion-header-bar class="bar bar-subheader bar-stable">
+     <h3> {{depAirport}} <--> {{arrAirport}} </h3>
+    </ion-header-bar>
+    <ion-content>
+
+     <div class="row header">
+       <div class="col"> <h3>Departure Flight(s)</h3></div>
+     </div>
+
+        <div class="row header">
+          <div class="col">Airline</div>
+          <div class="col">Time</div>
+          <div class="col">Cost</div>
+          <div class="col"></div>
+        </div>
+        <div class="row" ng-repeat="flight in flights">
+          <div class="col">{{flight.Airline}}</div>
+          <div class="col">{{flight.Time}}</div>
+          <div class="col">{{flight.Cost}}</div>
+          <div class="col"><ion-item ng-click="showInfo(flight.id)">Show info</ion-item></div>
+        </div>
+    
+    <br>
+    <div ng-if="show_incoming">
+     <div class="row header">
+       <div class="col"> <h3>Return Flight(s)</h3></div>
+     </div>
+         <div class="row header">
+          <div class="col">Airline</div>
+          <div class="col">Time</div>
+          <div class="col">Cost</div>
+          <div class="col"></div>
+        </div>
+        <div class="row" ng-repeat="flight in retFlights">
+          <div class="col">{{flight.Airline}}</div>
+          <div class="col">{{flight.Time}}</div>
+          <div class="col">{{flight.Cost}}</div>
+          <div class="col"><ion-item ng-click="showInfo(flight.id)">Show info</ion-item></div>
+        </div>
+      </div>
+
+    </ion-content>
 </ion-view>
