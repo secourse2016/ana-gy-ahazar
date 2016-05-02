@@ -56,7 +56,30 @@ App.controller('bookController-flights', function($scope, FlightSrv, $location) 
       
 
       
-      }
+      };
+
+      //should be editted
+      $scope.book = function(isValid) {
+        $location.url("/tabs/personalInfo");
+        // $scope.submitted = true;
+
+        // // check to make sure the form is completely valid
+        // if (isValid) {
+        //    console.log('good');
+
+        //    FlightsSrv.setDepartureFlight($scope.dep_flight);
+        //    FlightsSrv.setReturnFlight($scope.ret_flight);
+        //    FlightsSrv.setOutgoingPrice(parseInt($scope.dep_price));
+        //    FlightsSrv.setIncomingPrice(parseInt($scope.ret_price));
+        //    FlightsSrv.setTotalPrice(parseInt($scope.dep_price) + parseInt($scope.ret_price));
+
+           
+        // }
+        // else {
+        //    console.log('bad');
+        // }
+
+      };
 
       })
 

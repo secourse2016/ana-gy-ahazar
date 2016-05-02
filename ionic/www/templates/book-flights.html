@@ -1,7 +1,4 @@
 <ion-view view-title="Flights">
-    <ion-header-bar class="bar bar-subheader bar-stable">
-     <h3> {{depAirport}} <--> {{arrAirport}} </h3>
-    </ion-header-bar>
 
   <div class="item item-divider">        
     </div>
@@ -9,7 +6,7 @@
     <ion-content>
 
      <div class="row header">
-       <div class="col"> <h3>Departure Flight(s)</h3></div>
+       <div class="col"> <h3>Departure Flight(s)</h3> <h3> {{depAirport}} - {{arrAirport}}</h3></div>
      </div>
 
         <div class="row header">
@@ -19,7 +16,7 @@
           <div class="col"></div>
         </div>
         <div class="row" ng-repeat="flight in flights">
-          <div class="col"><ion-radio ng-model="choice" name="dep_reserve" ng-value="flight.id" id="bookID">Choose</ion-radio></div>
+          <div class="col"><ion-radio ng-model="choice" name="dep_reserve" ng-value="flight.id" id="bookID" required>Choose</ion-radio></div>
           <div class="col">{{flight.Time}}</div>
           <div class="col">{{flight.Cost}}</div>
           <div class="col"><ion-item ng-click="showInfo(flight.id)" id="infoID">Details <i class="icon ion-chevron-right icon-accessory"></i></ion-item></div>
@@ -31,7 +28,7 @@
     </div>
     <div ng-if="show_incoming">
      <div class="row header">
-       <div class="col"> <h3>Return Flight(s)</h3></div>
+       <div class="col"> <h3>Return Flight(s) </h3> <h3> {{arrAirport}} - {{depAirport}}</h3></div>
      </div>
          <div class="row header">
           <!-- <div class="col">Airline</div> -->
@@ -42,12 +39,12 @@
         </div>
         <div class="row" ng-repeat="flight in retFlights">
           <!-- <div class="col">{{flight.Airline}}</div> -->
-          <div class="col "><ion-radio ng-model="choice" name="ret_reserve" ng-value="flight.id" id="bookID">Choose</ion-radio></div>
+          <div class="col "><ion-radio ng-model="choice" name="ret_reserve" ng-value="flight.id" id="bookID" required>Choose</ion-radio></div>
           <div class="col ">{{flight.Time}}</div>
           <div class="col ">{{flight.Cost}}</div>
           <div class="col "><ion-item ng-click="showInfo(flight.id)" id="infoID">Details <i class="icon ion-chevron-right icon-accessory"></i></ion-item></div>
         </div>
       </div>
-      <div class="col "><ion-item ng-click="" id="infoID"><h3>Next</h3></ion-item></div>
+      <div class="col "><ion-item ng-click="book()"><h3>Next</h3></ion-item></div>
     </ion-content>
 </ion-view>
