@@ -199,19 +199,15 @@
 </div>
 
 <div class="item item-text-wrap" style="background-color:rgba(255, 255, 255,.8);">
+  
   <div class="row">
-    <i class="ion-cash col col-10 col-offset-20"></i>
-    <div class="item col col-25 col-offset-15"  style="background-color:rgba(255, 255, 255,0);border:none;">
+    <div class="item"  style="background-color:rgba(255, 255, 255,0);border:none;">
+      <i class="ion-cash"></i>
       Total Price
     </div>
-    <div class="item item-balanced col col-25 col-offset-15">
+    <div class="item item-balanced">
       $18000
     </div>
-  </div>
-  <div>
-    <button class="button button-full" style="background-color:#708090;color: #FFF;" >
-      Confirm
-    </button>
   </div>
 </div>
 
@@ -221,5 +217,11 @@
 
 
 </label>
+<button class="button button-full button-assertive" ng-click="cancel()" >
+  Cancel Reservation
+</button>
+<button class="button button-full" ng-click="edit()" style="background-color:#708090;color: #FFF;" >
+  Edit Reservation
+</button>
 </ion-content>
 </ion-view>

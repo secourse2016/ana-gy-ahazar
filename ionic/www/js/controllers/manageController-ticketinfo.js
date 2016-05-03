@@ -1,4 +1,4 @@
-App.controller('manageController-ticketinfo', function($scope){
+App.controller('manageController-ticketinfo', function($scope, $location){
   // Departure Flight Info
   var departureFlight = {'origin': 'CAI', 'destination': 'JED', 'departureDateTime': '4/4/4', 'arrivalDateTime': '5/5/5', 'class': 'economy'};
   $scope.departureOrigin = departureFlight.origin;
@@ -23,20 +23,27 @@ App.controller('manageController-ticketinfo', function($scope){
   }
 
   $scope.adults = [{'title': 'Mr.','first_name': 'Nour ElDin', 'last_name': 'Khaled', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
-                    'email': 'm@m.com', 'phone_number': '123', 'em_email': 'n@n.com', 'em_phone_number': '456', 'mealPreference': 'None', "specialNeeds": 'None'},
-                    {'title': 'Mr.','first_name': 'Hassan', 'last_name': 'Ali', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
-                    'email': 'm2@2m.com', 'phone_number': '124353', 'em_email': 'n2@2n.com', 'em_phone_number': '456', 'mealPreference': 'None', "specialNeeds": 'None'}  ];
+  'email': 'm@m.com', 'phone_number': '123', 'em_email': 'n@n.com', 'em_phone_number': '456', 'mealPreference': 'None', "specialNeeds": 'None'},
+  {'title': 'Mr.','first_name': 'Hassan', 'last_name': 'Ali', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
+  'email': 'm2@2m.com', 'phone_number': '124353', 'em_email': 'n2@2n.com', 'em_phone_number': '456', 'mealPreference': 'None', "specialNeeds": 'None'}  ];
 
   $scope.children = [{'first_name': 'Nour ElDin', 'last_name': 'Khaled', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
-                                                         'mealPreference': 'None', "specialNeeds": 'None'},
-                                                        {'title': 'Mr.','first_name': 'Hassan', 'last_name': 'Ali', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
-                                                         'mealPreference': 'None', "specialNeeds": 'None'}  ];
+  'mealPreference': 'None', "specialNeeds": 'None'},
+  {'title': 'Mr.','first_name': 'Hassan', 'last_name': 'Ali', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
+  'mealPreference': 'None', "specialNeeds": 'None'}  ];
 
   $scope.infants = [{'first_name': 'Nour ElDin', 'last_name': 'Khaled', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
-                                                         'mealPreference': 'None', "specialNeeds": 'None'},
-                                                        {'title': 'Mr.','first_name': 'Hassan', 'last_name': 'Ali', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
-                                                         'mealPreference': 'None', "specialNeeds": 'None'}  ];
+  'mealPreference': 'None', "specialNeeds": 'None'},
+  {'title': 'Mr.','first_name': 'Hassan', 'last_name': 'Ali', 'nationality': 'Egyptian', 'birth_date': '4/4/4', 'passport_number': '1234',
+  'mealPreference': 'None', "specialNeeds": 'None'}  ];
 
 
+  $scope.cancel = function() {
+    console.log('cancel');
+  };
 
+  $scope.edit = function() {
+    console.log('clocked');
+    $location.path('/tabs/manage/ticketEdit');
+  };
 });
