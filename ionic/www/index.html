@@ -73,14 +73,20 @@
        <!-- Modal content area -->
        <ion-content>
 
-         <form ng-submit="send()">
+         <form name="feedbackForm" ng-submit="send(feedbackForm.$valid)" novalidate>
            <div class="list list-inset">
              <label class="item item-input">
-               <input type="email" placeholder="Email" ng-model="data.email" required>
+               <input type="email" placeholder="Email" name="email" autocomplete="off" ng-model="data.email" required>
              </label>
              <label class="item item-input">
-                <textarea placeholder="Message" rows="8" ng-model="data.message" required></textarea>
+                <textarea placeholder="Message" rows="8" name="message" autocomplete="off" ng-model="data.message" required></textarea>
              </label>
+           </div>
+
+           <div class="padding">
+              <p ng-show="feedbackForm.email.$error.required && submitted" class="has-error">Email is required.</p>
+              <p ng-show="feedbackForm.email.$error.email && submitted" class="has-error">Please Enter a Valid Email.</p>
+              <p ng-show="feedbackForm.message.$error.required && submitted" class="has-error">Message is required.</p>
            </div>
            <div class="padding">
              <button type="submit" class="button button-block button-positive">Send <i class="icon ion-paper-airplane"></i></button>

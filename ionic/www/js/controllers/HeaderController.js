@@ -10,20 +10,28 @@ App.controller('HeaderController', function($scope, $ionicModal, FeedbackSrv, $i
    });
 
    // This function sends the feedback to the API.
-   $scope.send = function() {
-      console.log($scope.data);
-      FeedbackSrv.storeFeedback($scope.data).success(function(response) {
-         $ionicLoading.show({ template: 'Your feedback has been sent!', noBackdrop: true, duration: 2000 });
-         $scope.feedbackModal.hide();
-         $scope.data = {};
-      })
-      .error(function() {
-         $ionicLoading.show({ template: 'Something went wrong! Please try again.', noBackdrop: true, duration: 2000 });
-      });
+   $scope.submitted = false;
+   $scope.send = function(isValid) {
+      $scope.submitted = true;
+      console.log('clicked');
+
+      if (isValid) {
+         FeedbackSrv.storeFeedback($scope.data).success(function(response) {
+            $ionicLoading.show({ template: 'Your feedback has been sent!', noBackdrop: true, duration: 2000 });
+            $scope.feedbackModal.hide();
+            $scope.data = {};
+         })
+         .error(function() {
+            $ionicLoading.show({ template: 'Something went wrong! Please try again.', noBackdrop: true, duration: 2000 });
+         });
+      }
+      else {
+         console.log('bad');
+      }
 
    };
 
-    // Open the feedback modal.
+   // Open the feedback modal.
    $scope.open = function() {
       $scope.feedbackModal.show();
    };
