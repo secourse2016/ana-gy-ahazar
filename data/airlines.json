@@ -86,5 +86,13 @@
   {
     "airline":"AirNewZealand",
     "IP":"52.28.246.230"
+  },
+  {
+    "airline":"Alitalia",
+    "IP":"54.93.74.125"
+  },
+  {
+    "airline":"Air Canada",
+    "IP":"52.36.250.55"
   }
 ]
