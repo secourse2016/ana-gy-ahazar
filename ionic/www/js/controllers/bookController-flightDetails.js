@@ -1,8 +1,8 @@
-App.controller('bookController-flightDetails', function($scope, $location, FlightSrv) { 
-	$scope.airline = FlightSrv.getAirline();
-	$scope.time = FlightSrv.getFlightTime();
-	$scope.seats = FlightSrv.getSeats();
-	$scope.planeModel = FlightSrv.getPlaneModel();
-	$scope.cost = FlightSrv.getCost();
-	$scope.entertainment = FlightSrv.getEntertainment();
+App.controller('bookController-flightDetails', function($scope, $location, FlightsSrv) { 
+	// $scope.airline = FlightsSrv.getAirline();
+	// $scope.time = FlightsSrv.getFlightTime();
+	// $scope.seats = FlightsSrv.getSeats();
+	// $scope.planeModel = FlightsSrv.getPlaneModel();
+	// $scope.cost = FlightsSrv.getCost();
+	// $scope.entertainment = FlightsSrv.getEntertainment();
 })

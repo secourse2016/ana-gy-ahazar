@@ -1,8 +1,8 @@
 
-App.controller('bookController-flights', function($scope, FlightSrv, $location) { 
-      FlightSrv.setFlightType("round"); //dummy
-      FlightSrv.setSelectedOriginAirport("CAI"); //dummy
-      FlightSrv.setSelectedDestinationAirport("TXL"); //dummy
+App.controller('bookController-flights', function($scope, FlightsSrv, $location) { 
+      FlightsSrv.setFlightType("round"); //dummy
+      FlightsSrv.setSelectedOriginAirport("CAI"); //dummy
+      FlightsSrv.setSelectedDestinationAirport("TXL"); //dummy
 
        var flights = 
       [
@@ -20,12 +20,12 @@ App.controller('bookController-flights', function($scope, FlightSrv, $location) 
       $scope.retFlights = retFlights;
 
 
-      if (FlightSrv.getFlightType() == "round") {
+      if (FlightsSrv.getFlightType() == "round") {
       $scope.show_incoming = true;
       }
 
-      $scope.depAirport = FlightSrv.getSelectedOriginAirport();
-      $scope.arrAirport = FlightSrv.getSelectedDestinationAirport();
+      $scope.dep_airport = FlightsSrv.getSelectedOriginAirport();
+      $scope.ret_airport = FlightsSrv.getSelectedDestinationAirport();
       
       $scope.showInfo = function(flightID) {
         console.log("clicked");
@@ -45,39 +45,42 @@ App.controller('bookController-flights', function($scope, FlightSrv, $location) 
         }
       }
 
-      FlightSrv.setAirline(flight.Airline);
-      FlightSrv.setFlightTime(flight.Time);
-      FlightSrv.setSeats(flight.Seats);
-      FlightSrv.setPlaneModel(flight.planeModel);
-      FlightSrv.setCost(flight.Cost);
-      FlightSrv.setEntertainment(flight.Entertainment);
+      // FlightSrv.setAirline(flight.Airline);
+      // FlightSrv.setFlightTime(flight.Time);
+      // FlightSrv.setSeats(flight.Seats);
+      // FlightSrv.setPlaneModel(flight.planeModel);
+      // FlightSrv.setCost(flight.Cost);
+      // FlightSrv.setEntertainment(flight.Entertainment);
       $location.url("/tabs/flights-details");
       console.log(flight);
-      
-
-      
       };
-
+    
+    /*
+    Validations
+    */
+   $scope.submitted = false;
       //should be editted
-      $scope.book = function(isValid) {
-        $location.url("/tabs/personalInfo");
-        // $scope.submitted = true;
+      $scope.submitForm = function(isValid) {
+        $scope.submitted = true;
 
-        // // check to make sure the form is completely valid
-        // if (isValid) {
-        //    console.log('good');
-
-        //    FlightsSrv.setDepartureFlight($scope.dep_flight);
-        //    FlightsSrv.setReturnFlight($scope.ret_flight);
-        //    FlightsSrv.setOutgoingPrice(parseInt($scope.dep_price));
-        //    FlightsSrv.setIncomingPrice(parseInt($scope.ret_price));
-        //    FlightsSrv.setTotalPrice(parseInt($scope.dep_price) + parseInt($scope.ret_price));
+        // check to make sure the form is completely valid
+        if (isValid) {
+           console.log('good');
 
            
-        // }
-        // else {
-        //    console.log('bad');
-        // }
+           
+           FlightsSrv.setDepartureFlight($scope.dep_flight);
+           FlightsSrv.setReturnFlight($scope.ret_flight);
+           FlightsSrv.setOutgoingPrice(parseInt($scope.dep_price));
+           FlightsSrv.setIncomingPrice(parseInt($scope.ret_price));
+           FlightsSrv.setTotalPrice(parseInt($scope.dep_price) + parseInt($scope.ret_price));
+
+          $location.url("/tabs/personalInfo");
+
+        }
+        else {
+           console.log('bad');
+        }
 
       };
 
