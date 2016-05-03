@@ -177,142 +177,161 @@ module.exports = function(app) {
 	*
 	*/
 	app.post('/api/flights/reservation', function(req, res) {
-		var reservation = req.body;
+		try{
+			var reservation = req.body;
 
-		// formatting the passengers to meet the standard
-		var adults = reservation.adults;
-		var children = reservation.children;
-		var infants = reservation.infants;
+			// formatting the passengers to meet the standard
+			var adults = reservation.adults;
+			var children = reservation.children;
+			var infants = reservation.infants;
 
-		var passengers  = [] ;
+			var passengers  = [] ;
 
-		for (var i = 0; i < adults.length; i++) {
-			var currAdult = adults[i] ;
-			var passenger  = {
-				firstName: currAdult.first_name ,
-				lastName: currAdult.last_name ,
-				passportNum: currAdult.passport_number ,
-				passportExpiryDate: new Date(currAdult.expiry_date).getTime() ,
-				dateOfBirth: new Date(currAdult.birth_date).getTime() ,
-				nationality: currAdult.nationality ,
-				email: currAdult.email
-			};
-
-			passengers.push(passenger) ;
-		}
-
-		if(children){
-			for (var i = 0; i < children.length; i++) {
-				var currChild = children[i] ;
+			for (var i = 0; i < adults.length; i++) {
+				var currAdult = adults[i] ;
 				var passenger  = {
-					firstName: currChild.first_name ,
-					lastName: currChild.last_name ,
-					passportNum: currChild.passport_number ,
-					passportExpiryDate: new Date(currChild.expiry_date).getTime() ,
-					dateOfBirth: new Date(currChild.birth_date).getTime() ,
-					nationality: currChild.nationality ,
-					email: currChild.email
+					firstName: currAdult.first_name ,
+					lastName: currAdult.last_name ,
+					passportNum: currAdult.passport_number ,
+					passportExpiryDate: new Date(currAdult.expiry_date).getTime() ,
+					dateOfBirth: new Date(currAdult.birth_date).getTime() ,
+					nationality: currAdult.nationality ,
+					email: currAdult.email
 				};
+
 				passengers.push(passenger) ;
 			}
-		}
 
-		if(infants){
-			for (var i = 0; i < infants.length; i++) {
-				var currInfant = infants[i] ;
-				var passenger  = {
-					firstName: currInfant.first_name ,
-					lastName: currInfant.last_name ,
-					passportNum: currInfant.passport_number ,
-					passportExpiryDate: new Date(currInfant.expiry_date).getTime() ,
-					dateOfBirth: new Date(currInfant.birth_date).getTime() ,
-					nationality: currInfant.nationality ,
-					email: currInfant.email
-				};
-				passengers.push(passenger);
-			}
-		}
-
-		var outgoingIP = reservation.dep_flight.IP;
-		var dep_cost = reservation.dep_price;
-		var paymentToken = reservation.paymentTokenDep;
-		var outgoingFlightId = reservation.dep_flight.flightId;
-
-		reservation.dep_flight._id = reservation.dep_flight.flightId;
-		delete reservation.dep_flight.flightId;
-
-		var dep_request = {
-			"passengerDetails": passengers,
-			"class": reservation.class,
-			"cost": dep_cost,
-			"outgoingFlightId": outgoingFlightId,
-			"paymentToken": paymentToken
-		};
-
-		var ret_request = null;
-		var incomingIP = null;
-
-
-		//The requests are ready. statrting sending
-		if(reservation.ret_flight){
-			incomingIP = reservation.ret_flight.IP;
-			var returnFlightId = reservation.ret_flight.flightId;
-			var ret_cost = reservation.ret_price;
-
-			reservation.ret_flight._id = reservation.ret_flight.flightId;
-			delete reservation.ret_flight.flightId;
-
-			if(outgoingIP  != incomingIP){
-				//the request will be sent to two different airline
-
-				ret_request = JSON.parse(JSON.stringify(dep_request));
-				ret_request.outgoingFlightId = returnFlightId;
-				ret_request.cost = ret_cost;
-				ret_request.paymentToken = reservation.paymentTokenRet;
-
-				if(outgoingIP === "54.191.202.17"){
-					delete reservation.ret_flight;
+			if(children){
+				for (var i = 0; i < children.length; i++) {
+					var currChild = children[i] ;
+					var passenger  = {
+						firstName: currChild.first_name ,
+						lastName: currChild.last_name ,
+						passportNum: currChild.passport_number ,
+						passportExpiryDate: new Date(currChild.expiry_date).getTime() ,
+						dateOfBirth: new Date(currChild.birth_date).getTime() ,
+						nationality: currChild.nationality ,
+						email: currChild.email
+					};
+					passengers.push(passenger) ;
 				}
+			}
 
-				flights.reserve(outgoingIP, dep_request, reservation, false, function(resOut) {
-					try {
-						var jsonOut = (resOut);
-						if(resOut.errorMessage){
-							res.send('error');
-						}
-						else{
-							flights.reserve(incomingIP, ret_request, reservation, true, function(resIn) {
-								try{
-									var jsonIn = (resIn);
-									if(resIn.errorMessage){
+			if(infants){
+				for (var i = 0; i < infants.length; i++) {
+					var currInfant = infants[i] ;
+					var passenger  = {
+						firstName: currInfant.first_name ,
+						lastName: currInfant.last_name ,
+						passportNum: currInfant.passport_number ,
+						passportExpiryDate: new Date(currInfant.expiry_date).getTime() ,
+						dateOfBirth: new Date(currInfant.birth_date).getTime() ,
+						nationality: currInfant.nationality ,
+						email: currInfant.email
+					};
+					passengers.push(passenger);
+				}
+			}
+
+			var outgoingIP = reservation.dep_flight.IP;
+			var dep_cost = reservation.dep_price;
+			var paymentToken = reservation.paymentTokenDep;
+			var outgoingFlightId = reservation.dep_flight.flightId;
+
+			reservation.dep_flight._id = reservation.dep_flight.flightId;
+			delete reservation.dep_flight.flightId;
+
+			var dep_request = {
+				"passengerDetails": passengers,
+				"class": reservation.class,
+				"cost": dep_cost,
+				"outgoingFlightId": outgoingFlightId,
+				"paymentToken": paymentToken
+			};
+
+			var ret_request = null;
+			var incomingIP = null;
+
+
+			//The requests are ready. statrting sending
+			if(reservation.ret_flight){
+				incomingIP = reservation.ret_flight.IP;
+				var returnFlightId = reservation.ret_flight.flightId;
+				var ret_cost = reservation.ret_price;
+
+				reservation.ret_flight._id = reservation.ret_flight.flightId;
+				delete reservation.ret_flight.flightId;
+
+				if(outgoingIP  != incomingIP){
+					//the request will be sent to two different airline
+
+					ret_request = JSON.parse(JSON.stringify(dep_request));
+					ret_request.outgoingFlightId = returnFlightId;
+					ret_request.cost = ret_cost;
+					ret_request.paymentToken = reservation.paymentTokenRet;
+
+					if(outgoingIP === "54.191.202.17"){
+						delete reservation.ret_flight;
+					}
+
+					flights.reserve(outgoingIP, dep_request, reservation, false, function(resOut) {
+						try {
+							var jsonOut = (resOut);
+							if(resOut.errorMessage){
+								res.send('error');
+							}
+							else{
+								flights.reserve(incomingIP, ret_request, reservation, true, function(resIn) {
+									try{
+										var jsonIn = (resIn);
+										if(resIn.errorMessage){
+											res.send('error');
+										}
+										else{
+											res.json({
+												"outIP": outgoingIP,
+												"refNumOut": resOut.refNum,
+												"inIP": incomingIP,
+												"refNumIn": resIn.refNum
+											});
+										}
+									}catch(err){
 										res.send('error');
 									}
-									else{
-										res.json({
-											"outIP": outgoingIP,
-											"refNumOut": resOut.refNum,
-											"inIP": incomingIP,
-											"refNumIn": resIn.refNum
-										});
-									}
-								}catch(err){
-									res.send('error');
-								}
-							});
+								});
+							}
+						}catch(err) {
+							res.send('error');
 						}
-					}catch(err) {
-						res.send('error');
-					}
-				});
+					});
+				}
+				else{
+					dep_request.returnFlightId = returnFlightId;
+					dep_request.cost = dep_request.cost + ret_cost;
+					delete reservation.paymentTokenRet;
 
+					flights.reserve(outgoingIP, dep_request, reservation, false, function(response) {
+						try {
+							if(response.errorMessage){
+								res.send('error');
+							}
+							else{
+								res.json({
+									"outIP": outgoingIP,
+									"refNumOut": response.refNum
+								});
+							}
+						}catch(err) {
+							res.send('error');
+						}
+					});
+				}
 			}
 			else{
-
-				dep_request.returnFlightId = returnFlightId;
-				dep_request.cost = dep_request.cost + ret_cost;
 				delete reservation.paymentTokenRet;
 
-				flights.reserve(outgoingIP, dep_request, reservation, false, function(response) {
+				flights.reserve(outgoingIP, dep_request,reservation, false, function(response) {
 					try {
 						if(response.errorMessage){
 							res.send('error');
@@ -329,27 +348,9 @@ module.exports = function(app) {
 				});
 			}
 		}
-		else{
-			delete reservation.paymentTokenRet;
-
-			flights.reserve(outgoingIP, dep_request,reservation, false, function(response) {
-				try {
-					if(response.errorMessage){
-						res.send('error');
-					}
-					else{
-						res.json({
-							"outIP": outgoingIP,
-							"refNumOut": response.refNum
-						});
-					}
-				}catch(err) {
-					res.send('error');
-				}
-			});
+		catch(err) {
+			res.send('error');
 		}
-
-
 });
 
 /**
@@ -380,131 +381,139 @@ app.delete('/api/flights/:reservation', function (req,res) {
 *
 */
 app.post('/booking', function(req, res) {
-	var reservation = req.body;
+	try{
+		var reservation = req.body;
 
-	var adults = [];
-	var children = [];
-	var infants = [];
-	var dep_flight = {
-		"_id": reservation.outgoingFlightId
-	};
-	var ret_flight = null;
-
-	if(reservation.returnFlightId){
-		ret_flight = {
-			"_id": reservation.returnFlightId
+		var adults = [];
+		var children = [];
+		var infants = [];
+		var dep_flight = {
+			"_id": reservation.outgoingFlightId
 		};
-	}
+		var ret_flight = null;
 
-	//seeding the arrays based on the age of the passanger
-	var totalSeats = 0;
-
-	for(var i = 0; i < reservation.passengerDetails.length; i++) {
-		var curPassenger = reservation.passengerDetails[i];
-
-		var age = flights.getAge(reservation.passengerDetails[i].dateOfBirth);
-
-		if(age <= 2){
-			var fInfant = {
-				"title" : "Mr.",
-				"phone_code" : "Afghanistan (+93)",
-				"em_phone_code" : "Afghanistan (+93)",
-				"mealPreference" : "None",
-				"specialNeed" : "None",
-				"first_name" : curPassenger.firstName,
-				"last_name" : curPassenger.lastName,
-				"nationality" : curPassenger.nationality || 'Egyptian',
-				"birth_date" : curPassenger.dateOfBirth,
-				"passport_number" : curPassenger.passportNum,
-				"issue_date" : new Date().getTime(),
-				"expiry_date" : curPassenger.passportExpiryDate
+		if(reservation.returnFlightId){
+			ret_flight = {
+				"_id": reservation.returnFlightId
 			};
-
-			infants.push(fInfant);
 		}
-		else if(age <= 12){
-			var fChild = {
-				"title" : "Mr.",
-				"phone_code" : "Afghanistan (+93)",
-				"em_phone_code" : "Afghanistan (+93)",
-				"mealPreference" : "None",
-				"specialNeed" : "None",
-				"first_name" : curPassenger.firstName,
-				"last_name" : curPassenger.lastName,
-				"nationality" : curPassenger.nationality || 'Egyptian',
-				"birth_date" : curPassenger.dateOfBirth,
-				"passport_number" : curPassenger.passportNum,
-				"issue_date" : new Date().getTime(),
-				"expiry_date" : curPassenger.passportExpiryDate
-			};
 
-			children.push(fChild);
-			totalSeats++;
-		}
-		else{
-			var fAdult = {
-				"title" : "Mr.",
-				"phone_code" : "Afghanistan (+93)",
-				"em_phone_code" : "Afghanistan (+93)",
-				"mealPreference" : "None",
-				"specialNeed" : "None",
-				"first_name" : curPassenger.firstName,
-				"last_name" : curPassenger.lastName,
-				"email" : curPassenger.email || 'No E-mail',
-				"nationality" : curPassenger.nationality || 'Egyptian',
-				"birth_date" : curPassenger.dateOfBirth,
-				"passport_number" : curPassenger.passportNum,
-				"issue_date" : new Date().getTime(),
-				"expiry_date" : curPassenger.passportExpiryDate,
-				"phone_number" : 'No Phone',
-				"em_email" : 'No emergency mail',
-				"em_phone_number" : 'No emergency phone'
-			};
+		//seeding the arrays based on the age of the passanger
+		var totalSeats = 0;
 
-			adults.push(fAdult);
-			totalSeats++;
+		for(var i = 0; i < reservation.passengerDetails.length; i++) {
+			var curPassenger = reservation.passengerDetails[i];
+
+			var age = flights.getAge(reservation.passengerDetails[i].dateOfBirth);
+
+			if(age <= 2){
+				var fInfant = {
+					"title" : "Mr.",
+					"phone_code" : "Afghanistan (+93)",
+					"em_phone_code" : "Afghanistan (+93)",
+					"mealPreference" : "None",
+					"specialNeed" : "None",
+					"first_name" : curPassenger.firstName,
+					"last_name" : curPassenger.lastName,
+					"nationality" : curPassenger.nationality || 'Egyptian',
+					"birth_date" : curPassenger.dateOfBirth,
+					"passport_number" : curPassenger.passportNum,
+					"issue_date" : new Date().getTime(),
+					"expiry_date" : curPassenger.passportExpiryDate
+				};
+
+				infants.push(fInfant);
+			}
+			else if(age <= 12){
+				var fChild = {
+					"title" : "Mr.",
+					"phone_code" : "Afghanistan (+93)",
+					"em_phone_code" : "Afghanistan (+93)",
+					"mealPreference" : "None",
+					"specialNeed" : "None",
+					"first_name" : curPassenger.firstName,
+					"last_name" : curPassenger.lastName,
+					"nationality" : curPassenger.nationality || 'Egyptian',
+					"birth_date" : curPassenger.dateOfBirth,
+					"passport_number" : curPassenger.passportNum,
+					"issue_date" : new Date().getTime(),
+					"expiry_date" : curPassenger.passportExpiryDate
+				};
+
+				children.push(fChild);
+				totalSeats++;
+			}
+			else{
+				var fAdult = {
+					"title" : "Mr.",
+					"phone_code" : "Afghanistan (+93)",
+					"em_phone_code" : "Afghanistan (+93)",
+					"mealPreference" : "None",
+					"specialNeed" : "None",
+					"first_name" : curPassenger.firstName,
+					"last_name" : curPassenger.lastName,
+					"email" : curPassenger.email || 'No E-mail',
+					"nationality" : curPassenger.nationality || 'Egyptian',
+					"birth_date" : curPassenger.dateOfBirth,
+					"passport_number" : curPassenger.passportNum,
+					"issue_date" : new Date().getTime(),
+					"expiry_date" : curPassenger.passportExpiryDate,
+					"phone_number" : 'No Phone',
+					"em_email" : 'No emergency mail',
+					"em_phone_number" : 'No emergency phone'
+				};
+
+				adults.push(fAdult);
+				totalSeats++;
+			}
 		}
+
+
+		var reservation_info = {
+			'adults': adults,
+			'children': children,
+			'infants': infants,
+			'dep_flight': dep_flight,
+			'total_seats': totalSeats,
+			'type': 'Direct'
+		};
+
+		if(ret_flight){
+			reservation_info.ret_flight = ret_flight;
+		}
+
+		//trying the payment
+		flights.charge(reservation.paymentToken, reservation.cost, function(err) {
+			if(err){
+				res.json({
+					"refNum": null,
+					"errorMessage": 'An error occurred while trying to charge the given credit card'
+				});
+			}
+			else{
+				flights.reserveHelp(reservation_info, function(err, code) {
+					if(err){
+						res.json({
+							"refNum": null,
+							"errorMessage": 'An error occurred while trying to book the flight'
+						});
+					}
+					else{
+						res.json({
+							"refNum": code,
+							"errorMessage": null
+						});
+					}
+				});
+			}
+		});
 	}
-
-
-	var reservation_info = {
-		'adults': adults,
-		'children': children,
-		'infants': infants,
-		'dep_flight': dep_flight,
-		'total_seats': totalSeats,
-		'type': 'Direct'
-	};
-
-	if(ret_flight){
-		reservation_info.ret_flight = ret_flight;
+	catch(err) {
+		res.json({
+			"refNum": null,
+			"errorMessage": 'An error occurred while trying to book the flight'
+		});
 	}
-
-	//trying the payment
-	flights.charge(reservation.paymentToken, reservation.cost, function(err) {
-		if(err){
-			res.json({
-				"refNum": null,
-				"errorMessage": 'An error occurred while trying to charge the given credit card'
-			});
-		}
-		else{
-			flights.reserveHelp(reservation_info, function(err, code) {
-				if(err){
-					res.json({
-						"refNum": null,
-						"errorMessage": 'An error occurred while trying to book the flight'
-					});
-				}
-				else{
-					res.json({
-						"refNum": code,
-						"errorMessage": null
-					});
-				}
-			});
-		}
-	});
 });
 
 /**
