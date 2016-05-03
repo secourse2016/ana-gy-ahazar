@@ -19,6 +19,10 @@
                <div class="row">
                   <label class="col-sm-5 col-md-5">Class: {{ departureClass }}</label>
                </div>
+               <div class="row">
+                  <label class="col-sm-3 col-md-3">Reserved seats:</label>
+                  <label class="col-sm-1 col-md-1" ng-repeat="seat in seatsDep">{{ seat }}</label>
+               </div>
             </div>
 
             <div class="panel-heading" ng-if="showReturn">
@@ -35,6 +39,10 @@
                </div>
                <div class="row">
                   <label class="col-sm-5 col-md-5">Class: {{ returnClass }}</label>
+               </div>
+               <div class="row">
+                  <label class="col-sm-3 col-md-3">Reserved seats:</label>
+                  <label class="col-sm-1 col-md-1" ng-repeat="seat in seatsRet">{{ seat }}</label>
                </div>
             </div>
 

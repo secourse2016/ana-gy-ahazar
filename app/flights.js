@@ -123,10 +123,7 @@ var generatePromo = function() {
 */
 var seed = function(callback) {
 	/* static arrays */
-	var aircraftTypes =["Aerospatiale", "ATR", "Airbus", "Antonov", "Beechcraft", "Boeing", "BAC" , "BAE", "Comac",
-	"Convair", "de Havilland", "Bombardier", "Canadair",
-	"Embraer", "Fairchild", "Fokker", "Ilyushin", "Irkut", "Lockheed",
-	"McDonnell Douglas", "Mitsubishi", "Saab", "Sukhoi", "Tupolev", "Vickers", "Yakovlev"];
+	var aircraftTypes =["Airbus", "Boeing"];
 
 	var originOrDestination1 =["BOM", "CAI", "HKG", "JNB", "RUH",
 	"LHR", "LCF", "LAX", " FRA", "FCO"];
@@ -157,6 +154,18 @@ var seed = function(callback) {
 		airCrafts.push(airCraft);
 	}
 
+	//generating the empty seatmap
+	var seatmap = [];
+	for (var i = 1; i < 2/*12*/; i++) { /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+		for (var j = 0; j < 9; j++) {
+			seatmap.push({
+				"seatNumber": (i + String.fromCharCode(65 + j)),
+				"taken": false
+			});
+		}
+	}
+	//seatmap generated
+
 	var number = Math.floor(Math.random() * (originOrDestination1.length));
 	var dep_date = moment('2016-04-11');
 	var dep_dateTime = moment('2016-04-11 03:40 AM', 'YYYY-MM-DD hh:mm A');
@@ -167,7 +176,7 @@ var seed = function(callback) {
 	for (var i = 11; i < 62; i++) {
 		for (var j = 0; j < originOrDestination1.length; j++) {
 			var flightDuration = Math.floor(1 + (Math.random() * 16));
-			var randomCost = Math.floor(600+Math.random() * 8400);
+			var randomCost = Math.floor(600+Math.random() * 2000);
 
 
 			var ret_dateTime = dep_dateTime.clone();
@@ -187,15 +196,11 @@ var seed = function(callback) {
 				"duration": flightDuration,
 				"origin": origin,
 				"destination": destination,
-				"remaining_seats": 50,
+				"remaining_seats": 270,
 				"cost": randomCost,
 				"currency": "USD",
-				"seatmap": 	[
-					{
-						"seat": 5666,
-						"taken": randomBoolean()
-					}
-				],
+				"nextFreeSeat": 0,
+				"seatmap": 	seatmap,
 				"aircraft": airCrafts[Math.floor(Math.random() * airCrafts.length)]
 			};
 
@@ -219,15 +224,11 @@ var seed = function(callback) {
 				"duration": flightDuration,
 				"origin": origin,
 				"destination": destination,
-				"remaining_seats": 50,
+				"remaining_seats": 270,
 				"cost": randomCost,
 				"currency": "USD",
-				"seatmap": 	[
-					{
-						"seat": 5666,
-						"taken": randomBoolean()
-					}
-				],
+				"nextFreeSeat": 0,
+				"seatmap": 	seatmap,
 				"aircraft": airCrafts[Math.floor(Math.random() * airCrafts.length)]
 			};
 
@@ -424,7 +425,7 @@ var cancelReservation = function (bookRef, callback) {
 			record.dep_flight._id = new mongo.ObjectID(record.dep_flight._id);
 			db.getDatabase().collection('flights').updateOne(
 				{ _id: record.dep_flight._id },
-				{ $inc: { remaining_seats: totalSeats } },
+				{ $inc: { remaining_seats: totalSeats, nextFreeSeat: -totalSeats} },
 				function(err, result) {
 					if(!record.ret_flight){
 						callback();
@@ -433,7 +434,7 @@ var cancelReservation = function (bookRef, callback) {
 						record.ret_flight._id = new mongo.ObjectID(record.ret_flight._id);
 						db.getDatabase().collection('flights').updateOne(
 							{ _id: record.ret_flight._id },
-							{ $inc: { remaining_seats: totalSeats } },
+							{ $inc: { remaining_seats: totalSeats, nextFreeSeat: -totalSeats} },
 							function(err, result) {
 								callback();
 							});
@@ -507,19 +508,31 @@ var cancelReservation = function (bookRef, callback) {
 				}
 			}
 
-			addFlights(reserve_info, function(){
-				db.getDatabase().collection('reservations').count({"booking_ref_number": code}, function(err, count) {
-					if(count === 0){
-						reserve_info.booking_ref_number = code;
-						db.getDatabase().collection('reservations').insert(reserve_info, function(err, docs) {
-							if(err){
-								callback(err, null);
+			try{
+				addFlights(reserve_info, function(){
+					db.getDatabase().collection('reservations').count({"booking_ref_number": code}, function(err, count) {
+						if(count === 0){
+							reserve_info.booking_ref_number = code;
+							seatMapDep = reserve_info.dep_flight.seatmap;
+							seatMapDep = updateSeats(reserve_info.dep_flight.seatmap, reserve_info.dep_flight.nextFreeSeat, totalSeats, reserve_info, true);
+							delete reserve_info.dep_flight.seatmap;
+							seatMapRet = null;
+							if(reserve_info.ret_flight){
+								seatMapRet = reserve_info.ret_flight.seatmap;
+								seatMapRet = updateSeats(reserve_info.ret_flight.seatmap, reserve_info.ret_flight.nextFreeSeat, totalSeats, reserve_info, false);
+								delete reserve_info.ret_flight.seatmap;
 							}
-							else{
-								reserve_info.dep_flight._id = new mongo.ObjectID(reserve_info.dep_flight._id);
-								db.getDatabase().collection('flights').updateOne(
-									{ _id: reserve_info.dep_flight._id },
-									{ $inc: { remaining_seats: -totalSeats } },
+							db.getDatabase().collection('reservations').insert(reserve_info, function(err, docs) {
+								if(err){
+									callback(err, null);
+								}
+								else{
+									reserve_info.dep_flight._id = new mongo.ObjectID(reserve_info.dep_flight._id);
+									db.getDatabase().collection('flights').updateOne(
+										{ _id: reserve_info.dep_flight._id },
+										{ $inc: { remaining_seats: -totalSeats, nextFreeSeat: totalSeats} ,
+										$set:	{	seatmap: seatMapDep	}
+									},
 									function(err, docs) {
 										if(err){
 											callback(err, null);
@@ -532,27 +545,33 @@ var cancelReservation = function (bookRef, callback) {
 												reserve_info.ret_flight._id = new mongo.ObjectID(reserve_info.ret_flight._id);
 												db.getDatabase().collection('flights').updateOne(
 													{ _id: reserve_info.ret_flight._id },
-													{ $inc: { remaining_seats: -totalSeats } },
-													function(err, docs) {
-														if(err){
-															callback(err, null);
-														}
-														else{
-															callback(null, code);
-														}
-													});
-												}
+													{ $inc: { remaining_seats: -totalSeats, nextFreeSeat: totalSeats} ,
+													$set:	{	seatmap: seatMapRet	}
+												},
+												function(err, docs) {
+													if(err){
+														callback(err, null);
+													}
+													else{
+														callback(null, code);
+													}
+												});
 											}
-										});
-									}
-								});
-							}
-							else{
-								reserve(reserve_info, callback);
-							}
-						});
+										}
+									});
+								}
+							});
+						}
+						else{
+							reserve(reserve_info, callback);
+						}
 					});
-				};
+				});
+			}
+			catch(err) {
+				callback(err, null);
+			}
+		};
 
 				/**
 				* This function adds the flights to the reservation
@@ -576,6 +595,34 @@ var cancelReservation = function (bookRef, callback) {
 					});
 				};
 
+				/**
+				 * This function updates the seatmap according to the reservation
+				 *
+				 * @param {Object} seatmap, {Integer} nextFreeSeat, {Integer} total seats, {Object} reservation, {Boolean} oneway
+				 * @returns {Object}
+				 */
+				 var updateSeats = function(seatmap, nextFreeSeat, totalSeats, reserve_info, oneWay) {
+					 var reservation = JSON.parse(JSON.stringify(reserve_info));
+					 delete reservation.dep_flight;
+					 delete reservation.ret_flight;
+					 var seats = [];
+					 for (var i = 0; i < totalSeats; i++) {
+					 	seats.push(seatmap[i + nextFreeSeat].seatNumber);
+					 }
+					 for (var i = 0; i < totalSeats; i++) {
+					 	seatmap[i + nextFreeSeat].taken = true;
+						seatmap[i + nextFreeSeat].reservation = reservation;
+					 }
+
+					 if(oneWay){
+						 reserve_info.seatsDep = seats;
+					 }
+					 else{
+						 reserve_info.seatsRet = seats;
+					 }
+
+					 return seatmap;
+				 };
 
 				/**
 				* This function adds a feedback to the database.
@@ -764,20 +811,21 @@ var cancelReservation = function (bookRef, callback) {
 				* @returns
 				*/
 				var charge  = function (token, cost, callback) {
-					cost *= 100;
-					stripe.charges.create({
-						amount: cost,
-						currency: "usd",
-						source: token,
-					}, function(err, data) {
-						if(err){
-							console.log(err);
-							callback('error');
-						}
-						else{
-							callback(null);
-						}
-					});
+					callback(null); //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+					// cost *= 100;
+					// stripe.charges.create({
+					// 	amount: cost,
+					// 	currency: "usd",
+					// 	source: token,
+					// }, function(err, data) {
+					// 	if(err){
+					// 		console.log(err);
+					// 		callback('error');
+					// 	}
+					// 	else{
+					// 		callback(null);
+					// 	}
+					// });
 				};
 
 
@@ -884,5 +932,4 @@ var cancelReservation = function (bookRef, callback) {
 					reserveLocal : reserveLocal,
 					getAge : getAge ,
 					charge : charge
-
 				};

@@ -8,6 +8,7 @@ App.controller('manageController-ticketinfo', function($scope, ManageSrv, $locat
    $scope.departureDepDate = reservationData.dep_flight.departureDateTime;
    $scope.departureReturnDate = reservationData.dep_flight.arrivalDateTime;
    $scope.departureClass = reservationData.dep_flight.class;
+   $scope.seatsDep = reservationData.seatsDep;
 
    // Return Flight Info
    if (typeof reservationData.ret_flight != 'undefined') {
@@ -16,6 +17,7 @@ App.controller('manageController-ticketinfo', function($scope, ManageSrv, $locat
       $scope.returnDepDate = reservationData.ret_flight.departureDateTime;
       $scope.returnReturnDate = reservationData.ret_flight.arrivalDateTime;
       $scope.returnClass = reservationData.ret_flight.class;
+      $scope.seatsRet = reservationData.seatsRet;
 
       $scope.showReturn = true;
    }
