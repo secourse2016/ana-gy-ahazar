@@ -468,6 +468,14 @@ app.post('/booking', function(req, res) {
 			}
 		}
 
+		if(totalSeats === 0){
+			res.json({
+				"refNum": null,
+				"errorMessage": 'you can\'t book a flight without passangers'
+			});
+			return;
+		}
+
 
 		var reservation_info = {
 			'adults': adults,
