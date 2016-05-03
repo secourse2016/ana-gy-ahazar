@@ -9,8 +9,8 @@
 			<div class="input-label">
 				Title
 			</div>
-			<select>
-				<option selected>Mr.</option>
+			<select ng-init="adultFormData[$index].title=adult.title" ng-model="adultFormData[$index].title">
+				<option>Mr.</option>
 				<option>Mrs.</option>
 				<option>Ms.</option>
 			</select>
@@ -18,47 +18,39 @@
 
 		<label class="item item-input item-floating-label">
 			<span class="input-label">First Name</span>
-			<input type="text" placeholder="First Name">
+			<input type="text" placeholder="First Name" ng-model="adultFormData[$index].first_name">
 		</label>
 		<label class="item item-input item-floating-label">
 			<span class="input-label">Last Name</span>
-			<input type="text" placeholder="Last Name">
+			<input type="text" placeholder="Last Name" ng-model="adultFormData[$index].last_name">
 		</label>
 		<label class="item item-input item-floating-label">
 			<span class="input-label">Nationality</span>
-			<input type="text" placeholder="Nationality">
+			<input type="text" placeholder="Nationality" ng-model="adultFormData[$index].nationality">
 		</label>
-
-		<div class="item item-icon-left" ion-datetime-picker date ng-model="date1">
-			<i class="icon ion-ios-calendar positive"></i>
-			Date of Birth:
-			&nbsp; {{date1| date: "yyyy-MMMM-dd"}}
-		</div>
-	</div>
-	<div class="item item-divider divide">Passport Information</div>
-	<div class="list">
 
 		<label class="item item-input item-floating-label">
 			<span class="input-label">Passport Number</span>
-			<input type="text" placeholder="Passport Number">
+			<input type="text" placeholder="Passport Number" ng-model="adultFormData[$index].passport_number">
 		</label>
-		<div class="item item-icon-left" ion-datetime-picker date ng-model="date1">
+
+		<div class="item item-icon-left" ion-datetime-picker date ng-model="adultFormData[$index].birth_date">
 			<i class="icon ion-ios-calendar positive"></i>
-			Issue Date:
-			&nbsp; {{date1| date: "yyyy-MMMM-dd"}}
-		</div>
-		<div class="item item-icon-left" ion-datetime-picker date ng-model="date1">
-			<i class="icon ion-ios-calendar positive"></i>
-			Expiry Date:
-			&nbsp; {{date1| date: "yyyy-MMMM-dd"}}
+			Date of Birth:
+			&nbsp; {{adultFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
 		</div>
 	</div>
+
 	<div class="item item-divider divide">Contact Information</div>
 	<div class="list">
 
 		<label class="item item-input item-floating-label">
 			<span class="input-label">Email</span>
-			<input type="text" placeholder="Email">
+			<input type="text" placeholder="Email" ng-model="adultFormData[$index].email">
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Phone Number</span>
+			<input type="text" placeholder="Phone Number" ng-model="adultFormData[$index].phone_number">
 		</label>
 	</div>
 	<div class="item item-divider divide">Emergency Contact Information</div>
@@ -66,7 +58,11 @@
 
 		<label class="item item-input item-floating-label">
 			<span class="input-label">Email</span>
-			<input type="text" placeholder="Email">
+			<input type="text" placeholder="Email" ng-model="adultFormData[$index].em_email">
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Phone Number</span>
+			<input type="text" placeholder="Phone Number" ng-model="adultFormData[$index].em_phone_number">
 		</label>
 	</div>
 	<div class="item item-divider divide">Special Requirements</div>
@@ -76,8 +72,8 @@
 			<div class="input-label">
 				Meal preference
 			</div>
-			<select>
-				<option selected>None</option>
+			<select ng-init="adultFormData[$index].mealPreference=adult.mealPreference" ng-model="adultFormData[$index].mealPreference">
+				<option>None</option>
 				<option>Asian vegetarian meal</option>
 				<option>Baby food</option>
 				<option>Bland meal</option>
@@ -94,9 +90,9 @@
 			<div class="input-label">
 				Special needs
 			</div>
-			<select>
+			<select ng-init="adultFormData[$index].specialNeed=adult.specialNeed" ng-model="adultFormData[$index].specialNeed">
 				
-				<option selected>None</option>
+				<option>None</option>
 				<option>Deaf passenger</option>
 				<option>Wheelchair for cabin seat</option>
 				<option>Wheelchair for ramp</option>
@@ -116,40 +112,27 @@
 
 		<label class="item item-input item-floating-label">
 			<span class="input-label">First Name</span>
-			<input type="text" placeholder="First Name">
+			<input type="text" placeholder="First Name" ng-model="childFormData[$index].first_name">
 		</label>
 		<label class="item item-input item-floating-label">
 			<span class="input-label">Last Name</span>
-			<input type="text" placeholder="Last Name">
+			<input type="text" placeholder="Last Name" ng-model="childFormData[$index].last_name">
 		</label>
 		<label class="item item-input item-floating-label">
 			<span class="input-label">Nationality</span>
-			<input type="text" placeholder="Nationality">
+			<input type="text" placeholder="Nationality" ng-model="childFormData[$index].nationality">
 		</label>
-		<div class="item item-icon-left" ion-datetime-picker date ng-model="date1">
-			<i class="icon ion-ios-calendar positive"></i>
-			Date of Birth:
-			&nbsp; {{date1| date: "yyyy-MMMM-dd"}}
-		</div>
-	</div>
-	<div class="item item-divider divide">Passport Information</div>
-	<div class="list">
-
 		<label class="item item-input item-floating-label">
 			<span class="input-label">Passport Number</span>
-			<input type="text" placeholder="Passport Number">
+			<input type="text" placeholder="Passport Number" ng-model="childFormData[$index].passport_number">
 		</label>
-		<div class="item item-icon-left" ion-datetime-picker date ng-model="date1">
+		<div class="item item-icon-left" ion-datetime-picker date ng-model="childFormData[$index].birth_date">
 			<i class="icon ion-ios-calendar positive"></i>
-			Issue Date:
-			&nbsp; {{date1| date: "yyyy-MMMM-dd"}}
-		</div>
-		<div class="item item-icon-left" ion-datetime-picker date ng-model="date1">
-			<i class="icon ion-ios-calendar positive"></i>
-			Expiry Date:
-			&nbsp; {{date1| date: "yyyy-MMMM-dd"}}
+			Date of Birth:
+			&nbsp; {{childFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
 		</div>
 	</div>
+
 	<div class="item item-divider divide">Special Requirements</div>
 	<div class="list">
 
@@ -157,8 +140,8 @@
 			<div class="input-label">
 				Meal preference
 			</div>
-			<select>
-				<option selected>None</option>
+			<select ng-init="childFormData[$index].mealPreference=child.mealPreference" ng-model="childFormData[$index].mealPreference">
+				<option>None</option>
 				<option>Asian vegetarian meal</option>
 				<option>Baby food</option>
 				<option>Bland meal</option>
@@ -175,9 +158,9 @@
 			<div class="input-label">
 				Special needs
 			</div>
-			<select>
+			<select ng-init="childFormData[$index].specialNeed=child.specialNeed" ng-model="childFormData[$index].specialNeed">
 				
-				<option selected>None</option>
+				<option>None</option>
 				<option>Deaf passenger</option>
 				<option>Wheelchair for cabin seat</option>
 				<option>Wheelchair for ramp</option>
@@ -197,40 +180,27 @@
 
 		<label class="item item-input item-floating-label">
 			<span class="input-label">First Name</span>
-			<input type="text" placeholder="First Name">
+			<input type="text" placeholder="First Name" ng-model="infantFormData[$index].first_name">
 		</label>
 		<label class="item item-input item-floating-label">
 			<span class="input-label">Last Name</span>
-			<input type="text" placeholder="Last Name">
+			<input type="text" placeholder="Last Name" ng-model="infantFormData[$index].last_name">
 		</label>
 		<label class="item item-input item-floating-label">
 			<span class="input-label">Nationality</span>
-			<input type="text" placeholder="Nationality">
+			<input type="text" placeholder="Nationality" ng-model="infantFormData[$index].nationality">
 		</label>
-		<div class="item item-icon-left" ion-datetime-picker date ng-model="date1">
-			<i class="icon ion-ios-calendar positive"></i>
-			Date of Birth:
-			&nbsp; {{date1| date: "yyyy-MMMM-dd"}}
-		</div>
-	</div>
-	<div class="item item-divider divide">Passport Information</div>
-	<div class="list">
-
 		<label class="item item-input item-floating-label">
 			<span class="input-label">Passport Number</span>
-			<input type="text" placeholder="Passport Number">
+			<input type="text" placeholder="Passport Number" ng-model="infantFormData[$index].passport_number">
 		</label>
-		<div class="item item-icon-left" ion-datetime-picker date ng-model="date1">
+		<div class="item item-icon-left" ion-datetime-picker date ng-model="infantFormData[$index].birth_date">
 			<i class="icon ion-ios-calendar positive"></i>
-			Issue Date:
-			&nbsp; {{date1| date: "yyyy-MMMM-dd"}}
-		</div>
-		<div class="item item-icon-left" ion-datetime-picker date ng-model="date1">
-			<i class="icon ion-ios-calendar positive"></i>
-			Expiry Date:
-			&nbsp; {{date1| date: "yyyy-MMMM-dd"}}
+			Date of Birth:
+			&nbsp; {{infantFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
 		</div>
 	</div>
+
 	<div class="item item-divider divide">Special Requirements</div>
 	<div class="list">
 
@@ -238,8 +208,8 @@
 			<div class="input-label">
 				Meal preference
 			</div>
-			<select>
-				<option selected>None</option>
+			<select ng-init="infantFormData[$index].mealPreference=infant.mealPreference" ng-model="infantFormData[$index].mealPreference">
+				<option>None</option>
 				<option>Asian vegetarian meal</option>
 				<option>Baby food</option>
 				<option>Bland meal</option>
@@ -256,9 +226,9 @@
 			<div class="input-label">
 				Special needs
 			</div>
-			<select>
+			<select ng-init="infantFormData[$index].specialNeed=infant.specialNeed" ng-model="infantFormData[$index].specialNeed">
 				
-				<option selected>None</option>
+				<option>None</option>
 				<option>Deaf passenger</option>
 				<option>Wheelchair for cabin seat</option>
 				<option>Wheelchair for ramp</option>
