@@ -97,7 +97,8 @@ App.config(function($stateProvider, $urlRouterProvider) {
       url: '/manage',
       views: {
          'tabs-manage': {
-            templateUrl: 'templates/manage-ticketSearch.html'
+            templateUrl: 'templates/manage-ticketSearch.html',
+            controller: 'manageController-tickersearch'
          }
       }
    })
