@@ -48,7 +48,8 @@ App.config(function($stateProvider, $urlRouterProvider) {
       url: '/book',
       views: {
          'tabs-book': {
-            templateUrl: 'templates/book-search.html'
+            templateUrl: 'templates/book-search.html',
+
          }
       }
    })
@@ -75,7 +76,9 @@ App.config(function($stateProvider, $urlRouterProvider) {
       url: '/payment',
       views: {
          'tabs-book': {
-            templateUrl: 'templates/book-payment.html'
+            templateUrl: 'templates/book-payment.html',
+            controller: 'bookController-payment'
+    
          }
       }
    })

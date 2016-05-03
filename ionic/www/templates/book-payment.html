@@ -1,5 +1,133 @@
 <ion-view view-title="Payment">
-   <ion-content class="padding">
-      Payment
+<ion-content class="padding" >
+
+
+      <div class="card">
+  <label class="item item-input  ">
+    <span class="input-label">First Name</span>
+    <input type="text" placeholder="Cardholder Name">
+  </label>
+ 
+   <label class="item item-input item-select ">
+    <div class="input-label ">
+      Method
+    </div>
+    <select>
+      <option>Visa</option>
+      <option selected>MasterCard</option>
+    </select>
+  </label>
+    
+   
+
+</div>
+
+<div class="card">
+
+  <div class="item item-divider divide">
+     Card Information
+  </div>
+
+  <label class="item item-input  ">
+    <span class="input-label">Card Number</span>
+    <input type="text" placeholder="16-digits">
+  </label>
+
+  <label class="item item-input  ">
+    <span class="input-label">CVC</span>
+    <input type="text" placeholder="3-digits">
+  </label>
+
+  <label class="item item-input" >
+       <span class="input-label">Expire Date</span>
+ </label>  
+</div>
+
+
+     
+
+<div class="card">
+
+ <div class="item item-divider divide">
+     Billing Information
+  </div>
+
+  <label class="item item-input item-select ">
+    <div class="input-label ">
+      Billing Country
+    </div>
+    <select>
+      <option>Visa</option>
+      <option selected>MasterCard</option>
+    </select>
+  </label>
+
+  <label class="item item-input  ">
+    <span class="input-label">Billing State</span>
+    <input type="text" placeholder="State">
+  </label>
+
+<label class="item item-input  ">
+    <span class="input-label">Billing City</span>
+    <input type="text" placeholder="City">
+  </label>
+
+  <label class="item item-input  ">
+    <span class="input-label">Zip Code</span>
+    <input type="text" placeholder="5-digits">
+  </label>
+
+</div>
+
+
+<div class="card">
+
+ <div class="item item-divider divide">
+     Address
+  </div>
+
+  <label class="item item-input  ">
+    <textarea placeholder="Enter Full Address"></textarea>
+  </label>
+
+</div>
+
+<div class="card">
+
+ <div class="item item-divider divide">
+     Promotion Code
+  </div>
+
+  <label class="item item-input  ">
+    <input type="text" placeholder="Enter Promo here !">
+    <button class="button button-positive">
+          Validate
+       </button>
+  </label>
+
+</div>
+
+<div class="row">
+  <div class="col col-10 col-offset-33">
+           <i class="fa fa-money"></i>
+           <label>Total Price</label> 
+            
+       
+  </div>
+   <div class="col col-10">
+       
+         <i class ="ion-social-usd"> </i>
+         <label>456465</label>
+       
+  </div>
+  
+</div>
+
+  
+       <div class="padding">
+            <button type="submit" class="icon icon-right ion-ios-arrow-right button button-block button-positive">Next</button>
+         </div>
+  
    </ion-content>
 </ion-view>
+
