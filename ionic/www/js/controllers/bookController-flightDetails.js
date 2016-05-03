@@ -1,8 +1,5 @@
-App.controller('bookController-flightDetails', function($scope, $location, FlightsSrv) { 
-	console.log('entered');
-
+App.controller('bookController-flightDetails', function($scope, $location, FlightsSrv) {
 	$scope.airline = FlightsSrv.getAirline();
-	console.log(FlightsSrv.getAirline());
 	$scope.depTime = FlightsSrv.getDepartureDateTime();
 	$scope.arrTime = FlightsSrv.getArrivalDateTime();
 	$scope.seats = 50;
