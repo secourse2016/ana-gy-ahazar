@@ -40,14 +40,14 @@
 		<div class="col">
 			<label class="item item-input item-stacked-label">
 				<span class="input-label">From</span>
-				<input type="text" name="from" placeholder="Departure Airport" ng-model="searchData.selectedOrigin" required>
+				<input type="text" name="from" placeholder="Departure Airport" autocomplete="off" ng-model="searchData.selectedOrigin" required>
 				<p ng-show="searchForm.from.$error.required && (submitted || searchForm.from.$dirty)" class="has-error">Departure Airport is required.</p>
 			</label>
 		</div>
 		<div class="col">
 			<label class="item item-input item-stacked-label">
 				<span class="input-label">To</span>
-				<input type="text" name="to" placeholder="Arrival Airport" ng-model="searchData.selectedDestination" required>
+				<input type="text" name="to" placeholder="Arrival Airport" autocomplete="off" ng-model="searchData.selectedDestination" required>
 				<p ng-show="searchForm.to.$error.required && (submitted || searchForm.to.$dirty)" class="has-error">Arrival Airport is required.</p>
 			</label></div>
 
