@@ -115,7 +115,8 @@ App.config(function($stateProvider, $urlRouterProvider) {
       url: '/manage/ticketEdit',
       views: {
          'tabs-manage': {
-            templateUrl: 'templates/manage-ticketEdit.html'
+            templateUrl: 'templates/manage-ticketEdit.html',
+            controller: 'manageController-edit'
          }
       }
    })
