@@ -1,5 +1,142 @@
 <ion-view view-title="Book A Flight">
-   <ion-content class="padding">
-      Book A Flight
-   </ion-content>
+
+	<ion-content class="padding">
+
+		<form name="searchForm" ng-submit="submitForm(searchForm.$valid)"novalidate>
+			<li class="item item-toggle" id= "Airlines">
+				Search Other Airlines
+				<label class="toggle toggle-calm">
+					<input type="checkbox"  ng-model="searchData.search_other">
+					<div class="track ">
+						<div class="handle "></div>
+					</div>
+				</label>
+			</li>
+
+			<div class="row">
+				<div class="col"><label class="item item-radio">
+					<input class="radio" type="radio" name="group" id="round" ng-model="searchData.trip_type" ng-value="'round'" ng-change="date_show = true">
+					<div class="radio-content">
+						<div class="item-content">
+							Round Trip
+						</div>
+						<i class="radio-icon ion-checkmark"></i>
+					</div>
+				</label>
+			</div>
+			<div class="col"><label class="item item-radio">
+				<input class="radio" type="radio" name="group"  id="one" ng-model="searchData.trip_type" ng-value="'one'" ng-change="date_show = false">
+				<div class="radio-content">
+					<div class="item-content">
+						One Way
+					</div>
+					<i class="radio-icon ion-checkmark"></i>
+				</div>
+			</label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col">
+			<label class="item item-input item-stacked-label">
+				<span class="input-label">From</span>
+				<input type="text" name="from" placeholder="Departure Airport" ng-model="searchData.selectedOrigin" required>
+				<p ng-show="searchForm.from.$error.required && (submitted || searchForm.from.$dirty)" class="has-error">Departure Airport is required.</p>
+			</label>
+		</div>
+		<div class="col">
+			<label class="item item-input item-stacked-label">
+				<span class="input-label">To</span>
+				<input type="text" name="to" placeholder="Arrival Airport" ng-model="searchData.selectedDestination" required>
+				<p ng-show="searchForm.to.$error.required && (submitted || searchForm.to.$dirty)" class="has-error">Arrival Airport is required.</p>
+			</label></div>
+
+		</div>
+		<h4 class="title">When Are You Going?</h4>
+		<div class="row">
+			<div class="col" id="date1"><div class="item item-divider">Departure Date</div>
+			<div class="item item-icon-left" ion-datetime-picker date ng-model="searchData.departureDate" >
+				<i class="icon ion-ios-calendar calm"></i>
+
+				<strong>{{searchData.departureDate| date: "yyyy-MMMM-dd"}}</strong>
+			</div></div>
+			<div ng-if="date_show" class="col"id="date2"><div class="item item-divider">Arrival Date</div>
+			<div class="item item-icon-left" ion-datetime-picker date ng-model="searchData.returnDate" >
+				<i class="icon ion-ios-calendar calm"></i>
+
+				<strong>{{searchData.returnDate| date: "yyyy-MMMM-dd"}}</strong>
+			</div></div>
+		</div>
+
+		<h4 class="title">Travellers</h4>
+		<label class="item item-input item-select item-calm">
+			<div class="input-label">
+				Adult(s) +11 years
+			</div>
+			<select ng-init="searchData.adult='1'" ng-model="searchData.adult">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+				<option>9</option>
+			</select>
+		</label>
+
+
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Child(ren) 2-11 years
+			</div>
+			<select ng-init="searchData.child='0'" ng-model="searchData.child">
+				<option>0</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+				<option>9</option>
+			</select>
+		</label>
+
+		<label class=" item item-input item-select item-calm">
+			<div class="input-label">
+				Infant(s) Under 2 years
+			</div>
+			<select ng-init="searchData.infant='0'" ng-model="searchData.infant">
+				<option>0</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+				<option>9</option>
+			</select>
+		</label>
+		<br>
+		<h4 class="title">Pick A Class</h4>
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Class
+			</div>
+			<select ng-init="searchData.class='business'" ng-model="searchData.class">
+				<option>business</option>
+				<option>economy</option>
+			</select>
+		</label>
+
+
+		<button class="button button-full button-calm" type="submit"> Search</button>
+	</form>
+
+</ion-content>
 </ion-view>

@@ -91,5 +91,42 @@ App.factory('FlightsSrv', function ($http) {
       getTotalPrice: function() {
          return this.total_price;
       },
+      setAirline: function (value) {
+          this.airline = value; 
+      },
+      getAirline: function () {
+         return this.airline;
+      },
+      setDepartureDateTime: function (value) {
+         this.departureDateTime = value; 
+      },
+      getDepartureDateTime: function () {
+         return this.departureDateTime; 
+      },
+      setArrivalDateTime: function (value) {
+         this.arrivalDateTime = value; 
+      },
+      getArrivalDateTime: function () {
+         return this.arrivalDateTime; 
+      },
+      setAircraftType: function (value) {
+         this.aircraftType = value; 
+      },
+      getAircraftType: function () {
+         return this.aircraftType; 
+      },
+      setAircraftModel: function (value) {
+         this.aircraftModel = value; 
+      },
+      getAircraftModel: function () {
+         return this.aircraftModel; 
+      },
+      setCost: function (value) {
+         this.cost = value; 
+      },
+      getCost: function () {
+         return this.cost; 
+      }
+
    };   
 });
