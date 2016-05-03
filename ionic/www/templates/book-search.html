@@ -1,17 +1,17 @@
 <ion-view view-title="Book A Flight">
 
-<ion-content class="padding">
+	<ion-content class="padding">
 
-<form name="searchForm" ng-submit="submitForm(searchForm.$valid)"novalidate>
-<li class="item item-toggle" id= "Airlines">
-	Search Other Airlines
-	<label class="toggle toggle-calm">
-		<input type="checkbox"  ng-model="searchData.search_other">
-		<div class="track ">
-			<div class="handle "></div>
-		</div>
-	</label>
-</li>
+		<form name="searchForm" ng-submit="submitForm(searchForm.$valid)"novalidate>
+			<li class="item item-toggle" id= "Airlines">
+				Search Other Airlines
+				<label class="toggle toggle-calm">
+					<input type="checkbox"  ng-model="searchData.search_other">
+					<div class="track ">
+						<div class="handle "></div>
+					</div>
+				</label>
+			</li>
 
 			<div class="row">
 				<div class="col"><label class="item item-radio">
@@ -41,14 +41,14 @@
 			<label class="item item-input item-stacked-label">
 				<span class="input-label">From</span>
 				<input type="text" name="from" placeholder="Departure Airport" ng-model="searchData.selectedOrigin" required>
-         <p ng-show="searchForm.from.$error.required && (submitted || searchForm.from.$dirty)" class="has-error">Departure Airport is required.</p>
+				<p ng-show="searchForm.from.$error.required && (submitted || searchForm.from.$dirty)" class="has-error">Departure Airport is required.</p>
 			</label>
 		</div>
 		<div class="col">
 			<label class="item item-input item-stacked-label">
 				<span class="input-label">To</span>
 				<input type="text" name="to" placeholder="Arrival Airport" ng-model="searchData.selectedDestination" required>
-        <p ng-show="searchForm.to.$error.required && (submitted || searchForm.to.$dirty)" class="has-error">Arrival Airport is required.</p>
+				<p ng-show="searchForm.to.$error.required && (submitted || searchForm.to.$dirty)" class="has-error">Arrival Airport is required.</p>
 			</label></div>
 
 		</div>
@@ -86,8 +86,8 @@
 			</select>
 		</label>
 
-		
-    <label class="item item-input item-select">
+
+		<label class="item item-input item-select">
 			<div class="input-label">
 				Child(ren) 2-11 years
 			</div>
@@ -128,15 +128,15 @@
 			<div class="input-label">
 				Class
 			</div>
-			<select ng-init="class='business'" ng-model="searchData.class">
+			<select ng-init="searchData.class='business'" ng-model="searchData.class">
 				<option>business</option>
 				<option>economy</option>
 			</select>
 		</label>
 
 
- <button class="button button-full button-calm" type="submit"> Search</button>
-</form>
+		<button class="button button-full button-calm" type="submit"> Search</button>
+	</form>
 
 </ion-content>
 </ion-view>

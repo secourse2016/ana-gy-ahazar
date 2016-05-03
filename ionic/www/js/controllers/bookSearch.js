@@ -12,25 +12,25 @@ App.controller('bookSearch', function($scope,FlightsSrv,$location){
 	};
 	$scope.today();
 
-	 $scope.submitted = false;
-   
-   $scope.submitForm = function(isValid) {
-$scope.submitted = true;
-if (isValid) {
-         FlightsSrv.setSearchOther($scope.searchData.search_other);
-         FlightsSrv.setFlightType($scope.searchData.trip_type);
-         FlightsSrv.setSelectedOriginAirport($scope.searchData.selectedOrigin);
-         FlightsSrv.setSelectedDestinationAirport($scope.searchData.selectedDestination);
-         FlightsSrv.setDepartureDate($scope.searchData.departureDate);
-         FlightsSrv.setReturnDate($scope.searchData.returnDate);
-         FlightsSrv.setAdults($scope.searchData.adult);
-         FlightsSrv.setChildren($scope.searchData.child);
-         FlightsSrv.setInfants($scope.searchData.infant);
-         FlightsSrv.setClass($scope.searchData.class);
-         $location.path('/tabs/flights'); 
-        } 
-         else {
-         console.log('bad');
-      }       
-    };
+	$scope.submitted = false;
+
+	$scope.submitForm = function(isValid) {
+		$scope.submitted = true;
+		if (isValid) {
+			FlightsSrv.setSearchOther($scope.searchData.search_other);
+			FlightsSrv.setFlightType($scope.searchData.trip_type);
+			FlightsSrv.setSelectedOriginAirport($scope.searchData.selectedOrigin);
+			FlightsSrv.setSelectedDestinationAirport($scope.searchData.selectedDestination);
+			FlightsSrv.setDepartureDate($scope.searchData.departureDate);
+			FlightsSrv.setReturnDate($scope.searchData.returnDate);
+			FlightsSrv.setAdults($scope.searchData.adult);
+			FlightsSrv.setChildren($scope.searchData.child);
+			FlightsSrv.setInfants($scope.searchData.infant);
+			FlightsSrv.setClass($scope.searchData.class);
+			$location.path('/tabs/flights');
+		}
+		else {
+			console.log('bad');
+		}
+	};
 });
