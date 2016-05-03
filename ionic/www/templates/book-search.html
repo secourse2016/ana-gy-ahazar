@@ -1,6 +1,6 @@
 <ion-view view-title="Book A Flight">
 <ion-content class="padding">
-
+<form name="searchForm" ng-submit="search()">
 <li class="item item-toggle" id= "Airlines">
 	Search Other Airlines
 	<label class="toggle toggle-calm">
@@ -39,13 +39,13 @@
   <div class="col">
  <label class="item item-input item-stacked-label">
    <span class="input-label">From</span>
-   <input type="text" placeholder="Departure Airport">
+   <input type="text"  placeholder="Departure Airport">
    </label>
    </div>
   <div class="col">
   <label class="item item-input item-stacked-label">
    <span class="input-label">To</span>	
-   <input type="text" placeholder="Arrival Airport">
+   <input type="text"  placeholder="Arrival Airport">
    </label></div>
 
 
@@ -67,7 +67,7 @@
 </div>
 
 <h4 class="title">Travellers</h4>
-  <label class="item item-input item-select item-calm">
+  <label class="item item-input item-select item-calm" id="adults"  >
     <div class="input-label">
       Adult(s) +11 years
     </div>
@@ -84,7 +84,7 @@
     </select>
   </label>
 
-   <label class="item item-input item-select">
+   <label class="item item-input item-select" >
     <div class="input-label">
      Child(ren) 2-11 years
     </div>
@@ -102,7 +102,7 @@
     </select>
   </label>
 
-   <label class=" item item-input item-select item-calm">
+   <label class=" item item-input item-select item-calm"  >
     <div class="input-label">
       Infant(s) Under 2 years
     </div>
@@ -121,7 +121,7 @@
   </label>
 <br>
   <h4 class="title">Pick A Class</h4>
-  <label class="item item-input item-select">
+  <label class="item item-input item-select" >
     <div class="input-label">
       Class
     </div>
@@ -132,10 +132,10 @@
   </label>
 
 
- <button class="button button-full button-calm">
+ <button class="button button-full button-calm" type="submit">
   Search
 </button>
-
+</form>
 
     
 
