@@ -1,5 +1,6 @@
 <ion-view view-title="Edit">
 <ion-content>
+<form ng-submit="save()">
 <div ng-repeat="adult in adults track by $index">
 	<center><h3 class="padding">Adult {{$index+1}}</h3></center>
 	<div class="item item-divider divide">Personal Information</div>
@@ -239,5 +240,13 @@
 		</label>
 	</div>
 </div>
+
+<br>
+<div class="padding">
+	<button type="submit" class="button button-block button-positive">
+	  <i class="icon ion-edit"></i> Edit
+	</button>
+</div>
+</form>
 </ion-content>
 </ion-view>

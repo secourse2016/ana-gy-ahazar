@@ -205,4 +205,24 @@ App.controller('manageController-edit', function($scope, $location) {
 
       $scope.infantFormData[i] = json;
    }
+
+   $scope.save = function() {
+
+   		console.log('save');
+      // reservationData.adults = $scope.adultFormData;
+      // reservationData.children = $scope.childFormData;
+      // reservationData.infants = $scope.infantFormData;
+
+      // ManageSrv.setReservationData(reservationData);
+
+      // ManageSrv.editReservation(reservationData).success(function() {
+      //    swal({
+      //       title: "Edited!",
+      //       text: "Your reservation has been updated.",
+      //       type: "success"
+      //    });
+
+      //    $location.url('/manage/ticketinfo');
+      // });
+   };
 });
