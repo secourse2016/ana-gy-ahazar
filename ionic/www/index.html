@@ -11,19 +11,32 @@
    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
    <link href="css/ionic.app.css" rel="stylesheet"> -->
 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+
    <!-- ionic/angularjs js -->
    <script src="lib/ionic/js/ionic.bundle.js"></script>
+   <link href="lib/ion-datetime-picker/release/ion-datetime-picker.min.css" rel="stylesheet">
 
    <!-- cordova script (this will be a 404 during development) -->
    <script src="cordova.js"></script>
 
    <!-- your app's js -->
    <script src="js/app.js"></script>
+   <script src="lib/ion-datetime-picker/release/ion-datetime-picker.min.js"></script>
 
    <!-- controllers -->
    <script src="js/controllers/HeaderController.js"></script>
+   <script src="js/controllers/bookController-payment.js"></script>
+
 
    <!-- services -->
+   <script src="js/services/personalSrv.js"></script>
+   <script src="js/services/feedbackSrv.js"></script>
+   <script src="js/services/flightsSrv.js"></script>
+   <script src="js/services/manageSrv.js"></script>
+   <script src="js/services/promotionSrv.js"></script>
+
+
 
 </head>
 <body ng-app="App">

@@ -1,16 +1,18 @@
 <ion-view view-title="Payment">
 <ion-content class="padding" >
-
+  <form name="paymentForm" ng-submit="submitForm(paymentForm.$valid)" novalidate>
+         
 
       <div class="card">
-  <label class="item item-input  ">
-    <span class="input-label">First Name</span>
-    <input type="text" placeholder="Cardholder Name">
+  <label class="item item-input"  ng-class="{'has-error' : paymentForm.cardholder.$invalid &&  (submitted || paymentForm.cardholder.$dirty)}">
+    <span class="input-label">Cardholder Name</span>
+    <input type="text" placeholder="full ng-model="cardholder" name" required>
+    <p ng-show="paymentForm.cardholder.$error.required && (submitted || paymentForm.cardholder.$dirty)" class="help-block">Cardholder Name is required.</p>
   </label>
  
    <label class="item item-input item-select ">
     <div class="input-label ">
-      Method
+      Methodggggggg
     </div>
     <select>
       <option>Visa</option>
@@ -127,7 +129,8 @@
        <div class="padding">
             <button type="submit" class="icon icon-right ion-ios-arrow-right button button-block button-positive">Next</button>
          </div>
-  
+    
+     </form>
    </ion-content>
 </ion-view>
 
