@@ -1,12 +1,11 @@
 <ion-view view-title="Home">
-   <ion-content class="padding">
-      Home
-      <div class="col" id="date1"><div class="item item-divider">Depurture Date</div>
-      <div class="item item-icon-left" ion-datetime-picker date ng-model="dateValue" >
-         <i class="icon ion-ios-calendar calm"></i>
-
-         <strong>{{dateValue| date: "yyyy-MMMM-dd"}}</strong>
+   <ion-content class="bg" class="padding" scroll="false">
+      <div class="promo">
+         <h1 id="holder"></h1>
       </div>
-   </div>
-</ion-content>
+
+      <center>
+			<button class="button icon-left ion-plane button-positive go" ng-click="go()">Book Your Flight NOW!</button>
+		</center>
+   </ion-content>
 </ion-view>

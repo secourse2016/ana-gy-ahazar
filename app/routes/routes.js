@@ -34,6 +34,14 @@ module.exports = function(app) {
 		}
 	});
 
+	/* Middlewear to allow these API end points to be used by other hosts */
+	app.use(function(req, res, next) {
+		res.header('Access-Control-Allow-Origin', "*");
+		res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+		res.header('Access-Control-Allow-Headers', 'Content-Type, x-access-token');
+		next();
+	});
+
 	/**
 	* This route returns a json object with all the countries.
 	*
@@ -395,7 +403,7 @@ app.post('/booking', function(req, res) {
 		var curPassenger = reservation.passengerDetails[i];
 
 		var age = flights.getAge(reservation.passengerDetails[i].dateOfBirth);
-		
+
 		if(age <= 2){
 			var fInfant = {
 				"title" : "Mr.",

@@ -1,44 +1,51 @@
 <ion-view view-title="Flights">
-    <ion-header-bar class="bar bar-subheader bar-stable">
-     <h3> {{depAirport}} <--> {{arrAirport}} </h3>
-    </ion-header-bar>
+
+  <div class="item item-divider">        
+    </div>
+
     <ion-content>
 
      <div class="row header">
-       <div class="col"> <h3>Departure Flight(s)</h3></div>
+       <div class="col"> <h3><img src="assets/departure.png">  Departure Flight(s)</h3><h3> {{dep_airport}} - {{ret_airport}}</h3></i>
+       </div>
      </div>
 
         <div class="row header">
-          <div class="col">Airline</div>
-          <div class="col">Time</div>
-          <div class="col">Cost</div>
+          <div class="col"><h4 class="icon-left ion-checkmark-round"> Book</h4></div>
+          <div class="col"><h4 class="icon-left ion-android-time"> Time</h4></div>
+          <div class="col"><h4 class="icon-left ion-cash"> Cost</h4></div>
           <div class="col"></div>
         </div>
         <div class="row" ng-repeat="flight in flights">
-          <div class="col">{{flight.Airline}}</div>
-          <div class="col">{{flight.Time}}</div>
+          <div class="col"><ion-radio id="bookID" name="dep_reserve">Choose</ion-radio></div>
+          <div class="col">{{flight.departureDateTime}} - {{flight.arrivalDateTime}}</div>
           <div class="col">{{flight.Cost}}</div>
-          <div class="col"><ion-item ng-click="showInfo(flight.id)">Show info</ion-item></div>
+          <div class="col"><ion-item ng-click="showInfo(flight)" id="infoID">Details <i class="icon ion-chevron-right icon-accessory"></i></ion-item></div>
         </div>
     
     <br>
+
+    <div class="item item-divider">        
+    </div>
     <div ng-if="show_incoming">
      <div class="row header">
-       <div class="col"> <h3>Return Flight(s)</h3></div>
+       <div class="col"> <h3><img src="assets/return.png">  Return Flight(s)</h3><h3> {{ret_airport}} - {{dep_airport}}</h3></div>
      </div>
-         <div class="row header">
-          <div class="col">Airline</div>
-          <div class="col">Time</div>
-          <div class="col">Cost</div>
+        <div class="row header">
+          <div class="col"><h4 class="icon-left ion-checkmark-round"> Book</h4></div>
+          <div class="col"><h4 class="icon-left ion-android-time"> Time</h4></div>
+          <div class="col"><h4 class="icon-left ion-cash"> Cost</h4></div>
           <div class="col"></div>
         </div>
         <div class="row" ng-repeat="flight in retFlights">
-          <div class="col">{{flight.Airline}}</div>
-          <div class="col">{{flight.Time}}</div>
+          <div class="col"><ion-radio id="bookID"name="ret_reserve">Choose</ion-radio></div>
+          <div class="col">{{flight.departureDateTime}} - {{flight.arrivalDateTime}}</div>
           <div class="col">{{flight.Cost}}</div>
-          <div class="col"><ion-item ng-click="showInfo(flight.id)">Show info</ion-item></div>
+          <div class="col"><ion-item ng-click="showInfo(flight)" id="infoID">Details <i class="icon ion-chevron-right icon-accessory"></i></ion-item></div>
         </div>
       </div>
-
+       <div class="padding">
+            <button type="submit" ng-click="submitForm(true)" class="icon icon-right ion-ios-arrow-right button button-block button-positive">Next</button>
+         </div>
     </ion-content>
 </ion-view>
