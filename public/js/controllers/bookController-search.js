@@ -65,6 +65,17 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
    $scope.date_show = true;
 
    /*
+   setters for the origin and destination
+   */
+   $scope.setOrigin = function(item) {
+     FlightsSrv.setSelectedOriginAirport(item.iata);
+   };
+
+   $scope.setDestination = function(item) {
+     FlightsSrv.setSelectedDestinationAirport(item.iata);
+   };
+
+   /*
    Validations
    */
    $scope.submitted = false;
@@ -78,8 +89,6 @@ App.controller('bookController-search', function($scope, FlightsSrv, $location) 
 
          FlightsSrv.setSearchOther($scope.search_other);
          FlightsSrv.setFlightType($scope.trip_type);
-         FlightsSrv.setSelectedOriginAirport($scope.selectedOrigin);
-         FlightsSrv.setSelectedDestinationAirport($scope.selectedDestination);
          FlightsSrv.setDepartureDate($scope.departureDate);
          FlightsSrv.setReturnDate($scope.returnDate);
          FlightsSrv.setAdults($scope.Adult);
