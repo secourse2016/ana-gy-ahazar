@@ -1,35 +1,36 @@
 App.controller('bookSearch', function($scope,FlightsSrv,$location){
-	
-$(document).ready(function () {
-    $(".radio").change(function () { 
-        if (this.value == "one") { 
-            $('#date2').hide(2000); 
-        } else {
-            $('#date2').show(2000); 
-        }
-    });
-});
-    $scope.from;
-    console.log($scope.from);
-  
- 
-$scope.trip = "round";
- $scope.search = function() {
-
-         // FlightsSrv.setSearchOther($scope.search_other);
-         // FlightsSrv.setFlightType($scope.trip_type);
-         FlightsSrv.setSelectedOriginAirport($scope.From);
-         FlightsSrv.setSelectedDestinationAirport($scope.To);
-         FlightsSrv.setDepartureDate($scope.dateValue);
-         FlightsSrv.setReturnDate($scope.dateValue2);
-         FlightsSrv.setAdults($scope.adults);
-         FlightsSrv.setChildren($scope.child);
-         FlightsSrv.setInfants($scope.infant);
-         FlightsSrv.setClass($scope.class);
-console.log(FlightsSrv.getAdults()); 
 
 
-        $location.path('/tabs/flights');        
+	$scope.searchData = {};
+	$scope.searchData.search_other = false;
+	$scope.searchData.trip_type = 'round';
+	$scope.date_show = true;
+
+	$scope.today = function() {
+		$scope.searchData.departureDate = new Date();
+		$scope.searchData.returnDate = new Date();
+	};
+	$scope.today();
+
+	 $scope.submitted = false;
+   
+   $scope.submitForm = function(isValid) {
+$scope.submitted = true;
+if (isValid) {
+         FlightsSrv.setSearchOther($scope.searchData.search_other);
+         FlightsSrv.setFlightType($scope.searchData.trip_type);
+         FlightsSrv.setSelectedOriginAirport($scope.searchData.selectedOrigin);
+         FlightsSrv.setSelectedDestinationAirport($scope.searchData.selectedDestination);
+         FlightsSrv.setDepartureDate($scope.searchData.departureDate);
+         FlightsSrv.setReturnDate($scope.searchData.returnDate);
+         FlightsSrv.setAdults($scope.searchData.adult);
+         FlightsSrv.setChildren($scope.searchData.child);
+         FlightsSrv.setInfants($scope.searchData.infant);
+         FlightsSrv.setClass($scope.searchData.class);
+         $location.path('/tabs/flights'); 
+        } 
+         else {
+         console.log('bad');
+      }       
     };
-
 });

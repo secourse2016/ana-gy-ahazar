@@ -81,10 +81,7 @@ module.exports = function(app) {
 	* This route searchs for one ways flights.
 	*
 	*/
-	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:class/:numberOfSeats?' , function(req, res){
-		if(!req.params.numberOfSeats){
-			req.params.numberOfSeats = 1;
-		}
+	app.get('/api/flights/search/:origin/:destination/:departureDateTime/:class/:numberOfSeats' , function(req, res){
 
 		var dep_date = moment(parseInt(req.params.departureDateTime));
 
@@ -116,10 +113,7 @@ module.exports = function(app) {
 	* This route searchs for round trip flights.
 	*
 	*/
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:numberOfSeats?', function(req, res) {
-		if(!req.params.numberOfSeats){
-			req.params.numberOfSeats = 1;
-		}
+	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:numberOfSeats', function(req, res) {
 
 		var dep_date = moment(parseInt(req.params.departingDate));
 		var ret_date = moment(parseInt(req.params.returningDate));
@@ -175,7 +169,6 @@ module.exports = function(app) {
 	*
 	*/
 	app.post('/api/flights/reservation', function(req, res) {
-
 		var reservation = req.body;
 
 		// formatting the passengers to meet the standard
@@ -269,10 +262,14 @@ module.exports = function(app) {
 				ret_request.cost = ret_cost;
 				ret_request.paymentToken = reservation.paymentTokenRet;
 
+				if(outgoingIP === "54.191.202.17"){
+					delete reservation.ret_flight;
+				}
+
 				flights.reserve(outgoingIP, dep_request, reservation, false, function(resOut) {
 					try {
 						var jsonOut = (resOut);
-						if(resIn.errorMessage){
+						if(resOut.errorMessage){
 							res.send('error');
 						}
 						else{
@@ -309,7 +306,6 @@ module.exports = function(app) {
 
 				flights.reserve(outgoingIP, dep_request, reservation, false, function(response) {
 					try {
-						var json = (response);
 						if(response.errorMessage){
 							res.send('error');
 						}
@@ -330,7 +326,6 @@ module.exports = function(app) {
 
 			flights.reserve(outgoingIP, dep_request,reservation, false, function(response) {
 				try {
-					var json = (response);
 					if(response.errorMessage){
 						res.send('error');
 					}
@@ -399,8 +394,8 @@ app.post('/booking', function(req, res) {
 	for(var i = 0; i < reservation.passengerDetails.length; i++) {
 		var curPassenger = reservation.passengerDetails[i];
 
-		var age = flights.getAge(reservation.dateOfBirth);
-		console.log(age);
+		var age = flights.getAge(reservation.passengerDetails[i].dateOfBirth);
+		
 		if(age <= 2){
 			var fInfant = {
 				"title" : "Mr.",
@@ -548,17 +543,14 @@ app.post('/feedback', function( req , res ){
 * This route returns a json objects with required  One Way flights from other Airlines.
 *
 */
-app.get('/api/flights/searchOutSide/:origin/:destination/:departureDateTime/:class/:numberOfSeats?' , function(req, res){
-	if(!req.params.numberOfSeats){
-		req.params.numberOfSeats = 1;
-	}
+app.get('/api/flights/searchOutSide/:origin/:destination/:departureDateTime/:class/:numberOfSeats' , function(req, res){
 
 	var oneWay = {
 		"origin": req.params.origin,
 		"destination": req.params.destination,
 		"departureDateTime": parseInt(req.params.departureDateTime),
 		"class": req.params.class,
-		"remaining_seats" : { $gte: req.params.numberOfSeats}
+		"numberOfSeats" : req.params.numberOfSeats
 
 	};
 
@@ -580,10 +572,7 @@ app.get('/api/flights/searchOutSide/:origin/:destination/:departureDateTime/:cla
 * This route returns a json objects with required RoundTrip flights from other Airlines.
 *
 */
-app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:class/:numberOfSeats?', function(req, res) {
-	if(!req.params.numberOfSeats){
-		req.params.numberOfSeats = 1;
-	}
+app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:returningDate/:class/:numberOfSeats', function(req, res) {
 
 	var  constraints = {
 		"origin":        req.params.origin,
@@ -591,7 +580,7 @@ app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:re
 		"departureDateTime": parseInt(req.params.departingDate),
 		"returnDate": parseInt(req.params.returningDate),
 		"class":         req.params.class,
-		"remaining_seats" : { $gte: req.params.numberOfSeats}
+		"numberOfSeats" : req.params.numberOfSeats
 
 	};
 
@@ -608,20 +597,34 @@ app.get('/api/flights/searchOutSideRound/:origin/:destination/:departingDate/:re
 	});
 });
 
-app.get('/stripe/pubkey', function(req, res) {
-	var ip = req.body.IP;
+app.get('/stripe/pubkey/:ip?', function(req, res) {
+	var ip = req.params.ip;
 
-	var fs = require('fs');
+	console.log('Getting the publishable key of: ' + ip);
 
-	var airports = JSON.parse(fs.readFileSync('data/airlines.json', 'utf8'));
-
-	for(var i = 0; i < airports.length; i++) {
-		if(airports[i].IP === ip){
-			res.send(airports[i].publishableKey);
-			return;
-		}
+	if(ip === "54.191.202.17" || !ip) {
+		console.log('key: pk_test_0hp9j1pvGDdsbY4zEyqvfwpD');
+		res.send('pk_test_0hp9j1pvGDdsbY4zEyqvfwpD');
+		return;
 	}
 
-	res.send('pk_test_0hp9j1pvGDdsbY4zEyqvfwpD');
+	var options = {
+		host: ip ,
+		path: '/stripe/pubkey'+'/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	};
+
+	flights.makeOnlineRequest(options, {}, function(statusCode, response) {
+		if(statusCode === 200){
+			console.log('key: ' + response);
+			res.send(response);
+		}
+		else{
+			res.send('not found');
+		}
+	});
 });
 };
