@@ -425,7 +425,7 @@ var cancelReservation = function (bookRef, callback) {
 			record.dep_flight._id = new mongo.ObjectID(record.dep_flight._id);
 			db.getDatabase().collection('flights').updateOne(
 				{ _id: record.dep_flight._id },
-				{ $inc: { remaining_seats: totalSeats } },
+				{ $inc: { remaining_seats: totalSeats, nextFreeSeat: -totalSeats} },
 				function(err, result) {
 					if(!record.ret_flight){
 						callback();
@@ -434,7 +434,7 @@ var cancelReservation = function (bookRef, callback) {
 						record.ret_flight._id = new mongo.ObjectID(record.ret_flight._id);
 						db.getDatabase().collection('flights').updateOne(
 							{ _id: record.ret_flight._id },
-							{ $inc: { remaining_seats: totalSeats } },
+							{ $inc: { remaining_seats: totalSeats, nextFreeSeat: -totalSeats} },
 							function(err, result) {
 								callback();
 							});
