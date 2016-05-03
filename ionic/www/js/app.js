@@ -3,9 +3,8 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'App' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-//App = angular.module('App', ['ionic']);
-App = angular.module('App', ['ionic', 'ion-datetime-picker']);
 
+App = angular.module('App', ['ionic', 'ion-datetime-picker']);
 
 App.run(function($ionicPlatform) {
    $ionicPlatform.ready(function() {
@@ -42,7 +41,8 @@ App.config(function($stateProvider, $urlRouterProvider) {
       views: {
          'tabs-home': {
             templateUrl: 'templates/home.html',
-            controller: 'bookController-payment'
+            controller: 'HomeController'
+
          }
       }
    })
@@ -52,7 +52,7 @@ App.config(function($stateProvider, $urlRouterProvider) {
       views: {
          'tabs-book': {
             templateUrl: 'templates/book-search.html',
-
+            controller: 'bookSearch'
          }
       }
    })
@@ -70,7 +70,8 @@ App.config(function($stateProvider, $urlRouterProvider) {
       url: '/personalInfo',
       views: {
          'tabs-book': {
-            templateUrl: 'templates/book-personalInfo.html'
+            templateUrl: 'templates/book-personalInfo.html',
+            controller: 'bookController-personalInfo'
          }
       }
    })

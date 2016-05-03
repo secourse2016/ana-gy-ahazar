@@ -1,5 +1,7 @@
 App.factory('FlightsSrv', function ($http) {
+
    return {
+
       getAirportCodes : function() {
          return $http.get('/api/airports', {
             "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
@@ -15,6 +17,7 @@ App.factory('FlightsSrv', function ($http) {
             "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
          });
       },
+
       /*Flight Info */
       setSearchOther: function(value) {
          this.searchOther = value;
@@ -76,6 +79,7 @@ App.factory('FlightsSrv', function ($http) {
       getClass: function() {
          return this.class;
       },
+
       setTotalPrice: function(value) {
          this.total_price = value;
       },
@@ -143,6 +147,7 @@ App.factory('FlightsSrv', function ($http) {
          return $http.get('/api/flights/searchOutSide/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + classs + '/' + totalSeats , {
             "headers" : {'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI'}
          });
-      },
+      }
    };
+
 });
