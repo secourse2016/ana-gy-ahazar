@@ -19,12 +19,12 @@
           </label>
           <label class="item item-input">
             <div class="row" >
-              <div class="col">Departure Date: {{departureDepDate}}</div>
+              <div class="col">Departure Date: {{departureDepDate | amDateFormat:'Do MMM YYYY HH:mm'}}</div>
             </div>
           </label>
           <label class="item item-input">
             <div class="row" >
-              <div class="col">Arrival Date: {{departureReturnDate}}</div>
+              <div class="col">Arrival Date: {{departureReturnDate | amDateFormat:'Do MMM YYYY HH:mm'}}</div>
             </div>
           </label>
           <label class="item item-input">
@@ -49,12 +49,12 @@
           </label>
           <label class="item item-input">
             <div class="row" >
-              <div class="col">Departure Date: {{returnDepDate}}</div>
+              <div class="col">Departure Date: {{returnDepDate | amDateFormat:'Do MMM YYYY HH:mm'}}</div>
             </div>
           </label>
           <label class="item item-input">
             <div class="row" >
-              <div class="col">Arrival Date: {{returnReturnDate}}</div>
+              <div class="col">Arrival Date: {{returnReturnDate | amDateFormat:'Do MMM YYYY HH:mm'}}</div>
             </div>
           </label>
           <label class="item item-input">
@@ -85,7 +85,7 @@
           <label class="item item-input">
             <div class="row">
               <div class="col">{{adult.title}} {{adult.first_name}} {{adult.last_name}}</div>
-              <div class="col">Date of birth: {{adult.birth_date}} </div>
+              <div class="col">Date of birth: {{ adult.birth_date | amDateFormat:'Do MMM YYYY'}} </div>
             </div>
           </label>
           <label class="item item-input">
@@ -207,12 +207,12 @@
           Total Price
         </div>
         <div class="item item-balanced">
-          $18000
+          ${{total_price}}
         </div>
       </div>
     </div>
 
-      <button class="button button-full"  style="background-color:#708090;color: #FFF;" >
+      <button class="button button-full"  style="background-color:#708090;color: #FFF;" ng-click="addReservation()" >
         Confirm
       </button>
     </div>
