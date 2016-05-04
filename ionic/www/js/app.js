@@ -102,7 +102,8 @@ App.config(function($stateProvider, $urlRouterProvider) {
       url: '/confirmation',
       views: {
          'tabs-book': {
-            templateUrl: 'templates/book-confirmation.html'
+            templateUrl: 'templates/book-confirmation.html',
+            controller: 'bookController-confirmation'
          }
       }
    })

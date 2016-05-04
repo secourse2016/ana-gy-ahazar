@@ -1,5 +1,228 @@
 <ion-view view-title="Confirmation">
-   <ion-content class="padding">
-      Confirmation
-   </ion-content>
+  <ion-content id="myImg" class="padding">
+    <label class="list">
+
+        <!-- Departure Flight Information -->
+        <div class="item item-divider text-center" style="background-color:rgba(255, 255, 255,.8);">
+          Flight Information
+        </div>
+
+        <div class="item item-text-wrap" style="background-color:rgba(255, 255, 255,.8);">
+          <div class="item item-divider text-center "  style="background:#d9edf7;color: #31708f;">
+            Departure Flight Information
+          </div>
+          <label class="item item-input">
+            <div class="row">
+              <div class="col">From: {{departureOrigin}}</div>
+              <div class="col">To: {{departureDestination}}</div>
+            </div>
+          </label>
+          <label class="item item-input">
+            <div class="row" >
+              <div class="col">Departure Date: {{departureDepDate}}</div>
+            </div>
+          </label>
+          <label class="item item-input">
+            <div class="row" >
+              <div class="col">Arrival Date: {{departureReturnDate}}</div>
+            </div>
+          </label>
+          <label class="item item-input">
+            <div class="row" >
+              <div class="col">Class: {{departureClass}}</div>
+            </div>
+          </label>
+
+
+          <!-- Return Flight Information  -->
+          <div ng-show="showReturn">
+
+            <div class="item item-divider text-center" style="background:#d9edf7;
+            color: #31708f;">
+            Return Flight Information
+          </div>
+          <label class="item item-input">
+            <div class="row">
+              <div class="col">From: {{returnOrigin}}</div>
+              <div class="col">To: {{returnDestination}}</div>
+            </div>
+          </label>
+          <label class="item item-input">
+            <div class="row" >
+              <div class="col">Departure Date: {{returnDepDate}}</div>
+            </div>
+          </label>
+          <label class="item item-input">
+            <div class="row" >
+              <div class="col">Arrival Date: {{returnReturnDate}}</div>
+            </div>
+          </label>
+          <label class="item item-input">
+            <div class="row" >
+              <div class="col">Class: {{returnClass}}</div>
+            </div>
+          </label>
+        </div>
+
+      </div>
+
+
+      <!-- Information about each Passenger -->
+      <!-- Adults information -->
+      <div >
+        <div ng-repeat="adult in adults track by $index">
+          <div class="item text-large item-divider text-center" style="background-color:rgba(255, 255, 255,.8);">
+            Adult {{$index+1}} Information
+          </div>
+          <div class="item item-text-wrap" style="background-color:rgba(255, 255, 255,.8);">
+            <!-- <ion-content ng-controller="ListController" class="has-subhead">
+            <ion-list  ng-controller="ListController">
+            <ion-item ng-repeat="item in passengers"> -->
+            <div class="item item-divider text-center" style="background:#d9edf7;
+            color: #31708f;">
+            Personal information
+          </div>
+          <label class="item item-input">
+            <div class="row">
+              <div class="col">{{adult.title}} {{adult.first_name}} {{adult.last_name}}</div>
+              <div class="col">Date of birth: {{adult.birth_date}} </div>
+            </div>
+          </label>
+          <label class="item item-input">
+            <div class="row" >
+              <div class="col">Nationality: {{adult.nationality}}</div>
+              <div class="col">Passport: {{adult.passport_number}}</div>
+            </div>
+          </label>
+          <div class="item item-divider text-center" style="background:#d9edf7;
+          color: #31708f;">
+          Contact information
+        </div>
+        <label class="item item-input">
+          <div class="row" >
+            <div class="col">E-mail: {{adult.email}}</div>
+            <div class="col">Mobile number: {{adult.phone_number}}</div>
+          </div>
+        </label>
+        <div class="item item-divider text-center" style="background:#d9edf7;
+        color: #31708f;">
+        Emergency Contact information
+      </div>
+      <label class="item item-input">
+        <div class="row" >
+          <div class="col">E-mail: {{adult.em_email}}</div>
+          <div class="col">Mobile number: {{adult.em_phone_number}}</div>
+        </div>
+      </label>
+      <div class="item item-divider text-center" style="background:#d9edf7;
+      color: #31708f;">
+      Special Requirements
+    </div>
+    <label class="item item-input">
+      <div class="row" >
+        <div class="col">Meal preference: {{adult.mealPreference}}</div>
+        <div class="col">Special needs: {{adult.specialNeeds}}</div>
+      </div>
+    </label>
+  </div>
+  </div>
+  <!--  children information-->
+  <div ng-repeat="child in children track by $index">
+    <div class="item text-large item-divider text-center" style="background-color:rgba(255, 255, 255,.8);">
+      Child {{$index+1}} Information
+    </div>
+    <div class="item item-text-wrap" style="background-color:rgba(255, 255, 255,.8);">
+
+      <div class="item item-divider text-center" style="background:#d9edf7;
+      color: #31708f;">
+      Personal information
+    </div>
+    <label class="item item-input">
+      <div class="row">
+        <div class="col"> {{child.first_name}} {{child.last_name}}</div>
+        <div class="col">Date of birth: {{child.birth_date}}</div>
+      </div>
+    </label>
+    <label class="item item-input">
+      <div class="row" >
+        <div class="col">Nationality: {{child.nationality}}</div>
+        <div class="col">Passport: {{child.passport_number}}</div>
+      </div>
+    </label>
+    <div class="item item-divider text-center" style="background:#d9edf7;
+    color: #31708f;">
+    Special Requirements
+  </div>
+  <label class="item item-input">
+    <div class="row" >
+      <div class="col">Meal preference: {{child.mealPreference}}</div>
+      <div class="col">Special needs:{{child.specialNeeds}}</div>
+    </div>
+  </label>
+  </div>
+  </div>
+
+  <!--  infants information-->
+  <div ng-repeat="infant in infants track by $index">
+    <div class="item text-large item-divider text-center" style="background-color:rgba(255, 255, 255,.8);">
+      Infant {{$index+1}} Information
+    </div>
+    <div class="item item-text-wrap" style="background-color:rgba(255, 255, 255,.8);">
+
+      <div class="item item-divider text-center" style="background:#d9edf7;
+      color: #31708f;">
+      Personal information
+    </div>
+    <label class="item item-input">
+      <div class="row">
+        <div class="col"> {{infant.first_name}} {{infant.last_name}}</div>
+        <div class="col">Date of birth: {{infant.birth_date}}</div>
+      </div>
+    </label>
+    <label class="item item-input">
+      <div class="row" >
+        <div class="col">Nationality: {{infant.nationality}}</div>
+        <div class="col">Passport: {{infant.passport_number}}</div>
+      </div>
+    </label>
+    <div class="item item-divider text-center" style="background:#d9edf7;
+    color: #31708f;">
+    Special Requirements
+  </div>
+  <label class="item item-input">
+    <div class="row" >
+      <div class="col">Meal preference: {{infant.mealPreference}}</div>
+      <div class="col">Special needs:{{infant.specialNeeds}}</div>
+    </div>
+  </label>
+  </div>
+  </div>
+
+  <div class="item item-text-wrap" style="background-color:rgba(255, 255, 255,.8);">
+    <div class="item item-text-wrap" style="background-color:rgba(255, 255, 255,0);">
+
+      <div class="row">
+        <div class="item"  style="background-color:rgba(255, 255, 255,0);border:none;">
+          <i class="ion-cash"></i>
+          Total Price
+        </div>
+        <div class="item item-balanced">
+          $18000
+        </div>
+      </div>
+    </div>
+
+      <button class="button button-full"  style="background-color:#708090;color: #FFF;" >
+        Confirm
+      </button>
+    </div>
+  </div>
+
+
+
+  </div>
+
+
+  </label>
+</ion-content>
 </ion-view>
