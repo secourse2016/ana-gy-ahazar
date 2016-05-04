@@ -30,11 +30,15 @@
 .divide {
    background-color: #d9edf7;
    color: #31708f;
-}
 
+}
 
 .has-error {
    color: #a94442 !important;
+}
+
+.has-success {
+   color: #3c763d !important;
 }
 
 .bg {

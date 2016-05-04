@@ -54,18 +54,22 @@
 		</div>
 		<h4 class="title">When Are You Going?</h4>
 		<div class="row">
-			<div class="col" id="date1"><div class="item item-divider">Departure Date</div>
-			<div class="item item-icon-left" ion-datetime-picker date ng-model="searchData.departureDate" >
-				<i class="icon ion-ios-calendar calm"></i>
+			<div class="col" id="date1">
+				<div class="item item-divider">Departure Date</div>
+				<div class="item item-icon-left" ng-model="searchData.departureDate"  ng-click="openDepartureDatePicker()">
+					<i class="icon ion-ios-calendar calm"></i>
 
-				<strong>{{searchData.departureDate| date: "yyyy-MMMM-dd"}}</strong>
-			</div></div>
-			<div ng-if="date_show" class="col"id="date2"><div class="item item-divider">Arrival Date</div>
-			<div class="item item-icon-left" ion-datetime-picker date ng-model="searchData.returnDate" >
-				<i class="icon ion-ios-calendar calm"></i>
+					<strong>{{searchData.departureDate| date: "yyyy-MMMM-dd"}}</strong>
+				</div>
+			</div>
+			<div ng-if="date_show" class="col"id="date2">
+				<div class="item item-divider">Arrival Date</div>
+				<div class="item item-icon-left" ng-model="searchData.returnDate"  ng-click="openReturnDatePicker()">
+					<i class="icon ion-ios-calendar calm"></i>
 
-				<strong>{{searchData.returnDate| date: "yyyy-MMMM-dd"}}</strong>
-			</div></div>
+					<strong>{{searchData.returnDate| date: "yyyy-MMMM-dd"}}</strong>
+				</div>
+			</div>
 		</div>
 
 		<h4 class="title">Travellers</h4>

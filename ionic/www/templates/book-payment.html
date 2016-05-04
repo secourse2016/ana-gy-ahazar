@@ -1,5 +1,129 @@
 <ion-view view-title="Payment">
-   <ion-content class="padding">
-      Payment
+   <ion-content class="padding" >
+      <form name="paymentForm" ng-submit="submitForm(paymentForm.$valid)" novalidate>
+
+         <div class="card">
+            <label class="item item-input">
+               <span class="input-label">Cardholder Name</span>
+               <input type="text" placeholder="Full Name" name="cardholder" ng-model="paymentData.cardholder" required>
+            </label>
+
+            <label class="item item-input item-select ">
+               <div class="input-label ">
+                  Method
+               </div>
+               <select ng-init="paymentData.method='Visa'" ng-model="paymentData.method">
+                  <option>Visa</option>
+                  <option>MasterCard</option>
+               </select>
+            </label>
+         </div>
+         <p ng-show="paymentForm.cardholder.$error.required && (submitted || paymentForm.cardholder.$dirty)" class="has-error">Cardholder Name is required.</p>
+
+         <div class="card">
+
+            <div class="item item-divider divide">
+               Card Information
+            </div>
+
+            <label class="item item-input  ">
+               <span class="input-label">Card Number</span>
+               <input type="password" placeholder="16-digits"name="card_number" onkeypress="return isNumber(event);" ng-model="paymentData.card_number" ng-minlength="16" ng-maxlength="16" required>
+            </label>
+
+            <label class="item item-input  ">
+               <span class="input-label">CVC</span>
+               <input type="password" placeholder="3-digits" name="cvs" onkeypress="return isNumber(event);" ng-model="paymentData.cvs" ng-minlength="3" ng-maxlength="3" required>
+            </label>
+
+            <label class="item item-input" ng-click="openDatePicker()">
+               <span class="input-label">Expire Date</span>
+               <label name="expiry_date" ng-model="paymentData.expiry_date" required>{{paymentData.expiry_date| date: "yyyy-MMMM-dd"}}</label>
+            </label>
+         </div>
+         <p ng-show="paymentForm.card_number.$error.required && (submitted || paymentForm.card_number.$dirty)" class="has-error">Card Number is required.</p>
+         <p ng-show="(paymentForm.card_number.$error.minlength || paymentForm.card_number.$error.maxlength) && (submitted || paymentForm.card_number.$dirty)" class="has-error">Card Number has to be 16 digits.</p>
+         <p ng-show="(paymentForm.cvs.$error.minlength || paymentForm.cvs.$error.maxlength) && (submitted || paymentForm.cvs.$dirty)" class="has-error">CVS has to be 3 digits.</p>
+         <p ng-show="paymentForm.cvs.$error.required && (submitted || paymentForm.cvs.$dirty)" class="has-error">CVC is required.</p>
+         <p ng-show="paymentForm.expiry_date.$error.required && (submitted || paymentForm.expiry_date.$dirty)" class="has-error">Expiry Date is required.</p>
+
+
+         <div class="card">
+
+            <div class="item item-divider divide">
+               Billing Information
+            </div>
+
+            <label class="item item-input item-select ">
+               <div class="input-label ">
+                  Billing Country
+               </div>
+               <select>
+                  <option ng-repeat="country in Countries" ng-init="paymentData.billing_country='Afghanistan'" ng-model="paymentData.billing_country">{{country.name}}</option>
+               </select>
+            </label>
+
+            <label class="item item-input  ">
+               <span class="input-label">Billing State</span>
+               <input type="text" placeholder="State" name="city" ng-model="paymentData.billing_city" required>
+            </label>
+
+
+            <label class="item item-input  ">
+               <span class="input-label">Billing City</span>
+               <input type="text" placeholder="City" name="state" ng-model="paymentData.billing_state" required>
+            </label>
+
+            <label class="item item-input  ">
+               <span class="input-label">Zip Code</span>
+               <input type="text" placeholder="5-digits" name="zip_code" onkeypress="return isNumber(event);" ng-model="paymentData.zip_code" ng-minlength="5" ng-maxlength="5" required>
+            </label>
+
+         </div>
+
+         <p ng-show="paymentForm.city.$error.required && (submitted || paymentForm.city.$dirty)" class="has-error">Billing City is required.</p>
+         <p ng-show="paymentForm.state.$error.required && (submitted || paymentForm.state.$dirty)" class="has-error">Billing State is required.</p>
+         <p ng-show="paymentForm.zip_code.$error.required && (submitted || paymentForm.zip_code.$dirty)" class="has-error">Zip Code is required.</p>
+         <p ng-show="(paymentForm.zip_code.$error.minlength || paymentForm.zip_code.$error.maxlength) && (submitted || paymentForm.zip_code.$dirty)" class="has-error">Zip Code has to be 5 digits.</p>
+         <div class="card">
+            <div class="item item-divider divide">
+               Address
+            </div>
+            <label class="item item-input  ">
+               <textarea placeholder="Enter Full Address" name="address" ng-model="paymentData.address" required></textarea>
+            </label>
+         </div>
+         <p ng-show="paymentForm.address.$error.required && (submitted || paymentForm.address.$dirty)" class="has-error">Address is required.</p>
+
+         <div class="card">
+            <div class="item item-divider divide">
+               Promotion Code
+            </div>
+            <label class="item item-input">
+               <input type="text" placeholder="Enter Promo here!" ng-model="paymentData.promo_code">
+               <label class="button button-calm" ng-click="validate()">
+                  Validate
+               </label>
+            </label>
+         </div>
+         <p ng-show="validation_pressed && success" class="has-success">Great! your discount is {{ discount }}%</p>
+         <p ng-show="validation_pressed && !success" class="has-error">Invalid Code.</p>
+
+         <div class="row">
+            <div class="item" style="background-color:rgba(255, 255, 255,0);border:none;">
+               <i class="ion-cash"></i>
+               Total Price
+            </div>
+            <div class="item item-balanced">
+               ${{total_price}}
+            </div>
+         </div>
+
+
+         <div class="padding">
+            <button type="submit" class="icon icon-right ion-ios-arrow-right button button-block button-positive">Next</button>
+         </div>
+
+      </form>
    </ion-content>
 </ion-view>

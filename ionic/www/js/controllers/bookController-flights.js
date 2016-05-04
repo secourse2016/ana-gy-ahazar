@@ -5,8 +5,8 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    var flightType = FlightsSrv.getFlightType();
    $scope.dep_airport = FlightsSrv.getSelectedOriginAirport();
    $scope.ret_airport = FlightsSrv.getSelectedDestinationAirport();
-   var depDate = FlightsSrv.getDepartureDate();
-   var retDate = FlightsSrv.getReturnDate();
+   var depDate = new Date(FlightsSrv.getDepartureDate());
+   var retDate = new Date(FlightsSrv.getReturnDate());
    var adults = FlightsSrv.getAdults();
    var children = FlightsSrv.getChildren();
    var infants = FlightsSrv.getInfants();
