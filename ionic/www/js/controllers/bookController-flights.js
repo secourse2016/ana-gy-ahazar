@@ -160,7 +160,11 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
          FlightsSrv.setDepartureFlight($scope.flightData.dep_flight);
          FlightsSrv.setReturnFlight($scope.flightData.ret_flight);
-         FlightsSrv.setTotalPrice((parseInt($scope.flightData.dep_flight.cost) + parseInt($scope.flightData.ret_flight.cost)) * parseInt($scope.total_people));
+         var total_price = parseInt($scope.flightData.dep_flight.cost);
+         if (typeof $scope.flightData.ret_flight != 'undefined')
+            total_price += parseInt($scope.flightData.ret_flight.cost);
+            
+         FlightsSrv.setTotalPrice(total_price * parseInt($scope.total_people));
          $location.path("/tabs/personalInfo");
 
       }

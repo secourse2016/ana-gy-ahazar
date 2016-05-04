@@ -25,9 +25,9 @@
 
          <br>
 
-         <div class="item item-divider">
-         </div>
          <div ng-if="show_incoming">
+            <div class="item item-divider">
+            </div>
             <div class="row header">
                <div class="col"> <h3><img src="assets/return.png">  Return Flight(s)</h3><h3> {{ret_airport}} - {{dep_airport}}</h3></div>
             </div>
@@ -43,11 +43,11 @@
                <div class="col">{{flight.cost*total_people}} {{flight.currency}}</div>
                <div class="col"><ion-item ng-click="showInfo(flight)" id="infoID">Details <i class="icon ion-chevron-right icon-accessory"></i></ion-item></div>
             </div>
+            <center>
+               <p ng-show="(flightData.ret_flight == '' || flightData.ret_flight === undefined) && submitted" class="has-error padding">Return Flight is required.</p>
+            </center>
          </div>
 
-         <center>
-            <p ng-show="(flightData.ret_flight == '' || flightData.ret_flight === undefined) && submitted" class="has-error padding">Return Flight is required.</p>
-         </center>
          <div class="padding">
             <button type="submit" class="icon icon-right ion-ios-arrow-right button button-block button-positive">Next</button>
          </div>
