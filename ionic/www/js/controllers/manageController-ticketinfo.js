@@ -1,4 +1,4 @@
-App.controller('manageController-ticketinfo', function($scope, ManageSrv, $location){
+App.controller('manageController-ticketinfo', function($scope, ManageSrv, $location, $ionicPopup, $ionicLoading){
 
    var reservationData = ManageSrv.getReservationData();
    console.log(reservationData);
@@ -30,9 +30,24 @@ App.controller('manageController-ticketinfo', function($scope, ManageSrv, $locat
    $scope.children = reservationData.children;
    $scope.infants = reservationData.infants;
 
-
+   // A confirm dialog
    $scope.cancel = function() {
-      console.log('cancel');
+      var confirmPopup = $ionicPopup.confirm({
+         title: 'Confirmation',
+         template: '<center>Are you sure you want to delete this reservation?</center>',
+         cancelText: 'Cancel',
+         okText: 'Yes'
+      });
+
+      confirmPopup.then(function(res) {
+         if(res) {
+            ManageSrv.cancelReservation(ManageSrv.getBookingReference()).success(function() {
+               console.log('done');
+               $ionicLoading.show({ template: 'Deleted Successfully', noBackdrop: true, duration: 2000 });
+               $location.path('/tabs/home');
+            });
+         }
+      });
    };
 
    $scope.edit = function() {

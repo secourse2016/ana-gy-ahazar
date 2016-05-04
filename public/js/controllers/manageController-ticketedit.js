@@ -1,7 +1,6 @@
 App.controller('manageController-ticketedit', function($scope, ManageSrv, FlightsSrv, $location) {
    var reservationData = ManageSrv.getReservationData();
 
-   console.log(reservationData);
    $scope.adults = reservationData.adults;
    $scope.children = reservationData.children;
    $scope.infants = reservationData.infants;

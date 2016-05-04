@@ -1,7 +1,45 @@
-App.controller('bookSearch', function($scope,FlightsSrv,$location){
-
-
+App.controller('bookSearch', function($scope,FlightsSrv,$location,ionicDatePicker){
 	$scope.searchData = {};
+
+	var ipObj1 = {
+		callback: function (val) {  //Mandatory
+			console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+			$scope.searchData.departureDate = val;
+		},
+		from: new Date(), //Optional
+		to: new Date(2018, 10, 30), //Optional
+		showTodayButton: true,
+		todayLabel: 'Today',
+		closeLabel: 'Close',
+		year_select: new Date().getFullYear(),
+		// inputDate: new Date(),      //Optional
+		closeOnSelect: false,       //Optional
+		templateType: 'popup'       //Optional
+	};
+
+	var ipObj2 = {
+		callback: function (val) {  //Mandatory
+			console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+			$scope.searchData.returnDate = val;
+		},
+		from: new Date(), //Optional
+		to: new Date(2018, 10, 30), //Optional
+		showTodayButton: true,
+		todayLabel: 'Today',
+		closeLabel: 'Close',
+		inputDate: new Date(),      //Optional
+		closeOnSelect: false,       //Optional
+		templateType: 'popup'       //Optional
+	};
+
+	$scope.openDepartureDatePicker = function(){
+		ionicDatePicker.openDatePicker(ipObj1);
+	};
+
+	$scope.openReturnDatePicker = function(){
+		ionicDatePicker.openDatePicker(ipObj2);
+	};
+
 	$scope.searchData.search_other = false;
 	$scope.searchData.trip_type = 'round';
 	$scope.date_show = true;
