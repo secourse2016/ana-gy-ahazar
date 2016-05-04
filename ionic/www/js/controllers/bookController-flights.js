@@ -16,6 +16,9 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
    $scope.flightData = {};
 
+   $scope.dep_empty = false;
+   $scope.ret_empty = false;
+
    if (FlightsSrv.getFlightType() == "round") {
       $scope.show_incoming = true;
 
@@ -142,7 +145,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       FlightsSrv.setArrivalDateTime(flight.arrivalDateTime);
       FlightsSrv.setAircraftType(flight.aircraftType);
       FlightsSrv.setAircraftModel(flight.aircraftModel);
-      FlightsSrv.setCost(flight.Cost);
+      FlightsSrv.setCost(flight.cost);
       $location.path("/tabs/flights-details");
    };
 
@@ -163,7 +166,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          var total_price = parseInt($scope.flightData.dep_flight.cost);
          if (typeof $scope.flightData.ret_flight != 'undefined')
             total_price += parseInt($scope.flightData.ret_flight.cost);
-            
+
          FlightsSrv.setTotalPrice(total_price * parseInt($scope.total_people));
          $location.path("/tabs/personalInfo");
 

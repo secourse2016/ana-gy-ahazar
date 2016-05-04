@@ -6,8 +6,14 @@
             <div class="col"> <h3><img src="assets/departure.png">  Departure Flight(s)</h3><h3> {{dep_airport}} - {{ret_airport}}</h3></i>
             </div>
          </div>
-
-         <div class="row header">
+         <!-- if there is no flights -->
+         <center>
+            <div ng-show="dep_empty">
+               <br><br>
+               <p style="font-size: 18px;" class="has-error">No Available Flights From {{ dep_airport }} To {{ ret_airport }} on this day.<br> Please Choose Another One.</p>
+            </div>
+         </center>
+         <div ng-show="!dep_empty" class="row header">
             <div class="col"><h4 class="icon-left ion-checkmark-round"> Book</h4></div>
             <div class="col"><h4 class="icon-left ion-android-time"> Time</h4></div>
             <div class="col"><h4 class="icon-left ion-cash"> Cost</h4></div>
@@ -31,7 +37,14 @@
             <div class="row header">
                <div class="col"> <h3><img src="assets/return.png">  Return Flight(s)</h3><h3> {{ret_airport}} - {{dep_airport}}</h3></div>
             </div>
-            <div class="row header">
+            <center>
+               <div ng-show="ret_empty">
+                  <br><br>
+                  <p style="font-size: 18px;" class="has-error">No Available Flights From {{ ret_airport }} To {{ dep_airport }} on this day.<br> Please Choose Another One.</p>
+               </div>
+            </center>
+
+            <div ng-show="!ret_empty" class="row header">
                <div class="col"><h4 class="icon-left ion-checkmark-round"> Book</h4></div>
                <div class="col"><h4 class="icon-left ion-android-time"> Time</h4></div>
                <div class="col"><h4 class="icon-left ion-cash"> Cost</h4></div>
@@ -49,7 +62,7 @@
          </div>
 
          <div class="padding">
-            <button type="submit" class="icon icon-right ion-ios-arrow-right button button-block button-positive">Next</button>
+            <button type="submit" class="icon icon-right ion-ios-arrow-right button button-block button-positive" ng-disabled="dep_empty || ret_empty">Next</button>
          </div>
       </form>
 
