@@ -29,7 +29,10 @@
 						placeholder="Departure Airport"
 						ng-model="selectedOrigin"
 						autocomplete="off"
-						uib-typeahead="airport.iata for airport in Airports | filter:$viewValue | limitTo:10"
+						typeahead-editable="false"
+						typeahead-select-on-exact="true"
+						typeahead-on-select="setOrigin($item)"
+						uib-typeahead="airport.name for airport in Airports | filter:$viewValue | limitTo:10"
 						class="form-control in"
 						required>
 						<p ng-show="searchForm.originAirport.$error.required && (submitted || searchForm.originAirport.$dirty)" class="help-block">Departure Airport is required.</p>
@@ -41,7 +44,10 @@
 						placeholder="Arrival Airport"
 						ng-model="selectedDestination"
 						autocomplete="off"
-						uib-typeahead="airport.iata for airport in Airports | filter:$viewValue | limitTo:10"
+						typeahead-editable="false"
+						typeahead-select-on-exact="true"
+						typeahead-on-select="setDestination($item)"
+						uib-typeahead="airport.name for airport in Airports | filter:$viewValue | limitTo:10"
 						class="form-control in"
 						required>
 						<p ng-show="searchForm.destinationAirport.$error.required && (submitted || searchForm.destinationAirport.$dirty)" class="help-block">Arrival Airport is required.</p>
@@ -100,12 +106,12 @@
 				<label class="between">How Many Are Going?</label>
 				<div class="row">
 			<div class="col-sm-3 col-md-2">
-				Adult(s) +11 years: <br><select class="form-control" ng-init="Adult='1'" ng-model="Adult">
+				Adult(s) +12 years: <br><select class="form-control" ng-init="Adult='1'" ng-model="Adult">
 					<option ng-repeat="num in digits" ng-if="num > 0" value="{{num}}">{{ num }}</option>
 				</select>
 			</div>
 			<div class="col-sm-3 col-md-2">
-				Child(ren) 2-11 years: <br><select class="form-control" ng-init="child='0'" ng-model="child">
+				Child(ren) 2-12 years: <br><select class="form-control" ng-init="child='0'" ng-model="child">
 					<option ng-repeat="num in digits" value="{{num}}">{{ num }}</option>
 
 				</select>
