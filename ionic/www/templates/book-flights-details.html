@@ -2,7 +2,7 @@
     <ion-content class="padding">
       <h4 class='redTag icon-left ion-paper-airplane'> Airline: </h4>  <h4> {{airline}}</h4>
       <br></br>
-      <h4 class='redTag icon-left ion-android-time'> Time:</h4>  <h4> {{depTime}} - {{arrTime}} </h4>
+      <h4 class='redTag icon-left ion-android-time'> Time:</h4>  <h4> {{depTime| amDateFormat:'Do MMM YYYY HH:mm'}} - {{arrTime| amDateFormat:'Do MMM YYYY HH:mm'}} </h4>
       <br></br>
       <h4 class='redTag icon-left ion-ios-people'> Seats:</h4>  <h4> {{seats}} </h4>
       <br></br>
