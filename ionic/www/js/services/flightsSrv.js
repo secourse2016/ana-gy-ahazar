@@ -99,7 +99,7 @@ App.factory('FlightsSrv', function ($http) {
          return this.total_price;
       },
       setAirline: function (value) {
-          this.airline = value;
+         this.airline = value;
       },
       getAirline: function () {
          return this.airline;
@@ -133,7 +133,32 @@ App.factory('FlightsSrv', function ($http) {
       },
       getCost: function () {
          return this.cost;
-      }
+      },
+      getRoundFlights: function(dep_air, ret_air, dep_date, ret_date, classs, totalSeats) {
+         console.log("dep_air: ", dep_air);
+         console.log("ret_air: ", ret_air);
+         console.log("dep_date: ", dep_date);
+         console.log("ret_date: ", ret_date);
+         console.log("classs: ", classs);
+         console.log("total seats", totalSeats);
+
+         return $http.get('http://54.191.202.17/api/flights/search/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + ret_date + '/' + classs + '/' + totalSeats + '/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI');
+      },
+      getOtherRoundFlights: function(dep_air, ret_air, dep_date, ret_date, classs, totalSeats) {
+         return $http.get('http://54.191.202.17/api/flights/searchOutSideRound/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + ret_date + '/' + classs + '/' + totalSeats + '/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI');
+      },
+      getOneFlights: function(dep_air, ret_air, dep_date, classs, totalSeats) {
+         console.log("dep_air: ", dep_air);
+         console.log("ret_air: ", ret_air);
+         console.log("dep_date: ", dep_date);
+         console.log("classs: ", classs);
+         console.log("total seats", totalSeats);
+
+         return $http.get('http://54.191.202.17/api/flights/search/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + classs + '/' + totalSeats + '/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI');
+      },
+      getOtherOneFlights: function(dep_air, ret_air, dep_date, classs, totalSeats) {
+         return $http.get('http://54.191.202.17/api/flights/searchOutSide/' + dep_air + '/' + ret_air + '/' + dep_date + '/' + classs + '/' + totalSeats + '/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI');
+      },
 
    };
 });
