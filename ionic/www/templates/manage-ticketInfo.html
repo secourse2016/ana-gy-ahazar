@@ -1,4 +1,4 @@
-<ion-view view-title="Manage">
+<ion-view cache-view="false" view-title="Manage">
   <ion-content id="myImg" class="padding">
     <label class="list">
 
@@ -19,12 +19,12 @@
         </label>
         <label class="item item-input">
           <div class="row" >
-            <div class="col">Departure Date: {{departureDepDate}}</div>
+            <div class="col">Departure Date: {{departureDepDate | amDateFormat:'Do MMM YYYY HH:mm'}}</div>
           </div>
         </label>
         <label class="item item-input">
           <div class="row" >
-            <div class="col">Arrival Date: {{departureReturnDate}}</div>
+            <div class="col">Arrival Date: {{departureReturnDate | amDateFormat:'Do MMM YYYY HH:mm'}}</div>
           </div>
         </label>
         <label class="item item-input">
@@ -49,12 +49,12 @@
         </label>
         <label class="item item-input">
           <div class="row" >
-            <div class="col">Departure Date: {{returnDepDate}}</div>
+            <div class="col">Departure Date: {{returnDepDate | amDateFormat:'Do MMM YYYY HH:mm'}}</div>
           </div>
         </label>
         <label class="item item-input">
           <div class="row" >
-            <div class="col">Arrival Date: {{returnReturnDate}}</div>
+            <div class="col">Arrival Date: {{returnReturnDate | amDateFormat:'Do MMM YYYY HH:mm'}}</div>
           </div>
         </label>
         <label class="item item-input">
@@ -85,7 +85,7 @@
         <label class="item item-input">
           <div class="row">
             <div class="col">{{adult.title}} {{adult.first_name}} {{adult.last_name}}</div>
-            <div class="col">Date of birth: {{adult.birth_date}} </div>
+            <div class="col">Date of birth: {{ adult.birth_date | amDateFormat:'Do MMM YYYY' }} </div>
           </div>
         </label>
         <label class="item item-input">
@@ -140,7 +140,7 @@
   <label class="item item-input">
     <div class="row">
       <div class="col"> {{child.first_name}} {{child.last_name}}</div>
-      <div class="col">Date of birth: {{child.birth_date}}</div>
+      <div class="col">Date of birth: {{ infant.birth_date | amDateFormat:'Do MMM YYYY' }}</div>
     </div>
   </label>
   <label class="item item-input">
@@ -199,7 +199,7 @@
 </div>
 
 <div class="item item-text-wrap" style="background-color:rgba(255, 255, 255,.8);">
-  
+
   <div class="row">
     <div class="item"  style="background-color:rgba(255, 255, 255,0);border:none;">
       <i class="ion-cash"></i>
