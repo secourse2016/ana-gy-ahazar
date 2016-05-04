@@ -3,11 +3,7 @@
   "version": "1.0.0",
   "description": "This is an online booking system for Air Madagascar.",
   "dependencies": {
-<<<<<<< HEAD
     "angular-moment": "^1.0.0-beta.6",
-=======
-    "datepicker-for-ionic": "^1.1.7",
->>>>>>> d0c8f4e68c17ebcfdfd8be1eaf208f0677f9a134
     "gulp": "^3.5.6",
     "gulp-concat": "^2.2.0",
     "gulp-minify-css": "^0.3.0",
