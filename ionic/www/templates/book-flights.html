@@ -1,0 +1,57 @@
+<ion-view view-title="Flights">
+
+   <ion-content>
+      <form name="flightsForm" ng-submit="submitForm(flightsForm.$valid)" novalidate>
+         <div class="row header">
+            <div class="col"> <h3><img src="assets/departure.png">  Departure Flight(s)</h3><h3> {{dep_airport}} - {{ret_airport}}</h3></i>
+            </div>
+         </div>
+
+         <div class="row header">
+            <div class="col"><h4 class="icon-left ion-checkmark-round"> Book</h4></div>
+            <div class="col"><h4 class="icon-left ion-android-time"> Time</h4></div>
+            <div class="col"><h4 class="icon-left ion-cash"> Cost</h4></div>
+            <div class="col"></div>
+         </div>
+         <div class="row" ng-repeat="flight in departureFlights">
+            <div class="col"><ion-radio id="bookID" name="dep_reserve" ng-value="{{flight}}" ng-model="$parent.flightData.dep_flight">Choose</ion-radio></div>
+            <div class="col">{{flight.departureDateTime | amDateFormat:'HH:mm'}} - {{flight.arrivalDateTime | amDateFormat:'HH:mm'}}</div>
+            <div class="col">{{flight.cost*total_people}} {{flight.currency}}</div>
+            <div class="col"><ion-item ng-click="showInfo(flight)" id="infoID">Details <i class="icon ion-chevron-right icon-accessory"></i></ion-item></div>
+         </div>
+         <center>
+            <p ng-show="(flightData.dep_flight == '' || flightData.dep_flight === undefined) && submitted" class="has-error padding">Departure Flight is required.</p>
+         </center>
+
+         <br>
+
+         <div class="item item-divider">
+         </div>
+         <div ng-if="show_incoming">
+            <div class="row header">
+               <div class="col"> <h3><img src="assets/return.png">  Return Flight(s)</h3><h3> {{ret_airport}} - {{dep_airport}}</h3></div>
+            </div>
+            <div class="row header">
+               <div class="col"><h4 class="icon-left ion-checkmark-round"> Book</h4></div>
+               <div class="col"><h4 class="icon-left ion-android-time"> Time</h4></div>
+               <div class="col"><h4 class="icon-left ion-cash"> Cost</h4></div>
+               <div class="col"></div>
+            </div>
+            <div class="row" ng-repeat="flight in returnFlights">
+               <div class="col"><ion-radio id="bookID"name="ret_reserve" ng-value="{{flight}}" ng-model="$parent.flightData.ret_flight" required>Choose</ion-radio></div>
+               <div class="col">{{flight.departureDateTime | amDateFormat:'HH:mm'}} - {{flight.arrivalDateTime | amDateFormat:'HH:mm'}}</div>
+               <div class="col">{{flight.cost*total_people}} {{flight.currency}}</div>
+               <div class="col"><ion-item ng-click="showInfo(flight)" id="infoID">Details <i class="icon ion-chevron-right icon-accessory"></i></ion-item></div>
+            </div>
+         </div>
+
+         <center>
+            <p ng-show="(flightData.ret_flight == '' || flightData.ret_flight === undefined) && submitted" class="has-error padding">Return Flight is required.</p>
+         </center>
+         <div class="padding">
+            <button type="submit" class="icon icon-right ion-ios-arrow-right button button-block button-positive">Next</button>
+         </div>
+      </form>
+
+   </ion-content>
+</ion-view>

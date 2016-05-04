@@ -1,0 +1,281 @@
+<ion-view view-title="Edit">
+<ion-content>
+<form name="ticketEditForm" ng-submit="save()">
+<div ng-repeat="adult in adults track by $index">
+	<center><h3 class="padding">Adult {{$index+1}}</h3></center>
+	<div class="item item-divider divide">Personal Information</div>
+	<div class="list">
+
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Title
+			</div>
+			<select ng-init="adultFormData[$index].title=adult.title" ng-model="adultFormData[$index].title">
+				<option>Mr.</option>
+				<option>Mrs.</option>
+				<option>Ms.</option>
+			</select>
+		</label>
+
+		<label class="item item-input item-floating-label">
+			<span class="input-label">First Name</span>
+			<input type="text" placeholder="First Name" name="first_name_adult_{{$index}}" ng-model="adultFormData[$index].first_name" required>
+			<p ng-show="ticketEditForm.first_name_adult_{{$index}}.$error.required" class="has-error">First Name is required.</p>
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Last Name</span>
+			<input type="text" placeholder="Last Name" name="last_name_adult_{{$index}}" ng-model="adultFormData[$index].last_name" required>
+			<p ng-show="ticketEditForm.last_name_adult_{{$index}}.$error.required" class="has-error">Last Name is required.</p>
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Nationality</span>
+			<input type="text" placeholder="Nationality" name="nationality_adult_{{$index}}" ng-model="adultFormData[$index].nationality" required>
+			<p ng-show="ticketEditForm.nationality_adult_{{$index}}.$error.required" class="has-error">Nationality is required.</p>
+		</label>
+
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Passport Number</span>
+			<input type="text" onkeypress="return isNumber(event);" placeholder="Passport Number" name="passport_number_adult_{{$index}}" ng-model="adultFormData[$index].passport_number" required>
+			<p ng-show="ticketEditForm.passport_number_adult_{{$index}}.$error.required" class="has-error">Passport Number is required.</p>
+
+		</label>
+
+		<div class="item item-icon-left" ion-datetime-picker date ng-model="adultFormData[$index].birth_date" required>
+			<i class="icon ion-ios-calendar positive"></i>
+			Date of Birth:
+			&nbsp; {{adultFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
+		</div>
+	</div>
+
+	<div class="item item-divider divide">Contact Information</div>
+	<div class="list">
+
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Email</span>
+			<input type="text" placeholder="Email" name="email_adult_{{$index}}" ng-model="adultFormData[$index].email" required>
+			<p ng-show="ticketEditForm.email_adult_{{$index}}.$error.required" class="has-error">Email is required.</p>
+
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Phone Number</span>
+			<input type="text" onkeypress="return isNumber(event);" placeholder="Phone Number" name="phone_number_adult_{{$index}}" ng-model="adultFormData[$index].phone_number" required>
+			<p ng-show="ticketEditForm.phone_number_adult_{{$index}}.$error.required" class="has-error">Phone Number is required.</p>
+
+		</label>
+	</div>
+	<div class="item item-divider divide">Emergency Contact Information</div>
+	<div class="list">
+
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Email</span>
+			<input type="text" placeholder="Email" name="em_email_adult_{{$index}}" ng-model="adultFormData[$index].em_email" required>
+			<p ng-show="ticketEditForm.em_email_adult_{{$index}}.$error.required" class="has-error">Emergency Email is required.</p>
+
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Phone Number</span>
+			<input type="text" onkeypress="return isNumber(event);" placeholder="Phone Number" name="em_phone_number_adult_{{$index}}" ng-model="adultFormData[$index].em_phone_number" required>
+			<p ng-show="ticketEditForm.em_phone_number_adult_{{$index}}.$error.required" class="has-error">Emergency Phone Number is required.</p>
+
+		</label>
+	</div>
+	<div class="item item-divider divide">Special Requirements</div>
+	<div class="list">
+
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Meal preference
+			</div>
+			<select ng-init="adultFormData[$index].mealPreference=adult.mealPreference" ng-model="adultFormData[$index].mealPreference">
+				<option>None</option>
+				<option>Asian vegetarian meal</option>
+				<option>Baby food</option>
+				<option>Bland meal</option>
+				<option>Child food</option>
+				<option>Diabetic meal</option>
+				<option>Gelatin free meal</option>
+				<option>Low calorie meal</option>
+				<option>Low fat meal</option>
+				<option>Salt free meal</option>
+				<option>Lacto-ovo vegetarian meal</option>
+			</select>
+		</label>
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Special needs
+			</div>
+			<select ng-init="adultFormData[$index].specialNeed=adult.specialNeed" ng-model="adultFormData[$index].specialNeed">
+				
+				<option>None</option>
+				<option>Deaf passenger</option>
+				<option>Wheelchair for cabin seat</option>
+				<option>Wheelchair for ramp</option>
+				<option>Wheelchair for steps</option>
+				<option>Wheelchair dry cell battery</option>
+				<option>Wheelchair wet cell battery</option>
+			</select>
+		</label>
+	</div>
+	<br>
+</div>
+<div ng-repeat="child in children track by $index">
+	<center><h3 class="padding">Child {{$index+1}}</h3></center>
+	<div class="item item-divider divide">Personal Information</div>
+	<div class="list">
+
+
+		<label class="item item-input item-floating-label">
+			<span class="input-label">First Name</span>
+			<input type="text" placeholder="First Name" name="first_name_child_{{$index}}" ng-model="childFormData[$index].first_name" required>
+			<p ng-show="ticketEditForm.first_name_child_{{$index}}.$error.required" class="has-error">First Name is required.</p>
+
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Last Name</span>
+			<input type="text" placeholder="Last Name" name="last_name_child_{{$index}}" ng-model="childFormData[$index].last_name" required>
+			<p ng-show="ticketEditForm.last_name_child_{{$index}}.$error.required" class="has-error">Last Name is required.</p>
+
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Nationality</span>
+			<input type="text" placeholder="Nationality" name="nationality_child_{{$index}}" ng-model="childFormData[$index].nationality" required>
+			<p ng-show="ticketEditForm.nationality_child_{{$index}}.$error.required" class="has-error">Nationality is required.</p>
+
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Passport Number</span>
+			<input type="text" onkeypress="return isNumber(event);" placeholder="Passport Number" name="passport_number_child_{{$index}}" ng-model="childFormData[$index].passport_number" required>
+			<p ng-show="ticketEditForm.passport_number_child_{{$index}}.$error.required" class="has-error">Passport Number is required.</p>
+
+		</label>
+		<div class="item item-icon-left" ion-datetime-picker date ng-model="childFormData[$index].birth_date" required>
+			<i class="icon ion-ios-calendar positive"></i>
+			Date of Birth:
+			&nbsp; {{childFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
+		</div>
+	</div>
+
+	<div class="item item-divider divide">Special Requirements</div>
+	<div class="list">
+
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Meal preference
+			</div>
+			<select ng-init="childFormData[$index].mealPreference=child.mealPreference" ng-model="childFormData[$index].mealPreference">
+				<option>None</option>
+				<option>Asian vegetarian meal</option>
+				<option>Baby food</option>
+				<option>Bland meal</option>
+				<option>Child food</option>
+				<option>Diabetic meal</option>
+				<option>Gelatin free meal</option>
+				<option>Low calorie meal</option>
+				<option>Low fat meal</option>
+				<option>Salt free meal</option>
+				<option>Lacto-ovo vegetarian meal</option>
+			</select>
+		</label>
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Special needs
+			</div>
+			<select ng-init="childFormData[$index].specialNeed=child.specialNeed" ng-model="childFormData[$index].specialNeed">
+				
+				<option>None</option>
+				<option>Deaf passenger</option>
+				<option>Wheelchair for cabin seat</option>
+				<option>Wheelchair for ramp</option>
+				<option>Wheelchair for steps</option>
+				<option>Wheelchair dry cell battery</option>
+				<option>Wheelchair wet cell battery</option>
+			</select>
+		</label>
+	</div>
+	<br>
+</div>
+<div ng-repeat="infant in infants track by $index">
+	<center><h3  class="padding">Infant {{$index+1}}</h3></center>
+	<div class="item item-divider divide">Personal Information</div>
+	<div class="list">
+
+
+		<label class="item item-input item-floating-label">
+			<span class="input-label">First Name</span>
+			<input type="text" placeholder="First Name" name="first_name_infant_{{$index}}" ng-model="infantFormData[$index].first_name" required>
+			<p ng-show="ticketEditForm.first_name_infant_{{$index}}.$error.required" class="has-error">First Name is required.</p>
+
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Last Name</span>
+			<input type="text" placeholder="Last Name" name="last_name_infant_{{$index}}" ng-model="infantFormData[$index].last_name" required>
+			<p ng-show="ticketEditForm.last_name_infant_{{$index}}.$error.required" class="has-error">Last Name is required.</p>
+
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Nationality</span>
+			<input type="text" placeholder="Nationality" name="nationality_infant_{{$index}}" ng-model="infantFormData[$index].nationality" required>
+			<p ng-show="ticketEditForm.nationality_infant_{{$index}}.$error.required" class="has-error">Nationality is required.</p>
+
+		</label>
+		<label class="item item-input item-floating-label">
+			<span class="input-label">Passport Number</span>
+			<input type="text" onkeypress="return isNumber(event);" placeholder="Passport Number" name="passport_number_infant_{{$index}}" ng-model="infantFormData[$index].passport_number" required>
+			<p ng-show="ticketEditForm.passport_number_infant_{{$index}}.$error.required" class="has-error">Passport Number is required.</p>
+
+		</label>
+		<div class="item item-icon-left" ion-datetime-picker date ng-model="infantFormData[$index].birth_date" required>
+			<i class="icon ion-ios-calendar positive"></i>
+			Date of Birth:
+			&nbsp; {{infantFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
+		</div>
+	</div>
+
+	<div class="item item-divider divide">Special Requirements</div>
+	<div class="list">
+
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Meal preference
+			</div>
+			<select ng-init="infantFormData[$index].mealPreference=infant.mealPreference" ng-model="infantFormData[$index].mealPreference">
+				<option>None</option>
+				<option>Asian vegetarian meal</option>
+				<option>Baby food</option>
+				<option>Bland meal</option>
+				<option>Child food</option>
+				<option>Diabetic meal</option>
+				<option>Gelatin free meal</option>
+				<option>Low calorie meal</option>
+				<option>Low fat meal</option>
+				<option>Salt free meal</option>
+				<option>Lacto-ovo vegetarian meal</option>
+			</select>
+		</label>
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Special needs
+			</div>
+			<select ng-init="infantFormData[$index].specialNeed=infant.specialNeed" ng-model="infantFormData[$index].specialNeed">
+				
+				<option>None</option>
+				<option>Deaf passenger</option>
+				<option>Wheelchair for cabin seat</option>
+				<option>Wheelchair for ramp</option>
+				<option>Wheelchair for steps</option>
+				<option>Wheelchair dry cell battery</option>
+				<option>Wheelchair wet cell battery</option>
+			</select>
+		</label>
+	</div>
+</div>
+
+<br>
+<div class="padding">
+	<button type="submit" class="button button-block button-positive">
+	  <i class="icon ion-edit"></i> Edit
+	</button>
+</div>
+</form>
+</ion-content>
+</ion-view>

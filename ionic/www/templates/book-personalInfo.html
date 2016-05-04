@@ -1,0 +1,323 @@
+<ion-view view-title="Information">
+   <ion-content class="">
+      <form name="personalInfoForm" ng-submit="submitForm(personalInfoForm.$valid)" novalidate>
+         <div ng-repeat="t in numAdults() track by $index">
+            <center>
+               <h3 class="padding">Adult {{$index + 1}}</h3>
+            </center>
+            <div class="list">
+               <div class="item item-divider divide">Personal Information</div>
+               <label class="item item-input item-select">
+                  <div class="input-label">
+                     Title
+                  </div>
+                  <select ng-init="adultFormData[$index].title='Mr.'" ng-model="adultFormData[$index].title">
+                     <option>Mr.</option>
+                     <option>Mrs.</option>
+                     <option>Ms.</option>
+                  </select>
+               </label>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">First Name</span>
+                  <input type="text" name="first_name_adult_{{$index}}" placeholder="First Name" ng-model="adultFormData[$index].first_name"required>
+                  <p ng-show="personalInfoForm.first_name_adult_{{$index}}.$error.required && (submitted || personalInfoForm.first_name_adult_{{$index}}.$dirty)" class="has-error">First Name is required.</p>
+               </label>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">Last Name</span>
+                  <input type="text" name="last_name_adult_{{$index}}" placeholder="Last Name" ng-model="adultFormData[$index].last_name"required>
+                  <p ng-show="personalInfoForm.last_name_adult_{{$index}}.$error.required && (submitted || personalInfoForm.last_name_adult_{{$index}}.$dirty)" class="has-error">Last Name is required.</p>
+               </label>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">Nationality</span>
+                  <input type="text" name="nationality_adult_{{$index}}" placeholder="Nationality" ng-model="adultFormData[$index].nationality"required>
+                  <p ng-show="personalInfoForm.nationality_adult_{{$index}}.$error.required && (submitted || personalInfoForm.nationality_adult_{{$index}}.$dirty)" class="has-error">Nationality is required.</p>
+               </label>
+
+               <div class="item item-icon-left" ion-datetime-picker date name="birth_date_adult_{{$index}}" ng-model="adultFormData[$index].birth_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Date of Birth:
+                  &nbsp;{{adultFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.birth_date_adult_{{$index}}.$error.required && (submitted || personalInfoForm.birth_date_adult_{{$index}}.$dirty)" class="has-error padding">Date of Birth is required.</p>
+
+               <div class="item item-divider divide">Passport Information</div>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">Passport Number</span>
+                  <input type="text" onkeypress="return isNumber(event);" name="passport_number_adult_{{$index}}" placeholder="Passport Number" ng-model="adultFormData[$index].passport_number"required>
+                  <p ng-show="personalInfoForm.passport_number_adult_{{$index}}.$error.required && (submitted || personalInfoForm.passport_number_adult_{{$index}}.$dirty)" class="has-error">Passport Number is required.</p>
+               </label>
+
+               <div class="item item-icon-left" ion-datetime-picker date name="issue_date_adult_{{$index}}" ng-model="adultFormData[$index].issue_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Issue Date:
+                  &nbsp;{{adultFormData[$index].issue_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.issue_date_adult_{{$index}}.$error.required && (submitted || personalInfoForm.issue_date_adult_{{$index}}.$dirty)" class="has-error padding">Issue Date is required.</p>
+
+               <div class="item item-icon-left" ion-datetime-picker date name="expiry_date_adult_{{$index}}" ng-model="adultFormData[$index].expiry_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Expiry Date:
+                  &nbsp;{{adultFormData[$index].expiry_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.expiry_date_adult_{{$index}}.$error.required && (submitted || personalInfoForm.expiry_date_adult_{{$index}}.$dirty)" class="has-error padding">Expiry Date is required.</p>
+
+               <div class="item item-divider divide">Contact Information</div>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">Email</span>
+                  <input type="email" name="email_adult_{{$index}}" placeholder="Email" ng-model="adultFormData[$index].email"required>
+                  <p ng-show="personalInfoForm.email_adult_{{$index}}.$error.required && (submitted || personalInfoForm.email_adult_{{$index}}.$dirty)" class="has-error">Email is required.</p>
+						<p ng-show="personalInfoForm.email_adult_{{$index}}.$error.email && (submitted || personalInfoForm.email_adult_{{$index}}.$dirty)" class="has-error">Please Enter a Valid Email.</p>
+               </label>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">Phone Number</span>
+                  <input type="text" onkeypress="return isNumber(event);" name="phone_number_adult_{{$index}}" placeholder="Phone Number" ng-model="adultFormData[$index].phone_number"required>
+                  <p ng-show="personalInfoForm.phone_number_adult_{{$index}}.$error.required && (submitted || personalInfoForm.phone_number_adult_{{$index}}.$dirty)" class="has-error">Phone Number is required.</p>
+               </label>
+
+
+               <div class="item item-divider divide">Emergency Contact Information</div>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">Email</span>
+                  <input type="email" name="em_email_adult_{{$index}}" placeholder="Email" ng-model="adultFormData[$index].em_email"required>
+                  <p ng-show="personalInfoForm.em_email_adult_{{$index}}.$error.required && (submitted || personalInfoForm.em_email_adult_{{$index}}.$dirty)" class="has-error">Email is required.</p>
+						<p ng-show="personalInfoForm.em_email_adult_{{$index}}.$error.email && (submitted || personalInfoForm.em_email_adult_{{$index}}.$dirty)" class="has-error">Please Enter a Valid Email.</p>
+               </label>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">Phone Number</span>
+                  <input type="text" onkeypress="return isNumber(event);" name="em_phone_number_adult_{{$index}}" placeholder="Phone Number" ng-model="adultFormData[$index].em_phone_number"required>
+                  <p ng-show="personalInfoForm.em_phone_number_adult_{{$index}}.$error.required && (submitted || personalInfoForm.em_phone_number_adult_{{$index}}.$dirty)" class="has-error">Phone Number is required.</p>
+               </label>
+
+
+               <div class="item item-divider divide">Special Requirements</div>
+               <label class="item item-input item-select">
+                  <div class="input-label">
+                     Meal preference
+                  </div>
+                  <select ng-init="adultFormData[$index].mealPreference='None'" ng-model="adultFormData[$index].mealPreference">
+                     <option>None</option>
+							<option>Asian vegetarian meal</option>
+							<option>Baby food</option>
+							<option>Bland meal</option>
+							<option>Child food</option>
+							<option>Diabetic meal</option>
+							<option>Gelatin free meal</option>
+							<option>Low calorie meal</option>
+							<option>Low fat meal</option>
+							<option>Salt free meal</option>
+							<option>Lacto-ovo vegetarian meal</option>
+                  </select>
+               </label>
+
+               <label class="item item-input item-select">
+                  <div class="input-label">
+                     Special needs
+                  </div>
+                  <select ng-init="adultFormData[$index].specialNeed='None'" ng-model="adultFormData[$index].specialNeed">
+                     <option>None</option>
+                     <option>Deaf passenger</option>
+                     <option>Wheelchair for cabin seat</option>
+                     <option>Wheelchair for ramp</option>
+                     <option>Wheelchair for steps</option>
+                     <option>Wheelchair dry cell battery</option>
+                     <option>Wheelchair wet cell battery</option>
+                  </select>
+               </label>
+            </div>
+            <br>
+         </div>
+
+         <div ng-if="children > 0 || infants > 0">
+            <hr>
+            <hr>
+            <br>
+         </div>
+
+         <div ng-repeat="t in numChildren() track by $index">
+            <center>
+               <h3 class="padding">Child {{$index + 1}}</h3>
+            </center>
+            <div class="list">
+               <div class="item item-divider divide">Personal Information</div>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">First Name</span>
+                  <input type="text" name="first_name_child_{{$index}}" placeholder="First Name" ng-model="childFormData[$index].first_name" required>
+                  <p ng-show="personalInfoForm.first_name_child_{{$index}}.$error.required && (submitted || personalInfoForm.first_name_child_{{$index}}.$dirty)" class="has-error">First Name is required.</p>
+               </label>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">Last Name</span>
+                  <input type="text" name="last_name_child_{{$index}}" placeholder="Last Name" ng-model="childFormData[$index].last_name" required>
+                  <p ng-show="personalInfoForm.last_name_child_{{$index}}.$error.required && (submitted || personalInfoForm.last_name_child_{{$index}}.$dirty)" class="has-error">Last Name is required.</p>
+               </label>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">Nationality</span>
+                  <input type="text" name="nationality_child_{{$index}}" placeholder="Nationality" ng-model="childFormData[$index].nationality" required>
+                  <p ng-show="personalInfoForm.nationality_child_{{$index}}.$error.required && (submitted || personalInfoForm.nationality_child_{{$index}}.$dirty)" class="has-error">Nationality is required.</p>
+               </label>
+
+               <div class="item item-icon-left" ion-datetime-picker date name="birth_date_child_{{$index}}" ng-model="childFormData[$index].birth_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Date of Birth:
+                  &nbsp;{{childFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.birth_date_child_{{$index}}.$error.required && (submitted || personalInfoForm.birth_date_child_{{$index}}.$dirty)" class="has-error padding">Date of Birth is required.</p>
+
+               <div class="item item-divider divide">Passport Information</div>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">Passport Number</span>
+                  <input type="text" onkeypress="return isNumber(event);" name="passport_number_child_{{$index}}" placeholder="Passport Number" ng-model="childFormData[$index].passport_number" required>
+                  <p ng-show="personalInfoForm.passport_number_child_{{$index}}.$error.required && (submitted || personalInfoForm.passport_number_child_{{$index}}.$dirty)" class="has-error">Passport Number is required.</p>
+
+               </label>
+
+               <div class="item item-icon-left" ion-datetime-picker date name="issue_date_child_{{$index}}" ng-model="childFormData[$index].issue_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Issue Date:
+                  &nbsp;{{childFormData[$index].issue_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.issue_date_child_{{$index}}.$error.required && (submitted || personalInfoForm.issue_date_child_{{$index}}.$dirty)" class="has-error padding">Issue Date is required.</p>
+
+               <div class="item item-icon-left" ion-datetime-picker date name="expiry_date_child_{{$index}}" ng-model="childFormData[$index].expiry_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Expiry Date:
+                  &nbsp;{{childFormData[$index].expiry_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.expiry_date_child_{{$index}}.$error.required && (submitted || personalInfoForm.expiry_date_child_{{$index}}.$dirty)" class="has-error padding">Expiry Date is required.</p>
+
+               <div class="item item-divider divide">Special Requirements</div>
+               <label class="item item-input item-select">
+                  <div class="input-label">
+                     Meal preference
+                  </div>
+                  <select ng-init="childFormData[$index].mealPreference='None'" ng-model="childFormData[$index].mealPreference">
+                     <option>None</option>
+							<option>Asian vegetarian meal</option>
+							<option>Baby food</option>
+							<option>Bland meal</option>
+							<option>Child food</option>
+							<option>Diabetic meal</option>
+							<option>Gelatin free meal</option>
+							<option>Low calorie meal</option>
+							<option>Low fat meal</option>
+							<option>Salt free meal</option>
+							<option>Lacto-ovo vegetarian meal</option>
+                  </select>
+               </label>
+
+               <label class="item item-input item-select">
+                  <div class="input-label">
+                     Special needs
+                  </div>
+                  <select ng-init="childFormData[$index].specialNeed='None'" ng-model="childFormData[$index].specialNeed">
+                     <option>None</option>
+                     <option>Deaf passenger</option>
+                     <option>Wheelchair for cabin seat</option>
+                     <option>Wheelchair for ramp</option>
+                     <option>Wheelchair for steps</option>
+                     <option>Wheelchair dry cell battery</option>
+                     <option>Wheelchair wet cell battery</option>
+                  </select>
+               </label>
+            </div>
+            <br>
+         </div>
+         <div ng-if="infants > 0">
+            <hr>
+            <hr>
+            <br>
+         </div>
+
+         <div ng-repeat="t in numInfants() track by $index">
+            <center>
+               <h3 class="padding">Infant {{$index + 1}}</h3>
+            </center>
+            <div class="list">
+               <div class="item item-divider divide">Personal Information</div>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">First Name</span>
+                  <input type="text" name="first_name_infant_{{$index}}" placeholder="First Name" ng-model="infantFormData[$index].first_name"required>
+                  <p ng-show="personalInfoForm.first_name_infant_{{$index}}.$error.required && (submitted || personalInfoForm.first_name_infant_{{$index}}.$dirty)" class="has-error">First Name is required.</p>
+               </label>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">Last Name</span>
+                  <input type="text" name="last_name_infant_{{$index}}" placeholder="Last Name" ng-model="infantFormData[$index].last_name"required>
+                  <p ng-show="personalInfoForm.last_name_infant_{{$index}}.$error.required && (submitted || personalInfoForm.last_name_infant_{{$index}}.$dirty)" class="has-error">Last Name is required.</p>
+               </label>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">Nationality</span>
+                  <input type="text" name="nationality_infant_{{$index}}" placeholder="Nationality" ng-model="infantFormData[$index].nationality"required>
+                  <p ng-show="personalInfoForm.nationality_infant_{{$index}}.$error.required && (submitted || personalInfoForm.nationality_infant_{{$index}}.$dirty)" class="has-error">Nationality is required.</p>
+               </label>
+
+               <div class="item item-icon-left" ion-datetime-picker date name="birth_date_infant_{{$index}}" ng-model="infantFormData[$index].birth_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Date of Birth:
+                  &nbsp;{{infantFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.birth_date_infant_{{$index}}.$error.required && (submitted || personalInfoForm.birth_date_infant_{{$index}}.$dirty)" class="has-error padding">Date of Birth is required.</p>
+
+               <div class="item item-divider divide">Passport Information</div>
+               <label class="item item-input item-floating-label">
+                  <span class="input-label">Passport Number</span>
+                  <input type="text" onkeypress="return isNumber(event);" name="passport_number_infant_{{$index}}" placeholder="Passport Number" ng-model="infantFormData[$index].passport_number"required>
+                  <p ng-show="personalInfoForm.passport_number_infant_{{$index}}.$error.required && (submitted || personalInfoForm.passport_number_infant_{{$index}}.$dirty)" class="has-error">Passport Number is required.</p>
+               </label>
+
+               <div class="item item-icon-left" ion-datetime-picker date name="issue_date_infant_{{$index}}" ng-model="infantFormData[$index].issue_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Issue Date:
+                  &nbsp;{{infantFormData[$index].issue_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.issue_date_infant_{{$index}}.$error.required && (submitted || personalInfoForm.issue_date_infant_{{$index}}.$dirty)" class="has-error padding">Issue Date is required.</p>
+
+               <div class="item item-icon-left" ion-datetime-picker date name="expiry_date_infant_{{$index}}" ng-model="infantFormData[$index].expiry_date" required>
+                  <i class="icon ion-ios-calendar positive"></i>
+                  Expiry Date:
+                  &nbsp;{{infantFormData[$index].expiry_date| date: "yyyy-MMMM-dd"}}
+               </div>
+               <p ng-show="personalInfoForm.expiry_date_infant_{{$index}}.$error.required && (submitted || personalInfoForm.expiry_date_infant_{{$index}}.$dirty)" class="has-error padding">Expiry Date is required.</p>
+
+               <div class="item item-divider divide">Special Requirements</div>
+               <label class="item item-input item-select">
+                  <div class="input-label">
+                     Meal preference
+                  </div>
+                  <select ng-init="infantFormData[$index].mealPreference='None'" ng-model="infantFormData[$index].mealPreference">
+                     <option>None</option>
+							<option>Asian vegetarian meal</option>
+							<option>Baby food</option>
+							<option>Bland meal</option>
+							<option>Child food</option>
+							<option>Diabetic meal</option>
+							<option>Gelatin free meal</option>
+							<option>Low calorie meal</option>
+							<option>Low fat meal</option>
+							<option>Salt free meal</option>
+							<option>Lacto-ovo vegetarian meal</option>
+                  </select>
+               </label>
+
+               <label class="item item-input item-select">
+                  <div class="input-label">
+                     Special needs
+                  </div>
+                  <select ng-init="infantFormData[$index].specialNeed='None'" ng-model="infantFormData[$index].specialNeed">
+                     <option>None</option>
+                     <option>Deaf passenger</option>
+                     <option>Wheelchair for cabin seat</option>
+                     <option>Wheelchair for ramp</option>
+                     <option>Wheelchair for steps</option>
+                     <option>Wheelchair dry cell battery</option>
+                     <option>Wheelchair wet cell battery</option>
+                  </select>
+               </label>
+            </div>
+            <br>
+         </div>
+
+         <div class="padding">
+            <button type="submit" class="icon icon-right ion-ios-arrow-right button button-block button-positive">Next</button>
+         </div>
+      </form>
+   </ion-content>
+</ion-view>
