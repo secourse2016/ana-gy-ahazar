@@ -5,15 +5,18 @@ App.controller('bookSearch', function($scope,FlightsSrv,$location,ionicDatePicke
 		callback: function (val) {  //Mandatory
 			console.log('Return value from the datepicker popup is : ' + val, new Date(val));
 			$scope.searchData.departureDate = val;
+
+			if(new Date($scope.searchData.returnDate) < new Date($scope.searchData.departureDate)){
+				$scope.searchData.returnDate = $scope.searchData.departureDate;
+			}
 		},
 		from: new Date(), //Optional
-		to: new Date(2018, 10, 30), //Optional
+		to: new Date(2030, 12, 31), //Optional
 		showTodayButton: true,
 		todayLabel: 'Today',
 		closeLabel: 'Close',
-		year_select: new Date().getFullYear(),
 		inputDate: new Date(),      //Optional
-		closeOnSelect: false,       //Optional
+		closeOnSelect: true,       //Optional
 		templateType: 'popup'       //Optional
 	};
 
@@ -23,20 +26,23 @@ App.controller('bookSearch', function($scope,FlightsSrv,$location,ionicDatePicke
 			$scope.searchData.returnDate = val;
 		},
 		from: new Date(), //Optional
-		to: new Date(2018, 10, 30), //Optional
+		to: new Date(2030, 12, 31), //Optional
 		showTodayButton: true,
 		todayLabel: 'Today',
 		closeLabel: 'Close',
 		inputDate: new Date(),      //Optional
-		closeOnSelect: false,       //Optional
+		closeOnSelect: true,       //Optional
 		templateType: 'popup'       //Optional
 	};
 
 	$scope.openDepartureDatePicker = function(){
+		ipObj1.inputDate = new Date($scope.searchData.departureDate) || new Date();
 		ionicDatePicker.openDatePicker(ipObj1);
 	};
 
 	$scope.openReturnDatePicker = function(){
+		ipObj2.inputDate = new Date($scope.searchData.returnDate) || new Date();
+		ipObj2.from = new Date($scope.searchData.departureDate) || new Date();
 		ionicDatePicker.openDatePicker(ipObj2);
 	};
 
