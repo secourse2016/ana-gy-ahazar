@@ -12,7 +12,7 @@ App.controller('bookSearch', function($scope,FlightsSrv,$location,ionicDatePicke
 		todayLabel: 'Today',
 		closeLabel: 'Close',
 		year_select: new Date().getFullYear(),
-		// inputDate: new Date(),      //Optional
+		inputDate: new Date(),      //Optional
 		closeOnSelect: false,       //Optional
 		templateType: 'popup'       //Optional
 	};
