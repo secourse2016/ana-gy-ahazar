@@ -142,7 +142,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       FlightsSrv.setArrivalDateTime(flight.arrivalDateTime);
       FlightsSrv.setAircraftType(flight.aircraftType);
       FlightsSrv.setAircraftModel(flight.aircraftModel);
-      FlightsSrv.setCost(flight.Cost);
+      FlightsSrv.setCost(flight.cost);
       $location.path("/tabs/flights-details");
    };
 

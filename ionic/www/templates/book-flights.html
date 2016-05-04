@@ -17,7 +17,7 @@
             <div class="col"><ion-radio id="bookID" name="dep_reserve" ng-value="{{flight}}" ng-model="$parent.flightData.dep_flight">Choose</ion-radio></div>
             <div class="col">{{flight.departureDateTime | amDateFormat:'HH:mm'}} - {{flight.arrivalDateTime | amDateFormat:'HH:mm'}}</div>
             <div class="col">{{flight.cost*total_people}} {{flight.currency}}</div>
-            <div class="col"><ion-item ng-click="showInfo(flight)" id="infoID">Details <i class="icon ion-chevron-right icon-accessory"></i></ion-item></div>
+            <div class="col"><ion-item ng-click="showInfo(flight)" class="button button-positive" id="infoID">Details <i class="icon ion-chevron-right icon-accessory"></i></ion-item></div>
          </div>
          <center>
             <p ng-show="(flightData.dep_flight == '' || flightData.dep_flight === undefined) && submitted" class="has-error padding">Departure Flight is required.</p>
@@ -41,7 +41,7 @@
                <div class="col"><ion-radio id="bookID"name="ret_reserve" ng-value="{{flight}}" ng-model="$parent.flightData.ret_flight" required>Choose</ion-radio></div>
                <div class="col">{{flight.departureDateTime | amDateFormat:'HH:mm'}} - {{flight.arrivalDateTime | amDateFormat:'HH:mm'}}</div>
                <div class="col">{{flight.cost*total_people}} {{flight.currency}}</div>
-               <div class="col"><ion-item ng-click="showInfo(flight)" id="infoID">Details <i class="icon ion-chevron-right icon-accessory"></i></ion-item></div>
+               <div class="col"><ion-item ng-click="showInfo(flight)" class="button button-positive" id="infoID">Details <i class="icon ion-chevron-right icon-accessory"></i></ion-item></div>
             </div>
          </div>
 
