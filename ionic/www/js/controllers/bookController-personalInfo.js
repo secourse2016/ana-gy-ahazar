@@ -1,7 +1,7 @@
-App.controller('bookController-personalInfo',function($scope, PersonalSrv, $location) {
-   $scope.adults = 1;
-   $scope.children = 1;
-   $scope.infants = 1;
+App.controller('bookController-personalInfo',function($scope, PersonalSrv, FlightsSrv, $location) {
+   $scope.adults = parseInt(FlightsSrv.getAdults());
+   $scope.children = parseInt(FlightsSrv.getChildren());
+   $scope.infants = parseInt(FlightsSrv.getInfants());
 
    $scope.adultFormData = [];
    $scope.childFormData = [];
@@ -27,18 +27,19 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, $loca
    $scope.submitForm = function(isValid) {
       $scope.submitted = true;
 
+      // sala7 daaaah 
       console.log($scope.adultFormData);
       console.log($scope.childFormData);
       console.log($scope.infantFormData);
+      PersonalSrv.setAdultsInfo($scope.adultFormData);
+      PersonalSrv.setChildrenInfo($scope.childFormData);
+      PersonalSrv.setInfantsInfo($scope.infantFormData);
+
+      $location.path('/tabs/payment');
       // check to make sure the form is completely valid
       if (isValid) {
          console.log('good');
 
-         PersonalSrv.setAdultsInfo($scope.adultFormData);
-         PersonalSrv.setChildrenInfo($scope.childFormData);
-         PersonalSrv.setInfantsInfo($scope.infantFormData);
-
-         $location.path('/tabs/payment');
       }
       else {
          console.log('bad');
