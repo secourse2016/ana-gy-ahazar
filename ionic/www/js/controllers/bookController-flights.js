@@ -7,9 +7,12 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    $scope.ret_airport = FlightsSrv.getSelectedDestinationAirport();
    var depDate = FlightsSrv.getDepartureDate();
    var retDate = FlightsSrv.getReturnDate();
+   var adults = FlightsSrv.getAdults();
+   var children = FlightsSrv.getChildren();
    var infants = FlightsSrv.getInfants();
    var searchClass = FlightsSrv.getClass();
-   var totalSeats = parseInt(FlightsSrv.getAdults()) + parseInt(FlightsSrv.getChildren());
+   $scope.total_people = parseInt(adults) + parseInt(children);
+   var totalSeats = parseInt(adults) + parseInt(children);
 
    $scope.flightData = {};
 
@@ -155,12 +158,9 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       if (isValid) {
          console.log('good');
 
-         FlightsSrv.setDepartureFlight($scope.dep_flight);
-         FlightsSrv.setReturnFlight($scope.ret_flight);
-         FlightsSrv.setOutgoingPrice(parseInt($scope.dep_price));
-         FlightsSrv.setIncomingPrice(parseInt($scope.ret_price));
-         FlightsSrv.setTotalPrice(parseInt($scope.dep_price) + parseInt($scope.ret_price));
-
+         FlightsSrv.setDepartureFlight($scope.flightData.dep_flight);
+         FlightsSrv.setReturnFlight($scope.flightData.ret_flight);
+         FlightsSrv.setTotalPrice((parseInt($scope.flightData.dep_flight.cost) + parseInt($scope.flightData.ret_flight.cost)) * parseInt($scope.total_people));
          $location.path("/tabs/personalInfo");
 
       }
