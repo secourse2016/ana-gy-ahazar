@@ -108,7 +108,10 @@ App.controller('bookController-payment', function($scope, FlightsSrv, PersonalSr
                      if(publishableKeyRet === 'not found'){
                        console.log('payment error');
                        $scope.loading = false;
-                       sweetAlert("Opps...", 'The booking service on the choosen airline is currently down. Please try again later.', "error");
+                       var alertPopup = $ionicPopup.alert({
+                         title: 'Opps...',
+                         template: '<center>The booking service on the choosen airline is currently down. Please try again later.</center>'
+                       });
                        $scope.$apply();
                      }
                      else{
@@ -123,7 +126,10 @@ App.controller('bookController-payment', function($scope, FlightsSrv, PersonalSr
                          if(responseRet.error){
                            console.log('payment error');
                            $scope.loading = false;
-                           sweetAlert("Opps...", responseRet.error.message, "error");
+                           var alertPopup = $ionicPopup.alert({
+                             title: 'Opps...',
+                             template: '<center>' + responseDep.error.message + '.</center>'
+                           });
                            $scope.$apply();
                          }
                          else{
