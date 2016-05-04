@@ -27,19 +27,19 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, Fligh
    $scope.submitForm = function(isValid) {
       $scope.submitted = true;
 
-      // sala7 daaaah 
+      // sala7 el dates
       console.log($scope.adultFormData);
       console.log($scope.childFormData);
       console.log($scope.infantFormData);
-      PersonalSrv.setAdultsInfo($scope.adultFormData);
-      PersonalSrv.setChildrenInfo($scope.childFormData);
-      PersonalSrv.setInfantsInfo($scope.infantFormData);
 
-      $location.path('/tabs/payment');
       // check to make sure the form is completely valid
       if (isValid) {
          console.log('good');
+         PersonalSrv.setAdultsInfo($scope.adultFormData);
+         PersonalSrv.setChildrenInfo($scope.childFormData);
+         PersonalSrv.setInfantsInfo($scope.infantFormData);
 
+         $location.path('/tabs/payment');
       }
       else {
          console.log('bad');

@@ -33,7 +33,7 @@
                   <p ng-show="personalInfoForm.nationality_adult_{{$index}}.$error.required && (submitted || personalInfoForm.nationality_adult_{{$index}}.$dirty)" class="has-error">Nationality is required.</p>
                </label>
 
-               <div class="item item-icon-left" ion-datetime-picker date name="birth_date_adult_{{$index}}" ng-model="adultFormData[$index].birth_date" required>
+               <div class="item item-icon-left" ion-datetime-picker date name="birth_date_adult_{{$index}}" ng-model="adultFormData[$index].birth_date">
                   <i class="icon ion-ios-calendar positive"></i>
                   Date of Birth:
                   &nbsp;{{adultFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
@@ -47,14 +47,14 @@
                   <p ng-show="personalInfoForm.passport_number_adult_{{$index}}.$error.required && (submitted || personalInfoForm.passport_number_adult_{{$index}}.$dirty)" class="has-error">Passport Number is required.</p>
                </label>
 
-               <div class="item item-icon-left" ion-datetime-picker date name="issue_date_adult_{{$index}}" ng-model="adultFormData[$index].issue_date" required>
+               <div class="item item-icon-left" ion-datetime-picker date name="issue_date_adult_{{$index}}" ng-model="adultFormData[$index].issue_date">
                   <i class="icon ion-ios-calendar positive"></i>
                   Issue Date:
                   &nbsp;{{adultFormData[$index].issue_date| date: "yyyy-MMMM-dd"}}
                </div>
                <p ng-show="personalInfoForm.issue_date_adult_{{$index}}.$error.required && (submitted || personalInfoForm.issue_date_adult_{{$index}}.$dirty)" class="has-error padding">Issue Date is required.</p>
 
-               <div class="item item-icon-left" ion-datetime-picker date name="expiry_date_adult_{{$index}}" ng-model="adultFormData[$index].expiry_date" required>
+               <div class="item item-icon-left" ion-datetime-picker date name="expiry_date_adult_{{$index}}" ng-model="adultFormData[$index].expiry_date">
                   <i class="icon ion-ios-calendar positive"></i>
                   Expiry Date:
                   &nbsp;{{adultFormData[$index].expiry_date| date: "yyyy-MMMM-dd"}}
@@ -155,7 +155,7 @@
                   <p ng-show="personalInfoForm.nationality_child_{{$index}}.$error.required && (submitted || personalInfoForm.nationality_child_{{$index}}.$dirty)" class="has-error">Nationality is required.</p>
                </label>
 
-               <div class="item item-icon-left" ion-datetime-picker date name="birth_date_child_{{$index}}" ng-model="childFormData[$index].birth_date" required>
+               <div class="item item-icon-left" ion-datetime-picker date name="birth_date_child_{{$index}}" ng-model="childFormData[$index].birth_date" >
                   <i class="icon ion-ios-calendar positive"></i>
                   Date of Birth:
                   &nbsp;{{childFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
@@ -170,14 +170,14 @@
 
                </label>
 
-               <div class="item item-icon-left" ion-datetime-picker date name="issue_date_child_{{$index}}" ng-model="childFormData[$index].issue_date" required>
+               <div class="item item-icon-left" ion-datetime-picker date name="issue_date_child_{{$index}}" ng-model="childFormData[$index].issue_date" >
                   <i class="icon ion-ios-calendar positive"></i>
                   Issue Date:
                   &nbsp;{{childFormData[$index].issue_date| date: "yyyy-MMMM-dd"}}
                </div>
                <p ng-show="personalInfoForm.issue_date_child_{{$index}}.$error.required && (submitted || personalInfoForm.issue_date_child_{{$index}}.$dirty)" class="has-error padding">Issue Date is required.</p>
 
-               <div class="item item-icon-left" ion-datetime-picker date name="expiry_date_child_{{$index}}" ng-model="childFormData[$index].expiry_date" required>
+               <div class="item item-icon-left" ion-datetime-picker date name="expiry_date_child_{{$index}}" ng-model="childFormData[$index].expiry_date" >
                   <i class="icon ion-ios-calendar positive"></i>
                   Expiry Date:
                   &nbsp;{{childFormData[$index].expiry_date| date: "yyyy-MMMM-dd"}}
@@ -249,7 +249,7 @@
                   <p ng-show="personalInfoForm.nationality_infant_{{$index}}.$error.required && (submitted || personalInfoForm.nationality_infant_{{$index}}.$dirty)" class="has-error">Nationality is required.</p>
                </label>
 
-               <div class="item item-icon-left" ion-datetime-picker date name="birth_date_infant_{{$index}}" ng-model="infantFormData[$index].birth_date" required>
+               <div class="item item-icon-left" ion-datetime-picker date name="birth_date_infant_{{$index}}" ng-model="infantFormData[$index].birth_date" >
                   <i class="icon ion-ios-calendar positive"></i>
                   Date of Birth:
                   &nbsp;{{infantFormData[$index].birth_date| date: "yyyy-MMMM-dd"}}
@@ -263,14 +263,14 @@
                   <p ng-show="personalInfoForm.passport_number_infant_{{$index}}.$error.required && (submitted || personalInfoForm.passport_number_infant_{{$index}}.$dirty)" class="has-error">Passport Number is required.</p>
                </label>
 
-               <div class="item item-icon-left" ion-datetime-picker date name="issue_date_infant_{{$index}}" ng-model="infantFormData[$index].issue_date" required>
+               <div class="item item-icon-left" ion-datetime-picker date name="issue_date_infant_{{$index}}" ng-model="infantFormData[$index].issue_date" >
                   <i class="icon ion-ios-calendar positive"></i>
                   Issue Date:
                   &nbsp;{{infantFormData[$index].issue_date| date: "yyyy-MMMM-dd"}}
                </div>
                <p ng-show="personalInfoForm.issue_date_infant_{{$index}}.$error.required && (submitted || personalInfoForm.issue_date_infant_{{$index}}.$dirty)" class="has-error padding">Issue Date is required.</p>
 
-               <div class="item item-icon-left" ion-datetime-picker date name="expiry_date_infant_{{$index}}" ng-model="infantFormData[$index].expiry_date" required>
+               <div class="item item-icon-left" ion-datetime-picker date name="expiry_date_infant_{{$index}}" ng-model="infantFormData[$index].expiry_date" >
                   <i class="icon ion-ios-calendar positive"></i>
                   Expiry Date:
                   &nbsp;{{infantFormData[$index].expiry_date| date: "yyyy-MMMM-dd"}}
