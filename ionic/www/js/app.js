@@ -41,6 +41,7 @@ App.config(function($stateProvider, $urlRouterProvider) {
          'tabs-home': {
             templateUrl: 'templates/home.html',
             controller: 'HomeController'
+
          }
       }
    })
@@ -89,7 +90,9 @@ App.config(function($stateProvider, $urlRouterProvider) {
       url: '/payment',
       views: {
          'tabs-book': {
-            templateUrl: 'templates/book-payment.html'
+            templateUrl: 'templates/book-payment.html',
+            controller: 'bookController-payment'
+
          }
       }
    })
