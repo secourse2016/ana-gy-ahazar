@@ -1,5 +1,32 @@
 <ion-view view-title="Manage Your Flight">
-  <ion-content class="padding">
-     Manage Your Flight
+  <ion-content id="myImg" class="padding">
+    <form name="ticketSearchForm" ng-submit="submitForm(ticketSearchForm.$valid)" novalidate>
+
+    <label class="list">
+      <div class="item item-text-wrap text-center" style="background-color:rgba(255, 255, 255,.8);">
+
+        <div class="row">
+          <div class="col">To check your reservation please enter
+            your Booking Reference and your Last Name.</div>
+        </div>
+
+       </div>
+       <div class="item item-text-wrap text-left" style="background-color:rgba(255, 255, 255,.8);">
+         <div class="list list-inset">
+   <label class="item item-input">
+     <input type="text" name="last_name" placeholder="Passenger's Last Name" ng-model="data.last_name" required>
+   </label>
+   <label class="item item-input">
+     <input type="text" name="reference" placeholder="Booking Reference Number" ng-model="data.reference" required>
+   </label>
+ </div>
+ <p ng-show="ticketSearchForm.last_name.$error.required && (submitted || ticketSearchForm.last_name.$dirty)" class="has-error">&nbsp;Last Name is required.</p>
+ <p ng-show="ticketSearchForm.reference.$error.required && (submitted || ticketSearchForm.reference.$dirty)" class="has-error">&nbsp;Booking Reference Number is required.</p>
+ <button type="submit" class="button button-full " style="background-color:#708090;color: #FFF;">
+   Retrieve my booking
+ </button>
+     </div>
+    </label>
+  </form>
   </ion-content>
 </ion-view>

@@ -36,6 +36,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
 
    $scope.showInfo = function(flight) {
+
       FlightsSrv.setAirline(flight.Airline);
       FlightsSrv.setDepartureDateTime(flight.departureDateTime);
       FlightsSrv.setArrivalDateTime(flight.arrivalDateTime);
@@ -56,7 +57,6 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       // check to make sure the form is completely valid
       if (isValid) {
          console.log('good');
-         console.log($scope.flightData);
 
          FlightsSrv.setDepartureFlight($scope.dep_flight);
          FlightsSrv.setReturnFlight($scope.ret_flight);
@@ -65,6 +65,7 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
          FlightsSrv.setTotalPrice(parseInt($scope.dep_price) + parseInt($scope.ret_price));
 
          $location.path("/tabs/personalInfo");
+
       }
       else {
          console.log('bad');
@@ -72,4 +73,4 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
 
    };
 
-})
+});

@@ -108,7 +108,8 @@ App.config(function($stateProvider, $urlRouterProvider) {
       url: '/manage',
       views: {
          'tabs-manage': {
-            templateUrl: 'templates/manage-ticketSearch.html'
+            templateUrl: 'templates/manage-ticketSearch.html',
+            controller: 'manageController-tickersearch'
          }
       }
    })
@@ -117,7 +118,8 @@ App.config(function($stateProvider, $urlRouterProvider) {
       url: '/manage/ticketInfo',
       views: {
          'tabs-manage': {
-            templateUrl: 'templates/manage-ticketInfo.html'
+            templateUrl: 'templates/manage-ticketInfo.html',
+            controller: 'manageController-ticketinfo'
          }
       }
    })
@@ -126,7 +128,8 @@ App.config(function($stateProvider, $urlRouterProvider) {
       url: '/manage/ticketEdit',
       views: {
          'tabs-manage': {
-            templateUrl: 'templates/manage-ticketEdit.html'
+            templateUrl: 'templates/manage-ticketEdit.html',
+            controller: 'manageController-edit'
          }
       }
    })

@@ -1,5 +1,12 @@
 App.factory('FlightsSrv', function ($http) {
    return {
+      getAirportCodes : function() {
+         //http://54.191.202.17/feedback/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI
+         return $http.get('http://54.191.202.17/api/airports/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI');
+      },
+      getCountries: function() {
+         return $http.get('http://54.191.202.17/api/countries/?wt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI');
+      },
       /*Flight Info */
       setSearchOther: function(value) {
          this.searchOther = value;
@@ -92,41 +99,41 @@ App.factory('FlightsSrv', function ($http) {
          return this.total_price;
       },
       setAirline: function (value) {
-          this.airline = value; 
+          this.airline = value;
       },
       getAirline: function () {
          return this.airline;
       },
       setDepartureDateTime: function (value) {
-         this.departureDateTime = value; 
+         this.departureDateTime = value;
       },
       getDepartureDateTime: function () {
-         return this.departureDateTime; 
+         return this.departureDateTime;
       },
       setArrivalDateTime: function (value) {
-         this.arrivalDateTime = value; 
+         this.arrivalDateTime = value;
       },
       getArrivalDateTime: function () {
-         return this.arrivalDateTime; 
+         return this.arrivalDateTime;
       },
       setAircraftType: function (value) {
-         this.aircraftType = value; 
+         this.aircraftType = value;
       },
       getAircraftType: function () {
-         return this.aircraftType; 
+         return this.aircraftType;
       },
       setAircraftModel: function (value) {
-         this.aircraftModel = value; 
+         this.aircraftModel = value;
       },
       getAircraftModel: function () {
-         return this.aircraftModel; 
+         return this.aircraftModel;
       },
       setCost: function (value) {
-         this.cost = value; 
+         this.cost = value;
       },
       getCost: function () {
-         return this.cost; 
+         return this.cost;
       }
 
-   };   
+   };
 });
