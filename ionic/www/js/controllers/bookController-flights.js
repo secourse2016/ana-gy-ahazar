@@ -1,41 +1,138 @@
 
 App.controller('bookController-flights', function($scope, FlightsSrv, $location) {
 
-      var searchOther = FlightsSrv.getSearchOther();
-      var flightType = FlightsSrv.getFlightType();
-      $scope.dep_airport = FlightsSrv.getSelectedOriginAirport();
-      $scope.ret_airport = FlightsSrv.getSelectedDestinationAirport();
-      var depDate = FlightsSrv.getDepartureDate();
-      var retDate = FlightsSrv.getReturnDate();
-      var adults = FlightsSrv.getAdults();
-      var children = FlightsSrv.getChildren();
-      var infants = FlightsSrv.getInfants();
-      var searchClass = FlightsSrv.getClass();
+   var search_other = FlightsSrv.getSearchOther();
+   var flightType = FlightsSrv.getFlightType();
+   $scope.dep_airport = FlightsSrv.getSelectedOriginAirport();
+   $scope.ret_airport = FlightsSrv.getSelectedDestinationAirport();
+   var depDate = FlightsSrv.getDepartureDate();
+   var retDate = FlightsSrv.getReturnDate();
+   var infants = FlightsSrv.getInfants();
+   var searchClass = FlightsSrv.getClass();
+   var totalSeats = parseInt(FlightsSrv.getAdults()) + parseInt(FlightsSrv.getChildren());
 
-       var flights =
-      [
-        {Airline:"Air Madagascar", departureDateTime:"03:40",  arrivalDateTime: "07:40", aircraftType:"Bombardier", aircraftModel:"F868", Cost:"8127",  Entertainment:"Wifi Radio USB"},
-        {Airline:"Egypt air", departureDateTime:"03:40",  arrivalDateTime: "07:40", aircraftType:"Bombardier", aircraftModel:"F868", Cost:"8127",  Entertainment:"Wifi Radio USB"},
-        {Airline:"KLM", departureDateTime:"03:40",  arrivalDateTime: "07:40", aircraftType:"Bombardier", aircraftModel:"F868", Cost:"8127",  Entertainment:"Wifi Radio USB"},
-        ];
-        $scope.flights = flights;
+   $scope.flightData = {};
 
-      var retFlights =
-      [
-        {Airline:"Air Madagascar", departureDateTime:"03:40",  arrivalDateTime: "07:40", aircraftType:"Bombardier", aircraftModel:"F868", Cost:"8127",  Entertainment:"Wifi Radio USB"},
-        {Airline:"Air Madagascar", departureDateTime:"03:40",  arrivalDateTime: "07:40", aircraftType:"Bombardier", aircraftModel:"F868", Cost:"8127",  Entertainment:"Wifi Radio USB"},
-      ];
-      $scope.retFlights = retFlights;
+   if (FlightsSrv.getFlightType() == "round") {
+      $scope.show_incoming = true;
+
+      var dep_month = (depDate.getMonth() + 1);
+      if (dep_month < 10)
+         dep_month = '0' + dep_month;
+
+      var dep_day = depDate.getDate();
+      if (dep_day < 10)
+         dep_day = '0' + dep_day;
+
+      var dep_time = depDate.getFullYear() + '-' + dep_month + '-' + dep_day;
+      dep_time = moment(dep_time).toDate().getTime();
+      console.log(dep_time);
+
+      var ret_month = (retDate.getMonth() + 1);
+      if (ret_month < 10)
+         ret_month = '0' + ret_month;
+
+      var ret_day = retDate.getDate();
+      if (ret_day < 10)
+         ret_day = '0' + ret_day;
+
+      var ret_time = retDate.getFullYear() + '-' + ret_month + '-' + ret_day;
+      ret_time = moment(ret_time).toDate().getTime();
+      console.log(ret_time);
+
+      FlightsSrv.getRoundFlights($scope.dep_airport, $scope.ret_airport, dep_time, ret_time, searchClass, totalSeats).success(function(response) {
+         var myOutgoingFlights = response.outgoingFlights;
+         for(var i = 0; i < myOutgoingFlights.length; i++) {
+           myOutgoingFlights[i].IP = "54.191.202.17";
+         }
+
+         var myReturnFlights = response.returnFlights;
+         for(var i = 0; i < myReturnFlights.length; i++) {
+           myReturnFlights[i].IP = "54.191.202.17";
+         }
+
+         var departureHasFlights = (response.outgoingFlights.length > 0);
+         var returnHasFlights = (response.returnFlights.length > 0);
+
+         if(search_other){
+            // $scope.loading = true;
+            FlightsSrv.getOtherRoundFlights($scope.dep_airport, $scope.ret_airport, dep_time, ret_time, searchClass, totalSeats).success(function(res) {
+               var otherOutgoingFlights = res.outgoingFlights;
+               var otherReturnFlights = res.returnFlights;
+               var allOutgoingFlights = concat(myOutgoingFlights, otherOutgoingFlights);
+               var allReturnFlights = concat(myReturnFlights, otherReturnFlights);
+               $scope.departureFlights = allOutgoingFlights;
+               $scope.returnFlights = allReturnFlights;
+
+               if (res.outgoingFlights.length > 0)
+               $scope.dep_empty = false;
+               else
+               $scope.dep_empty = !departureHasFlights;
 
 
-      if (FlightsSrv.getFlightType() == "round") {
-        $scope.show_incoming = true;
-      }
+               if (res.returnFlights.length > 0)
+               $scope.ret_empty = false;
+               else
+               $scope.ret_empty = !returnHasFlights;
+
+               $scope.loading = false;
+            });
+         }
+         else{
+            $scope.departureFlights = myOutgoingFlights;
+            $scope.returnFlights = myReturnFlights;
+            $scope.dep_empty = !departureHasFlights;
+            $scope.ret_empty = !returnHasFlights;
+         }
+
+      });
+   }
+   else {
+      $scope.show_incoming = false;
+
+      var dep_month = (depDate.getMonth() + 1);
+      if (dep_month < 10)
+         dep_month = '0' + dep_month;
+
+      var dep_day = depDate.getDate();
+      if (dep_day < 10)
+         dep_day = '0' + dep_day;
+
+      var dep_time = depDate.getFullYear() + '-' + dep_month + '-' + dep_day;
+      dep_time = moment(dep_time + ' 12:00 AM', 'YYYY-MM-DD hh:mm A').toDate().getTime();
+
+      FlightsSrv.getOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, searchClass, totalSeats).success(function(response) {
+         var myFlights = response.outgoingFlights;
+         for(var i = 0; i < myFlights.length; i++) {
+           myFlights[i].IP = "54.191.202.17";
+         }
+
+         var hasFlights = (response.outgoingFlights.length > 0);
+
+         if(search_other){
+            $scope.loading = true;
+            FlightsSrv.getOtherOneFlights($scope.dep_airport, $scope.ret_airport, dep_time, searchClass, totalSeats).success(function(res) {
+               var otherFlights = res.outgoingFlights;
+               var allFlights = concat(myFlights, otherFlights);
+               $scope.departureFlights = allFlights;
+
+               if (res.outgoingFlights.length > 0)
+               $scope.dep_empty = false;
+               else
+               $scope.dep_empty = !hasFlights;
+
+               $scope.loading = false;
+            });
+         }
+         else{
+            $scope.departureFlights = myFlights;
+            $scope.dep_empty = !hasFlights;
+         }
+      });
+   }
 
 
-      $scope.showInfo = function(flight) {
-        console.log("clicked");
-        console.log(flight);
+   $scope.showInfo = function(flight) {
 
       FlightsSrv.setAirline(flight.Airline);
       FlightsSrv.setDepartureDateTime(flight.departureDateTime);
@@ -44,34 +141,44 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
       FlightsSrv.setAircraftModel(flight.aircraftModel);
       FlightsSrv.setCost(flight.Cost);
       $location.path("/tabs/flights-details");
-      $scope.$apply();
-      };
+   };
 
-    /*
-    Validations
-    */
+   /*
+   Validations
+   */
    $scope.submitted = false;
-      //should be editted
-      $scope.submitForm = function(isValid) {
-        $scope.submitted = true;
+   //should be editted
+   $scope.submitForm = function(isValid) {
+      $scope.submitted = true;
 
-        // check to make sure the form is completely valid
-        if (isValid) {
-           console.log('good');
+      // check to make sure the form is completely valid
+      if (isValid) {
+         console.log('good');
 
-           FlightsSrv.setDepartureFlight($scope.dep_flight);
-           FlightsSrv.setReturnFlight($scope.ret_flight);
-           FlightsSrv.setOutgoingPrice(parseInt($scope.dep_price));
-           FlightsSrv.setIncomingPrice(parseInt($scope.ret_price));
-           FlightsSrv.setTotalPrice(parseInt($scope.dep_price) + parseInt($scope.ret_price));
+         FlightsSrv.setDepartureFlight($scope.dep_flight);
+         FlightsSrv.setReturnFlight($scope.ret_flight);
+         FlightsSrv.setOutgoingPrice(parseInt($scope.dep_price));
+         FlightsSrv.setIncomingPrice(parseInt($scope.ret_price));
+         FlightsSrv.setTotalPrice(parseInt($scope.dep_price) + parseInt($scope.ret_price));
 
-          $location.path("/tabs/personalInfo");
+         $location.path("/tabs/personalInfo");
 
-        }
-        else {
-           console.log('bad');
-        }
+      }
+      else {
+         console.log('bad');
+      }
 
-      };
+   };
 
-      })
+});
+
+/*
+To Concatinate 2 Arrays.
+ */
+var concat = function(x, y) {
+   for (var i = 0; i < y.length; i++) {
+      x.push(y[i]);
+   }
+
+   return x;
+};
