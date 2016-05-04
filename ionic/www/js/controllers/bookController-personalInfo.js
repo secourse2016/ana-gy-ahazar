@@ -21,7 +21,7 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, Fligh
          $scope.adultFormData[adultIndex].birth_date = val;
       },
       to: new Date().setFullYear(new Date().getFullYear() - 12), //Optional
-      closeLabel: 'Close',
+      cloeLabel: 'Close',
       closeOnSelect: true,       //Optional
       templateType: 'popup'       //Optional
    };
@@ -300,7 +300,7 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, Fligh
    // function to submit the form after all validation has occurred
    $scope.submitForm = function(isValid) {
       $scope.submitted = true;
-      
+
       console.log($scope.adultFormData);
       console.log($scope.childFormData);
       console.log($scope.infantFormData);
