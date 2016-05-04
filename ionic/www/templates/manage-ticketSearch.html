@@ -14,10 +14,10 @@
        <div class="item item-text-wrap text-left" style="background-color:rgba(255, 255, 255,.8);">
          <div class="list list-inset">
    <label class="item item-input">
-     <input type="text" name="last_name" placeholder="Passenger's Last Name" ng-model="data.last_name" required>
+     <input type="text" name="last_name" placeholder="Passenger's Last Name" autocomplete="off" ng-model="data.last_name" required>
    </label>
    <label class="item item-input">
-     <input type="text" name="reference" placeholder="Booking Reference Number" ng-model="data.reference" required>
+     <input type="text" name="reference" placeholder="Booking Reference Number" autocomplete="off" ng-model="data.reference" required>
    </label>
  </div>
  <p ng-show="ticketSearchForm.last_name.$error.required && (submitted || ticketSearchForm.last_name.$dirty)" class="has-error">&nbsp;Last Name is required.</p>
