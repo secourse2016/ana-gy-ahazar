@@ -12,8 +12,8 @@
     "IP": "52.90.46.68"
   },
   {
-    "airline":"Air France",
-    "IP":"52.34.160.140"
+    "airline":"AirFrance",
+    "IP":"52.26.173.245"
   },
   {
     "airline":"Swiss Air",
@@ -94,5 +94,9 @@
   {
     "airline":"Air Canada",
     "IP":"52.36.250.55"
+  },
+  {
+    "airline":"ir Berlin",
+    "IP":"ec2-52-38-101-89.us-west-2.compute.amazonaws.com"
   }
 ]
