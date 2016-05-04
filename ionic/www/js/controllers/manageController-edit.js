@@ -1,6 +1,7 @@
-App.controller('manageController-ticketedit', function($scope, ManageSrv, FlightsSrv, $location) {
+App.controller('manageController-edit', function($scope, ManageSrv, $location, $ionicLoading, $ionicHistory, $timeout) {
    var reservationData = ManageSrv.getReservationData();
 
+   console.log(reservationData);
    $scope.adults = reservationData.adults;
    $scope.children = reservationData.children;
    $scope.infants = reservationData.infants;
@@ -8,22 +9,6 @@ App.controller('manageController-ticketedit', function($scope, ManageSrv, Flight
    $scope.adultFormData = [];
    $scope.childFormData = [];
    $scope.infantFormData = [];
-
-   /*
-   Angular Bootstrap Datepicker.
-   */
-   $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-   $scope.format = $scope.formats[0];
-   $scope.altInputFormats = ['M!/d!/yyyy'];
-
-   /* Get All The Countries With Their Country Codes */
-   function Countries() {
-      FlightsSrv.getCountries().success(function(countries) {
-         $scope.Countries = countries;
-      });
-   };
-
-   Countries();
 
    /* By Default all the formData arrays should contain the old data */
    for(i = 0; i < $scope.adults.length; i++) {
@@ -51,6 +36,7 @@ App.controller('manageController-ticketedit', function($scope, ManageSrv, Flight
       json.last_name = currentChild.last_name;
       json.nationality = currentChild.nationality;
       json.birth_date = currentChild.birth_date;
+      json.passport_number = currentChild.passport_number;
 
       $scope.childFormData[i] = json;
    }
@@ -62,10 +48,10 @@ App.controller('manageController-ticketedit', function($scope, ManageSrv, Flight
       json.last_name = currentInfant.last_name;
       json.nationality = currentInfant.nationality;
       json.birth_date = currentInfant.birth_date;
+      json.passport_number = currentInfant.passport_number;
 
       $scope.infantFormData[i] = json;
    }
-
 
    $scope.save = function() {
       reservationData.adults = $scope.adultFormData;
@@ -75,17 +61,13 @@ App.controller('manageController-ticketedit', function($scope, ManageSrv, Flight
       ManageSrv.setReservationData(reservationData);
 
       ManageSrv.editReservation(reservationData).success(function() {
-         swal({
-            title: "Edited!",
-            text: "Your reservation has been updated.",
-            type: "success"
-         });
-
-         $location.url('/manage/ticketinfo');
+         $ionicLoading.show({ template: 'Your changes have been saved', noBackdrop: true, duration: 2000 });
+         $location.path('/tabs/manage/ticketInfo');
+         $timeout(function () {
+            $ionicHistory.clearCache();
+            $ionicHistory.clearHistory();
+            // $log.debug('clearing cache')
+         },300)
       });
    };
-
-   $scope.goBack = function() {
-      $location.url('/manage/ticketinfo');
-   }
 });
