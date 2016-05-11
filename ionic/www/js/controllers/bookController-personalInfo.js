@@ -15,13 +15,17 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, Fligh
 
    // Datepicker for Adult birth day.
    var adultIndex = 0;
+   var adultTo = new Date();
+   adultTo.setDate(adultTo.getDate() - 4380);
    var ipObjAdult1 = {
       callback: function (val) {  //Mandatory
          console.log('Return value from the datepicker popup is : ' + val, new Date(val));
          $scope.adultFormData[adultIndex].birth_date = val;
       },
-      to: new Date().setFullYear(new Date().getFullYear() - 12), //Optional
-      cloeLabel: 'Close',
+      from: new Date(1900, 1, 1),
+      to: adultTo, //Optional
+      closeLabel: 'Close',
+      inputDate: adultTo,
       closeOnSelect: true,       //Optional
       templateType: 'popup'       //Optional
    };
@@ -49,6 +53,7 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, Fligh
             $scope.adultFormData[adultIndex].expiry_date = $scope.adultFormData[adultIndex].issue_date;
          }
       },
+      from: new Date(1900, 1, 1),
       to: new Date(), //Optional
       showTodayButton: true,
       todayLabel: 'Today',
@@ -62,10 +67,13 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, Fligh
       if($scope.adultFormData[adultIndex].issue_date){
          ipObjAdult2.inputDate = new Date($scope.adultFormData[adultIndex].issue_date);
       }
+      console.log(ipObjAdult2.from);
+      console.log(ipObjAdult2.to);
       ionicDatePicker.openDatePicker(ipObjAdult2);
    };
 
    $scope.openIssueAdult = function(i) {
+      console.log(i);
       adultIndex = i;
       openAdultIssueDatePicker();
    };
@@ -77,7 +85,7 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, Fligh
          $scope.adultFormData[adultIndex].expiry_date = val;
       },
       from: new Date(), //Optional
-      to: new Date(2018, 10, 30), //Optional
+      to: new Date(2030, 10, 30), //Optional
       showTodayButton: true,
       todayLabel: 'Today',
       closeLabel: 'Close',
@@ -105,14 +113,17 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, Fligh
 
    // Datepicker for Child birth day.
    var childIndex = 0;
+   var ChildTo = new Date();
+   ChildTo.setDate(ChildTo.getDate() - 730);
    var ipObjChild1 = {
       callback: function (val) {  //Mandatory
          console.log('Return value from the datepicker popup is : ' + val, new Date(val));
          $scope.childFormData[childIndex].birth_date = val;
       },
-      from: new Date().setFullYear(new Date().getFullYear() - 12),
-      to: new Date().setFullYear(new Date().getFullYear() - 2), //Optional
+      from: new Date(1900, 1, 1),
+      to: ChildTo, //Optional
       closeLabel: 'Close',
+      inputDate: ChildTo,
       closeOnSelect: true,       //Optional
       templateType: 'popup'       //Optional
    };
@@ -139,6 +150,7 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, Fligh
             $scope.childFormData[childIndex].expiry_date = $scope.childFormData[childIndex].issue_date;
          }
       },
+      from: new Date(1900, 1, 1),
       to: new Date(), //Optional
       showTodayButton: true,
       todayLabel: 'Today',
@@ -167,7 +179,7 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, Fligh
          $scope.childFormData[childIndex].expiry_date = val;
       },
       from: new Date(), //Optional
-      to: new Date(2018, 10, 30), //Optional
+      to: new Date(2030, 10, 30), //Optional
       showTodayButton: true,
       todayLabel: 'Today',
       closeLabel: 'Close',
@@ -200,9 +212,10 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, Fligh
          console.log('Return value from the datepicker popup is : ' + val, new Date(val));
          $scope.infantFormData[infantIndex].birth_date = val;
       },
-      from: new Date().setFullYear(new Date().getFullYear() - 2),
+      from: new Date(1900, 1, 1),
       to: new Date(), //Optional
       closeLabel: 'Close',
+      inputDate: new Date(),
       closeOnSelect: true,       //Optional
       templateType: 'popup'       //Optional
    };
@@ -229,6 +242,7 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, Fligh
             $scope.infantFormData[infantIndex].expiry_date = $scope.infantFormData[infantIndex].issue_date;
          }
       },
+      from: new Date(1900, 1, 1),
       to: new Date(), //Optional
       showTodayButton: true,
       todayLabel: 'Today',
@@ -257,7 +271,7 @@ App.controller('bookController-personalInfo',function($scope, PersonalSrv, Fligh
          $scope.infantFormData[infantIndex].expiry_date = val;
       },
       from: new Date(), //Optional
-      to: new Date(2018, 10, 30), //Optional
+      to: new Date(2030, 10, 30), //Optional
       showTodayButton: true,
       todayLabel: 'Today',
       closeLabel: 'Close',

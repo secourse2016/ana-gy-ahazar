@@ -156,13 +156,16 @@ App.controller('bookController-flights', function($scope, FlightsSrv, $location)
    //should be editted
    $scope.submitForm = function(isValid) {
       $scope.submitted = true;
-
+      console.log($scope.flightData.dep_flight.cost);
       // check to make sure the form is completely valid
       if (isValid) {
          console.log('good');
 
          FlightsSrv.setDepartureFlight($scope.flightData.dep_flight);
          FlightsSrv.setReturnFlight($scope.flightData.ret_flight);
+         FlightsSrv.setOutgoingPrice($scope.flightData.dep_flight.cost);
+         if (typeof $scope.flightData.ret_flight != 'undefined')
+            FlightsSrv.setIncomingPrice($scope.flightData.ret_flight.cost);
          var total_price = parseInt($scope.flightData.dep_flight.cost);
          if (typeof $scope.flightData.ret_flight != 'undefined')
             total_price += parseInt($scope.flightData.ret_flight.cost);
